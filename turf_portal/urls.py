@@ -21,5 +21,6 @@ from accounts import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('admin/', admin.site.urls),
+    path('sales/', include('sales.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
 ]

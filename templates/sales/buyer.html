@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Buyer Details</h5>
+    </div>
+    <div class="card-body">
+      <dl class="row">
+        <dt class="col-sm-3">Name</dt>
+        <dd class="col-sm-9">{{ buyer.name }}</dd>
+
+        <dt class="col-sm-3">Type</dt>
+        <dd class="col-sm-9">{{ buyer.buyer_type }}</dd>
+
+        <dt class="col-sm-3">Mobile</dt>
+        <dd class="col-sm-9">{{ buyer.mobile }}</dd>
+
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9">{{ buyer.email }}</dd>
+
+        <dt class="col-sm-3">Address</dt>
+        <dd class="col-sm-9">{{ buyer.address }}</dd>
+
+        <dt class="col-sm-3">Contact Person</dt>
+        <dd class="col-sm-9">{{ buyer.contact_person }}</dd>
+      </dl>
+    </div>
+</div>
+
+<div>
+<a href="{% url 'buyers' %}" class="btn btn-primary">Back to Buyers</a>
+<a href="{% url 'buyer-update' buyer.id %}" class="btn btn-primary">Update</a>
+<a href="{% url 'buyer-delete' buyer.id %}" class="btn btn-danger">Delete</a>
+
+
+</div>
+
+
+
+{% endblock %}

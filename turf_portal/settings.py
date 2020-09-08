@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "crispy_forms",
-    "sale",
+    "sales",
     "invoice",
     "stock"
 ]
@@ -59,7 +59,10 @@ ROOT_URLCONF = 'turf_portal.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],
+        'DIRS': [
+            BASE_DIR / "templates",
+            BASE_DIR / "templates" / "sales",
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
