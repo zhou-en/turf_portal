@@ -24,3 +24,6 @@ urlpatterns = [
     path('sales/', include('sales.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
 ]
+
+admin.site.site_header = 'Turf Portal Admin Panel'
+admin.site.site_title = 'Turf Portal Admin'

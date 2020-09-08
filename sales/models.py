@@ -3,6 +3,9 @@ from django.db import models
 from django_extensions.db.models import TimeStampedModel
 
 
+from stock.models import Product
+
+
 # Create your models here.
 class Buyer(TimeStampedModel, models.Model):
     """
@@ -28,3 +31,15 @@ class Buyer(TimeStampedModel, models.Model):
 
     def __str__(self):
         return f"Buyer: {self.name}"
+
+
+class BuyerProduct(TimeStampedModel, models.Model):
+    """
+    BuyerProduct is used to store the products assigned to different buyer and prices.
+    """
+    buyer = models.ForeignKey(Buyer, on_delete=models.DO_NOTHING, blank=True, null=True)
+    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING, blank=True, null=True)
+    price = models.FloatField(default=0.0)
+
+    def __str__(self):
+        return f"Buyer: {self.buyer.name} - {self.product}: R{self.price}"
