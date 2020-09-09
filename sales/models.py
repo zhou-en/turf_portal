@@ -1,3 +1,6 @@
+from decimal import Decimal
+
+from django.core.validators import MinValueValidator
 from django.utils.translation import gettext_lazy as _
 from django.db import models
 from django_extensions.db.models import TimeStampedModel
@@ -39,7 +42,10 @@ class BuyerProduct(TimeStampedModel, models.Model):
     """
     buyer = models.ForeignKey(Buyer, on_delete=models.DO_NOTHING, blank=True, null=True)
     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING, blank=True, null=True)
-    price = models.FloatField(default=0.0)
+    price = models.DecimalField(_(u'Price (R/m)'), decimal_places=2, max_digits=12, validators=[MinValueValidator(Decimal('1.01'))])
+
+    class Meta:
+        unique_together = ("buyer", "product")
 
     def __str__(self):
         return f"Buyer: {self.buyer.name} - {self.product}: R{self.price}"

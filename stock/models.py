@@ -1,5 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 from django.db import models
+from django.conf import settings
 from django_extensions.db.models import TimeStampedModel
 
 
@@ -21,7 +22,7 @@ class Height(TimeStampedModel, models.Model):
     """
     Grass height in millimeters.
     """
-    value = models.IntegerField(default=0)
+    value = models.IntegerField(default=settings.DEFAULT_ROLL_HEIGHT)
 
     def __str__(self):
         return f"{self.value}"
@@ -31,7 +32,7 @@ class Width(TimeStampedModel, models.Model):
     """
     Grass roll width in meters.
     """
-    value = models.IntegerField(default=0)
+    value = models.IntegerField(default=settings.DEFAULT_ROLL_WIDTH)
 
     def __str__(self):
         return f"{self.value}"
@@ -47,23 +48,79 @@ class Color(TimeStampedModel, models.Model):
         return f"{self.name}"
 
 
+class Warehouse(TimeStampedModel, models.Model):
+    """
+    This is to store where all stocks are located.
+    """
+    number = models.IntegerField(blank=True, null=True)
+    name = models.CharField(max_length=255)
+    address = models.CharField(max_length=255, null=True, blank=True)
+
+    class Meta:
+        unique_together = ("name", "number")
+
+    def __str__(self):
+        if self.number:
+            return f"{self.name}: {self.number}"
+        return f"{self.name}"
+
+
+class RollSpec(TimeStampedModel, models.Model):
+    """
+    """
+    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    color = models.ForeignKey(Color, on_delete=models.DO_NOTHING)
+    height = models.ForeignKey(Height, on_delete=models.DO_NOTHING)
+    width = models.ForeignKey(Width, on_delete=models.DO_NOTHING)
+    length = models.IntegerField(default=settings.DEFAULT_ROLL_LENGTH)
+    location = models.ForeignKey(Warehouse, on_delete=models.DO_NOTHING)
+
+    class Meta:
+        unique_together = (
+            "category", "color", "height", "width", "length"
+        )
+        verbose_name_plural = "Roll Specs"
+
+    def __str__(self):
+        return f"{self.category} - {self.color} - {self.width} m - {self.height} mm"
+
+
 class Product(TimeStampedModel, models.Model):
     """
     Products available.
     """
-    class Meta:
-        unique_together = ("category", "color", "width", "height")
-        # ordering = ("last_name", "first_name")
-
-    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
-    height = models.ForeignKey(Height, on_delete=models.DO_NOTHING, blank=True, null=True, verbose_name="Height (mm)")
-    width = models.ForeignKey(Width, on_delete=models.DO_NOTHING, blank=True, null=True, verbose_name="Width (m)")
-    color = models.ForeignKey(Color, on_delete=models.DO_NOTHING, blank=True, null=True)
+    spec = models.ForeignKey(RollSpec, on_delete=models.DO_NOTHING, blank=True, null=True)
     code = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
-        return f"{self.category} - {self.color} - {self.width} m: {self.height} mm"
+        return f"{self.code}"
 
     def save(self, *args, **kwargs):
-        self.code = f"{self.color.name.upper()[0]}{self.height.value}"
+        self.code = f"{self.spec.color.name.upper()[0]}{self.spec.height.value}-{self.spec.width}m"
         super(Product, self).save(*args, **kwargs)
+
+
+class TurfRoll(TimeStampedModel, models.Model):
+    """
+    Rolls stored in the warehouse.
+    """
+    class Meta:
+        verbose_name_plural = "Turf Rolls"
+
+    class Status(models.TextChoices):
+        SEALED = 'SEALED', _('Sealed')
+        OPENED = 'OPENED', _('Opened')
+        DEPLETED = 'DEPLETED', _('Depleted')
+
+    status = models.CharField(
+        max_length=63,
+        choices=Status.choices,
+        default=Status.SEALED,
+    )
+    spec = models.ForeignKey(RollSpec, on_delete=models.DO_NOTHING)
+    remain = models.IntegerField(default=settings.DEFAULT_ROLL_LENGTH)
+
+    def __str__(self):
+        if self.remain == self.spec.length:
+            return f"{self.spec} - {self.status}"
+        return f"{self.spec} - remain: {self.remain}"
