@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<div class="card">
+  <div class="card-header">
+      <h5 class="card-title">Product Details</h5>
+  </div>
+    <div class="card-body">
+      <dl class="row">
+        <dt class="col-sm-3">Number</dt>
+        <dd class="col-sm-9">{{ warehouse.number }}</dd>
+
+        <dt class="col-sm-3">Name</dt>
+        <dd class="col-sm-9">{{ warehouse.name }}</dd>
+
+        <dt class="col-sm-3">Address</dt>
+        <dd class="col-sm-9">{{ warehouse.address }}</dd>
+      </dl>
+    </div>
+{#  <div class="card-footer">#}
+{#  </div>#}
+</div>
+
+  <br>
+
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Total Rolls Stored: {{ warehouse.roll_count }}</h5>
+    </div>
+    <div class="card-body">
+    {% if warehouse.roll_count != 0 %}
+      <table id="warehouse-roll-table" class="display table table-striped table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th>Specification</th>
+          <th>Remain (m)</th>
+          <th>Status</th>
+          <th>Location</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for roll in stored_rolls %}
+          <tr>
+            <td>{{ roll.spec }}</td>
+            <td>{{ roll.remain }}</td>
+            <td>{{ roll.status }}</td>
+            <td>{{ roll.location }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <h5>No stocks available for this product.</h5>
+    {% endif %}
+    </div>
+  </div>
+
+  <script>
+      $(document).ready( function () {
+          $('#warehouse-roll-table').DataTable();
+      } );
+  </script>
+
+{% endblock %}
