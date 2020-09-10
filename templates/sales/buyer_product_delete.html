@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <br>
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Remove the Following Product from Buyer: {{ buyer.name }}</h5>
+    </div>
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        <dl class="row">
+          <dt class="col-sm-3">Code</dt>
+          <dd class="col-sm-9">{{ buyer_product.product.code }}</dd>
+
+          <dt class="col-sm-3">Category</dt>
+          <dd class="col-sm-9">{{ buyer_product.product.spec.category }}</dd>
+
+          <dt class="col-sm-3">Color</dt>
+          <dd class="col-sm-9">{{ buyer_product.product.spec.color }}</dd>
+
+          <dt class="col-sm-3">Height</dt>
+          <dd class="col-sm-9">{{ buyer_product.product.spec.height }}</dd>
+
+          <dt class="col-sm-3">Width</dt>
+          <dd class="col-sm-9">{{ buyer_product.product.spec.width }}</dd>
+
+          <dt class="col-sm-3">Price</dt>
+          <dd class="col-sm-9">R{{ buyer_product.price }}</dd>
+        </dl>
+
+        <div class="alert alert-warning" role="alert">
+          Are you sure you want to delete?
+        </div>
+        <br>
+        <input type="submit" formnovalidate name="cancel" value="Cancel" class="btn btn-secondary"/>
+        <input type="submit" value="Delete" class="btn btn-danger">
+      </form>
+    </div>
+  </div>
+
+{% endblock %}
