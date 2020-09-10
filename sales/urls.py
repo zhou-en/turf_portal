@@ -1,7 +1,14 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 
-from sales.views import BuyerListView, BuyerDetailView, BuyerUpdateView, BuyerDeleteView, BuyerCreateView
+from sales.views import (
+    BuyerListView,
+    BuyerDetailView,
+    BuyerUpdateView,
+    BuyerDeleteView,
+    BuyerCreateView,
+    BuyerProductCreateView
+)
 
 urlpatterns = [
     path("buyers/", BuyerListView.as_view(), name="buyers"),
@@ -9,4 +16,5 @@ urlpatterns = [
     path("buyer/<int:pk>/detail", BuyerDetailView.as_view(), name="buyer"),
     path("buyer/<int:pk>/update", BuyerUpdateView.as_view(), name="buyer-update"),
     path("buyer/<int:pk>/delete", BuyerDeleteView.as_view(), name="buyer-delete"),
+    path("buyer_product_create/", BuyerProductCreateView.as_view(), name="buyer-product-create"),
 ]

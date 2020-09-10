@@ -34,3 +34,12 @@ class BuyerProductAdminForm(forms.ModelForm):
     class Meta:
         model = BuyerProduct
         exclude = []
+
+
+class BuyerProductCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = BuyerProduct
+        fields = "__all__"
+
+    field_order = ["buyer", "product", "price"]

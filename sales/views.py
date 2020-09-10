@@ -9,8 +9,8 @@ from django.views.generic import TemplateView, UpdateView, DeleteView, \
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
-from sales.models import Buyer
-from sales.forms import BuyerCreateForm, BuyerUpdateForm
+from sales.models import Buyer, BuyerProduct
+from sales.forms import BuyerCreateForm, BuyerUpdateForm, BuyerProductCreateForm
 
 
 # Create your views here.
@@ -81,3 +81,18 @@ class BuyerDeleteView(DeleteView):
         else:
             # Remove buyer products here
             return super(BuyerDeleteView, self).post(request, *args, **kwargs)
+
+
+@method_decorator(login_required, name='dispatch')
+class BuyerProductCreateView(CreateView):
+    model = BuyerProduct
+    form_class = BuyerProductCreateForm
+    template_name = 'sales/buyer_product_create.html'
+    # success_url = reverse_lazy('buyer', self.buyer.id)
+
+    def post(self, request, *args, **kwargs):
+        if "cancel" in request.POST:
+            return HttpResponseRedirect(reverse_lazy("buyers"))
+        else:
+            # Remove buyer products here
+            return super(BuyerProductCreateView, self).post(request, *args, **kwargs)

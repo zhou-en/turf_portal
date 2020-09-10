@@ -49,7 +49,6 @@
           <th>Height (mm)</th>
           <th>Width (m)</th>
           <th>Price (R/m)</th>
-          <th>Available Rolls</th>
         </tr>
         </thead>
         <tbody>
@@ -61,14 +60,13 @@
             <td>{{ bp.product.spec.height }}</td>
             <td>{{ bp.product.spec.width }}</td>
             <td>{{ bp.price }}</td>
-            <td>{{ bp.product.roll_count }}</td>
           </tr>
         {% endfor %}
         </tbody>
       </table>
     </div>
     <div class="card-footer">
-      <a href="{% url 'products' %}" class="btn btn-primary">Add Product</a>
+      <a href="{% url 'buyer-product-create' %}" class="btn btn-primary">Add Product</a>
 {#      <a href="{% url 'buyer-product-create' buyer.id %}" class="btn btn-primary">Add Product</a>#}
     </div>
   </div>
