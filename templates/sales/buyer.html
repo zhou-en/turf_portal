@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<br>
 <div class="card">
-    <div class="card-header">
-        <h5 class="card-title">Buyer Details</h5>
-    </div>
+  <div class="card-header">
+      <h5 class="card-title">Buyer Details</h5>
+  </div>
     <div class="card-body">
       <dl class="row">
         <dt class="col-sm-3">Name</dt>
@@ -26,16 +27,56 @@
         <dd class="col-sm-9">{{ buyer.contact_person }}</dd>
       </dl>
     </div>
+  <div class="card-footer">
+    <a href="{% url 'buyers' %}" class="btn btn-secondary">Back to Buyers</a>
+    <a href="{% url 'buyer-update' buyer.id %}" class="btn btn-primary">Update</a>
+    <a href="{% url 'buyer-delete' buyer.id %}" class="btn btn-danger">Delete</a>
+  </div>
 </div>
 
-<div>
-<a href="{% url 'buyers' %}" class="btn btn-primary">Back to Buyers</a>
-<a href="{% url 'buyer-update' buyer.id %}" class="btn btn-primary">Update</a>
-<a href="{% url 'buyer-delete' buyer.id %}" class="btn btn-danger">Delete</a>
+<br>
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Products Assigned to Buyer</h5>
+    </div>
+    <div class="card-body">
+      <table id="buyer-product-table" class="display table table-striped table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th>Product Code</th>
+          <th>Category</th>
+          <th>Color</th>
+          <th>Height (mm)</th>
+          <th>Width (m)</th>
+          <th>Price (R/m)</th>
+          <th>Available Rolls</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for bp in buyer_products %}
+          <tr>
+            <td><a href="{% url 'product' bp.product.id %}" >{{ bp.product.code }}</a></td>
+            <td>{{ bp.product.spec.category }}</td>
+            <td>{{ bp.product.spec.color }}</td>
+            <td>{{ bp.product.spec.height }}</td>
+            <td>{{ bp.product.spec.width }}</td>
+            <td>{{ bp.price }}</td>
+            <td>{{ bp.product.roll_count }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer">
+      <a href="{% url 'products' %}" class="btn btn-primary">Add Product</a>
+{#      <a href="{% url 'buyer-product-create' buyer.id %}" class="btn btn-primary">Add Product</a>#}
+    </div>
+  </div>
 
-
-</div>
-
-
+  <script>
+      $(document).ready( function () {
+          $('#buyer-product-table').DataTable();
+      } );
+  </script>
 
 {% endblock %}

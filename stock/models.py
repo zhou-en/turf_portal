@@ -7,7 +7,7 @@ from django_extensions.db.models import TimeStampedModel
 # Create your models here.
 class Category(TimeStampedModel, models.Model):
     """
-    Category is used to classify different types of products/stocks available in the warehouse.
+    Category is used to classify different types of products/stock available in the warehouse.
     """
     name = models.CharField(max_length=255)
 
@@ -50,7 +50,7 @@ class Color(TimeStampedModel, models.Model):
 
 class Warehouse(TimeStampedModel, models.Model):
     """
-    This is to store where all stocks are located.
+    This is to store where all stock are located.
     """
     number = models.IntegerField(blank=True, null=True)
     name = models.CharField(max_length=255)
@@ -64,6 +64,19 @@ class Warehouse(TimeStampedModel, models.Model):
             return f"{self.name}: {self.number}"
         return f"{self.name}"
 
+    @property
+    def roll_count(self):
+        """
+        Returns number of rolls stored in the warehouse.
+        """
+        return len(
+            list(
+                TurfRoll.objects.filter(location_id=self.id).exclude(
+                    status=TurfRoll.Status.DEPLETED
+                )
+            )
+        )
+
 
 class RollSpec(TimeStampedModel, models.Model):
     """
@@ -73,7 +86,6 @@ class RollSpec(TimeStampedModel, models.Model):
     height = models.ForeignKey(Height, on_delete=models.DO_NOTHING)
     width = models.ForeignKey(Width, on_delete=models.DO_NOTHING)
     length = models.IntegerField(default=settings.DEFAULT_ROLL_LENGTH)
-    location = models.ForeignKey(Warehouse, on_delete=models.DO_NOTHING)
 
     class Meta:
         unique_together = (
@@ -82,7 +94,7 @@ class RollSpec(TimeStampedModel, models.Model):
         verbose_name_plural = "Roll Specs"
 
     def __str__(self):
-        return f"{self.category} - {self.color} - {self.width} m - {self.height} mm"
+        return f"{self.category} - {self.color} - {self.height}mm - {self.width}m"
 
 
 class Product(TimeStampedModel, models.Model):
@@ -98,6 +110,13 @@ class Product(TimeStampedModel, models.Model):
     def save(self, *args, **kwargs):
         self.code = f"{self.spec.color.name.upper()[0]}{self.spec.height.value}-{self.spec.width}m"
         super(Product, self).save(*args, **kwargs)
+
+    @property
+    def roll_count(self):
+        """
+        Returns number of available rolls.
+        """
+        return len(list(TurfRoll.objects.filter(spec=self.spec).exclude(status=TurfRoll.Status.DEPLETED)))
 
 
 class TurfRoll(TimeStampedModel, models.Model):
@@ -119,6 +138,7 @@ class TurfRoll(TimeStampedModel, models.Model):
     )
     spec = models.ForeignKey(RollSpec, on_delete=models.DO_NOTHING)
     remain = models.IntegerField(default=settings.DEFAULT_ROLL_LENGTH)
+    location = models.ForeignKey(Warehouse, on_delete=models.DO_NOTHING, blank=True, null=True)
 
     def __str__(self):
         if self.remain == self.spec.length:

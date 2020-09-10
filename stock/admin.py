@@ -91,16 +91,39 @@ class HeightAdmin(admin.ModelAdmin):
 
 @admin.register(TurfRoll)
 class TurfRollAdmin(admin.ModelAdmin):
-    readonly_fields = ["remain"]
     ordering = ("-created",)
     list_display = [
         "id",
         "spec",
+        "location",
         "modified",
         "created"
 
     ]
 
+@admin.register(RollSpec)
+class RollSpecAdmin(admin.ModelAdmin):
+    ordering = ["color", "height", "width"]
+    list_display = [
+        "category",
+        "color",
+        "height",
+        "width",
+        "length"
+    ]
+    def get_model_perms(self, request):
+        """
+        Return empty perms dict thus hiding the model from admin index.
+        """
+        return {}
 
-admin.site.register(RollSpec, admin.ModelAdmin)
-admin.site.register(Warehouse, admin.ModelAdmin)
+
+@admin.register(Warehouse)
+class WarehouseAdmin(admin.ModelAdmin):
+    ordering = ["name", "number"]
+    list_display = [
+        "name",
+        "number",
+        "address",
+    ]
+

@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="container">
+    <br>
     <h3> Buyers</h3>
     <a href="{% url 'buyer-create' %}" class="btn btn-primary">New Buyer</a>
-  </div>
+    <br>
   <br>
     <table id="buyer_table" class="display table table-striped table-hover">
       <thead class="thead-dark">
@@ -35,7 +35,6 @@
       {% endfor %}
       </tbody>
     </table>
-
 
   <script>
       $(document).ready( function () {

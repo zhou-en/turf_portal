@@ -46,6 +46,11 @@ class BuyerDetailView(DetailView):
     template_name = 'sales/buyer.html'
     context_object_name = "buyer"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["buyer_products"] = self.object.buyerproduct_set.all()
+        return context
+
 
 @method_decorator(login_required, name='dispatch')
 class BuyerUpdateView(UpdateView):
@@ -74,4 +79,5 @@ class BuyerDeleteView(DeleteView):
         if "cancel" in request.POST:
             return HttpResponseRedirect(reverse_lazy("buyers"))
         else:
+            # Remove buyer products here
             return super(BuyerDeleteView, self).post(request, *args, **kwargs)

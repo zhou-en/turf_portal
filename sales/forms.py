@@ -1,5 +1,4 @@
 from django import forms
-from django.forms.widgets import SelectDateWidget, Select
 
 from sales.models import Buyer, BuyerProduct
 
