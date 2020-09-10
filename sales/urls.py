@@ -7,7 +7,8 @@ from sales.views import (
     BuyerUpdateView,
     BuyerDeleteView,
     BuyerCreateView,
-    BuyerProductCreateView
+    BuyerProductCreateView,
+    BuyerProductDeleteView
 )
 
 urlpatterns = [
@@ -16,5 +17,6 @@ urlpatterns = [
     path("buyer/<int:pk>/detail", BuyerDetailView.as_view(), name="buyer"),
     path("buyer/<int:pk>/update", BuyerUpdateView.as_view(), name="buyer-update"),
     path("buyer/<int:pk>/delete", BuyerDeleteView.as_view(), name="buyer-delete"),
-    path("buyer_product_create/", BuyerProductCreateView.as_view(), name="buyer-product-create"),
+    path("buyer/<int:pk>/product_create/", BuyerProductCreateView.as_view(), name="buyer-product-create"),
+    path("buyer/<int:pk>/product_delete/", BuyerProductDeleteView.as_view(), name="buyer-product-delete"),
 ]

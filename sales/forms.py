@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as _
 from django import forms
 
 from sales.models import Buyer, BuyerProduct
@@ -41,5 +42,19 @@ class BuyerProductCreateForm(forms.ModelForm):
     class Meta:
         model = BuyerProduct
         fields = "__all__"
+
+    buyer = forms.ChoiceField(
+        label=_("Buyer"),
+        choices=[(None, _("Select Buyer"))],
+        widget=forms.Select,
+        required=True
+    )
+
+    product = forms.ChoiceField(
+        label=_("Product"),
+        choices=[(None, _("Select Product"))],
+        widget=forms.Select,
+        required=True
+    )
 
     field_order = ["buyer", "product", "price"]
