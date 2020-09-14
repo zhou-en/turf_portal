@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <br>
+    <h3> Available Rolls</h3>
+      <a href="" class="btn btn-sm btn-primary">Load Stocks</a>
+  <br>
+  <br>
+  <br>
+    <table id="stocks-table" class="display table table-striped table-hover">
+      <thead class="thead-dark">
+      <tr>
+        <th>Code</th>
+        <th>Spec</th>
+        <th>Status</th>
+        <th>Available (m<sup>2</sup>)</th>
+        <th>Reserved (m<sup>2</sup>)</th>
+        <th>Delivered (m<sup>2</sup>)</th>
+        <th>Warehouse</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for roll in turf_rolls %}
+        <tr>
+          <td>{{ roll.spec.code }}</td>
+          <td><a>{{ roll.spec }}</a></td>
+          <td>{{ roll.status }}</td>
+          <td>{{ roll.available }}</td>
+          <td>{{ roll.reserved }}</td>
+          <td>{{ roll.delivered }}</td>
+          <td>{{ roll.location }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+
+  <script>
+      $(document).ready( function () {
+          $('#stocks-table').DataTable();
+      } );
+  </script>
+
+
+{% endblock %}

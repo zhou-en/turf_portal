@@ -3,7 +3,7 @@
 {% block content %}
     <br>
     <h3> Buyers</h3>
-    <a href="{% url 'buyer-create' %}" class="btn btn-primary">New Buyer</a>
+    <a href="{% url 'buyer-create' %}" class="btn btn-sm btn-primary">New Buyer</a>
     <br>
   <br>
     <table id="buyer_table" class="display table table-striped table-hover">
@@ -28,8 +28,8 @@
           <td>{{ buyer.email }}</td>
           <td>{{ buyer.address }}</td>
           <td>
-            <a href="{% url 'buyer-update' buyer.id %}" class="btn btn-primary">Update</a>
-            <a href="{% url 'buyer-delete' buyer.id %}" class="btn btn-danger">Delete</a>
+            <a href="{% url 'buyer-update' buyer.id %}"><span data-feather="edit"></span></a>
+            <a href="{% url 'buyer-delete' buyer.id %}"><span data-feather="trash-2"></span></a>
           </td>
         </tr>
       {% endfor %}

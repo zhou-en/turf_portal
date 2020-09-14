@@ -33,8 +33,10 @@
       <table id="warehouse-roll-table" class="display table table-striped table-hover">
         <thead class="thead-dark">
         <tr>
+          <th>ID</th>
           <th>Specification</th>
-          <th>Remain (m)</th>
+          <th>Available (m<sup>2</sup>)</th>
+          <th>Reserved (m<sup>2</sup>)</th>
           <th>Status</th>
           <th>Location</th>
         </tr>
@@ -42,8 +44,10 @@
         <tbody>
         {% for roll in stored_rolls %}
           <tr>
+            <td>{{ roll.id }}</td>
             <td>{{ roll.spec }}</td>
-            <td>{{ roll.remain }}</td>
+            <td>{{ roll.available }}</td>
+            <td>{{ roll.reserved }}</td>
             <td>{{ roll.status }}</td>
             <td>{{ roll.location }}</td>
           </tr>

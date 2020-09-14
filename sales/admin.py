@@ -1,9 +1,10 @@
 from django.contrib import admin
 
-from sales.models import Buyer, BuyerProduct
+from sales.models import Buyer, BuyerProduct, Order, OrderLine
 from sales.forms import BuyerProductAdminForm
 
 
+@admin.register(BuyerProduct)
 class BuyerProductAdmin(admin.ModelAdmin):
     list_display = [
         "buyer",
@@ -30,9 +31,6 @@ class BuyerProductAdmin(admin.ModelAdmin):
         return {}
 
 
-admin.site.register(BuyerProduct, BuyerProductAdmin)
-
-
 class BuyerProductInline(admin.TabularInline):
     model = BuyerProduct
     # form = ComponentAdminForm
@@ -45,7 +43,7 @@ class BuyerProductInline(admin.TabularInline):
     ]
 
 
-# Register your models here.
+@admin.register(Buyer)
 class BuyerAdmin(admin.ModelAdmin):
     inlines = [
         BuyerProductInline
@@ -76,4 +74,21 @@ class BuyerAdmin(admin.ModelAdmin):
     )
 
 
-admin.site.register(Buyer, BuyerAdmin)
+@admin.register(OrderLine)
+class OrderLineAdmin(admin.ModelAdmin):
+    readonly_fields = ["price"]
+    list_display = [
+        "order",
+        "buyer_product",
+        "quantity",
+        "price"
+    ]
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = [
+        "number",
+        "buyer",
+        "status"
+    ]

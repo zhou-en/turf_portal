@@ -28,9 +28,9 @@
       </dl>
     </div>
   <div class="card-footer">
-    <a href="{% url 'buyers' %}" class="btn btn-secondary">Back to Buyers</a>
-    <a href="{% url 'buyer-update' buyer.id %}" class="btn btn-primary">Update</a>
-    <a href="{% url 'buyer-delete' buyer.id %}" class="btn btn-danger">Delete</a>
+    <a href="{% url 'buyers' %}" class="btn btn-sm btn-secondary">Back to Buyers</a>
+    <a href="{% url 'buyer-update' buyer.id %}" class="btn btn-sm btn-primary">Update</a>
+    <a href="{% url 'buyer-delete' buyer.id %}" class="btn btn-sm btn-danger">Delete</a>
   </div>
 </div>
 
@@ -48,7 +48,7 @@
           <th>Color</th>
           <th>Height (mm)</th>
           <th>Width (m)</th>
-          <th>Price (R/m)</th>
+          <th>Price (R/m<sup>2</sup>)</th>
           <th>Action</th>
         </tr>
         </thead>
@@ -61,14 +61,14 @@
             <td>{{ bp.product.spec.height }}</td>
             <td>{{ bp.product.spec.width }}</td>
             <td>{{ bp.price }}</td>
-            <td><a href="{% url 'buyer-product-delete' bp.id %}">Remove</a></td>
+            <td><a href="{% url 'buyer-product-delete' bp.id %}"><span data-feather="trash-2"></span></a></td>
           </tr>
         {% endfor %}
         </tbody>
       </table>
     </div>
     <div class="card-footer">
-      <a href="{% url 'buyer-product-create' buyer.id %}" class="btn btn-primary">Add Product</a>
+      <a href="{% url 'buyer-product-create' buyer.id %}" class="btn btn-sm btn-primary">Add Product</a>
     </div>
   </div>
 

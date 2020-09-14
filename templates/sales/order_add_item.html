@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <br>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Select item to add to order:</h3>
+    </div>
+  {% if buyer_products %}
+    <form id="order-add-item-form" method="post">
+      {% csrf_token %}
+    <div class="card-body">
+
+{#      <form method="post">#}
+{#        {% csrf_token %}#}
+{#        {{ form.buyer }}#}
+{#      <br>#}
+{#      <br>#}
+{#        {% if create %}#}
+{#          <input type="submit" formnovalidate name="cancel" value="Cancel" class="btn btn-secondary btn-sm"/>#}
+{#          <input type="submit" value="Next" class="btn btn-primary btn-sm">#}
+{#        {% endif %}#}
+{#        </form>#}
+
+    <ul>
+      {% for bp in buyer_products %}
+        <li><h4>{{ bp.product.code }}: R{{ bp.price }}/m<sup>2</sup></h4></li>
+        {% if bp.available_rolls %}
+          <table id="{{ bp.id }}" class="table table-responsive-md">
+            <thead>
+            <tr>
+              <th>Quantity (m<sup>2</sup>)</th>
+              <th>Available (m<sup>2</sup>)</th>
+              <th>Reserved (m<sup>2</sup>)</th>
+              <th>Delivered (m<sup>2</sup>)</th>
+              <th>Status</th>
+              <th>Location</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for roll in bp.available_rolls  %}
+              <tr>
+                <td>
+                  <input name="turf-roll" id="{{ roll.id }}" style="border: none; outline: none;" type="text" placeholder="Enter Length in meters" onkeyup="updateSelectedRolls()">
+                </td>
+                <td>{{ roll.available }}</td>
+                <td>{{ roll.reserved }}</td>
+                <td>{{ roll.delivered }}</td>
+                <td>{{ roll.status }}</td>
+                <td>{{ roll.location }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          <br>
+          <br>
+        {% else %}
+          <div>
+            <p> There is no stock available for this product.</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </ul>
+{#      {{ form.selected_items }}#}
+    </div>
+    <div class="card-footer">
+      <a href="{% url 'order' order.id %}" class="btn btn-sm btn-secondary">Cancel</a>
+      <input type="submit" value="Add To Order" class="btn btn-sm btn-primary">
+    </div>
+    {{ form.selected_items }}
+    </form>
+{% else %}
+    <div class="card-body">
+      <div>
+        <p>There is no product assign to this buyer yet.</p>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+
+<script type="text/javascript">
+  function updateSelectedRolls() {
+    var rolls = document.getElementsByName("turf-roll");
+    var requested_rolls = Array();
+    for (var i=0; i<rolls.length; i++) {
+        if (rolls[i].value !== "") {
+            var obj = Object();
+            var bp_id = rolls[i].parentElement.parentElement.parentElement.parentElement.id;
+            obj.roll_id = rolls[i].id;
+            obj.quantity = rolls[i].value;
+            obj.buyer_product_id = bp_id;
+            requested_rolls.push(obj);
+        }
+    }
+    document.getElementById("id_selected_items").value = JSON.stringify(requested_rolls);
+  }
+</script>
+
+{% endblock %}

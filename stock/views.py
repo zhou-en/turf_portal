@@ -113,3 +113,18 @@ class WarehouseListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(WarehouseListView, self).get_context_data(**kwargs)
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+class StockListView(ListView):
+    model = TurfRoll
+    template_name = "stock/stocks.html"
+    context_object_name = 'turf_rolls'
+    queryset = TurfRoll.objects.exclude(status=TurfRoll.Status.DEPLETED)
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+

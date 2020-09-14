@@ -1,5 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 from django.db import models
+from django.db.models import Avg, Count, Sum
 from django.conf import settings
 from django_extensions.db.models import TimeStampedModel
 
@@ -96,6 +97,13 @@ class RollSpec(TimeStampedModel, models.Model):
     def __str__(self):
         return f"{self.category} - {self.color} - {self.height}mm - {self.width}m"
 
+    @property
+    def code(self):
+        """
+        Return the spec code.
+        """
+        return f"{self.color.name.upper()[0]}{self.height.value}-{self.width.value}m"
+
 
 class Product(TimeStampedModel, models.Model):
     """
@@ -137,10 +145,48 @@ class TurfRoll(TimeStampedModel, models.Model):
         default=Status.SEALED,
     )
     spec = models.ForeignKey(RollSpec, on_delete=models.DO_NOTHING)
-    remain = models.IntegerField(default=settings.DEFAULT_ROLL_LENGTH)
+    total = models.IntegerField(default=0)
     location = models.ForeignKey(Warehouse, on_delete=models.DO_NOTHING, blank=True, null=True)
 
     def __str__(self):
-        if self.remain == self.spec.length:
-            return f"{self.spec} - {self.status}"
-        return f"{self.spec} - remain: {self.remain}"
+        return f"{self.spec.code} - {self.status}   - available:{self.available}"
+
+    def save(self, *args, **kwargs):
+        self.total = self.spec.width.value * self.spec.length
+        super().save(*args, **kwargs)
+
+    @property
+    def reserved(self):
+        """
+        This is amount reserved on this roll from orders in [DRAFT, SUBMITTED].
+        """
+        from sales.models import Order
+        result = self.orderline_set.filter(
+            order__status__in=[Order.Status.DRAFT, Order.Status.SUBMITTED]
+        ).aggregate(Sum("quantity"))
+        if result.get("quantity__sum"):
+            return float(result.get("quantity__sum"))
+        return 0
+
+    @property
+    def delivered(self):
+        """
+        This is the total amount on this roll that has orderlines with Delivered
+        status.
+        """
+        from sales.models import Order
+        result = self.orderline_set.filter(
+            order__status=Order.Status.DELIVERED
+        ).aggregate(Sum("quantity"))
+        if result.get("quantity__sum"):
+            return float(result.get("quantity__sum"))
+        return 0
+
+    @property
+    def available(self):
+        """
+        Total minus delivered and reserved.
+        status.
+        """
+        return float(self.total - self.reserved - self.delivered)
+

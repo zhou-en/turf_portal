@@ -1,7 +1,9 @@
 from django.utils.translation import gettext_lazy as _
+from django.utils.safestring import mark_safe
 from django import forms
 
-from sales.models import Buyer, BuyerProduct
+from sales.models import Buyer, BuyerProduct, Order, OrderLine
+from stock.models import TurfRoll
 
 
 class BuyerCreateForm(forms.ModelForm):
@@ -58,3 +60,43 @@ class BuyerProductCreateForm(forms.ModelForm):
     )
 
     field_order = ["buyer", "product", "price"]
+
+
+class OrderCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = Order
+        fields = ["buyer"]
+
+    def __init__(self, *args, **kwargs):
+        super(OrderCreateForm, self).__init__(*args, **kwargs)
+
+
+class OrderAddItemForm(forms.ModelForm):
+
+    class Meta:
+        model = Order
+        exclude = []
+
+    selected_items = forms.CharField(
+        widget=forms.HiddenInput(),
+        required=False,
+    )
+
+
+class OrderItemUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = OrderLine
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        self.base_fields["order"].disabled = True
+        self.base_fields["price"].disabled = True
+        self.base_fields["price"].label = "Price (R)"
+        self.base_fields["quantity"].label = mark_safe("Quantity (m<sup>2</sup>)")
+        self.base_fields["buyer_product"].disabled = True
+        spec = kwargs["instance"].buyer_product.product.spec
+        roll_queryset = TurfRoll.objects.filter(spec=spec)
+        self.base_fields["roll"].queryset = roll_queryset
+        super().__init__(*args, **kwargs)

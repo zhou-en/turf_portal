@@ -101,6 +101,7 @@ class TurfRollAdmin(admin.ModelAdmin):
 
     ]
 
+
 @admin.register(RollSpec)
 class RollSpecAdmin(admin.ModelAdmin):
     ordering = ["color", "height", "width"]
@@ -111,6 +112,7 @@ class RollSpecAdmin(admin.ModelAdmin):
         "width",
         "length"
     ]
+
     def get_model_perms(self, request):
         """
         Return empty perms dict thus hiding the model from admin index.

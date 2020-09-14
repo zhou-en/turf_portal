@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Turf Portal</title>
 
-  <link rel="shortcut icon" type="image/png" href="{% static 'favicon.svg' %}"/>
-  <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
+  <link rel="shortcut icon" type="image/png" href="{% static 'favicon.jpg' %}"/>
+{#  <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">#}
 
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -42,7 +42,7 @@
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  {#  <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">#}
+    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
 
   <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
     {% if user.is_authenticated %}
@@ -80,7 +80,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{% url 'orders' %}">
               <span data-feather="file"></span>
               Orders
             </a>
@@ -104,7 +104,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{% url 'stocks' %}">
               <span data-feather="bar-chart-2"></span>
               Stocks
             </a>

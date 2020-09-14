@@ -22,15 +22,12 @@
 
         <dt class="col-sm-3">Width (m)</dt>
         <dd class="col-sm-9">{{ product.spec.width }}</dd>
-
-        <dt class="col-sm-3">Location</dt>
-        <dd class="col-sm-9">{{ product.spec.location }}</dd>
       </dl>
     </div>
   <div class="card-footer">
-{#    <a href="{% url 'products' %}" class="btn btn-secondary">Back to Products</a>#}
-{#    <a href="{% url 'product-update' product.id %}" class="btn btn-primary">Update</a>#}
-{#    <a href="{% url 'product-delete' product.id %}" class="btn btn-danger">Delete</a>#}
+{#    <a href="{% url 'products' %}" class="btn btn-sm btn-secondary">Back to Products</a>#}
+{#    <a href="{% url 'product-update' product.id %}" class="btn btn-sm btn-primary">Update</a>#}
+{#    <a href="{% url 'product-delete' product.id %}" class="btn btn-sm btn-danger">Delete</a>#}
   </div>
 </div>
 
@@ -38,15 +35,18 @@
 
   <div class="card">
     <div class="card-header">
-      <h5 class="card-title">Total Rolls Available: {{ product.roll_count }}</h5>
+      <h5 class="card-title"># of Rolls Available: {{ product.roll_count }}</h5>
     </div>
     <div class="card-body">
     {% if available_rolls %}
       <table id="product-roll-table" class="display table table-striped table-hover">
         <thead class="thead-dark">
         <tr>
+          <th>ID</th>
           <th>Specification</th>
-          <th>Remain (m)</th>
+          <th>Available (m<sup>2</sup>)</th>
+          <th>Reserved (m<sup>2</sup>)</th>
+          <th>Delivered (m<sup>2</sup>)</th>
           <th>Status</th>
           <th>Location</th>
         </tr>
@@ -54,8 +54,11 @@
         <tbody>
         {% for roll in available_rolls %}
           <tr>
+            <td>{{ roll.id }}</td>
             <td>{{ roll.spec }}</td>
-            <td>{{ roll.remain }}</td>
+            <td>{{ roll.available }}</td>
+            <td>{{ roll.reserved }}</td>
+            <td>{{ roll.delivered }}</td>
             <td>{{ roll.status }}</td>
             <td>{{ roll.location }}</td>
           </tr>

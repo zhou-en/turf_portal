@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<div class="card">
+  <div class="card-header">
+      <h5 class="card-title">Order Details</h5>
+  </div>
+    <div class="card-body">
+      <dl class="row">
+        <dt class="col-sm-3">Status</dt>
+        <dd class="col-sm-9">{{ order.status }}</dd>
+
+        <dt class="col-sm-3">Number</dt>
+        <dd class="col-sm-9">{{ order.number }}</dd>
+
+        <dt class="col-sm-3">Buyer</dt>
+        <dd class="col-sm-9">{{ order.buyer.name }}</dd>
+
+        <dt class="col-sm-3">Total (R)</dt>
+        <dd class="col-sm-9">{{ order.total_amount }}</dd>
+
+        <dt class="col-sm-3">Created Date</dt>
+        <dd class="col-sm-9">{{ order.created }}</dd>
+
+      </dl>
+    </div>
+  <div class="card-footer">
+{#    <a href="{% url 'buyers' %}" class="btn btn-sm btn-secondary">Back to Buyers</a>#}
+  </div>
+</div>
+
+<br>
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Ordered Items</h5>
+    </div>
+    <div class="card-body">
+    {% if order.orderlines %}
+      <table id="order-line-table" class="display table table-striped table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th>Product Code</th>
+          <th>Quantity (m<sup>2</sup>)</th>
+          <th>Buyer Price (R/m<sup>2</sup>)</th>
+          <th>Amount (R)</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for ol in order.orderlines %}
+          <tr>
+            <td>{{ ol.buyer_product.product }}</td>
+            <td>{{ ol.quantity }}</td>
+            <td>{{ ol.buyer_product.price }}</td>
+            <td>{{ ol.price }}</td>
+            <td style="text-align: justify">
+              <a {%  if not order.is_delivered  %}href="{% url 'order-item-update' ol.id %}"{% endif %}><span data-feather="edit"></span></a>
+              <a {%  if not order.is_delivered  %}href="{% url 'order-item-delete' ol.id %}"{% endif %}><span data-feather="trash-2"></span></a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>There is no item added to this order yet.</p>
+    {% endif %}
+    </div>
+    <div class="card-footer text-lg-center">
+      <a href="{% url 'orders' %}" class="btn btn-sm btn-secondary float-lg-left">Back to Orders</a>
+      <a href="{% url 'order-add-item' order.id %}" class="btn btn-sm btn-primary float-lg-right">Add A Item</a>
+      <a href="{% url 'order-submit' order.id %}" class="btn btn-sm btn-primary">Submit</a>
+      {% if order.orderlines and order.status == "DRAFT" %}
+        <br>
+        <br>
+{#        <form id="id"#}
+{#              method="POST" action="{% url 'order-submit' order.id %}"#}
+{#              enctype="multipart/form-data"#}
+{#              onsubmit="return confirm('Do you really want to submit the order?');"#}
+{#        >#}
+{#          {% csrf_token %}#}
+{#          <input class="btn btn-primary" type="submit" name="submit" value="Submit Order"/>#}
+{#        </form>#}
+      {% endif %}
+    </div>
+
+  </div>
+
+  <script>
+      $(document).ready( function () {
+          $('#order-line-table').DataTable();
+      } );
+  </script>
+
+{% endblock %}
