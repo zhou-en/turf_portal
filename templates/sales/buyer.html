@@ -72,9 +72,44 @@
     </div>
   </div>
 
+  <br>
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Buyer Order History</h5>
+    </div>
+    <div class="card-body">
+      <table id="buyer-orders-table" class="display table table-striped table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th>Order Number</th>
+          <th>Status</th>
+          <th>Total (R)</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in buyer_orders %}
+          <tr>
+            <td><a href="{% url 'order' order.id %}" >{{ order.number }}</a></td>
+            <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a></td>
+            <td>{{ order.total_amount }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer">
+      <a href="{% url 'order-create'%}" class="btn btn-sm btn-primary">New Order</a>
+    </div>
+  </div>
+
+
+
   <script>
       $(document).ready( function () {
           $('#buyer-product-table').DataTable();
+      } );
+      $(document).ready( function () {
+          $('#buyer-orders-table').DataTable();
       } );
   </script>
 

@@ -68,6 +68,7 @@ class BuyerDetailView(DetailView):
         context["buyer_products"] = [
             bp for bp in self.object.buyerproduct_set.all()
         ]
+        context["buyer_orders"] = self.object.order_set.all()
         return context
 
 
