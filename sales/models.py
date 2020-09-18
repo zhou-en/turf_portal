@@ -7,6 +7,7 @@ from django.db import models
 from django_extensions.db.models import TimeStampedModel
 
 from stock.models import Product, TurfRoll
+from sales.utils import order_status_color
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +36,7 @@ class Buyer(TimeStampedModel, models.Model):
     email = models.EmailField(max_length=255, blank=True, null=True)
 
     def __str__(self):
-        return f"Buyer: {self.name}"
+        return f"{self.name}"
 
     @property
     def buyer_products(self):
@@ -63,37 +64,6 @@ class BuyerProduct(TimeStampedModel, models.Model):
     def available_rolls(self):
         return TurfRoll.objects.filter(spec=self.product.spec)
 
-
-#
-# class Invoice(TimeStampedModel, models.Model):
-#     """
-#     Invoice for each order.
-#     """
-#
-#     class Status(models.TextChoices):
-#         DRAFT = "DRAFT", _("Draft")
-#         # when invoice is sent to buyer
-#         SENT = 'SENT', _('Sent')
-#         # when invoice is sent to buyer
-#         PAYMENT_OUTSTANDING = 'PAYMENT_OUTSTANDING', _('Payment_Outstanding')
-#         # when payment is completed
-#         CLOSED = 'CLOSED', _('Closed')
-#
-#     status = models.CharField(
-#         max_length=255,
-#         choices=Status.choices,
-#         default=Status.DRAFT,
-#     )
-#     buyer = models.ForeignKey(Buyer, on_delete=models.DO_NOTHING)
-#     number = models.CharField(max_length=255)
-#     notes = models.TextField(max_length=1023, null=True, blank=True)
-#
-#     def __str__(self):
-#         return f"{self.number}"
-#
-#     def save(self, *args, **kwargs):
-#         self.number = self.order.number
-#         super(Invoice, self).save(*args, **kwargs)
 #
 #
 # class Payment(TimeStampedModel, models.Model):
@@ -130,6 +100,7 @@ class Order(TimeStampedModel, models.Model):
     )
     buyer = models.ForeignKey(Buyer, on_delete=models.DO_NOTHING)
     number = models.CharField(max_length=255, blank=True, null=True)
+    closed_date = models.DateField(null=True, blank=True)
 
     # invoice = models.ForeignKey(Invoice, on_delete=models.DO_NOTHING, blank=True, null=True)
 
@@ -139,7 +110,10 @@ class Order(TimeStampedModel, models.Model):
     def save(self, *args, **kwargs):
         # Only create order number during create
         if not self.pk:
-            self.number = f"{self.buyer.name.upper()}-{timezone.now().strftime('%Y%m%d%H%m')}"
+            from utils import remove_none_alphanumeric
+            name_str = remove_none_alphanumeric(self.buyer.name.upper())
+            time_str = timezone.now().strftime('%Y%m%d%H%m')
+            self.number = f"{name_str}-{time_str}"
         super().save(*args, **kwargs)
 
     @property
@@ -176,17 +150,49 @@ class Order(TimeStampedModel, models.Model):
     def submit(self):
         """
         Submit order, i.e. order status will transit from Daft to Submitted.
+        Create invoice for this order.
         """
         self.status = Order.Status.SUBMITTED
         self.save()
-        # ToDo: Create invoice here:
+        from invoice.models import Invoice
+        invoice, _ = Invoice.objects.get_or_create(
+            order_id=self.id,
+            buyer_id=self.buyer_id
+        )
+        logger.info("Invoice was created for order: %s", self.number)
+        invoice.status = Invoice.Status.DRAFT
+        invoice.save()
 
     def deliver(self):
         """
         Set order to delivered status.
         """
         self.status = Order.Status.DELIVERED
+        logger.info("Order %s status was updated to DELIVERED.", self.number)
         self.save()
+
+    def editable(self):
+        """
+        Set order to delivered status.
+        """
+        return self.status in [
+            Order.Status.DRAFT,
+            Order.Status.SUBMITTED
+        ]
+
+    def send_invoice(self):
+        """
+        Send invoice to buyer.
+        Set order to invoiced status, invoice to payment outstanding.
+        """
+        from invoice.models import Invoice
+        self.status = Order.Status.INVOICED
+        logger.info("Update order %s status to INVOICED.", self.number)
+        self.save()
+        invoice = self.invoice_set.first()
+        logger.info("Update invoice %s status to PAYMENT_OUTSTANDING.", self.number)
+        invoice.status = Invoice.Status.PAYMENT_OUTSTANDING
+        invoice.save()
 
     @property
     def is_delivered(self):
@@ -214,6 +220,7 @@ class Order(TimeStampedModel, models.Model):
         Order can only be closed once invoice is paid.
         """
         self.status = Order.Status.CLOSED
+        self.closed_date = timezone.now()
         self.save()
 
     def create_orderlines(self, requested_roll_infos):
@@ -233,6 +240,14 @@ class Order(TimeStampedModel, models.Model):
                 logger.info("Open a new roll: %s", roll.id)
                 roll.status = TurfRoll.Status.OPENED
                 roll.save()
+
+    @property
+    def status_color(self):
+        return order_status_color(self.status)
+
+    @property
+    def invoice(self):
+        return self.invoice_set.first()
 
 
 class OrderLine(TimeStampedModel, models.Model):

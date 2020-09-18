@@ -90,5 +90,6 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = [
         "number",
         "buyer",
-        "status"
+        "status",
+        "created"
     ]

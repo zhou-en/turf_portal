@@ -12,8 +12,9 @@
         <th>Order #</th>
         <th>Buyer</th>
         <th>Total</th>
-        <th>Created Date</th>
         <th>Status</th>
+        <th>Created Date</th>
+        <th>Closed Date</th>
         <th>Actions</th>
       </tr>
       </thead>
@@ -23,8 +24,9 @@
           <td><a href="{% url 'order' order.id %}"><span>{{ order.number }}</span></a></td>
           <td>{{ order.buyer.name }}</td>
           <td>{{ order.total_amount }}</td>
+          <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a></td>
           <td>{{ order.created }}</td>
-          <td>{{ order.status }}</td>
+          <td>{% if not order.closed_date %}-{% else %}{{ order.closed_date }}{% endif %}</td>
           <td>
             <a {%  if not order.is_delivered  %}href="{% url 'order' order.id %}"{% endif %}><span data-feather="edit"></span></a>
             <a {%  if not order.is_delivered  %}href=""{% endif %}><span data-feather="trash-2"></span></a>

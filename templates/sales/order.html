@@ -9,19 +9,27 @@
     <div class="card-body">
       <dl class="row">
         <dt class="col-sm-3">Status</dt>
-        <dd class="col-sm-9">{{ order.status }}</dd>
+        <dd class="col-sm-9"><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a></dd>
 
         <dt class="col-sm-3">Number</dt>
         <dd class="col-sm-9">{{ order.number }}</dd>
 
         <dt class="col-sm-3">Buyer</dt>
-        <dd class="col-sm-9">{{ order.buyer.name }}</dd>
+        <dd class="col-sm-9"><a href="{% url 'buyer' order.buyer.id %}">{{ order.buyer.name }}</a></dd>
 
         <dt class="col-sm-3">Total (R)</dt>
         <dd class="col-sm-9">{{ order.total_amount }}</dd>
 
         <dt class="col-sm-3">Created Date</dt>
         <dd class="col-sm-9">{{ order.created }}</dd>
+
+        <dt class="col-sm-3">Closed Date</dt>
+        <dd class="col-sm-9">{% if not order.closed_date %}-{% else %}{{ order.closed_date }}{% endif %}</dd>
+
+        {% if order.invoice %}
+          <dt class="col-sm-3">Invoice</dt>
+          <dd class="col-sm-9"><a href="{% url 'invoice' order.invoice.id %}">{{ order.invoice.number }}</a></dd>
+        {% endif %}
 
       </dl>
     </div>
@@ -44,7 +52,7 @@
           <th>Quantity (m<sup>2</sup>)</th>
           <th>Buyer Price (R/m<sup>2</sup>)</th>
           <th>Amount (R)</th>
-          <th>Actions</th>
+          {% if order.editable %}<th>Actions</th>{% endif %}
         </tr>
         </thead>
         <tbody>
@@ -54,10 +62,12 @@
             <td>{{ ol.quantity }}</td>
             <td>{{ ol.buyer_product.price }}</td>
             <td>{{ ol.price }}</td>
+            {% if order.editable %}
             <td style="text-align: justify">
               <a {%  if not order.is_delivered  %}href="{% url 'order-item-update' ol.id %}"{% endif %}><span data-feather="edit"></span></a>
               <a {%  if not order.is_delivered  %}href="{% url 'order-item-delete' ol.id %}"{% endif %}><span data-feather="trash-2"></span></a>
             </td>
+            {% endif %}
           </tr>
         {% endfor %}
         </tbody>
@@ -68,28 +78,119 @@
     </div>
     <div class="card-footer text-lg-center">
       <a href="{% url 'orders' %}" class="btn btn-sm btn-secondary float-lg-left">Back to Orders</a>
-      <a href="{% url 'order-add-item' order.id %}" class="btn btn-sm btn-primary float-lg-right">Add A Item</a>
-      <a href="{% url 'order-submit' order.id %}" class="btn btn-sm btn-primary">Submit</a>
-      {% if order.orderlines and order.status == "DRAFT" %}
-        <br>
-        <br>
-{#        <form id="id"#}
-{#              method="POST" action="{% url 'order-submit' order.id %}"#}
-{#              enctype="multipart/form-data"#}
-{#              onsubmit="return confirm('Do you really want to submit the order?');"#}
-{#        >#}
-{#          {% csrf_token %}#}
-{#          <input class="btn btn-primary" type="submit" name="submit" value="Submit Order"/>#}
-{#        </form>#}
+      {% if order.editable %}
+        <a href="{% url 'order-add-item' order.id %}" class="btn btn-sm btn-primary float-lg-right">Add A Item</a>
       {% endif %}
+
+    {% if order.orderlines %}
+      {% if order.status == "DRAFT" %}
+        <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#submit-order-modal">Submit</a>
+      {% elif order.status == "SUBMITTED" %}
+        <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#send-invoice-modal">Send Invoice</a>
+        <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#deliver-order-modal">Deliver</a>
+      {% else %}
+        {% if order.status == "DELIVERED" %}
+          <a class="btn btn-sm btn-danger float-lg-right disabled">Close Order</a>
+        {% endif %}
+        {% if order.status == "INVOICED" %}
+          <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#deliver-order-modal">Deliver</a>
+        {% endif %}
+      {% endif %}
+    {% endif %}
     </div>
 
+  </div>
+
+  <div id="submit-order-modal" class="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Submit Order</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <p>An invoice will be created for this order after submission. You can still update this order before delivering or sending invoice to the buyer.</p>
+          <p>Proceed?</p>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <a href="{% url 'order' order.id %}" class="btn btn-sm btn-secondary float-lg-left">Cancel</a>
+          <a href="{% url 'order-submit' order.id %}" class="btn btn-sm btn-primary float-lg-right">Submit</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div id="deliver-order-modal" class="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Deliver Order</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <p>The ordered items will be delivered to the buyer.</p>
+          <p>Order will be readonly after delivery.</p>
+          <p>Proceed?</p>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <a href="{% url 'order' order.id %}" class="btn btn-sm btn-secondary float-lg-left">Cancel</a>
+          <a href="{% url 'order-deliver' order.id %}" class="btn btn-sm btn-primary float-lg-right">Deliver</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="send-invoice-modal" class="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Send Invoice to Buyer</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body text-justify">
+          <div>
+          <p>The order will be set to INVOICED status.</p>
+          <p>Order will be readonly after invoice is sent to buyer.</p>
+          <p>Proceed?</p>
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer text-lg-center">
+          <a href="{% url 'order' order.id %}" class="btn btn-sm btn-secondary float-lg-left">Cancel</a>
+          <a href="{% url 'order-send-invoice' order.id %}" class="btn btn-sm btn-primary float-lg-right">Send</a>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
       $(document).ready( function () {
           $('#order-line-table').DataTable();
       } );
+
+      function showModal() {
+          $(document).ready(function () {
+              $("#close-order-modal").modal('show');
+          });
+      }
   </script>
 
 {% endblock %}

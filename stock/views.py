@@ -21,7 +21,7 @@ class ProductListView(ListView):
     template_name = "stock/products.html"
     context_object_name = 'products'
     queryset = Product.objects.all()
-    paginate_by = 10
+    # paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super(ProductListView, self).get_context_data(**kwargs)
@@ -108,7 +108,7 @@ class WarehouseListView(ListView):
     template_name = "stock/warehouses.html"
     context_object_name = 'warehouses'
     queryset = Warehouse.objects.all()
-    paginate_by = 10
+    # paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super(WarehouseListView, self).get_context_data(**kwargs)
@@ -121,7 +121,7 @@ class StockListView(ListView):
     template_name = "stock/stocks.html"
     context_object_name = 'turf_rolls'
     queryset = TurfRoll.objects.exclude(status=TurfRoll.Status.DEPLETED)
-    paginate_by = 10
+    # paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

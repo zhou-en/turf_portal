@@ -33,7 +33,7 @@ class BuyerListView(ListView):
     template_name = "sales/buyers.html"
     context_object_name = 'buyers'
     queryset = Buyer.objects.all()
-    paginate_by = 10
+    # paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super(BuyerListView, self).get_context_data(**kwargs)
@@ -191,7 +191,7 @@ class OrderListView(ListView):
     template_name = "sales/orders.html"
     context_object_name = 'orders'
     queryset = Order.objects.all()
-    paginate_by = 10
+    # paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super(OrderListView, self).get_context_data(**kwargs)
@@ -242,7 +242,7 @@ class OrderAddItemView(CreateView):
     template_name = "sales/order_add_item.html"
     # context_object_name = 'buyer_products'
     form_class = OrderAddItemForm
-    paginate_by = 10
+    # paginate_by = 10
 
     def post(self, request, *args, **kwargs):
         if "cancel" in request.POST:
@@ -333,8 +333,22 @@ class OrderItemUpdateView(UpdateView):
 #         return HttpResponseRedirect(reverse_lazy("orders"))
 
 
-@   login_required
+@login_required
 def submit_order(request, pk):
     order = Order.objects.get(id=pk)
     order.submit()
+    return HttpResponseRedirect(reverse_lazy("orders"))
+
+
+@login_required
+def send_invoice(request, pk):
+    order = Order.objects.get(id=pk)
+    order.send_invoice()
+    return HttpResponseRedirect(reverse_lazy("orders"))
+
+
+@login_required
+def deliver(request, pk):
+    order = Order.objects.get(id=pk)
+    order.deliver()
     return HttpResponseRedirect(reverse_lazy("orders"))
