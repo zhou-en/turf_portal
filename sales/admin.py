@@ -78,6 +78,7 @@ class BuyerAdmin(admin.ModelAdmin):
 class OrderLineAdmin(admin.ModelAdmin):
     readonly_fields = ["price"]
     list_display = [
+        "id",
         "order",
         "buyer_product",
         "quantity",

@@ -25,6 +25,9 @@
 
         <dt class="col-sm-3">Contact Person</dt>
         <dd class="col-sm-9">{{ buyer.contact_person }}</dd>
+
+        <dt class="col-sm-3">Total Revenue (R)</dt>
+        <dd class="col-sm-9">{{ buyer.history_total }}</dd>
       </dl>
     </div>
   <div class="card-footer">
@@ -81,9 +84,12 @@
       <table id="buyer-orders-table" class="display table table-striped table-hover">
         <thead class="thead-dark">
         <tr>
-          <th>Order Number</th>
+          <th>Order</th>
           <th>Status</th>
           <th>Total (R)</th>
+          <th>Created Date</th>
+          <th>Closed Date</th>
+          <th>Invoice</th>
         </tr>
         </thead>
         <tbody>
@@ -92,6 +98,13 @@
             <td><a href="{% url 'order' order.id %}" >{{ order.number }}</a></td>
             <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a></td>
             <td>{{ order.total_amount }}</td>
+            <td>{{ order.created }}</td>
+            <td>{{ order.closed_date }}</td>
+            {% if order.invoice %}
+              <td><a href="{% url 'invoice' order.invoice.id %}" >{{ order.invoice.number }}</a></td>
+            {% else %}
+              <td>-</td>
+            {% endif %}
           </tr>
         {% endfor %}
         </tbody>

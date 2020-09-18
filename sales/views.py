@@ -191,7 +191,7 @@ class OrderListView(ListView):
     model = Order
     template_name = "sales/orders.html"
     context_object_name = 'orders'
-    queryset = Order.objects.all()
+    queryset = Order.objects.all().order_by("buyer")
     # paginate_by = 10
 
     def get_context_data(self, **kwargs):

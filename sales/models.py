@@ -45,6 +45,16 @@ class Buyer(TimeStampedModel, models.Model):
         """
         return self.buyerproduct_set.all()
 
+    @property
+    def history_total(self):
+        """
+        Return total of all orders have been placed by the buyer.
+        """
+        total = 0
+        for order in self.order_set.all():
+            total += order.total_amount
+        return total
+
 
 class BuyerProduct(TimeStampedModel, models.Model):
     """
@@ -155,12 +165,14 @@ class Order(TimeStampedModel, models.Model):
         self.status = Order.Status.SUBMITTED
         self.save()
         from invoice.models import Invoice
-        invoice, _ = Invoice.objects.get_or_create(
+        invoice, created = Invoice.objects.get_or_create(
             order_id=self.id,
             buyer_id=self.buyer_id
         )
         logger.info("Invoice was created for order: %s", self.number)
-        invoice.status = Invoice.Status.DRAFT
+        if created:
+            invoice.status = Invoice.Status.DRAFT
+        invoice.number = self.number
         invoice.save()
 
     def deliver(self):
@@ -268,17 +280,3 @@ class OrderLine(TimeStampedModel, models.Model):
         self.price = self.quantity * self.buyer_product.price
         super().save(*args, **kwargs)
 
-    def reserve_roll(self):
-        """
-        Each orderline should reserve its own roll when order is submitted.
-        """
-        self.roll.reserved += self.quantity
-        self.roll.save()
-
-    def cut_roll(self):
-        """
-        Each orderline should claim the reserved quantity from its roll.
-        """
-        self.roll.reserved -= self.quantity
-        self.roll.available -= self.quantity
-        self.roll.save()
