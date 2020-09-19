@@ -63,9 +63,9 @@
       </table>
     </div>
     <div class="card-footer">
-      <a href="{% url 'invoices' %}" class="btn btn-sm btn-secondary">Back</a>
-      {% if invoice.status != "CLOSED" %}
-      <a class="btn btn-sm btn-primary float-lg-right" data-toggle="modal" data-target="#add-payment-modal">Add Payment</a>
+      {% if not payments %}
+        <a href="{% url 'invoices' %}" class="btn btn-sm btn-secondary">Back</a>
+        <a class="btn btn-sm btn-primary float-lg-right" href="{% url 'payment-create' invoice.id %}">Add Payment</a>
       {% endif %}
     </div>
 </div>
@@ -82,54 +82,74 @@
         <table class="table table-sm table-borderless">
           <thead>
           <tr>
-            <th>Payment Date</th>
-            <th>Method</th>
             <th>Amount (R)</th>
+            <th>Method</th>
+            <th>Payment Date</th>
           </tr>
           </thead>
           <tbody>
           {% for p in payments %}
             <tr>
-              <td>{{ p.created }}</td>
+              <td class="text-success">{{ p.amount }}</td>
               <td>{{ p.method }}</td>
-              <td>{{ p.amount }}</td>
+              <td>{{ p.created }}</td>
             </tr>
           {% endfor %}
           </tbody>
         </table>
       </div>
       <div class="card-footer">
+        {% if payments %}
+          <a href="{% url 'invoices' %}" class="btn btn-sm btn-secondary">Back</a>
+        {% endif %}
+        {% if invoice.status != "CLOSED" %}
+          <a class="btn btn-sm btn-primary float-lg-right" href="{% url 'payment-create' invoice.id %}">Add Payment</a>
+        {% endif %}
       </div>
 
     </div>
 
   {% endif %}
-
-  <div id="add-payment-modal" class="modal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Add Payment</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body">
-          <form action="{% url 'payment-add' invoice.id %}" role="form" method="post">
-            {% csrf_token %}
-            <table>
-              {{ form.as_table }}
-            </table>
-            <br>
-            <a href="{% url 'invoice' invoice.id %}" class="btn btn-sm btn-secondary float-lg-left">Cancel</a>
-            <input type="submit" value="Add" class="btn btn-sm btn-primary float-lg-right">
-          </form>
-        </div>
-
-      </div>
-    </div>
-  </div>
+{##}
+{#  <div id="add-payment-modal" class="modal">#}
+{#    <div class="modal-dialog">#}
+{#      <div class="modal-content">#}
+{##}
+{#        <!-- Modal Header -->#}
+{#        <div class="modal-header">#}
+{#          <h4 class="modal-title">Add Payment</h4>#}
+{#          <button type="button" class="close" data-dismiss="modal">&times;</button>#}
+{#        </div>#}
+{##}
+{#        <!-- Modal body -->#}
+{#        <div class="modal-body">#}
+{#          <form action="{% url 'payment-create' invoice.id %}" role="form" method="post">#}
+{#            {% csrf_token %}#}
+{#            <table>#}
+{#              {{ form.as_table }}#}
+{#            </table>#}
+{#            <br>#}
+{#            <a href="{% url 'invoice' invoice.id %}" class="btn btn-sm btn-secondary">Cancel</a>#}
+{#            <input type="submit" value="Save" class="btn btn-sm btn-primary">#}
+{#          </form>#}
+{#          {% if form.errors %}#}
+{#            {% for field in form %}#}
+{#              {% for error in field.errors %}#}
+{#                <div class="alert alert-danger">#}
+{#                  <strong>{{ error|escape }}</strong>#}
+{#                </div>#}
+{#              {% endfor %}#}
+{#            {% endfor %}#}
+{#            {% for error in form.non_field_errors %}#}
+{#              <div class="alert alert-danger">#}
+{#                <strong>{{ error|escape }}</strong>#}
+{#              </div>#}
+{#            {% endfor %}#}
+{#          {% endif %}#}
+{#        </div>#}
+{##}
+{#      </div>#}
+{#    </div>#}
+{#  </div>#}
 
 {% endblock %}

@@ -14,6 +14,7 @@
         <th>Buyer</th>
         <th>Created Date</th>
         <th>Closed Date</th>
+        <th>TESst</th>
       </tr>
       </thead>
       <tbody>
@@ -25,6 +26,7 @@
           <td><a href="{% url 'buyer' invoice.buyer.id %}"><span>{{ invoice.buyer.name }}</span></a></td>
           <td>{{ invoice.created }}</td>
           <td>{% if not invoice.closed_date %} - {% else %}{{ invoice.closed_date }} {% endif %}</td>
+          <td><a href="{% url 'payment-create' invoice.id %}"><span>Add Payment</span></a></td>
         </tr>
       {% endfor %}
       </tbody>

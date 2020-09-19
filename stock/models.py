@@ -176,7 +176,7 @@ class TurfRoll(TimeStampedModel, models.Model):
         """
         from sales.models import Order
         result = self.orderline_set.filter(
-            order__status=Order.Status.DELIVERED
+            order__status__in=[Order.Status.DELIVERED, Order.Status.CLOSED]
         ).aggregate(Sum("quantity"))
         if result.get("quantity__sum"):
             return float(result.get("quantity__sum"))

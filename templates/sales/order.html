@@ -14,6 +14,11 @@
         <dt class="col-sm-3">Number</dt>
         <dd class="col-sm-9">{{ order.number }}</dd>
 
+        {% if invoice %}
+          <dt class="col-sm-3">Invoice</dt>
+          <dd class="col-sm-9"><a href="{% url 'invoice' invoice.id %}">{{ invoice.number }}</a></dd>
+        {% endif %}
+
         <dt class="col-sm-3">Buyer</dt>
         <dd class="col-sm-9"><a href="{% url 'buyer' order.buyer.id %}">{{ order.buyer.name }}</a></dd>
 
@@ -87,14 +92,8 @@
         <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#submit-order-modal">Submit</a>
       {% elif order.status == "SUBMITTED" %}
         <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#send-invoice-modal">Send Invoice</a>
+      {% elif order.status == "INVOICED" %}
         <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#deliver-order-modal">Deliver</a>
-      {% else %}
-        {% if order.status == "DELIVERED" %}
-          <a class="btn btn-sm btn-danger float-lg-right disabled">Close Order</a>
-        {% endif %}
-        {% if order.status == "INVOICED" %}
-          <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#deliver-order-modal">Deliver</a>
-        {% endif %}
       {% endif %}
     {% endif %}
     </div>

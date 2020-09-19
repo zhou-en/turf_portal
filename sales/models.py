@@ -99,7 +99,7 @@ class Order(TimeStampedModel, models.Model):
         SUBMITTED = 'SUBMITTED', _('Submitted')
         # when invoice is sent to buyer
         INVOICED = 'INVOICED', _('Invoiced')
-        DELIVERED = "DELIVERED", _("DELIVERED")
+        DELIVERED = "DELIVERED", _("Delivered")
         # when payment is complete
         CLOSED = 'CLOSED', _('Closed')
 
@@ -179,9 +179,15 @@ class Order(TimeStampedModel, models.Model):
         """
         Set order to delivered status.
         """
+        from invoice.models import Invoice
         self.status = Order.Status.DELIVERED
         logger.info("Order %s status was updated to DELIVERED.", self.number)
         self.save()
+        invoice = self.invoice_set.first()
+        if invoice.status != Invoice.Status.PAYMENT_OUTSTANDING:
+            logger.info("Update invoice %s status to PAYMENT_OUTSTANDING.", self.number)
+            invoice.status = Invoice.Status.PAYMENT_OUTSTANDING
+            invoice.save()
 
     def editable(self):
         """
@@ -215,17 +221,6 @@ class Order(TimeStampedModel, models.Model):
             Order.Status.DELIVERED,
             Order.Status.CLOSED
         ]
-
-    def create_invoice(self):
-        """
-        create invoice after order is submitted.
-        """
-        for ol in self.orderline_set.all():
-            roll = ol.roll
-            if roll.available == 0:
-                roll.status = TurfRoll.Status.DEPLETED
-                logger.debug("Roll %s is depleted.", roll.id)
-                roll.save()
 
     def close(self):
         """

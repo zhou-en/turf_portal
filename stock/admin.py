@@ -95,10 +95,10 @@ class TurfRollAdmin(admin.ModelAdmin):
     list_display = [
         "id",
         "spec",
+        "status",
         "location",
         "modified",
         "created"
-
     ]
 
 

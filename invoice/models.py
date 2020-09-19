@@ -112,6 +112,7 @@ class Invoice(TimeStampedModel, models.Model):
         self.closed_date = timezone.now()
         self.status = Invoice.Status.CLOSED
         self.save()
+        self.order.close()
 
 
 class Payment(TimeStampedModel, models.Model):
@@ -139,5 +140,4 @@ class Payment(TimeStampedModel, models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if self.invoice.payment_complete:
-            self.invoice.closed()
-            self.invoice.order.close()
+            self.invoice.close()

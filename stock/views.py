@@ -120,7 +120,7 @@ class StockListView(ListView):
     model = TurfRoll
     template_name = "stock/stocks.html"
     context_object_name = 'turf_rolls'
-    queryset = TurfRoll.objects.exclude(status=TurfRoll.Status.DEPLETED)
+    queryset = TurfRoll.objects.exclude()
     # paginate_by = 10
 
     def get_context_data(self, **kwargs):

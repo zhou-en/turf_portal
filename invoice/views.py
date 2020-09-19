@@ -53,22 +53,33 @@ class InvoiceDetailView(DetailView):
 @method_decorator(login_required, name='dispatch')
 class PaymentCreateView(CreateView):
     model = Payment
-    template_name = 'invoice/invoice.html'
+    template_name = 'invoice/payment_create.html'
+    # template_name = 'invoice/invoice.html'
     form_class = PaymentCreateForm
+    # success_url = reverse_lazy('invoices')
 
-    def get_form(self):
-        form = super().get_form()
-        invoice_id = self.kwargs.get("pk")
-        return form
+    # def get_form(self):
+    #     form = super().get_form()
+    #     invoice_id = self.kwargs.get("pk")
+    #     return form
+    #
+    # def post(self, request, *args, **kwargs):
+    #     amount = float(request.POST.get("amount", 0) or 0)
+    #     invoice_id = request.POST.get("invoice")
+    #     Payment.objects.create(
+    #         amount=amount,
+    #         invoice_id=invoice_id
+    #     )
+        # return HttpResponseRedirect(reverse_lazy("invoice", kwargs={"pk": kwargs.get("pk")}))
+
+    def get_success_url(self):
+        pk = self.kwargs.pop("pk")
+        return reverse_lazy('invoice', kwargs={'pk': pk})
 
     def post(self, request, *args, **kwargs):
-        amount = float(request.POST.get("amount", 0) or 0)
-        invoice_id = request.POST.get("invoice")
-        Payment.objects.create(
-            amount=amount,
-            invoice_id=invoice_id
-        )
-        return HttpResponseRedirect(reverse_lazy("invoice", kwargs={"pk": kwargs.get("pk")}))
+        if "cancel" in request.POST:
+            return HttpResponseRedirect(reverse_lazy("invoice", kwargs={"pk": self.kwargs.get("pk")}))
+        else:
+            pk = kwargs.pop("pk")
+            return super(PaymentCreateView, self).post(request, *args, **kwargs)
 
-    # def get_success_url(self):
-    #     return reverse_lazy('invoice', kwargs={'pk': self.object.id})
