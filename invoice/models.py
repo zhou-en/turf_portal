@@ -32,7 +32,7 @@ class Invoice(TimeStampedModel, models.Model):
     )
     order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)
     buyer = models.ForeignKey(Buyer, on_delete=models.DO_NOTHING)
-    number = models.CharField(max_length=255, null=True, blank=True)
+    number = models.CharField(max_length=255, null=True, blank=True, unique=True)
 
     def __str__(self):
         return f"{self.number}"
@@ -51,32 +51,6 @@ class Invoice(TimeStampedModel, models.Model):
         self.save()
         self.order.status = Order.Status.INVOICED
         self.order.save()
-
-
-class Invoice(TimeStampedModel, models.Model):
-    """
-    Invoice for each order.
-    """
-
-    class Status(models.TextChoices):
-        DRAFT = "DRAFT", _("Draft")
-        # when invoice is sent to buyer
-        PAYMENT_OUTSTANDING = 'PAYMENT OUTSTANDING', _('Payment Outstanding')
-        # when payment is completed
-        CLOSED = 'CLOSED', _('Closed')
-
-    status = models.CharField(
-        max_length=255,
-        choices=Status.choices,
-        default=Status.DRAFT,
-    )
-    order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)
-    buyer = models.ForeignKey(Buyer, on_delete=models.DO_NOTHING)
-    number = models.CharField(max_length=255, null=True, blank=True)
-    closed_date = models.DateField(blank=True, null=True)
-
-    def __str__(self):
-        return f"{self.number}"
 
     @property
     def total_payment(self):

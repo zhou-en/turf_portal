@@ -2,10 +2,15 @@
 
 {% block content %}
     <br>
-    <h3> Buyers</h3>
-    <a href="{% url 'buyer-create' %}" class="btn btn-sm btn-primary">New Buyer</a>
+    <a href="{% url 'buyer-create' %}" class="btn btn-sm btn-primary float-lg-right">New Buyer</a>
     <br>
   <br>
+
+  <div class="card">
+  <div class="card-header">
+    <h5 class="card-title">Buyers</h5>
+  </div>
+  <div class="card-body">
     <table id="buyer_table" class="display table table-striped table-hover">
       <thead class="thead-dark">
       <tr>
@@ -35,6 +40,8 @@
       {% endfor %}
       </tbody>
     </table>
+  </div>
+  </div>
 
   <script>
       $(document).ready( function () {

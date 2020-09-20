@@ -1,5 +1,6 @@
 import logging
 import json
+from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
@@ -9,9 +10,6 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, UpdateView, DeleteView, \
     DetailView, ListView, CreateView
-from django import views
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from stock.models import Product
 from sales.models import Buyer, BuyerProduct, Order, OrderLine, TurfRoll
@@ -19,10 +17,13 @@ from sales.forms import (
     BuyerCreateForm,
     BuyerUpdateForm,
     BuyerProductCreateForm,
+    BuyerProductUpdateForm,
+    BuyerOrderCreateForm,
     OrderCreateForm,
     OrderAddItemForm,
-    OrderItemUpdateForm
+    OrderItemUpdateForm,
 )
+from sales.utils import buyer_status_color
 
 logger = logging.getLogger(__name__)
 
@@ -153,6 +154,32 @@ class BuyerProductCreateView(CreateView):
 
 
 @method_decorator(login_required, name='dispatch')
+class BuyerProductUpdateView(UpdateView):
+    model = BuyerProduct
+    template_name = 'sales/buyer_product_update.html'
+    context_object_name = "buyer_product"
+    form_class = BuyerProductUpdateForm
+
+    def get_success_url(self):
+        buyer_product_pk = self.kwargs.get("pk")
+        buyer_product = BuyerProduct.objects.get(id=buyer_product_pk)
+        return reverse_lazy('buyer', kwargs={'pk': buyer_product.buyer_id})
+
+    def post(self, request, *args, **kwargs):
+        buyer_product_pk = kwargs.get("pk")
+        buyer_product = BuyerProduct.objects.get(id=buyer_product_pk)
+        if "cancel" in request.POST:
+            return HttpResponseRedirect(reverse_lazy("buyer", kwargs={"pk": buyer_product.buyer_id}))
+        else:
+            return super(BuyerProductUpdateView, self).post(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["buyer"] = self.object.buyer
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
 class BuyerProductDeleteView(DeleteView):
     model = BuyerProduct
     context_object_name = "buyer_product"
@@ -170,7 +197,6 @@ class BuyerProductDeleteView(DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
         context["buyer"] = self.object.buyer
         return context
 
@@ -188,6 +214,34 @@ class OrderDetailView(DetailView):
 
 
 @method_decorator(login_required, name='dispatch')
+class FilteredOrderListView(ListView):
+    model = OrderLine
+    template_name = "sales/filtered_orders.html"
+    context_object_name = 'orders'
+    # queryset = Order.objects.all().order_by("buyer")
+    # paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super(FilteredOrderListView, self).get_context_data(**kwargs)
+        roll_id = self.kwargs.get("pk")
+        roll = TurfRoll.objects.get(id=roll_id)
+        context["roll"] = roll
+        if "reserved_orders" in self.request.path:
+            context["orderlines"] = OrderLine.objects.filter(
+                roll=roll,
+                order__status__in=[Order.Status.DRAFT, Order.Status.SUBMITTED]
+            )
+            context["filter"] = {"name": "Reserved", "result": roll.reserved}
+        if "closed_orders" in self.request.path:
+            context["orderlines"] = OrderLine.objects.filter(
+                roll=roll,
+                order__status=Order.Status.CLOSED
+            )
+            context["filter"] = {"name": "Sold", "result": roll.sold}
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
 class OrderListView(ListView):
     model = Order
     template_name = "sales/orders.html"
@@ -198,6 +252,21 @@ class OrderListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(OrderListView, self).get_context_data(**kwargs)
         return context
+
+
+@method_decorator(login_required, name="dispatch")
+class BuyerOrderCreateView(CreateView):
+    model = Order
+    context_object_name = "order"
+    template_name = 'sales/buyer_order_create.html'
+    form_class = BuyerOrderCreateForm
+
+    def dispatch(self, request, *args, **kwargs):
+        # Create an order with the given buyer id
+        order = Order.objects.create(
+            buyer_id=kwargs.get("pk")
+        )
+        return HttpResponseRedirect(reverse_lazy("order", kwargs={"pk": order.id}))
 
 
 @method_decorator(login_required, name='dispatch')
@@ -219,7 +288,6 @@ class OrderCreateView(CreateView):
             return super(OrderCreateView, self).post(request, *args, **kwargs)
 
     def get_success_url(self):
-        # return reverse_lazy('orders')
         new_order = Order.objects.order_by('-id').first()
         return reverse_lazy('order', kwargs={'pk': new_order.id})
 
@@ -230,12 +298,6 @@ class OrderCreateView(CreateView):
         if "create" in self.request.path:
             context["create"] = True
         return context
-
-    def form_valid(self, form):
-        return super().form_valid(form)
-
-    def form_invalid(self, form):
-        return super().form_invalid(form)
 
 
 @method_decorator(login_required, name='dispatch')
@@ -266,11 +328,13 @@ class OrderAddItemView(CreateView):
         order = Order.objects.get(id=self.kwargs.get("pk"))
         buyer = order.buyer
         buyer_products = BuyerProduct.objects.filter(buyer=buyer)
+        ordered_products = [ol.buyer_product.product.code for ol in order.orderline_set.all()]
         context.update(
             {
                 "buyer_products": buyer_products,
                 "order": order,
-                "buyer": buyer
+                "buyer": buyer,
+                "ordered_product": ordered_products
             }
         )
         return context

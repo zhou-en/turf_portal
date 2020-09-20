@@ -2,43 +2,80 @@
 
 {% block content %}
     <br>
-    <h3> Available Rolls</h3>
-      <a href="" class="btn btn-sm btn-primary">Load Stocks</a>
+    <h3 class="text-lg-center"> Available Rolls</h3>
+      <a href="" class="btn btn-sm btn-primary float-lg-right">Load Stocks</a>
   <br>
   <br>
   <br>
-    <table id="stocks-table" class="display table table-striped table-hover">
-      <thead class="thead-dark">
-      <tr>
-        <th>Code</th>
-        <th>Spec</th>
-        <th>Status</th>
-        <th>Available (m<sup>2</sup>)</th>
-        <th>Reserved (m<sup>2</sup>)</th>
-        <th>Delivered (m<sup>2</sup>)</th>
-        <th>Warehouse</th>
-      </tr>
-      </thead>
-      <tbody>
-      {% for roll in turf_rolls %}
-        <tr>
-          <td>{{ roll.spec.code }}</td>
-          <td><a>{{ roll.spec }}</a></td>
-          <td>{{ roll.status }}</td>
-          <td>{{ roll.available }}</td>
-          <td>{{ roll.reserved }}</td>
-          <td>{{ roll.delivered }}</td>
-          <td>{{ roll.location }}</td>
-        </tr>
-      {% endfor %}
-      </tbody>
-    </table>
 
+{% for code, rolls in turf_rolls.items %}
+
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title"><strong>{{ code }}</strong></h5>
+    </div>
+  <div class="card-body">
+    <div class="card-content">
+      <table id="stocks-table" class="table table-sm table-hover">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Spec</th>
+          <th>Status</th>
+          <th>Available (m<sup>2</sup>)</th>
+          <th>Reserved (m<sup>2</sup>)</th>
+          <th>Sold (m<sup>2</sup>)</th>
+          <th>Warehouse</th>
+          <th>Last Sold Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for roll in rolls %}
+          <tr>
+            <td>{{ roll.id }}</td>
+            <td>{{ roll.spec }}</td>
+            <td>{{ roll.status }}</td>
+            <td class="text-success">{{ roll.available }}</td>
+            {% if roll.reserved != 0 %}
+              <td class="text-danger"><a href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved }}</a></td>
+            {% else %}
+              <td>{{ roll.reserved }}</td>
+            {% endif %}
+            {% if roll.sold != 0 %}
+              <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold }}</a></td>
+            {% else %}
+              <td>{{ roll.sold }}</td>
+            {% endif %}
+            <td>{{ roll.location }}</td>
+            <td>{{ roll.modified }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{#  <div class="card-footer"></div>#}
+  </div>
+  <br>
+
+
+
+
+
+
+
+
+{% endfor %}
 
   <script>
-      $(document).ready( function () {
-          $('#stocks-table').DataTable();
-      } );
+      {#$(document).ready( function () {#}
+      {#    var oTable = $('#stocks-table').dataTable();#}
+      {#    oTable.fnSort(#}
+      {#        [#}
+      {#            [8,'dsc'],#}
+      {#        ]#}
+      {#    );#}
+      {#} );#}
   </script>
 
 

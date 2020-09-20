@@ -62,6 +62,26 @@ class BuyerProductCreateForm(forms.ModelForm):
     field_order = ["buyer", "product", "price"]
 
 
+class BuyerProductUpdateForm(forms.ModelForm):
+    class Meta:
+        model = BuyerProduct
+        fields = "__all__"
+
+
+class BuyerOrderCreateForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        if "pk" in kwargs:
+            pk = kwargs.pop("pk")
+            buyer = Buyer.objects.filter(id=pk)
+            self.base_fields["buyer"].queryset = buyer
+            self.base_fields["buyer"].empty_label = None
+        super(BuyerOrderCreateForm, self).__init__(*args, **kwargs)
+
+
 class OrderCreateForm(forms.ModelForm):
 
     class Meta:
@@ -69,6 +89,11 @@ class OrderCreateForm(forms.ModelForm):
         fields = ["buyer"]
 
     def __init__(self, *args, **kwargs):
+        if "pk" in kwargs:
+            pk = kwargs.pop("pk")
+            buyer = Buyer.objects.filter(id=pk)
+            self.base_fields["buyer"].queryset = buyer
+            self.base_fields["buyer"].empty_label = None
         super(OrderCreateForm, self).__init__(*args, **kwargs)
 
 
@@ -82,6 +107,21 @@ class OrderAddItemForm(forms.ModelForm):
         widget=forms.HiddenInput(),
         required=False,
     )
+    #
+    # def clean(self):
+    #     # test the rate limit by passing in the cached user object
+    #
+    #     raise forms.ValidationError("You cannot post more than once every x minutes")
+    #
+    #     # return self.cleaned_data
+    #
+    # def clean_selected_items(self):
+    #     cleaned_data = self.clean()
+    #     selected_items = cleaned_data['selected_items']
+    #     # for item in selected_items:
+    #     if len(selected_items) > 1:
+    #         raise forms.ValidationError('Too many characters ...')
+    #     return selected_items
 
 
 class OrderItemUpdateForm(forms.ModelForm):

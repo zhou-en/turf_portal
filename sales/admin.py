@@ -81,6 +81,7 @@ class OrderLineAdmin(admin.ModelAdmin):
         "id",
         "order",
         "buyer_product",
+        "roll",
         "quantity",
         "price"
     ]

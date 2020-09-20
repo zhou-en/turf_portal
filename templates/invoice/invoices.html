@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <br>
-    <h3>Invoices</h3>
-    <br>
   <br>
+  <div class="card">
+  <div class="card-header">
+    <h5 class="card-title">Invoices</h5>
+  </div>
+  <div class="card-body">
     <table id="invoices-table" class="display table table-striped table-hover">
       <thead class="thead-dark">
       <tr>
@@ -14,7 +16,6 @@
         <th>Buyer</th>
         <th>Created Date</th>
         <th>Closed Date</th>
-        <th>TESst</th>
       </tr>
       </thead>
       <tbody>
@@ -26,15 +27,20 @@
           <td><a href="{% url 'buyer' invoice.buyer.id %}"><span>{{ invoice.buyer.name }}</span></a></td>
           <td>{{ invoice.created }}</td>
           <td>{% if not invoice.closed_date %} - {% else %}{{ invoice.closed_date }} {% endif %}</td>
-          <td><a href="{% url 'payment-create' invoice.id %}"><span>Add Payment</span></a></td>
         </tr>
       {% endfor %}
       </tbody>
     </table>
-
+  </div>
+  </div>
   <script>
       $(document).ready( function () {
-          $('#invoices-table').DataTable();
+          var oTable = $('#invoices-table').DataTable();
+          oTable.fnSort(
+              [
+                  [0,'dsc'],
+              ]
+          );
       } );
   </script>
 

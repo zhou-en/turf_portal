@@ -137,7 +137,7 @@ logging.config.dictConfig({
             'level': 'WARNING',
             'handlers': ['console', 'sentry'],
         },
-        'turf_portal': {
+        'turf_portal.page_processors': {
             'level': LOGLEVEL,
             'handlers': ['console', 'sentry'],
             # required to avoid double logging with root logger
@@ -146,6 +146,17 @@ logging.config.dictConfig({
     },
 })
 
+LOGGING = {
+    # (...)
+    'loggers': {
+        # (...)
+        'turf_portal.page_processors': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+        }
+    }
+    # (...)
+}
 
 LOGIN_URL = 'login'
 

@@ -1,7 +1,6 @@
 import re
 
 
-
 def remove_none_alphanumeric(string):
     """
     remove non-alphanumeric characters
@@ -29,4 +28,12 @@ def invoice_status_color(status):
     if status == Invoice.Status.PAYMENT_OUTSTANDING:
         return "danger"
     if status == Invoice.Status.CLOSED:
+        return "secondary"
+
+
+def buyer_status_color(status):
+    from sales.models import Buyer
+    if status == Buyer.Status.ACTIVE:
+        return "success"
+    if status == Buyer.Status.INACTIVE:
         return "secondary"

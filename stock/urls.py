@@ -2,11 +2,12 @@ from django.urls import path
 
 from stock.views import (
     ProductListView, ProductDetailView, ProductUpdateView, ProductDeleteView, ProductCreateView,
-    WarehouseDetailView, WarehouseListView, StockListView
+    WarehouseDetailView, WarehouseListView, StockListView, LoadStocksView
 )
 
 urlpatterns = [
     path("stocks/", StockListView.as_view(), name="stocks"),
+    path("loadd_stocks/", LoadStocksView.as_view(), name="load-stocks"),
     path("products/", ProductListView.as_view(), name="products"),
     path("product_create/", ProductCreateView.as_view(), name="product-create"),
     path("product/<int:pk>/detail", ProductDetailView.as_view(), name="product"),

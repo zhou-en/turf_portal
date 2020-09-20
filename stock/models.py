@@ -95,7 +95,7 @@ class RollSpec(TimeStampedModel, models.Model):
         verbose_name_plural = "Roll Specs"
 
     def __str__(self):
-        return f"{self.category} - {self.color} - {self.height}mm - {self.width}m"
+        return f"{self.category} - {self.color} - {self.height}mm - {self.width}m - {self.length}m"
 
     @property
     def code(self):
@@ -138,6 +138,7 @@ class TurfRoll(TimeStampedModel, models.Model):
         SEALED = 'SEALED', _('Sealed')
         OPENED = 'OPENED', _('Opened')
         DEPLETED = 'DEPLETED', _('Depleted')
+        RETURNED = 'RETURNED', _('Returned')
 
     status = models.CharField(
         max_length=63,
@@ -146,13 +147,18 @@ class TurfRoll(TimeStampedModel, models.Model):
     )
     spec = models.ForeignKey(RollSpec, on_delete=models.DO_NOTHING)
     total = models.IntegerField(default=0)
+    sold = models.IntegerField(default=0)
     location = models.ForeignKey(Warehouse, on_delete=models.DO_NOTHING, blank=True, null=True)
 
     def __str__(self):
-        return f"{self.spec.code} - {self.status}   - available:{self.available}"
+        return f"{self.id}: {self.spec.code} - {self.status}   - available:{self.available}"
 
     def save(self, *args, **kwargs):
-        self.total = self.spec.width.value * self.spec.length
+        if not self.pk:
+            self.total = self.spec.width.value * self.spec.length
+        else:
+            if self.total == 0:
+                self.status = self.Status.DEPLETED
         super().save(*args, **kwargs)
 
     @property
@@ -162,7 +168,7 @@ class TurfRoll(TimeStampedModel, models.Model):
         """
         from sales.models import Order
         result = self.orderline_set.filter(
-            order__status__in=[Order.Status.DRAFT, Order.Status.SUBMITTED]
+            order__status__in=[Order.Status.SUBMITTED, Order.Status.INVOICED]
         ).aggregate(Sum("quantity"))
         if result.get("quantity__sum"):
             return float(result.get("quantity__sum"))
@@ -188,5 +194,5 @@ class TurfRoll(TimeStampedModel, models.Model):
         Total minus delivered and reserved.
         status.
         """
-        return float(self.total - self.reserved - self.delivered)
+        return float(self.spec.length * self.spec.width.value - self.reserved - self.sold)
 

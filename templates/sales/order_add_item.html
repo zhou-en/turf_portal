@@ -25,8 +25,8 @@
     <ul>
       {% for bp in buyer_products %}
         <li><h4>{{ bp.product.code }}: R{{ bp.price }}/m<sup>2</sup></h4></li>
-        {% if bp.available_rolls %}
-          <table id="{{ bp.id }}" class="table table-responsive-md">
+        {% if bp.available_rolls and not bp.product.code in ordered_product %}
+          <table id="{{ bp.id }}" class="table table-sm table-responsive-md">
             <thead>
             <tr>
               <th>Quantity (m<sup>2</sup>)</th>
@@ -41,7 +41,7 @@
             {% for roll in bp.available_rolls  %}
               <tr>
                 <td>
-                  <input name="turf-roll" id="{{ roll.id }}" style="border: none; outline: none;" type="text" placeholder="Enter Length in meters" onkeyup="updateSelectedRolls()">
+                  <input max="{{ roll.available }}" min="0" name="turf-roll" id="{{ roll.id }}" style="border: none; outline: none;" type="number" placeholder="m²" onkeyup="updateSelectedRolls()">
                 </td>
                 <td>{{ roll.available }}</td>
                 <td>{{ roll.reserved }}</td>
@@ -61,7 +61,6 @@
         {% endif %}
       {% endfor %}
     </ul>
-{#      {{ form.selected_items }}#}
     </div>
     <div class="card-footer text-lg-center">
       <a href="{% url 'order' order.id %}" class="btn btn-sm btn-secondary float-lg-left">Cancel</a>
@@ -69,6 +68,22 @@
     </div>
     {{ form.selected_items }}
     </form>
+    <br>
+    <br>
+    {% if form.errors %}
+      {% for field in form %}
+        {% for error in field.errors %}
+          <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+          </div>
+        {% endfor %}
+      {% endfor %}
+      {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+          <strong>{{ error|escape }}</strong>
+        </div>
+      {% endfor %}
+    {% endif %}
 {% else %}
     <div class="card-body">
       <div>

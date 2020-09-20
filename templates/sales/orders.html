@@ -2,43 +2,113 @@
 
 {% block content %}
     <br>
-    <h3> Orders</h3>
-    <a href="{% url 'order-create' %}" class="btn btn-sm btn-primary">New Order</a>
+    <a href="{% url 'order-create' %}" class="btn btn-sm btn-primary float-lg-right">New Order</a>
     <br>
   <br>
-    <table id="buyer_table" class="display table table-striped table-hover">
-      <thead class="thead-dark">
-      <tr>
-        <th>Order #</th>
-        <th>Buyer</th>
-        <th>Total</th>
-        <th>Status</th>
-        <th>Created Date</th>
-        <th>Closed Date</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      {% for order in orders %}
+
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Open Orders</h5>
+    </div>
+    <div class="card-body">
+
+      <table id="open-orders-table" class="display table table-striped table-hover">
+        <thead class="thead-dark">
         <tr>
-          <td><a href="{% url 'order' order.id %}"><span>{{ order.number }}</span></a></td>
-          <td>{{ order.buyer.name }}</td>
-          <td>{{ order.total_amount }}</td>
-          <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a></td>
-          <td>{{ order.created }}</td>
-          <td>{% if not order.closed_date %}-{% else %}{{ order.closed_date }}{% endif %}</td>
-          <td>
-            <a {%  if not order.is_delivered  %}href="{% url 'order' order.id %}"{% endif %}><span data-feather="edit"></span></a>
-            <a {%  if not order.is_delivered  %}href=""{% endif %}><span data-feather="trash-2"></span></a>
-          </td>
+          <th>Order #</th>
+          <th>Buyer</th>
+          <th>Total</th>
+          <th>Status</th>
+          <th>Last Updated Date</th>
+          <th>Closed Date</th>
+          <th>Actions</th>
         </tr>
-      {% endfor %}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+          {% if order.status != "CLOSED" %}
+          <tr>
+            <td><a href="{% url 'order' order.id %}"><span>{{ order.number }}</span></a></td>
+            <td>{{ order.buyer.name }}</td>
+            <td>{{ order.total_amount }}</td>
+            <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a></td>
+            <td>{{ order.modified }}</td>
+            <td>{% if not order.closed_date %}-{% else %}{{ order.closed_date }}{% endif %}</td>
+            <td>
+              <a {%  if not order.is_delivered  %}href="{% url 'order' order.id %}"{% endif %}><span data-feather="edit"></span></a>
+              <a {%  if not order.is_delivered  %}href=""{% endif %}><span data-feather="trash-2"></span></a>
+            </td>
+          </tr>
+          {% endif %}
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer">
+    </div>
+  </div>
+<br>
+<br>
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Closed Orders</h5>
+    </div>
+    <div class="card-body">
+
+      <table id="closed-orders-table" class="display table table-striped table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th>Order #</th>
+          <th>Buyer</th>
+          <th>Total</th>
+          <th>Status</th>
+          <th>Last Updated Date</th>
+          <th>Closed Date</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+          {% if order.status == "CLOSED" %}
+            <tr>
+              <td><a href="{% url 'order' order.id %}"><span>{{ order.number }}</span></a></td>
+              <td>{{ order.buyer.name }}</td>
+              <td>{{ order.total_amount }}</td>
+              <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a></td>
+              <td>{{ order.modified }}</td>
+              <td>{% if not order.closed_date %}-{% else %}{{ order.closed_date }}{% endif %}</td>
+              <td>
+                <a {%  if not order.is_delivered  %}href="{% url 'order' order.id %}"{% endif %}><span data-feather="edit"></span></a>
+                <a {%  if not order.is_delivered  %}href=""{% endif %}><span data-feather="trash-2"></span></a>
+              </td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer">
+    </div>
+  </div>
 
   <script>
       $(document).ready( function () {
-          $('#buyer_table').DataTable();
+          var oTable = $('#open-orders-table').dataTable();
+          oTable.fnSort(
+              [
+                  {#[0,'dsc'],#}
+                  [4,'des'],
+              ]
+          );
+      } );
+      $(document).ready( function () {
+          var oTable = $('#closed-orders-table').dataTable();
+          oTable.fnSort(
+              [
+                  {#[0,'dsc'],#}
+                  [4,'des'],
+              ]
+          );
       } );
   </script>
 

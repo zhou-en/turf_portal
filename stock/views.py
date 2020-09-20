@@ -1,3 +1,4 @@
+import logging
 from django.urls import reverse_lazy
 from django.db.models import Q
 from django.shortcuts import render, redirect
@@ -10,8 +11,10 @@ from django.views.generic import TemplateView, UpdateView, DeleteView, \
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
-from stock.models import Product, TurfRoll, Warehouse
-from stock.forms import ProductCreateForm, ProductUpdateForm
+from stock.models import Product, TurfRoll, Warehouse, RollSpec
+from stock.forms import ProductCreateForm, ProductUpdateForm, LoadStocksForm
+
+logger = logging.getLogger(__name__)
 
 
 # Create your views here.
@@ -120,11 +123,51 @@ class StockListView(ListView):
     model = TurfRoll
     template_name = "stock/stocks.html"
     context_object_name = 'turf_rolls'
-    queryset = TurfRoll.objects.exclude()
+    queryset = TurfRoll.objects.all()
     # paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["turf_rolls"] = {}
+        specs = RollSpec.objects.all().order_by("product__code")
+        for spec in specs:
+            if spec.turfroll_set.exists():
+                context["turf_rolls"].update(
+                    {spec.code: [roll for roll in spec.turfroll_set.all()]}
+                )
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+class LoadStocksView(CreateView):
+    model = TurfRoll
+    template_name = "stock/load_stocks.html"
+    success_url = reverse_lazy('stocks')
+    context_object_name = 'turf_roll'
+    form_class = LoadStocksForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if "cancel" in request.POST:
+            return HttpResponseRedirect(reverse_lazy("stocks"))
+        else:
+            quantity = request.POST.get("quantity")
+            spec = RollSpec.objects.get(id=request.POST.get("spec"))
+            location = Warehouse.objects.get(id=request.POST.get("location"))
+            for n in range(int(quantity)):
+                TurfRoll.objects.create(
+                    spec=spec,
+                    location=location
+                )
+            logger.info(
+                "%s %s rolls have been loaded to %s",
+                quantity,
+                spec,
+                location
+            )
+        return HttpResponseRedirect(reverse_lazy("stocks"))
 
 

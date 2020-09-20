@@ -22,6 +22,10 @@ class Buyer(TimeStampedModel, models.Model):
         CONTRACTOR = 'CONTRACTOR', _('Contractor')
         SHOP = 'SHOP', _('Shop')
 
+    class Status(models.TextChoices):
+        ACTIVE = 'ACTIVE', _('Active')
+        INACTIVE = 'INACTIVE', _('Inactive')
+
     buyer_type = models.CharField(
         max_length=255,
         choices=Type.choices,
@@ -34,6 +38,11 @@ class Buyer(TimeStampedModel, models.Model):
     contact_person = models.CharField(max_length=255)
     mobile = models.CharField(max_length=255, blank=True, null=True)
     email = models.EmailField(max_length=255, blank=True, null=True)
+    status = models.CharField(
+        max_length=255,
+        choices=Status.choices,
+        default=Status.ACTIVE,
+    )
 
     def __str__(self):
         return f"{self.name}"
@@ -72,7 +81,11 @@ class BuyerProduct(TimeStampedModel, models.Model):
 
     @property
     def available_rolls(self):
-        return TurfRoll.objects.filter(spec=self.product.spec)
+        return [
+            roll for roll in TurfRoll.objects.filter(
+                spec_id=self.product.spec_id
+            ) if roll.available > 0
+        ]
 
 #
 #
@@ -109,20 +122,20 @@ class Order(TimeStampedModel, models.Model):
         default=Status.DRAFT,
     )
     buyer = models.ForeignKey(Buyer, on_delete=models.DO_NOTHING)
-    number = models.CharField(max_length=255, blank=True, null=True)
+    number = models.CharField(max_length=255, blank=True, null=True, unique=True)
     closed_date = models.DateField(null=True, blank=True)
 
     # invoice = models.ForeignKey(Invoice, on_delete=models.DO_NOTHING, blank=True, null=True)
 
     def __str__(self):
-        return f"{self.number}"
+        return f"{self.id}: {self.number} - {self.status}"
 
     def save(self, *args, **kwargs):
         # Only create order number during create
         if not self.pk:
             from utils import remove_none_alphanumeric
             name_str = remove_none_alphanumeric(self.buyer.name.upper())
-            time_str = timezone.now().strftime('%Y%m%d%H%m')
+            time_str = timezone.now().strftime('%Y%m%d-%H%M')
             self.number = f"{name_str}-{time_str}"
         super().save(*args, **kwargs)
 
@@ -229,6 +242,8 @@ class Order(TimeStampedModel, models.Model):
         self.status = Order.Status.CLOSED
         self.closed_date = timezone.now()
         self.save()
+        for ol in self.orderline_set.all():
+            ol.sold()
 
     def create_orderlines(self, requested_roll_infos):
         """
@@ -236,17 +251,18 @@ class Order(TimeStampedModel, models.Model):
         {quantity, buyer_product_id, roll_id}
         """
         for item in requested_roll_infos:
-            roll = TurfRoll.objects.get(id=item.get("roll_id"))
-            OrderLine.objects.create(
-                order_id=self.id,
-                buyer_product_id=item.get("buyer_product_id"),
-                roll=roll,
-                quantity=float(item.get("quantity", 0))
-            )
-            if roll.status == TurfRoll.Status.SEALED:
-                logger.info("Open a new roll: %s", roll.id)
-                roll.status = TurfRoll.Status.OPENED
-                roll.save()
+            if float(item.get("quantity")) != 0:
+                roll = TurfRoll.objects.get(id=item.get("roll_id"))
+                OrderLine.objects.create(
+                    order_id=self.id,
+                    buyer_product_id=item.get("buyer_product_id"),
+                    roll=roll,
+                    quantity=float(item.get("quantity", 0))
+                )
+                if roll.status == TurfRoll.Status.SEALED:
+                    logger.info("Open a new roll: %s", roll.id)
+                    roll.status = TurfRoll.Status.OPENED
+                    roll.save()
 
     @property
     def status_color(self):
@@ -275,3 +291,10 @@ class OrderLine(TimeStampedModel, models.Model):
         self.price = self.quantity * self.buyer_product.price
         super().save(*args, **kwargs)
 
+    def sold(self):
+        """
+        Update the sold field for the selected roll.
+        """
+        self.roll.sold += self.quantity
+        self.roll.total -= self.quantity
+        self.roll.save()

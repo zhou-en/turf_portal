@@ -11,6 +11,9 @@
         <dt class="col-sm-3">Name</dt>
         <dd class="col-sm-9">{{ buyer.name }}</dd>
 
+        <dt class="col-sm-3">Status</dt>
+        <dd class="col-sm-9">{{ buyer.status }}</dd>
+
         <dt class="col-sm-3">Type</dt>
         <dd class="col-sm-9">{{ buyer.buyer_type }}</dd>
 
@@ -32,8 +35,8 @@
     </div>
   <div class="card-footer">
     <a href="{% url 'buyers' %}" class="btn btn-sm btn-secondary">Back to Buyers</a>
-    <a href="{% url 'buyer-update' buyer.id %}" class="btn btn-sm btn-primary">Update</a>
-    <a href="{% url 'buyer-delete' buyer.id %}" class="btn btn-sm btn-danger">Delete</a>
+    <a href="{% url 'buyer-update' buyer.id %}" class="btn btn-sm btn-primary float-lg-right">Update</a>
+    <a href="{% url 'buyer-delete' buyer.id %}" class="btn btn-sm btn-danger">Deactivate</a>
   </div>
 </div>
 
@@ -43,7 +46,8 @@
       <h5 class="card-title">Products Assigned to Buyer</h5>
     </div>
     <div class="card-body">
-      <table id="buyer-product-table" class="display table table-striped table-hover">
+    {% if buyer_products %}
+      <table id="buyer-product-table" class="display table table-sm table-striped table-hover">
         <thead class="thead-dark">
         <tr>
           <th>Product Code</th>
@@ -64,14 +68,20 @@
             <td>{{ bp.product.spec.height }}</td>
             <td>{{ bp.product.spec.width }}</td>
             <td>{{ bp.price }}</td>
-            <td><a href="{% url 'buyer-product-delete' bp.id %}"><span data-feather="trash-2"></span></a></td>
+            <td>
+              <a href="{% url 'buyer-product-update' bp.id %}"><span data-feather="edit"></span></a>
+              <a href="{% url 'buyer-product-delete' bp.id %}"><span data-feather="trash-2"></span></a>
+            </td>
           </tr>
         {% endfor %}
         </tbody>
       </table>
+    {% else %}
+      <p>No product assigned to buyer yet.</p>
+    {% endif %}
     </div>
     <div class="card-footer">
-      <a href="{% url 'buyer-product-create' buyer.id %}" class="btn btn-sm btn-primary">Add Product</a>
+      <a href="{% url 'buyer-product-create' buyer.id %}" class="btn btn-sm btn-primary float-lg-right">Add Product</a>
     </div>
   </div>
 
@@ -81,7 +91,8 @@
       <h5 class="card-title">Buyer Order History</h5>
     </div>
     <div class="card-body">
-      <table id="buyer-orders-table" class="display table table-striped table-hover">
+    {% if buyer_orders %}
+      <table id="buyer-orders-table" class="display table table-sm table-striped table-hover">
         <thead class="thead-dark">
         <tr>
           <th>Order</th>
@@ -109,21 +120,25 @@
         {% endfor %}
         </tbody>
       </table>
+    {% else %}
+      <p>Buyer hasn't placed any order yet.</p>
+    {% endif %}
     </div>
     <div class="card-footer">
-      <a href="{% url 'order-create'%}" class="btn btn-sm btn-primary">New Order</a>
+      <a href="{% url 'buyer-order-create' buyer.id %}" class="btn btn-sm btn-primary float-lg-right">New Order</a>
     </div>
   </div>
 
-
-
   <script>
-      $(document).ready( function () {
-          $('#buyer-product-table').DataTable();
-      } );
-      $(document).ready( function () {
-          $('#buyer-orders-table').DataTable();
-      } );
+    $(document).ready( function () {
+        var oTable = $('#buyer-orders-table').dataTable();
+        oTable.fnSort(
+          [
+            [0,'dsc'],
+          ]
+        );
+      }
+    );
   </script>
 
 {% endblock %}

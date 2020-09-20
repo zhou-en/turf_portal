@@ -70,7 +70,12 @@
 
   <script>
       $(document).ready( function () {
-          $('#recent-orders-table').DataTable();
+          var oTable = ('#recent-orders-table').DataTable();
+          oTable.fnSort(
+              [
+                  [0,'dsc'],
+              ]
+          );
       } );
   </script>
 
