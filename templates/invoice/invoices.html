@@ -7,7 +7,7 @@
     <h5 class="card-title">Open Invoices</h5>
   </div>
   <div class="card-body">
-    <table id="invoices-table" class="display table table-striped table-hover">
+    <table id="opened-invoices-table" class="display table table-striped table-hover">
       <thead class="thead-dark">
       <tr>
         <th>Invoice #</th>
@@ -15,7 +15,6 @@
         <th>Order</th>
         <th>Buyer</th>
         <th>Created Date</th>
-        <th>Closed Date</th>
       </tr>
       </thead>
       <tbody>
@@ -26,8 +25,7 @@
           <td><a class="btn btn-sm btn-{{ invoice.status_color }}" style="pointer-events: none;">{{ invoice.status }}</a></td>
           <td><a href="{% url 'order' invoice.order.id %}"><span>{{ invoice.order.number }}</span></a></td>
           <td><a href="{% url 'buyer' invoice.buyer.id %}"><span>{{ invoice.buyer.name }}</span></a></td>
-          <td>{{ invoice.created }}</td>
-          <td>{% if not invoice.closed_date %} - {% else %}{{ invoice.closed_date }} {% endif %}</td>
+          <td>{{ invoice.created|date:"Y/m/d" }}</td>
         </tr>
         {% endif %}
       {% endfor %}
@@ -44,7 +42,7 @@
       <h5 class="card-title">Closed Invoices</h5>
     </div>
     <div class="card-body">
-      <table id="invoices-table" class="display table table-striped table-hover">
+      <table id="closed-invoices-table" class="display table table-striped table-hover">
         <thead class="thead-dark">
         <tr>
           <th>Invoice #</th>
@@ -63,8 +61,8 @@
               <td><a class="btn btn-sm btn-{{ invoice.status_color }}" style="pointer-events: none;">{{ invoice.status }}</a></td>
               <td><a href="{% url 'order' invoice.order.id %}"><span>{{ invoice.order.number }}</span></a></td>
               <td><a href="{% url 'buyer' invoice.buyer.id %}"><span>{{ invoice.buyer.name }}</span></a></td>
-              <td>{{ invoice.created }}</td>
-              <td>{% if not invoice.closed_date %} - {% else %}{{ invoice.closed_date }} {% endif %}</td>
+              <td>{{ invoice.created|date:"Y/m/d" }}</td>
+              <td>{% if not invoice.closed_date|date:"Y/m/d" %} - {% else %}{{ invoice.closed_date|date:"Y/m/d" }} {% endif %}</td>
             </tr>
           {% endif %}
         {% endfor %}
@@ -76,10 +74,19 @@
 
   <script>
       $(document).ready( function () {
-          var oTable = $('#invoices-table').DataTable();
+          var oTable = $('#opened-invoices-table').DataTable();
           oTable.fnSort(
               [
-                  [0,'dsc'],
+                  [3,'asc'],
+              ]
+          );
+      } );
+
+      $(document).ready( function () {
+          var oTable = $('#closed-invoices-table').DataTable();
+          oTable.fnSort(
+              [
+                  [3,'asc'],
               ]
           );
       } );

@@ -26,10 +26,10 @@
         <dd class="col-sm-9">{{ order.total_amount }}</dd>
 
         <dt class="col-sm-3">Created Date</dt>
-        <dd class="col-sm-9">{{ order.created }}</dd>
+        <dd class="col-sm-9">{{ order.created|date:"Y/m/d" }}</dd>
 
         <dt class="col-sm-3">Closed Date</dt>
-        <dd class="col-sm-9">{% if not order.closed_date %}-{% else %}{{ order.closed_date }}{% endif %}</dd>
+        <dd class="col-sm-9">{% if not order.closed_date %}-{% else %}{{ order.closed_date|date:"Y/m/d" }}{% endif %}</dd>
 
         {% if order.invoice %}
           <dt class="col-sm-3">Invoice</dt>
@@ -84,16 +84,16 @@
     <div class="card-footer text-lg-center">
       <a href="{% url 'orders' %}" class="btn btn-sm btn-secondary float-lg-left">Back to Orders</a>
       {% if order.editable %}
-        <a href="{% url 'order-add-item' order.id %}" class="btn btn-sm btn-primary float-lg-right">Add A Item</a>
+        <a href="{% url 'order-add-item' order.id %}" style="margin-left: 10px;" class="btn btn-sm btn-primary float-lg-right">Add A Item</a>
       {% endif %}
 
     {% if order.orderlines %}
       {% if order.status == "DRAFT" %}
-        <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#submit-order-modal">Submit</a>
+        <a type="button" class="btn btn-sm btn-primary float-lg-right" data-toggle="modal" data-target="#submit-order-modal">Submit</a>
       {% elif order.status == "SUBMITTED" %}
-        <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#send-invoice-modal">Send Invoice</a>
+        <a type="button" class="btn btn-sm btn-info float-lg-right" data-toggle="modal" data-target="#send-invoice-modal">Send Invoice</a>
       {% elif order.status == "INVOICED" %}
-        <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#deliver-order-modal">Deliver</a>
+        <a type="button" class="btn btn-sm btn-warning float-lg-right" data-toggle="modal" data-target="#deliver-order-modal">Deliver</a>
       {% endif %}
     {% endif %}
     </div>

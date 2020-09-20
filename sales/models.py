@@ -123,7 +123,7 @@ class Order(TimeStampedModel, models.Model):
     )
     buyer = models.ForeignKey(Buyer, on_delete=models.DO_NOTHING)
     number = models.CharField(max_length=255, blank=True, null=True, unique=True)
-    closed_date = models.DateField(null=True, blank=True)
+    closed_date = models.DateTimeField(null=True, blank=True)
 
     # invoice = models.ForeignKey(Invoice, on_delete=models.DO_NOTHING, blank=True, null=True)
 

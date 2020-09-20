@@ -1,10 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <br>
-    <h3 class="text-lg-center"> Available Rolls</h3>
-      <a href="" class="btn btn-sm btn-primary float-lg-right">Load Stocks</a>
   <br>
+  <a href="{% url 'load-stocks' %}" class="btn btn-sm btn-primary float-lg-right">Load Stocks</a>
   <br>
   <br>
 
@@ -16,8 +14,8 @@
     </div>
   <div class="card-body">
     <div class="card-content">
-      <table id="stocks-table" class="table table-sm table-hover">
-        <thead>
+      <table id="stocks-table" class="table table-sm table-hover table-borderless">
+        <thead style="border-bottom: 1px solid black;">
         <tr>
           <th>ID</th>
           <th>Spec</th>
@@ -27,28 +25,117 @@
           <th>Sold (m<sup>2</sup>)</th>
           <th>Warehouse</th>
           <th>Last Sold Date</th>
+          <th>Loaded Date</th>
         </tr>
         </thead>
         <tbody>
+        {# OPENED #}
         {% for roll in rolls %}
+          {% if roll.status == "OPENED" %}
           <tr>
             <td>{{ roll.id }}</td>
             <td>{{ roll.spec }}</td>
-            <td>{{ roll.status }}</td>
+            <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
             <td class="text-success">{{ roll.available }}</td>
+
             {% if roll.reserved != 0 %}
-              <td class="text-danger"><a href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved }}</a></td>
+              <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved }}</a></td>
             {% else %}
               <td>{{ roll.reserved }}</td>
             {% endif %}
+
             {% if roll.sold != 0 %}
               <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold }}</a></td>
             {% else %}
               <td>{{ roll.sold }}</td>
             {% endif %}
+
             <td>{{ roll.location }}</td>
-            <td>{{ roll.modified }}</td>
+            <td>{{ roll.modified|date:"Y/m/d" }}</td>
+            <td>{{ roll.created|date:"Y/m/d" }}</td>
           </tr>
+          {% endif %}
+        {% endfor %}
+        {# RETRUNED #}
+        {% for roll in rolls %}
+          {% if roll.status == "RETURNED" %}
+            <tr>
+              <td>{{ roll.id }}</td>
+              <td>{{ roll.spec }}</td>
+              <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
+              <td class="text-success">{{ roll.available }}</td>
+
+              {% if roll.reserved != 0 %}
+                <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved }}</a></td>
+              {% else %}
+                <td>{{ roll.reserved }}</td>
+              {% endif %}
+
+              {% if roll.sold != 0 %}
+                <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold }}</a></td>
+              {% else %}
+                <td>{{ roll.sold }}</td>
+              {% endif %}
+
+              <td>{{ roll.location }}</td>
+              <td>{{ roll.modified|date:"Y/m/d" }}</td>
+              <td>{{ roll.created|date:"Y/m/d" }}</td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+        {# SEALED #}
+        {% for roll in rolls %}
+          {% if roll.status == "SEALED" %}
+            <tr>
+              <td>{{ roll.id }}</td>
+              <td>{{ roll.spec }}</td>
+              <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
+              <td class="text-success">{{ roll.available }}</td>
+
+              {% if roll.reserved != 0 %}
+                <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved }}</a></td>
+              {% else %}
+                <td>{{ roll.reserved }}</td>
+              {% endif %}
+
+              {% if roll.sold != 0 %}
+                <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold }}</a></td>
+              {% else %}
+                <td>{{ roll.sold }}</td>
+              {% endif %}
+
+              <td>{{ roll.location }}</td>
+              <td>{{ roll.modified|date:"Y/m/d" }}</td>
+              <td>{{ roll.created|date:"Y/m/d" }}</td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+        {# DEPLETED #}
+        {% for roll in rolls %}
+          {% if roll.status == "DEPLETED" %}
+            <tr>
+              <td>{{ roll.id }}</td>
+              <td>{{ roll.spec }}</td>
+              <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
+              <td class="text-success">{{ roll.available }}</td>
+
+              {% if roll.reserved != 0 %}
+                <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved }}</a></td>
+              {% else %}
+                <td>{{ roll.reserved }}</td>
+              {% endif %}
+
+              {% if roll.sold != 0 %}
+                <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold }}</a></td>
+              {% else %}
+                <td>{{ roll.sold }}</td>
+              {% endif %}
+
+              <td>{{ roll.location }}</td>
+              <td>{{ roll.modified|date:"Y/m/d" }}</td>
+              <td>{{ roll.created|date:"Y/m/d" }}</td>
+            </tr>
+          {% endif %}
         {% endfor %}
         </tbody>
       </table>
@@ -68,14 +155,6 @@
 {% endfor %}
 
   <script>
-      {#$(document).ready( function () {#}
-      {#    var oTable = $('#stocks-table').dataTable();#}
-      {#    oTable.fnSort(#}
-      {#        [#}
-      {#            [8,'dsc'],#}
-      {#        ]#}
-      {#    );#}
-      {#} );#}
   </script>
 
 

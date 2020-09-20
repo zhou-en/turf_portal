@@ -10,6 +10,8 @@ class InvoiceAdmin(admin.ModelAdmin):
         "status",
         "order",
         "buyer",
+        "closed_date",
+        "modified",
         "created",
     ]
 

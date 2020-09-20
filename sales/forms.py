@@ -139,4 +139,5 @@ class OrderItemUpdateForm(forms.ModelForm):
         spec = kwargs["instance"].buyer_product.product.spec
         roll_queryset = TurfRoll.objects.filter(spec=spec)
         self.base_fields["roll"].queryset = roll_queryset
+        self.base_fields["roll"].empty_label = None
         super().__init__(*args, **kwargs)

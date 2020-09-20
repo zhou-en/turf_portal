@@ -33,6 +33,7 @@ class Invoice(TimeStampedModel, models.Model):
     order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)
     buyer = models.ForeignKey(Buyer, on_delete=models.DO_NOTHING)
     number = models.CharField(max_length=255, null=True, blank=True, unique=True)
+    closed_date = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.number}"

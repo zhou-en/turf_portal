@@ -14,7 +14,7 @@ def order_status_color(status):
     if status == Order.Status.DRAFT or status == Order.Status.SUBMITTED:
         return "success"
     if status == Order.Status.INVOICED:
-        return "primary"
+        return "info"
     if status == Order.Status.DELIVERED:
         return "warning"
     if status == Order.Status.CLOSED:

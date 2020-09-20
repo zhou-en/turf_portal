@@ -109,53 +109,62 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOGLEVEL = os.environ.get('LOGLEVEL', 'info').upper()
-LOGGING_CONFIG = None
-logging.config.dictConfig({
+# LOGLEVEL = os.environ.get('LOGLEVEL', 'info').upper()
+# LOGGING_CONFIG = None
+# logging.config.dictConfig({
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'formatters': {
+#         'console': {
+#             # exact format is not important, this is the minimum information
+#             'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+#         },
+#     },
+#     'handlers': {
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'console',
+#         },
+#         # Add Handler for Sentry for `warning` and above
+#         'sentry': {
+#             'level': 'WARNING',
+#             'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+#         },
+#     },
+#     'loggers': {
+#         # root logger
+#         '': {
+#             'level': 'WARNING',
+#             'handlers': ['console', 'sentry'],
+#         },
+#         'turf_portal.page_processors': {
+#             'level': LOGLEVEL,
+#             'handlers': ['console', 'sentry'],
+#             # required to avoid double logging with root logger
+#             'propagate': False,
+#         },
+#     },
+# })
+
+LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'formatters': {
-        'console': {
-            # exact format is not important, this is the minimum information
-            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
-        },
-    },
     'handlers': {
         'console': {
             'class': 'logging.StreamHandler',
-            'formatter': 'console',
-        },
-        # Add Handler for Sentry for `warning` and above
-        'sentry': {
-            'level': 'WARNING',
-            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
         },
     },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
     'loggers': {
-        # root logger
-        '': {
-            'level': 'WARNING',
-            'handlers': ['console', 'sentry'],
-        },
-        'turf_portal.page_processors': {
-            'level': LOGLEVEL,
-            'handlers': ['console', 'sentry'],
-            # required to avoid double logging with root logger
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
             'propagate': False,
         },
     },
-})
-
-LOGGING = {
-    # (...)
-    'loggers': {
-        # (...)
-        'turf_portal.page_processors': {
-            'handlers': ['console', 'file'],
-            'level': 'DEBUG',
-        }
-    }
-    # (...)
 }
 
 LOGIN_URL = 'login'

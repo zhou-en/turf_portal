@@ -162,6 +162,17 @@ class TurfRoll(TimeStampedModel, models.Model):
         super().save(*args, **kwargs)
 
     @property
+    def status_color(self):
+        if self.status == TurfRoll.Status.DEPLETED:
+            return "secondary"
+        if self.status == TurfRoll.Status.OPENED:
+            return "success"
+        if self.status == TurfRoll.Status.SEALED:
+            return "info"
+        if self.status == TurfRoll.Status.RETURNED:
+            return "warning"
+
+    @property
     def reserved(self):
         """
         This is amount reserved on this roll from orders in [DRAFT, SUBMITTED].

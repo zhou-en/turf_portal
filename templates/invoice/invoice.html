@@ -92,7 +92,7 @@
             <tr>
               <td class="text-success">{{ p.amount }}</td>
               <td>{{ p.method }}</td>
-              <td>{{ p.created }}</td>
+              <td>{{ p.created|date:"Y/m/d" }}</td>
             </tr>
           {% endfor %}
           </tbody>

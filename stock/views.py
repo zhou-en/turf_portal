@@ -154,10 +154,13 @@ class LoadStocksView(CreateView):
         if "cancel" in request.POST:
             return HttpResponseRedirect(reverse_lazy("stocks"))
         else:
-            quantity = request.POST.get("quantity")
+            logger.debug("Start loading stock ...")
+            quantity = int(request.POST.get("quantity"))
+
             spec = RollSpec.objects.get(id=request.POST.get("spec"))
             location = Warehouse.objects.get(id=request.POST.get("location"))
             for n in range(int(quantity)):
+                logger.info("Loading %s: %d", spec, n)
                 TurfRoll.objects.create(
                     spec=spec,
                     location=location
