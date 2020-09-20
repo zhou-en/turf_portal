@@ -89,6 +89,13 @@ class Invoice(TimeStampedModel, models.Model):
         self.save()
         self.order.close()
 
+    @property
+    def is_payable(self):
+        return self.status not in [
+            Invoice.Status.DRAFT,
+            Invoice.Status.CLOSED
+        ]
+
 
 class Payment(TimeStampedModel, models.Model):
     """

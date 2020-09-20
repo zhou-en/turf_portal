@@ -126,6 +126,18 @@ class Product(TimeStampedModel, models.Model):
         """
         return len(list(TurfRoll.objects.filter(spec=self.spec).exclude(status=TurfRoll.Status.DEPLETED)))
 
+    @property
+    def stock_count(self):
+        """
+        Return the available square meters for a roll.
+        """
+        square_meters = 0
+        for roll in TurfRoll.objects.exclude(
+                status__exact=TurfRoll.Status.DEPLETED
+        ).filter(spec=self.spec):
+            square_meters += roll.available
+        return square_meters
+
 
 class TurfRoll(TimeStampedModel, models.Model):
     """

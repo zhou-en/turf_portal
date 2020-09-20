@@ -63,8 +63,8 @@
       </table>
     </div>
     <div class="card-footer">
-      {% if not payments %}
-        <a href="{% url 'invoices' %}" class="btn btn-sm btn-secondary">Back</a>
+      <a href="{% url 'invoices' %}" class="btn btn-sm btn-secondary">Back</a>
+      {% if invoice.is_payable %}
         <a class="btn btn-sm btn-primary float-lg-right" href="{% url 'payment-create' invoice.id %}">Add Payment</a>
       {% endif %}
     </div>
@@ -102,7 +102,7 @@
         {% if payments %}
           <a href="{% url 'invoices' %}" class="btn btn-sm btn-secondary">Back</a>
         {% endif %}
-        {% if invoice.status != "CLOSED" %}
+        {% if invoice.is_payable %}
           <a class="btn btn-sm btn-primary float-lg-right" href="{% url 'payment-create' invoice.id %}">Add Payment</a>
         {% endif %}
       </div>

@@ -25,6 +25,7 @@ urlpatterns = [
     path('invoice/', include('invoice.urls')),
     path('stock/', include('stock.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('api/chart/data/', views.DataView.as_view()),
 ]
 
 admin.site.site_header = 'Turf Portal Admin Panel'

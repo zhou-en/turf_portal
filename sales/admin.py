@@ -93,5 +93,6 @@ class OrderAdmin(admin.ModelAdmin):
         "number",
         "buyer",
         "status",
-        "created"
+        "closed_date",
+        "created",
     ]

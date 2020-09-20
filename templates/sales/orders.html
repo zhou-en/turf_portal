@@ -5,7 +5,8 @@
     <a href="{% url 'order-create' %}" class="btn btn-sm btn-primary float-lg-right">New Order</a>
     <br>
   <br>
-
+  <hr>
+  <br>
   <div class="card">
     <div class="card-header">
       <h5 class="card-title">Open Orders</h5>
@@ -47,7 +48,6 @@
     <div class="card-footer">
     </div>
   </div>
-<br>
 <br>
   <div class="card">
     <div class="card-header">
@@ -96,7 +96,6 @@
           var oTable = $('#open-orders-table').dataTable();
           oTable.fnSort(
               [
-                  {#[0,'dsc'],#}
                   [4,'des'],
               ]
           );
@@ -105,7 +104,6 @@
           var oTable = $('#closed-orders-table').dataTable();
           oTable.fnSort(
               [
-                  {#[0,'dsc'],#}
                   [5,'des'],
               ]
           );

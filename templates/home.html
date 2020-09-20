@@ -1,82 +1,236 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h2 class="h3">Dashboard</h2>
-          <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group mr-2">
-              <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-            </div>
-            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-              <span data-feather="calendar"></span>
-              This week
-            </button>
-          </div>
-        </div>
-
-        <div>
-{#        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect width="50%" height="100%" fill="#777"/></svg>#}
-{#              <canvas class="my-sm-1 w-100" id="myChart" width="100" height="80"></canvas>#}
-        </div>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h2 class="h3">Dashboard</h2>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group mr-2">
+        <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+      </div>
+      <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+        <span data-feather="calendar"></span>
+        This week
+      </button>
+    </div>
+  </div>
+  <br>
+  <div class="text-center">
+    <div id="chartContainer" class="col-sm-6" style="width: 45%; height: 50%;display: inline-block;">
+      <canvas id="stock-chart"></canvas>
+    </div>
+    <div id="chartContainer" class="col-sm-6" style="width: 45%; height: 50%;display: inline-block;">
+      <canvas id="sales-chart"></canvas>
+    </div>
+  </div>
   <br>
   <br>
   <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-        <h3 class="h3">Orders Created in the Past 7 Days</h3>
-        <div class="table-responsive">
-          <table id="recent-orders-table" class="display table table-striped table-hover">
-            <thead class="thead-dark">
-            <tr>
-              <th>Order #</th>
-              <th>Buyer</th>
-              <th>Total</th>
-              <th>Created Date</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for order in recent_orders %}
-              <tr>
-                <td><a href="{% url 'order' order.id %}"><span>{{ order.number }}</span></a></td>
-                <td>{{ order.buyer.name }}</td>
-                <td>{{ order.total_amount }}</td>
-                <td>{{ order.created }}</td>
-                <td>{{ order.status }}</td>
-                <td>
-                  <a href=""><span data-feather="edit"></span></a>
-                  <a href=""><span data-feather="trash-2"></span></a>
-                </td>
-              </tr>
-            {% endfor %}
-            </tbody>
-          </table>
-        </div>
-
+  <div>
+    <h3 class="h3">Recent Opened Orders</h3>
+    <hr>
+    <div class="table-responsive">
+      <table id="recent-orders-table" class="display table table-responsive-sm table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th>Order #</th>
+          <th>Buyer</th>
+          <th>Total</th>
+          <th>Created Date</th>
+          <th>Last Updated</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in recent_orders %}
+          <tr>
+            <td><a href="{% url 'order' order.id %}"><span>{{ order.number }}</span></a></td>
+            <td>{{ order.buyer.name }}</td>
+            <td>{{ order.total_amount }}</td>
+            <td>{{ order.created }}</td>
+            <td>{{ order.modified }}</td>
+            <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a>
+            </td>
+            <td>
+              <a href=""><span data-feather="edit"></span></a>
+              <a href=""><span data-feather="trash-2"></span></a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
   <script>
-      $(document).ready( function () {
-          var oTable = ('#recent-orders-table').DataTable();
+      function getRandomColor() {
+          var letters = '0123456789ABCDEF'.split('');
+          var color = '#';
+          for (var i = 0; i < 6; i++) {
+              color += letters[Math.floor(Math.random() * 16)];
+          }
+          console.log(color);
+          return color;
+      }
+
+
+      $(document).ready(function () {
+          var oTable = $('#recent-orders-table').dataTable();
           oTable.fnSort(
               [
-                  [0,'dsc'],
+                  [4, 'des'],
               ]
           );
-      } );
-  </script>
+      });
+      var endpoint = "/api/chart/data/";
+      var customer = parseInt("{{ data.customers }}");
+      var defaultData = [];
+      var labels = [];
+      $.ajax({
+          method: "GET",
+          url: endpoint,
+          success: function (data) {
+              var stock_data = data.stock_data;
+              var sales_data = data.sales_data;
+              var ctx = document.getElementById('stock-chart');
+              setBarChart(stock_data.labels, stock_data.default, ctx);
+              ctx = document.getElementById('sales-chart');
+              setLineChart(sales_data.labels, sales_data.default, ctx);
+          },
+          error: function (error_data) {
+              console.log("error");
+              console.log(error_data);
+          }
+      });
 
+      function setBarChart(labels, defaultData, ctx) {
+
+          var bgcolors = [];
+          var bdcolors = [];
+          for (var i = 0; i < labels.length; i++) {
+              var rc = getRandomColor();
+              bgcolors.push(rc);
+              bdcolors.push(rc);
+          }
+          var myChart = new Chart(ctx, {
+              type: "bar",
+              data: {
+                  labels: labels,
+                  datasets: [{
+                      label: "Number of m² left",
+                      data: defaultData,
+                      backgroundColor: [
+                          'rgba(255, 99, 132, 1)',
+                          'rgba(54, 162, 235, 1)',
+                          'rgba(255, 206, 86, 1)',
+                          'rgba(75, 192, 192, 1)',
+                          'rgba(153, 102, 255, 1)',
+                          'rgba(255, 159, 64, 1)'
+                      ],
+                      borderColor: [
+                          'rgba(255, 99, 132, 1)',
+                          'rgba(54, 162, 235, 1)',
+                          'rgba(255, 206, 86, 1)',
+                          'rgba(75, 192, 192, 1)',
+                          'rgba(153, 102, 255, 1)',
+                          'rgba(255, 159, 64, 1)'
+                      ],
+                      borderWidth: 1.5
+                  }]
+              },
+              options: {
+                  scales: {
+                      yAxes: [{
+                          ticks: {
+                              beginAtZero: true
+                          },
+
+                          scaleLabel: {
+                              display: true,
+                              labelString: 'm²',
+                              fontStyle: "bold"
+                          }
+                      }],
+                      xAxes: [{
+                          scaleLabel: {
+                              display: true,
+                              labelString: 'Product Code',
+                              fontStyle: "bold"
+                          }
+                      }]
+                  },
+                  legend: {display: false},
+                  title: {
+                      display: true,
+                      text: 'Available stocks in m²',
+                      fontStyle: "bold"
+                  }
+              }
+          });
+      }
+
+      function setLineChart(labels, defaultData, ctx) {
+          var myChart = new Chart(ctx, {
+              type: "line",
+              data: {
+                  labels: labels,
+                  datasets: [{
+                      label: "Order of Sales (R)",
+                      data: defaultData,
+                      borderColor: "#3e95cd",
+                      fill: false,
+                      {#backgroundColor: bgcolors,#}
+                      {#borderColor: bdcolors,#}
+                      {#backgroundColor: [#}
+                      {#    'rgba(255, 99, 132, 0.2)',#}
+                      {#    'rgba(54, 162, 235, 0.2)',#}
+                      {#    'rgba(255, 206, 86, 0.2)',#}
+                      {#    'rgba(75, 192, 192, 0.2)',#}
+                      {#    'rgba(153, 102, 255, 0.2)',#}
+                      {#    'rgba(255, 159, 64, 0.2)'#}
+                      {#],#}
+                      {#borderColor: [#}
+                      {#    'rgba(255, 99, 132, 1)',#}
+                      {#    'rgba(54, 162, 235, 1)',#}
+                      {#    'rgba(255, 206, 86, 1)',#}
+                      {#    'rgba(75, 192, 192, 1)',#}
+                      {#    'rgba(153, 102, 255, 1)',#}
+                      {#    'rgba(255, 159, 64, 1)'#}
+                      {#],#}
+                      borderWidth: 2
+                  }]
+              },
+              options: {
+                  title: {
+                      display: true,
+                      text: 'Sales History (in Rand)'
+                  },
+                  legend: {display: false},
+                  scales: {
+                      yAxes: [
+                          {
+                              ticks: {
+                                  beginAtZero: true
+                              },
+
+                              scaleLabel: {
+                                  display: true,
+                                  labelString: 'Rand'
+                              }
+                          }
+                      ],
+                      xAxes: [
+                          {
+                              scaleLabel: {
+                                  display: true,
+                                  labelString: 'Order Closed Date'
+                              }
+                          }
+                      ]
+                  }
+              }
+          });
+      }
+
+  </script>
 {% endblock %}
