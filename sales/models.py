@@ -133,7 +133,7 @@ class Order(TimeStampedModel, models.Model):
     def save(self, *args, **kwargs):
         # Only create order number during create
         if not self.pk:
-            from utils import remove_none_alphanumeric
+            from sales.utils import remove_none_alphanumeric
             name_str = remove_none_alphanumeric(self.buyer.name.upper())
             time_str = timezone.now().strftime('%Y%m%d-%H%M')
             self.number = f"{name_str}-{time_str}"
