@@ -156,20 +156,6 @@ class Order(TimeStampedModel, models.Model):
         """
         return self.orderline_set.all()
 
-    # def reserve_rolls(self):
-    #     """
-    #     Reserved quantity on TurfRolls based on orderlines.
-    #     """
-    #     for ol in self.orderline_set.all():
-    #         ol.reserve_roll()
-    #
-    # def cut_rolls(self):
-    #     """
-    #     Claim reserved roll from for each orderline.
-    #     """
-    #     for ol in self.orderline_set.all():
-    #         ol.cut_roll()
-
     def submit(self):
         """
         Submit order, i.e. order status will transit from Daft to Submitted.
@@ -271,6 +257,14 @@ class Order(TimeStampedModel, models.Model):
     @property
     def invoice(self):
         return self.invoice_set.first()
+
+    @property
+    def total_vat(self):
+        return float(self.total_amount) * 0.15
+
+    @property
+    def total_exclude_vat(self):
+        return self.total_amount - self.total_vat
 
 
 class OrderLine(TimeStampedModel, models.Model):

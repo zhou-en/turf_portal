@@ -90,6 +90,7 @@ class OrderLineAdmin(admin.ModelAdmin):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = [
+        "id",
         "number",
         "buyer",
         "status",

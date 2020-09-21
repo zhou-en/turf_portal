@@ -13,6 +13,7 @@ from django import views
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
+from sales.models import Order
 from invoice.models import Invoice, Payment
 from invoice.forms import (
     PaymentCreateForm,

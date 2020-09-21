@@ -407,10 +407,10 @@ def submit_order(request, pk):
 
 
 @login_required
-def send_invoice(request, pk):
+def send_invoice_email(request, pk):
     order = Order.objects.get(id=pk)
     order.send_invoice()
-    return HttpResponseRedirect(reverse_lazy("orders"))
+    return HttpResponseRedirect(reverse_lazy("order", kwargs={"pk": order.id}))
 
 
 @login_required
@@ -418,3 +418,30 @@ def deliver(request, pk):
     order = Order.objects.get(id=pk)
     order.deliver()
     return HttpResponseRedirect(reverse_lazy("orders"))
+
+
+@method_decorator(login_required, name='dispatch')
+class SendInvoiceView(DetailView):
+    model = Order
+    template_name = 'sales/send_invoice.html'
+    context_object_name = "order"
+
+    def get(self, request, *args, **kwargs):
+        context = {}
+        order = Order.objects.get(id=kwargs.get("pk"))
+        context["order"] = order
+        context["orderlines"] = order.orderline_set.all()
+        return render(request, template_name="sales/send_invoice.html", context=context)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        order = Order.objects.get(id=kwargs.get("pk"))
+        # order.send_invoice()
+
+        # Pre-populate invoice choices and then disable it in forms.py
+        # form = PaymentCreateForm(pk=self.object.id)
+        # form.base_fields["invoice"].queryset = Invoice.objects.filter(id=self.object.id)
+        context["order"] = order
+        # context["payments"] = self.object.payment_set.all()
+        return context
+

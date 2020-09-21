@@ -91,7 +91,7 @@
       {% if order.status == "DRAFT" %}
         <a type="button" class="btn btn-sm btn-primary float-lg-right" data-toggle="modal" data-target="#submit-order-modal">Submit</a>
       {% elif order.status == "SUBMITTED" %}
-        <a type="button" class="btn btn-sm btn-info float-lg-right" data-toggle="modal" data-target="#send-invoice-modal">Send Invoice</a>
+        <a type="button" class="btn btn-sm btn-info float-lg-right" data-toggle="modal" data-target="#send-invoice-modal">Invoice</a>
       {% elif order.status == "INVOICED" %}
         <a type="button" class="btn btn-sm btn-warning float-lg-right" data-toggle="modal" data-target="#deliver-order-modal">Deliver</a>
       {% endif %}
@@ -165,16 +165,16 @@
         <!-- Modal body -->
         <div class="modal-body text-justify">
           <div>
-          <p>The order will be set to INVOICED status.</p>
-          <p>Order will be readonly after invoice is sent to buyer.</p>
+            <p>After the invoice sent to the buyer, the order will be READONLY status will be set to <a class="btn btn-info disabled">INVOICED</a>.</p>
           <p>Proceed?</p>
           </div>
+
         </div>
 
         <!-- Modal footer -->
         <div class="modal-footer text-lg-center">
           <a href="{% url 'order' order.id %}" class="btn btn-sm btn-secondary float-lg-left">Cancel</a>
-          <a href="{% url 'order-send-invoice' order.id %}" class="btn btn-sm btn-primary float-lg-right">Send</a>
+          <a href="{% url 'order-send-invoice' order.id %}" class="btn btn-sm btn-primary float-lg-right">View Invoice</a>
         </div>
       </div>
     </div>

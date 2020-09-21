@@ -19,8 +19,9 @@ from sales.views import (
     OrderItemDeleteView,
     OrderItemUpdateView,
     submit_order,
-    send_invoice,
-    deliver
+    send_invoice_email,
+    deliver,
+    SendInvoiceView
 )
 
 urlpatterns = [
@@ -42,6 +43,7 @@ urlpatterns = [
     path("order_item/<int:pk>/delete/", OrderItemDeleteView.as_view(), name="order-item-delete"),
     path("order_item/<int:pk>/update/", OrderItemUpdateView.as_view(), name="order-item-update"),
     path("order/<int:pk>/submit/", submit_order, name="order-submit"),
-    path("order/<int:pk>/invoice/", send_invoice, name="order-send-invoice"),
+    path("order/<int:pk>/invoice/", SendInvoiceView.as_view(), name="order-send-invoice"),
+    path("order/<int:pk>/send_invoice_email/", send_invoice_email, name="send-invoice-email"),
     path("order/<int:pk>/deliver/", deliver, name="order-deliver"),
 ]

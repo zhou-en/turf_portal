@@ -115,6 +115,16 @@ class Product(TimeStampedModel, models.Model):
     def __str__(self):
         return f"{self.code}"
 
+    @property
+    def name(self):
+        if self.spec.category == "Grass":
+            return "Artificial Grass"
+        return self.spec.category
+
+    @property
+    def description(self):
+        return f"Color: {self.spec.color.name}; Height: {self.spec.height.value}mm; Width: {self.spec.width.value}m"
+
     def save(self, *args, **kwargs):
         self.code = f"{self.spec.color.name.upper()[0]}{self.spec.height.value}-{self.spec.width}m"
         super(Product, self).save(*args, **kwargs)
