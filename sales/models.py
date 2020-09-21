@@ -57,10 +57,10 @@ class Buyer(TimeStampedModel, models.Model):
     @property
     def history_total(self):
         """
-        Return total of all orders have been placed by the buyer.
+        Return total of all orders have been closed on the buyer.
         """
         total = 0
-        for order in self.order_set.all():
+        for order in self.order_set.filter(status=Order.Status.CLOSED):
             total += order.total_amount
         return total
 

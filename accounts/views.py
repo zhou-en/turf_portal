@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from rest_framework import authentication, permissions
 from django.contrib.auth.models import User
 
-from sales.models import Order
+from sales.models import Order, Buyer, OrderLine
 from stock.models import RollSpec, Product
 
 # User = get_user_model()
@@ -56,7 +56,7 @@ class DataView(APIView):
             data_set.update(
                 {p.code: p.stock_count}
             )
-        labels = data_set.keys()
+        labels = sorted(data_set.keys())
         default_items = [data_set[k] for k in labels]
         data = {
             "stock_data": {
@@ -82,4 +82,48 @@ class DataView(APIView):
                 }
             }
         )
+
+        # total turnover per product
+        product_data = {}
+        for p in Product.objects.all():
+            product_data.update(
+                {p.code: 0.0}
+            )
+        for ol in OrderLine.objects.all():
+            pcode = ol.buyer_product.product.code
+            ptotal = ol.price
+            if pcode in product_data:
+                product_data[pcode] += ptotal
+            else:
+                product_data.update(
+                    {pcode: float(ptotal)}
+                )
+        product_labels = sorted(product_data.keys())
+        product_total = [product_data[k] for k in product_labels]
+        data.update(
+            {
+                "product_data": {
+                    "labels": product_labels,
+                    "default": product_total
+                }
+            }
+        )
+
+        # total turnonver per buyer
+        buyer_data = {}
+        for b in Buyer.objects.all():
+            buyer_data.update(
+                {b.name: b.history_total}
+            )
+        buyer_labels = sorted(buyer_data.keys())
+        buyer_total = [buyer_data[k] for k in buyer_labels]
+        data.update(
+            {
+                "buyer_data": {
+                    "labels": buyer_labels,
+                    "default": buyer_total
+                }
+            }
+        )
+
         return Response(data)

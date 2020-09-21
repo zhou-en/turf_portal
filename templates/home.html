@@ -22,6 +22,12 @@
     <div id="chartContainer" class="col-sm-6" style="width: 45%; height: 50%;display: inline-block;">
       <canvas id="sales-chart"></canvas>
     </div>
+    <div id="chartContainer" class="col-sm-6" style="width: 45%; height: 50%;display: inline-block;">
+      <canvas id="product-chart"></canvas>
+    </div>
+    <div id="chartContainer" class="col-sm-6" style="width: 45%; height: 50%;display: inline-block;">
+      <canvas id="buyer-chart"></canvas>
+    </div>
   </div>
   <br>
   <br>
@@ -92,10 +98,16 @@
           success: function (data) {
               var stock_data = data.stock_data;
               var sales_data = data.sales_data;
+              var product_data = data.product_data;
+              var buyer_data = data.buyer_data;
               var ctx = document.getElementById('stock-chart');
               setBarChart(stock_data.labels, stock_data.default, ctx);
               ctx = document.getElementById('sales-chart');
               setLineChart(sales_data.labels, sales_data.default, ctx);
+              ctx = document.getElementById('buyer-chart');
+              setBuyerChart(buyer_data.labels, buyer_data.default, ctx);
+              ctx = document.getElementById('product-chart');
+              setProductChart(product_data.labels, product_data.default, ctx);
           },
           error: function (error_data) {
               console.log("error");
@@ -163,6 +175,124 @@
                   title: {
                       display: true,
                       text: 'Available stocks in m²',
+                      fontStyle: "bold"
+                  }
+              }
+          });
+      }
+
+      function setBuyerChart(labels, defaultData, ctx) {
+
+          var myChart = new Chart(ctx, {
+              type: "bar",
+              data: {
+                  labels: labels,
+                  datasets: [{
+                      label: "Turnover per buyer in Rand",
+                      data: defaultData,
+                      backgroundColor: [
+                          'rgba(255, 99, 132, 1)',
+                          'rgba(54, 162, 235, 1)',
+                          'rgba(255, 206, 86, 1)',
+                          'rgba(75, 192, 192, 1)',
+                          'rgba(153, 102, 255, 1)',
+                          'rgba(255, 159, 64, 1)'
+                      ],
+                      borderColor: [
+                          'rgba(255, 99, 132, 1)',
+                          'rgba(54, 162, 235, 1)',
+                          'rgba(255, 206, 86, 1)',
+                          'rgba(75, 192, 192, 1)',
+                          'rgba(153, 102, 255, 1)',
+                          'rgba(255, 159, 64, 1)'
+                      ],
+                      borderWidth: 1.5
+                  }]
+              },
+              options: {
+                  scales: {
+                      yAxes: [{
+                          ticks: {
+                              beginAtZero: true
+                          },
+
+                          scaleLabel: {
+                              display: true,
+                              labelString: 'Rand',
+                              fontStyle: "bold"
+                          }
+                      }],
+                      xAxes: [{
+                          scaleLabel: {
+                              display: true,
+                              labelString: 'Buyer Name',
+                              fontStyle: "bold"
+                          }
+                      }]
+                  },
+                  legend: {display: false},
+                  title: {
+                      display: true,
+                      text: 'Turnover per buyer in Rand',
+                      fontStyle: "bold"
+                  }
+              }
+          });
+      }
+
+      function setProductChart(labels, defaultData, ctx) {
+
+          var myChart = new Chart(ctx, {
+              type: "bar",
+              data: {
+                  labels: labels,
+                  datasets: [{
+                      label: "Turnover per product in Rand",
+                      data: defaultData,
+                      backgroundColor: [
+                          'rgba(255, 99, 132, 1)',
+                          'rgba(54, 162, 235, 1)',
+                          'rgba(255, 206, 86, 1)',
+                          'rgba(75, 192, 192, 1)',
+                          'rgba(153, 102, 255, 1)',
+                          'rgba(255, 159, 64, 1)'
+                      ],
+                      borderColor: [
+                          'rgba(255, 99, 132, 1)',
+                          'rgba(54, 162, 235, 1)',
+                          'rgba(255, 206, 86, 1)',
+                          'rgba(75, 192, 192, 1)',
+                          'rgba(153, 102, 255, 1)',
+                          'rgba(255, 159, 64, 1)'
+                      ],
+                      borderWidth: 1.5
+                  }]
+              },
+              options: {
+                  scales: {
+                      yAxes: [{
+                          ticks: {
+                              beginAtZero: true
+                          },
+
+                          scaleLabel: {
+                              display: true,
+                              labelString: 'Rand',
+                              fontStyle: "bold"
+                          }
+                      }],
+                      xAxes: [{
+                          scaleLabel: {
+                              display: true,
+                              labelString: 'Product Code',
+                              fontStyle: "bold"
+                          }
+                      }]
+                  },
+                  legend: {display: false},
+                  title: {
+                      display: true,
+                      text: 'Turnover per product in Rand',
                       fontStyle: "bold"
                   }
               }
