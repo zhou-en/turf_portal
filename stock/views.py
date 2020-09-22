@@ -150,7 +150,7 @@ class StockListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["turf_rolls"] = {}
-        context["all_rolls"] = TurfRoll.objects.all()
+        context["all_rolls"] = TurfRoll.objects.all().order_by("spec__product__code")
         specs = RollSpec.objects.all().order_by("product__code")
         for spec in specs:
             if spec.turfroll_set.exists():

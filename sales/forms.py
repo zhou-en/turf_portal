@@ -14,6 +14,10 @@ class BuyerCreateForm(forms.ModelForm):
 
     field_order = ["buyer_type", "name", "mobile", "email", "address", "contact_person"]
 
+    def __init__(self, *args, **kwargs):
+        self.base_fields["status"].disabled = True
+        super(BuyerCreateForm, self).__init__(*args, **kwargs)
+
 
 class BuyerUpdateForm(forms.ModelForm):
 

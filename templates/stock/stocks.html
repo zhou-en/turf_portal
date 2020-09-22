@@ -3,7 +3,6 @@
 {% block content %}
 
   <div class="text-center">
-      <h3>{{ troll.spec.code }}</h3>
     {% for roll in all_rolls %}
         <div id="chartContainer" class="col-sm-6" style="width: 30%; height: 30%;display: inline-block;">
           <canvas id="stock-roll-chart-{{ roll.id }}"></canvas>
@@ -174,7 +173,7 @@
                   console.log(chart_id);
                   var default_data = data[key].default;
                   var labels = data[key].labels;
-                  var code = data[key].code + "- ID: " + key.toString();
+                  var code = data[key].code + " - Roll ID: " + key.toString();
                   console.log(chart_id);
                   var ctx = document.getElementById(chart_id);
                   setDoughnutChart(labels, default_data, ctx, code);
@@ -195,7 +194,8 @@
                   datasets: [{
                       label: "m²",
                       data: defaultData,
-                      backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                      backgroundColor: ["#46BFBD", "#949FB1", "#FDB45C", "#4D5360", "#F7464A"],
+                      hoverBackgroundColor: ["#5AD3D1", "#A8B3C5", "#FFC870", "#616774", "#FF5A5E"],
                       {#borderColor: [#}
                       {#    'rgba(255, 99, 132, 1)',#}
                       {#    'rgba(54, 162, 235, 1)',#}
@@ -208,6 +208,8 @@
                   }]
               },
               options: {
+                  maintainAspectRatio: true,
+                  responsive: true,
                   legend: {display: true},
                   title: {
                       display: true,
