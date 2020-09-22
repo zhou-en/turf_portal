@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+  <div class="text-center">
+      <h3>{{ troll.spec.code }}</h3>
+    {% for roll in all_rolls %}
+        <div id="chartContainer" class="col-sm-6" style="width: 30%; height: 30%;display: inline-block;">
+          <canvas id="stock-roll-chart-{{ roll.id }}"></canvas>
+        </div>
+    {% endfor %}
+  </div>
+
   <br>
   <a href="{% url 'load-stocks' %}" class="btn btn-sm btn-primary float-lg-right">Load Stocks</a>
   <br>
@@ -141,20 +151,74 @@
       </table>
     </div>
   </div>
-{#  <div class="card-footer"></div>#}
   </div>
   <br>
-
-
-
-
-
 
 
 
 {% endfor %}
 
   <script>
+
+      var endpoint = "/api/stock/data/";
+      {#var defaultData = [];#}
+      {#var labels = [];#}
+      $.ajax({
+          method: "GET",
+          url: endpoint,
+          success: function (data) {
+              console.log(data);
+              Object.keys(data).forEach(function(key) {
+                  console.table('Key : ' + key + ', Value : ' + data[key].code)
+                  var chart_id = "stock-roll-chart-" + (key).toString();
+                  console.log(chart_id);
+                  var default_data = data[key].default;
+                  var labels = data[key].labels;
+                  var code = data[key].code + "- ID: " + key.toString();
+                  console.log(chart_id);
+                  var ctx = document.getElementById(chart_id);
+                  setDoughnutChart(labels, default_data, ctx, code);
+              })
+
+          },
+          error: function (error_data) {
+              console.log("error");
+              console.log(error_data);
+          }
+      });
+
+      function setDoughnutChart(labels, defaultData, ctx, code) {
+          var myChart = new Chart(ctx, {
+              type: "doughnut",
+              data: {
+                  labels: labels,
+                  datasets: [{
+                      label: "m²",
+                      data: defaultData,
+                      backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                      {#borderColor: [#}
+                      {#    'rgba(255, 99, 132, 1)',#}
+                      {#    'rgba(54, 162, 235, 1)',#}
+                      {#    'rgba(255, 206, 86, 1)',#}
+                      {#    'rgba(75, 192, 192, 1)',#}
+                      {#    'rgba(153, 102, 255, 1)',#}
+                      {#    'rgba(255, 159, 64, 1)'#}
+                      {#],#}
+                      borderWidth: 1.5
+                  }]
+              },
+              options: {
+                  legend: {display: true},
+                  title: {
+                      display: true,
+                      text: code,
+                      fontStyle: "bold"
+                  }
+              }
+          });
+      }
+
+
   </script>
 
 

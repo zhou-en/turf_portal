@@ -15,17 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from accounts import views
+from accounts.views import DataView, home
+from stock.views import StockDataView
 
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    path('', home, name='home'),
     path('admin/', admin.site.urls),
     path('sales/', include('sales.urls')),
     path('invoice/', include('invoice.urls')),
     path('stock/', include('stock.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('api/chart/data/', views.DataView.as_view()),
+    path('api/chart/data/', DataView.as_view()),
+    path('api/stock/data/', StockDataView.as_view()),
 ]
 
 admin.site.site_header = 'Turf Portal Admin Panel'

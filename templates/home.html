@@ -75,10 +75,8 @@
           for (var i = 0; i < 6; i++) {
               color += letters[Math.floor(Math.random() * 16)];
           }
-          console.log(color);
           return color;
       }
-
 
       $(document).ready(function () {
           var oTable = $('#recent-orders-table').dataTable();
@@ -116,14 +114,6 @@
       });
 
       function setBarChart(labels, defaultData, ctx) {
-
-          var bgcolors = [];
-          var bdcolors = [];
-          for (var i = 0; i < labels.length; i++) {
-              var rc = getRandomColor();
-              bgcolors.push(rc);
-              bdcolors.push(rc);
-          }
           var myChart = new Chart(ctx, {
               type: "bar",
               data: {

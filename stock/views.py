@@ -8,8 +8,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, UpdateView, DeleteView, \
     DetailView, ListView, CreateView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from stock.models import Product, TurfRoll, Warehouse, RollSpec
 from stock.forms import ProductCreateForm, ProductUpdateForm, LoadStocksForm
@@ -119,16 +119,38 @@ class WarehouseListView(ListView):
 
 
 @method_decorator(login_required, name='dispatch')
+class StockDataView(APIView):
+    """
+    """
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, format=None):
+        labels = ["Available", "Sold", "Reserved"]
+        data = {}
+        for roll in TurfRoll.objects.all():
+            code = roll.spec.code
+            data.update({
+                roll.id: {
+                    "code": code,
+                    "labels": labels,
+                    "default": [roll.available, roll.sold, roll.reserved],
+                }
+            })
+        return Response(data)
+
+
+@method_decorator(login_required, name='dispatch')
 class StockListView(ListView):
     model = TurfRoll
     template_name = "stock/stocks.html"
     context_object_name = 'turf_rolls'
     queryset = TurfRoll.objects.all()
-    # paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["turf_rolls"] = {}
+        context["all_rolls"] = TurfRoll.objects.all()
         specs = RollSpec.objects.all().order_by("product__code")
         for spec in specs:
             if spec.turfroll_set.exists():
