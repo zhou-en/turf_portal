@@ -66,14 +66,22 @@ class DataView(APIView):
         }
 
         sales_data = {}
+        today = timezone.now().date()
         for s in Order.objects.filter(
                 status__exact=Order.Status.CLOSED
         ).order_by("closed_date"):
             sales_data.update(
-                {s.closed_date.strftime("%Y-%m-%d"): s.total_amount}
+                {s.closed_date.strftime("%Y-%m-%d %H:%m:%s"): s.total_amount}
             )
         sales_labels = sales_data.keys()
-        sales_total = [sales_data[k] for k in sales_labels]
+        sales_total = []
+        for i, k in enumerate(sales_labels):
+            if i == 0:
+                sales_total.append(sales_data[k])
+            else:
+                previous_total = sales_total[i-1]
+                sales_total.append(previous_total + sales_data[k])
+
         data.update(
             {
                 "sales_data": {
@@ -90,14 +98,15 @@ class DataView(APIView):
                 {p.code: 0.0}
             )
         for ol in OrderLine.objects.all():
-            pcode = ol.buyer_product.product.code
-            ptotal = ol.price
-            if pcode in product_data:
-                product_data[pcode] += ptotal
-            else:
-                product_data.update(
-                    {pcode: float(ptotal)}
-                )
+            if ol.order.status == Order.Status.CLOSED:
+                pcode = ol.buyer_product.product.code
+                ptotal = ol.price
+                if pcode in product_data:
+                    product_data[pcode] += ptotal
+                else:
+                    product_data.update(
+                        {pcode: float(ptotal)}
+                    )
         product_labels = sorted(product_data.keys())
         product_total = [product_data[k] for k in product_labels]
         data.update(
