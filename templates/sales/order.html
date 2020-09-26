@@ -174,7 +174,7 @@
         <!-- Modal footer -->
         <div class="modal-footer text-lg-center">
           <a href="{% url 'order' order.id %}" class="btn btn-sm btn-secondary float-lg-left">Cancel</a>
-          <a href="{% url 'order-send-invoice' order.id %}" class="btn btn-sm btn-primary float-lg-right">View Invoice</a>
+          <a href="{% url 'invoice-order' order.id %}" class="btn btn-sm btn-primary float-lg-right">Invoice Buyer</a>
         </div>
       </div>
     </div>

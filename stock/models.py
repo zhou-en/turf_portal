@@ -201,21 +201,11 @@ class TurfRoll(TimeStampedModel, models.Model):
         """
         from sales.models import Order
         result = self.orderline_set.filter(
-            order__status__in=[Order.Status.SUBMITTED, Order.Status.INVOICED]
-        ).aggregate(Sum("quantity"))
-        if result.get("quantity__sum"):
-            return float(result.get("quantity__sum"))
-        return 0
-
-    @property
-    def delivered(self):
-        """
-        This is the total amount on this roll that has orderlines with Delivered
-        status.
-        """
-        from sales.models import Order
-        result = self.orderline_set.filter(
-            order__status__in=[Order.Status.DELIVERED, Order.Status.CLOSED]
+            order__status__in=[
+                Order.Status.SUBMITTED,
+                Order.Status.INVOICED,
+                Order.Status.DELIVERED,
+            ]
         ).aggregate(Sum("quantity"))
         if result.get("quantity__sum"):
             return float(result.get("quantity__sum"))

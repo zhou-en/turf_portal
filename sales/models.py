@@ -197,7 +197,7 @@ class Order(TimeStampedModel, models.Model):
             Order.Status.SUBMITTED
         ]
 
-    def send_invoice(self):
+    def invoice_order(self):
         """
         Send invoice to buyer.
         Set order to invoiced status, invoice to payment outstanding.
