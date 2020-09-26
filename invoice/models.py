@@ -96,6 +96,12 @@ class Invoice(TimeStampedModel, models.Model):
             Invoice.Status.CLOSED
         ]
 
+    def is_invoiceable(self):
+        return self.status in [
+            Invoice.Status.PAYMENT_OUTSTANDING,
+            Invoice.Status.CLOSED
+        ]
+
 
 class Payment(TimeStampedModel, models.Model):
     """
