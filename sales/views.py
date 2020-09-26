@@ -229,13 +229,19 @@ class FilteredOrderListView(ListView):
         if "reserved_orders" in self.request.path:
             context["orderlines"] = OrderLine.objects.filter(
                 roll=roll,
-                order__status__in=[Order.Status.DRAFT, Order.Status.SUBMITTED]
+                order__status__in=[
+                    Order.Status.SUBMITTED,
+                    Order.Status.INVOICED,
+                    Order.Status.DELIVERED,
+                ]
             )
             context["filter"] = {"name": "Reserved", "result": roll.reserved}
         if "closed_orders" in self.request.path:
             context["orderlines"] = OrderLine.objects.filter(
                 roll=roll,
-                order__status=Order.Status.CLOSED
+                order__status__in=[
+                    Order.Status.CLOSED,
+                ]
             )
             context["filter"] = {"name": "Sold", "result": roll.sold}
         return context
@@ -421,7 +427,7 @@ def deliver(request, pk):
 
 
 @method_decorator(login_required, name='dispatch')
-class SendInvoiceView(DetailView):
+class InvoiceOrderView(DetailView):
     model = Order
     template_name = 'sales/send_invoice.html'
     context_object_name = "order"
@@ -429,6 +435,8 @@ class SendInvoiceView(DetailView):
     def get(self, request, *args, **kwargs):
         context = {}
         order = Order.objects.get(id=kwargs.get("pk"))
+        if order.status == Order.Status.SUBMITTED:
+            order.invoice_order()
         context["order"] = order
         context["orderlines"] = order.orderline_set.all()
         return render(request, template_name="sales/send_invoice.html", context=context)
@@ -436,7 +444,7 @@ class SendInvoiceView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         order = Order.objects.get(id=kwargs.get("pk"))
-        # order.send_invoice()
+
 
         # Pre-populate invoice choices and then disable it in forms.py
         # form = PaymentCreateForm(pk=self.object.id)
