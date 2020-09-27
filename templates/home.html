@@ -3,6 +3,7 @@
 {% block content %}
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h2 class="h3">Dashboard</h2>
+    <!--
     <div class="btn-toolbar mb-2 mb-md-0">
       <div class="btn-group mr-2">
         <button type="button" class="btn btn-sm btn-outline-secondary disabled">Share</button>
@@ -13,22 +14,22 @@
         This week
       </button>
     </div>
+    -->
   </div>
-  <br>
   <div class="container-fluid text-center">
 {#    <div id="chartContainer" class="col-sm-6" style="width: 45%; height: 50%;display: inline-block;">#}
-    <div id="chartContainer" class="wrapper" style="position: relative; width: 40%; height: 50%; display: inline-block;">
+    <div id="chartContainer" class="col-sm-6" style="width: 40%; display: inline-block;">
       <canvas id="stock-chart"></canvas>
     </div>
-    <div id="chartContainer" class="wrapper" style="position: relative; width: 40%; height: 50%; display: inline-block;">
+    <div id="chartContainer" class="col-sm-6" style="width: 40%; display: inline-block;">
       <canvas id="sales-chart"></canvas>
     </div>
     <br>
     <br>
-    <div id="chartContainer" class="wrapper" style="position: relative; width: 40%; height: 50%; display: inline-block;">
+    <div id="chartContainer" class="col-sm-6" style="width: 40%; display: inline-block;">
       <canvas id="product-chart"></canvas>
     </div>
-    <div id="chartContainer" class="wrapper" style="position: relative; width: 40%; height: 50%; display: inline-block;">
+    <div id="chartContainer" class="col-sm-6" style="width: 40%; display: inline-block;">
       <canvas id="buyer-chart"></canvas>
     </div>
   </div>
@@ -331,9 +332,12 @@
                       ],
                       xAxes: [
                           {
+                              ticks: {
+                                  display: false
+                              },
                               scaleLabel: {
                                   display: true,
-                                  labelString: 'Order Closed Date',
+                                  labelString: 'Closed Orders',
                                   fontStyle: 'bold'
                               }
                           }

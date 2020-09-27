@@ -4,9 +4,11 @@
 
   <div class="text-center">
     {% for roll in all_rolls %}
-        <div id="chartContainer" class="col-sm-6" style="width: 30%; height: 30%;display: inline-block;">
-          <canvas id="stock-roll-chart-{{ roll.id }}"></canvas>
-        </div>
+      {% if roll.status != "DEPLETED" %}
+      <div id="chartContainer" class="col-sm-6" style="width: 30%; height: 30%;display: inline-block;">
+        <canvas id="stock-roll-chart-{{ roll.id }}"></canvas>
+      </div>
+      {% endif %}
     {% endfor %}
   </div>
 
@@ -15,11 +17,11 @@
   <br>
   <br>
 
-{% for code, rolls in turf_rolls.items %}
+{% for spec, rolls in turf_rolls.items %}
 
   <div class="card">
     <div class="card-header">
-      <h5 class="card-title"><strong>{{ code }}</strong></h5>
+      <h5 class="card-title"><strong>{{ spec.code }}: {{ spec }}</strong></h5>
     </div>
   <div class="card-body">
     <div class="card-content">
@@ -27,7 +29,6 @@
         <thead style="border-bottom: 1px solid black;">
         <tr>
           <th>ID</th>
-          <th>Spec</th>
           <th>Status</th>
           <th>Available (m<sup>2</sup>)</th>
           <th>Reserved (m<sup>2</sup>)</th>
@@ -43,18 +44,17 @@
           {% if roll.status == "OPENED" %}
           <tr>
             <td>{{ roll.id }}</td>
-            <td>{{ roll.spec }}</td>
             <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
             <td class="text-success">{{ roll.available }}</td>
 
             {% if roll.reserved != 0 %}
-              <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved }}</a></td>
+              <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:1 }}</a></td>
             {% else %}
               <td>{{ roll.reserved }}</td>
             {% endif %}
 
             {% if roll.sold != 0 %}
-              <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold }}</a></td>
+              <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:1 }}</a></td>
             {% else %}
               <td>{{ roll.sold }}</td>
             {% endif %}
@@ -70,18 +70,17 @@
           {% if roll.status == "RETURNED" %}
             <tr>
               <td>{{ roll.id }}</td>
-              <td>{{ roll.spec }}</td>
               <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
               <td class="text-success">{{ roll.available }}</td>
 
               {% if roll.reserved != 0 %}
-                <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved }}</a></td>
+                <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:1 }}</a></td>
               {% else %}
                 <td>{{ roll.reserved }}</td>
               {% endif %}
 
               {% if roll.sold != 0 %}
-                <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold }}</a></td>
+                <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:1 }}</a></td>
               {% else %}
                 <td>{{ roll.sold }}</td>
               {% endif %}
@@ -97,18 +96,17 @@
           {% if roll.status == "SEALED" %}
             <tr>
               <td>{{ roll.id }}</td>
-              <td>{{ roll.spec }}</td>
               <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
               <td class="text-success">{{ roll.available }}</td>
 
               {% if roll.reserved != 0 %}
-                <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved }}</a></td>
+                <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:1 }}</a></td>
               {% else %}
                 <td>{{ roll.reserved }}</td>
               {% endif %}
 
               {% if roll.sold != 0 %}
-                <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold }}</a></td>
+                <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:1 }}</a></td>
               {% else %}
                 <td>{{ roll.sold }}</td>
               {% endif %}
@@ -124,18 +122,17 @@
           {% if roll.status == "DEPLETED" %}
             <tr>
               <td>{{ roll.id }}</td>
-              <td>{{ roll.spec }}</td>
               <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
               <td class="text-success">{{ roll.available }}</td>
 
               {% if roll.reserved != 0 %}
-                <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved }}</a></td>
+                <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:1 }}</a></td>
               {% else %}
                 <td>{{ roll.reserved }}</td>
               {% endif %}
 
               {% if roll.sold != 0 %}
-                <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold }}</a></td>
+                <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:1 }}</a></td>
               {% else %}
                 <td>{{ roll.sold }}</td>
               {% endif %}
@@ -194,8 +191,8 @@
                   datasets: [{
                       label: "m²",
                       data: defaultData,
-                      backgroundColor: ["#46BFBD", "#949FB1", "#FDB45C", "#4D5360", "#F7464A"],
-                      hoverBackgroundColor: ["#5AD3D1", "#A8B3C5", "#FFC870", "#616774", "#FF5A5E"],
+                      backgroundColor: ["#32CD32", "#949FB1", "#FDB45C", "#46BFBD", "#4D5360", "#F7464A"],
+                      hoverBackgroundColor: ["#7CFC00", "#A8B3C5", "#FFC870", "#5AD3D1", "#616774", "#FF5A5E"],
                       {#borderColor: [#}
                       {#    'rgba(255, 99, 132, 1)',#}
                       {#    'rgba(54, 162, 235, 1)',#}
@@ -208,9 +205,14 @@
                   }]
               },
               options: {
-                  maintainAspectRatio: true,
+                  maintainAspectRatio: false,
                   responsive: true,
-                  legend: {display: true},
+                  legend: {
+                      display: false,
+                      labels: {
+                          fontSize: 10
+                      }
+                  },
                   title: {
                       display: true,
                       text: code,

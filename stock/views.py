@@ -128,7 +128,7 @@ class StockDataView(APIView):
     def get(self, request, format=None):
         labels = ["Available", "Sold", "Reserved"]
         data = {}
-        for roll in TurfRoll.objects.all():
+        for roll in TurfRoll.objects.exclude(status__exact=TurfRoll.Status.DEPLETED):
             code = roll.spec.code
             data.update({
                 roll.id: {
@@ -155,7 +155,7 @@ class StockListView(ListView):
         for spec in specs:
             if spec.turfroll_set.exists():
                 context["turf_rolls"].update(
-                    {spec.code: [roll for roll in spec.turfroll_set.all()]}
+                    {spec: [roll for roll in spec.turfroll_set.all()]}
                 )
         return context
 

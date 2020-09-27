@@ -39,8 +39,94 @@
   </style>
   <!-- Custom styles for this template -->
   <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
+  <link href="{% static 'css/simple-sidebar.css' %}" rel="stylesheet">
 </head>
 <body>
+
+<div class="d-flex" id="wrapper">
+
+  <!-- Sidebar -->
+  <div class="bg-light border-right toggle-nav-sidebar" id="sidebar-wrapper">
+    <div class="sidebar-heading"><a href="{% url 'home' %}"> <b>Turf Portal</b></a></div>
+    <div class="list-group list-group-flush">
+      <a class="list-group-item list-group-item-action bg-light" href="{% url 'home' %}">
+        <span data-feather="home"></span>
+        Dashboard <span class="sr-only">(current)</span>
+      </a>
+      <a class="list-group-item list-group-item-action bg-light" href="{% url 'orders' %}">
+        <span data-feather="file"></span>
+        Orders
+      </a>
+      <a class="list-group-item list-group-item-action bg-light" href="{% url 'invoices' %}">
+        <span data-feather="layers"></span>
+        Invoices
+      </a>
+      <a class="list-group-item list-group-item-action bg-light" href="{% url 'products' %}">
+        <span data-feather="shopping-cart"></span>
+        Products
+      </a>
+      <a class="list-group-item list-group-item-action bg-light" href="{% url 'buyers' %}">
+        <span data-feather="users"></span>
+        Buyers
+      </a>
+      <a class="list-group-item list-group-item-action bg-light" href="{% url 'stocks' %}">
+        <span data-feather="bar-chart-2"></span>
+        Stocks
+      </a>
+      <a class="list-group-item list-group-item-action bg-light" href="{% url 'warehouses' %}">
+        <span data-feather="archive"></span>
+        Warehouse
+      </a>
+    </div>
+  </div>
+  <!-- /#sidebar-wrapper -->
+
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+      <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      {% if user.is_authenticated %}
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+          <!--
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ user.username }}
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item small" href="{% url 'password_change' %}">Change Password</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item small" href="{% url 'logout' %}">Log Out</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+      {% endif %}
+    </nav>
+
+    <div class="container-fluid">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </div>
+  <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+<!--
 <nav class="navbar navbar-expand navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#"> <b>Turf Portal</b></a>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +157,6 @@
     {% endif %}
   </div>
 </nav>
-
 <div class="container-fluid">
   <div class="row">
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
@@ -124,12 +209,8 @@
     </nav>
   </div>
 </div>
+-->
 
-
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-  {% block content %}
-  {% endblock %}
-</main>
 
 
 {#<script>window.jQuery || document.write('<script src="{% static 'assets/js/vendor/jquery.min.js' %}"><\/script>')</script><script src="{% static 'assets/dist/js/bootstrap.bundle.min.js' %}"></script>#}
@@ -140,5 +221,12 @@
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="{% static 'js/dashboard.js' %}"></script>
+<!-- Menu Toggle Script -->
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
 </body>
 </html>
