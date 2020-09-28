@@ -136,38 +136,39 @@
   <div class="col-md-10 my-auto">
     <div class="invoice">
       <!-- begin invoice-company -->
+      {% if not send_email %}
       <div id="action-buttons" class="invoice-company text-inverse f-w-600 text-center">
         TurfD, Inc
       </div>
+      {% endif %}
       <!-- end invoice-company -->
       <!-- begin invoice-header -->
       <div class="invoice-header">
         <div class="invoice-from">
           <small>from</small>
           <address class="m-t-5 m-b-5">
-            <strong class="text-inverse">TurfD, Inc.</strong><br>
-            Street Address<br>
-            City, Zip Code<br>
-            Phone: (123) 456-7890<br>
+            <strong class="text-inverse">TurfD, Pty. Ltd.</strong><br>
+            Boston<br>
+            Bellville 7350<br>
+            Phone: 0768308920<br>
             Email: turfd@email.com
           </address>
         </div>
         <div class="invoice-to">
           <small>to</small>
           <address class="m-t-5 m-b-5">
-            <strong class="text-inverse">Buyer Name</strong><br>
-            Street Address<br>
-            City, Zip Code<br>
-            Phone: (123) 456-7890<br>
-            Email: buyer@email.com
+            <strong class="text-inverse">{{ buyer.name }}</strong><br>
+            {{ buyer.address }}<br>
+            Phone: {{ buyer.mobile }}<br>
+            Email: {{ buyer.email }}
           </address>
         </div>
         <div class="invoice-date">
           <small>Invoice Date</small>
-          <div class="date text-inverse m-t-5">August 3,2012</div>
+          <div class="date text-inverse m-t-5">{{ invoice.created|date }}</div>
           <small>Invoice Number</small>
           <div class="invoice-detail">
-            <div class="date text-inverse m-t-5">#HARDWARECO-20200920-0914</div><br>
+            <div class="date text-inverse m-t-5">{{ invoice.number }}</div><br>
           </div>
         </div>
       </div>
@@ -176,43 +177,27 @@
       <div class="invoice-content">
         <!-- begin table-responsive -->
         <div class="table-responsive">
-          <table class="table table-invoice text">
+          <table class="table table-invoice text" style="width:100%">
             <thead>
             <tr>
-              <th>Product</th>
-              <th class="text-center" width="15%">RATE (R/m<sup>2</sup>)</th>
-              <th class="text-center" width="15%">QUANTITY (m<sup>2</sup>)</th>
-              <th class="text-right" width="20%">ITEM TOTAL</th>
+              <th class="text-right" style="text-align:left">Products</th>
+              <th class="text-right" style="text-align:right">RATE (R/m<sup>2</sup>)</th>
+              <th class="text-right" style="text-align:right">QUANTITY (m<sup>2</sup>)</th>
+              <th class="text-right" style="text-align:right">ITEM TOTAL (Incl.)</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>
-                <span class="text-inverse">Artificial Grass</span><br>
-                <small>Color: Autumn; Height: 30mm; Width: 2m</small>
-              </td>
-              <td class="text-center">R150.00</td>
-              <td class="text-center">10</td>
-              <td class="text-right">R2,500.00</td>
-            </tr>
-            <tr>
-              <td>
-                <span class="text-inverse">Artificial Grass</span><br>
-                <small>Color: Autumn; Height: 25mm; Width: 4m</small>
-              </td>
-              <td class="text-center">R50.00</td>
-              <td class="text-center">20</td>
-              <td class="text-right">R2,000.00</td>
-            </tr>
-            <tr>
-              <td>
-                <span class="text-inverse">Artificial Grass</span><br>
-                <small>Color: Spring; Height: 30mm; Width: 2m</small>
-              </td>
-              <td class="text-center">R50.00</td>
-              <td class="text-center">30</td>
-              <td class="text-right">R2,500.00</td>
-            </tr>
+            {% for ol in orderlines %}
+              <tr>
+                <td>
+                  <span class="text-inverse" >{{ ol.buyer_product.product.name }}</span><br>
+                  <small>{{ ol.buyer_product.product.description }}</small>
+                </td>
+                <td class="text-right" style="text-align:right">{{ ol.buyer_product.price }}</td>
+                <td class="text-right" style="text-align:right">{{ ol.quantity }}</td>
+                <td class="text-right" style="text-align:right">R{{ ol.price }}</td>
+              </tr>
+            {% endfor %}
             </tbody>
           </table>
         </div>
@@ -223,19 +208,23 @@
             <div class="invoice-price-row">
               <div class="sub-price">
                 <small>SUBTOTAL</small>
-                <span class="text-inverse">R4,500.00</span>
+                <span class="text-inverse">R{{ order.total_exclude_vat }}</span>
               </div>
               <div class="sub-price">
+                {% if send_email %}
+                  +
+                {% else %}
                 <i class="fa fa-plus text-muted"></i>
+                {% endif %}
               </div>
               <div class="sub-price">
                 <small>VAT (15%)</small>
-                <span class="text-inverse">R108.00</span>
+                <span class="text-inverse">R{{ order.total_vat }}</span>
               </div>
             </div>
           </div>
           <div class="invoice-price-right">
-            <small>TOTAL</small> <span class="f-w-600">R4508.00</span>
+            <small>TOTAL</small> <span class="f-w-600">R{{ order.total_amount }}</span>
           </div>
         </div>
         <!-- end invoice-price -->
@@ -243,9 +232,9 @@
       <!-- end invoice-content -->
       <!-- begin invoice-note -->
       <div class="invoice-note">
-        * <b>Bank Details: FMB</b><br>
+        * <b>Bank Details: Bank: FMB; Account #: 1234567890; Branch: Tygervalley 632005;</b><br>
         * Payment is due within 7 days<br>
-        * If you have any questions concerning this invoice, contact TurfD, Inc.
+        * If you have any questions concerning this invoice, contact Turfd, Pty. Ltd.
       </div>
       <!-- end invoice-note -->
       <!-- begin invoice-footer -->
@@ -254,9 +243,11 @@
           THANK YOU FOR YOUR BUSINESS
         </p>
         <p class="text-center">
-          <!-- <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> matiasgallipoli.com</span> -->
-          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-square"></i> 016-18192302</span>
-          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> turfd@gmail.com</span>
+          <!-- <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> matiasgallipoli.com</span>-->
+          {% if export_pdf %}
+          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-square"></i>0768308920</span>
+          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> flying66free@gmail.com</span>
+          {% endif %}
         </p>
       </div>
       <!-- end invoice-footer -->

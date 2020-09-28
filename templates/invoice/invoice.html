@@ -2,6 +2,13 @@
 
 {% block content %}
 <br>
+  {% if messages %}
+    {% for message in messages %}
+      {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+    {% endfor %}
+
+  {% endif %}
 <div class="card">
   <div class="card-header">
       <h5 class="card-title">Invoice Details</h5>

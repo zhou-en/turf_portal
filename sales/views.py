@@ -1,6 +1,9 @@
 import logging
 import json
-from django import forms
+from django.conf import settings
+from django.contrib import messages
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
@@ -355,11 +358,7 @@ class OrderItemDeleteView(DeleteView):
     template_name = 'sales/orderline_delete.html'
 
     def get_success_url(self):
-        # return HttpResponseRedirect(reverse_lazy("order", kwargs={"pk": self.order_id}))
         return HttpResponseRedirect(reverse_lazy("orders"))
-
-    def form_valid(self, form):
-        return super().form_valid(form)
 
     def post(self, request, *args, **kwargs):
         self.order_id = OrderLine.objects.get(id=kwargs.get("pk")).order_id
@@ -414,9 +413,27 @@ def submit_order(request, pk):
 
 @login_required
 def send_invoice_email(request, pk):
+    from django.core.mail import send_mail
     order = Order.objects.get(id=pk)
-    order.send_invoice()
-    return HttpResponseRedirect(reverse_lazy("order", kwargs={"pk": order.id}))
+    subject = f"Invoice for {order.buyer.name}: {order.invoice.number}"
+    context = {
+        "order": order,
+        "orderlines": order.orderline_set.all(),
+        "invoice": order.invoice,
+        "buyer": order.buyer,
+        "send_email": True
+    }
+    html_message = render_to_string('emails/invoice_email.html', context)
+    plain_message = strip_tags(html_message)
+    from_email = settings.EMAIL_HOST_USER
+    to = order.buyer.email
+    try:
+        send_mail(subject, plain_message, from_email, [to], html_message=html_message)
+    except Exception as err:
+        raise err
+    else:
+        messages.success(request, f'Successfully sent the invoice to {order.buyer.name}!')
+    return HttpResponseRedirect(reverse_lazy("invoice", kwargs={"pk": order.invoice.id}))
 
 
 @login_required
@@ -444,8 +461,6 @@ class InvoiceOrderView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         order = Order.objects.get(id=kwargs.get("pk"))
-
-
         # Pre-populate invoice choices and then disable it in forms.py
         # form = PaymentCreateForm(pk=self.object.id)
         # form.base_fields["invoice"].queryset = Invoice.objects.filter(id=self.object.id)

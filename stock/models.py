@@ -117,7 +117,7 @@ class Product(TimeStampedModel, models.Model):
 
     @property
     def name(self):
-        if self.spec.category == "Grass":
+        if self.spec.category.name == "Grass":
             return "Artificial Grass"
         return self.spec.category
 

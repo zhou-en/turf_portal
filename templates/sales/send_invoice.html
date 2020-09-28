@@ -144,7 +144,7 @@
             <!--<a class="btn btn-sm btn-white m-b-10 p-l-5" href="mailto: order.buyer.email ?subject=Invoice Email Test&body=<b>test email</b>"><i class="fa fa-envelope t-plus-1 fa-fw fa-lg"></i>Email to Buyer</a> -->
             <a class="btn btn-sm btn-white m-b-10 p-l-5" data-toggle="modal" data-target="#send-invoice-email-modal"><i class="fa fa-envelope t-plus-1 fa-fw fa-lg"></i>Email to Buyer</a>
             </span>
-        TurfD, Inc
+        Turfd, Pty. Ltd
       </div>
       <!-- end invoice-company -->
       <!-- begin invoice-header -->
@@ -152,29 +152,28 @@
         <div class="invoice-from">
           <small>from</small>
           <address class="m-t-5 m-b-5">
-            <strong class="text-inverse">TurfD, Inc.</strong><br>
-            Street Address<br>
-            City, Zip Code<br>
-            Phone: (123) 456-7890<br>
-            Email: turfd@email.com
+            <strong class="text-inverse">Turfd, Pty. Ltd</strong><br>
+            Boston<br>
+            Bellville 7350<br>
+            Phone: 0768308920<br>
+            Email: flying66free@gggmail.com
           </address>
         </div>
         <div class="invoice-to">
           <small>to</small>
           <address class="m-t-5 m-b-5">
-            <strong class="text-inverse">Buyer Name</strong><br>
-            Street Address<br>
-            City, Zip Code<br>
-            Phone: (123) 456-7890<br>
-            Email: buyer@email.com
+            <strong class="text-inverse">{{ order.buyer.name }}</strong><br>
+            {{ order.buyer.address }}<br>
+            Phone: {{ order.buyer.mobile }}<br>
+            Email: {{ order.buyer.email }}
           </address>
         </div>
         <div class="invoice-date">
           <small>Invoice Date</small>
-          <div class="date text-inverse m-t-5">August 3,2012</div>
+          <div class="date text-inverse m-t-5">{{ order.invoice.created|date }}</div>
           <small>Invoice Number</small>
           <div class="invoice-detail">
-            <div class="date text-inverse m-t-5">#HARDWARECO-20200920-0914</div><br>
+            <div class="date text-inverse m-t-5">{{ order.invoice.number }}</div><br>
           </div>
         </div>
       </div>
@@ -254,9 +253,9 @@
       <!-- end invoice-content -->
       <!-- begin invoice-note -->
       <div class="invoice-note">
-        * <b>Bank Details: FMB</b><br>
+        * <b>Bank Details: Bank: FMB; Account #: 1234567890; Branch: Tygervalley 632005;</b><br>
         * Payment is due within 7 days<br>
-        * If you have any questions concerning this invoice, contact TurfD, Inc.
+        * If you have any questions concerning this invoice, contact Turfd, Pty. Ltd.
       </div>
       <!-- end invoice-note -->
       <!-- begin invoice-footer -->
@@ -266,8 +265,8 @@
         </p>
         <p class="text-center">
           <!-- <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> matiasgallipoli.com</span> -->
-          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-square"></i> 016-18192302</span>
-          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> turfd@gmail.com</span>
+          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-square"></i>0768308920</span>
+          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> flying66free@gmail.com</span>
         </p>
       </div>
       <!-- end invoice-footer -->
