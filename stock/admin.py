@@ -15,6 +15,7 @@ class ProductAdmin(admin.ModelAdmin):
         # "get_height",
         # "get_width",
         "code",
+        "has_stock"
     ]
     # list_filter = (
     #     "spec__category",

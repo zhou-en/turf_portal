@@ -8,7 +8,6 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, UpdateView, DeleteView, \
@@ -26,7 +25,6 @@ from sales.forms import (
     OrderAddItemForm,
     OrderItemUpdateForm,
 )
-from sales.utils import buyer_status_color
 
 logger = logging.getLogger(__name__)
 
@@ -121,8 +119,8 @@ class BuyerProductCreateView(CreateView):
         buyer = Buyer.objects.get(id=buyer_id)
         form.fields['buyer'].choices = [(buyer.name, buyer.name)]
         buyer_product_choices = []
-        existing_bp_ids = [bp.product.id for bp in buyer.buyerproduct_set.all()]
-        for product in Product.objects.exclude(id__in=existing_bp_ids):
+        existing_bp_codes = [bp.product.id for bp in buyer.buyerproduct_set.all()]
+        for product in Product.objects.exclude(id__in=existing_bp_codes).exclude(has_stock=False):
             buyer_product_choices.extend(
                 [(product.code, _(product.code))]
             )
@@ -192,11 +190,22 @@ class BuyerProductDeleteView(DeleteView):
         return reverse_lazy('buyer', kwargs={'pk': self.object.buyer_id})
 
     def post(self, request, *args, **kwargs):
+        buyer_product = BuyerProduct.objects.get(id=self.kwargs.get("pk"))
         if "cancel" in request.POST:
-            buyer_product = BuyerProduct.objects.get(id=self.kwargs.get("pk"))
             return HttpResponseRedirect(reverse_lazy("buyer", kwargs={'pk': buyer_product.buyer_id}))
         else:
-            return super(BuyerProductDeleteView, self).post(request, *args, **kwargs)
+            if buyer_product.buyer.has_open_orders:
+                messages.error(
+                    request,
+                    f'Failed to remove {buyer_product.product.code} from buyer '
+                    f'{buyer_product.buyer.name} who has open orders!'
+                )
+                return HttpResponseRedirect(reverse_lazy("buyer", kwargs={'pk': buyer_product.buyer_id}))
+            else:
+                for orderline in OrderLine.objects.filter(buyer_product=buyer_product):
+                    orderline.buyer_product = None
+                    orderline.save()
+        return super(BuyerProductDeleteView, self).post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -423,7 +432,7 @@ def send_invoice_email(request, pk):
         "buyer": order.buyer,
         "send_email": True
     }
-    html_message = render_to_string('emails/invoice_email.html', context)
+    html_message = render_to_string('sales/invoice_email.html', context)
     plain_message = strip_tags(html_message)
     from_email = settings.EMAIL_HOST_USER
     to = order.buyer.email

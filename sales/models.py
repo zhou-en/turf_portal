@@ -64,6 +64,12 @@ class Buyer(TimeStampedModel, models.Model):
             total += order.total_amount
         return total
 
+    @property
+    def has_open_orders(self):
+        if self.order_set.exclude(status__exact=Order.Status.CLOSED):
+            return True
+        return False
+
 
 class BuyerProduct(TimeStampedModel, models.Model):
     """
@@ -135,7 +141,7 @@ class Order(TimeStampedModel, models.Model):
         if not self.pk:
             from sales.utils import remove_none_alphanumeric
             name_str = remove_none_alphanumeric(self.buyer.name.upper())
-            time_str = timezone.now().strftime('%Y%m%d-%H%M')
+            time_str = timezone.now().strftime('%Y%m%d')
             self.number = f"{name_str}-{time_str}"
         super().save(*args, **kwargs)
 
@@ -273,7 +279,7 @@ class OrderLine(TimeStampedModel, models.Model):
     """
 
     order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)
-    buyer_product = models.ForeignKey(BuyerProduct, on_delete=models.DO_NOTHING)
+    buyer_product = models.ForeignKey(BuyerProduct, on_delete=models.DO_NOTHING, blank=True, null=True)
     roll = models.ForeignKey(TurfRoll, on_delete=models.DO_NOTHING)
     quantity = models.FloatField(default=0.0)
     price = models.FloatField(default=0.0, blank=True, null=True)  # quantity * buyer_product.price
@@ -282,7 +288,8 @@ class OrderLine(TimeStampedModel, models.Model):
         return f"Order: {self.buyer_product}: {self.quantity} for {self.price}"
 
     def save(self, *args, **kwargs):
-        self.price = self.quantity * self.buyer_product.price
+        if self.buyer_product:
+            self.price = self.quantity * self.buyer_product.price
         super().save(*args, **kwargs)
 
     def sold(self):

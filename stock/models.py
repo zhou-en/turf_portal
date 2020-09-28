@@ -111,6 +111,7 @@ class Product(TimeStampedModel, models.Model):
     """
     spec = models.ForeignKey(RollSpec, on_delete=models.DO_NOTHING, blank=True, null=True)
     code = models.CharField(max_length=255, blank=True, null=True)
+    has_stock = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.code}"

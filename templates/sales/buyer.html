@@ -1,7 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<br>
+  <br>
+  {% if messages %}
+    {% for message in messages %}
+      {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+    {% endfor %}
+
+  {% endif %}
+
+  <br>
 <div class="card">
   <div class="card-header">
       <h5 class="card-title">Buyer Details</h5>
