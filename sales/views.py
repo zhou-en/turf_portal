@@ -428,7 +428,7 @@ def send_invoice_email(request, pk):
     from_email = settings.EMAIL_HOST_USER
     to = order.buyer.email
     try:
-        send_mail(subject, plain_message, from_email, [to], html_message=html_message)
+        send_mail(subject, plain_message, f"Turfd <{from_email}>", [to], html_message=html_message)
     except Exception as err:
         raise err
     else:
