@@ -60,10 +60,10 @@
         <tbody>
         {% for ol in invoice.order.orderlines %}
           <tr>
-            <td>{{ ol.buyer_product.product }}</td>
+            <td>{{ ol.product }}</td>
             <td>{{ ol.quantity }}</td>
-            <td>{{ ol.buyer_product.price }}</td>
             <td>{{ ol.price }}</td>
+            <td>{{ ol.total }}</td>
           </tr>
         {% endfor %}
         </tbody>
@@ -124,46 +124,5 @@
     </div>
 
   {% endif %}
-{##}
-{#  <div id="add-payment-modal" class="modal">#}
-{#    <div class="modal-dialog">#}
-{#      <div class="modal-content">#}
-{##}
-{#        <!-- Modal Header -->#}
-{#        <div class="modal-header">#}
-{#          <h4 class="modal-title">Add Payment</h4>#}
-{#          <button type="button" class="close" data-dismiss="modal">&times;</button>#}
-{#        </div>#}
-{##}
-{#        <!-- Modal body -->#}
-{#        <div class="modal-body">#}
-{#          <form action="{% url 'payment-create' invoice.id %}" role="form" method="post">#}
-{#            {% csrf_token %}#}
-{#            <table>#}
-{#              {{ form.as_table }}#}
-{#            </table>#}
-{#            <br>#}
-{#            <a href="{% url 'invoice' invoice.id %}" class="btn btn-sm btn-secondary">Cancel</a>#}
-{#            <input type="submit" value="Save" class="btn btn-sm btn-primary">#}
-{#          </form>#}
-{#          {% if form.errors %}#}
-{#            {% for field in form %}#}
-{#              {% for error in field.errors %}#}
-{#                <div class="alert alert-danger">#}
-{#                  <strong>{{ error|escape }}</strong>#}
-{#                </div>#}
-{#              {% endfor %}#}
-{#            {% endfor %}#}
-{#            {% for error in form.non_field_errors %}#}
-{#              <div class="alert alert-danger">#}
-{#                <strong>{{ error|escape }}</strong>#}
-{#              </div>#}
-{#            {% endfor %}#}
-{#          {% endif %}#}
-{#        </div>#}
-{##}
-{#      </div>#}
-{#    </div>#}
-{#  </div>#}
 
 {% endblock %}

@@ -13,11 +13,14 @@
             <dt class="col-sm-3">Product</dt>
             <dd class="col-sm-9">{{ object.buyer_product.product }}</dd>
 
-              <dt class="col-sm-3">Quantity (m<sup>2</sup>)</dt>
+            <dt class="col-sm-3">Quantity (m<sup>2</sup>)</dt>
             <dd class="col-sm-9">{{ object.quantity }}</dd>
 
-            <dt class="col-sm-3">Amount (R)</dt>
+            <dt class="col-sm-3">Price (R)</dt>
             <dd class="col-sm-9">{{ object.price }}</dd>
+
+            <dt class="col-sm-3">Amount (R)</dt>
+            <dd class="col-sm-9">{{ object.total }}</dd>
             </dl>
 
             <div class="alert alert-warning" role="alert">

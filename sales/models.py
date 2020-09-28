@@ -150,9 +150,9 @@ class Order(TimeStampedModel, models.Model):
         """
         Returns total amount of the entire order, i.e. sum of all orderline prices.
         """
-        result = self.orderline_set.aggregate(Sum('price'))
-        if result.get("price__sum"):
-            return float(result.get("price__sum"))
+        result = self.orderline_set.aggregate(Sum('total'))
+        if result.get("total__sum"):
+            return float(result.get("total__sum"))
         return 0.0
 
     @property
@@ -245,11 +245,16 @@ class Order(TimeStampedModel, models.Model):
         for item in requested_roll_infos:
             if float(item.get("quantity")) != 0:
                 roll = TurfRoll.objects.get(id=item.get("roll_id"))
+                buyer_product = BuyerProduct.objects.get(id=item.get("buyer_product_id"))
+                product = Product.objects.get(id=buyer_product.product.id)
+                quantity = float(item.get("quantity"))
                 OrderLine.objects.create(
                     order_id=self.id,
-                    buyer_product_id=item.get("buyer_product_id"),
+                    product_id=product.id,
                     roll=roll,
-                    quantity=float(item.get("quantity", 0))
+                    quantity=quantity,
+                    price=buyer_product.price,
+                    total=float(buyer_product.price * quantity)
                 )
                 if roll.status == TurfRoll.Status.SEALED:
                     logger.info("Open a new roll: %s", roll.id)
@@ -279,17 +284,16 @@ class OrderLine(TimeStampedModel, models.Model):
     """
 
     order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)
-    buyer_product = models.ForeignKey(BuyerProduct, on_delete=models.DO_NOTHING, blank=True, null=True)
+    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING, blank=True, null=True)
     roll = models.ForeignKey(TurfRoll, on_delete=models.DO_NOTHING)
     quantity = models.FloatField(default=0.0)
-    price = models.FloatField(default=0.0, blank=True, null=True)  # quantity * buyer_product.price
+    price = models.FloatField(default=0.0, blank=True, null=True)  # price from buyer
+    total = models.FloatField(default=0.0, blank=True, null=True)  # quantity * price
 
     def __str__(self):
-        return f"Order: {self.buyer_product}: {self.quantity} for {self.price}"
+        return f"Order: {self.product}: {self.quantity} for {self.price}"
 
     def save(self, *args, **kwargs):
-        if self.buyer_product:
-            self.price = self.quantity * self.buyer_product.price
         super().save(*args, **kwargs)
 
     def sold(self):

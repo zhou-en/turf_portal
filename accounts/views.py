@@ -99,8 +99,8 @@ class DataView(APIView):
             )
         for ol in OrderLine.objects.all():
             if ol.order.status == Order.Status.CLOSED:
-                pcode = ol.buyer_product.product.code
-                ptotal = ol.price
+                pcode = ol.product.code
+                ptotal = ol.total
                 if pcode in product_data:
                     product_data[pcode] += ptotal
                 else:

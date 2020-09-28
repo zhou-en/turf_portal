@@ -42,6 +42,7 @@
           <th>Product Code</th>
           <th>Quantity (m<sup>2</sup>)</th>
           <th>Buyer Price (R/m<sup>2</sup>)</th>
+          <th>Price (R)</th>
           <th>Amount (R)</th>
           <th>Actions</th>
         </tr>
@@ -49,10 +50,10 @@
         <tbody>
         {% for ol in order.orderlines %}
           <tr>
-            <td>{{ ol.buyer_product.product }}</td>
+            <td>{{ ol.product }}</td>
             <td>{{ ol.quantity }}</td>
-            <td>{{ ol.buyer_product.price }}</td>
             <td>{{ ol.price }}</td>
+            <td>{{ ol.total }}</td>
             <td style="text-align: justify">
               <a {%  if not order.is_delivered  %}href=""{% endif %}><span data-feather="edit"></span></a>
               <a {%  if not order.is_delivered  %}href=""{% endif %}><span data-feather="trash-2"></span></a>

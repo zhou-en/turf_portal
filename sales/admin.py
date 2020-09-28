@@ -76,14 +76,15 @@ class BuyerAdmin(admin.ModelAdmin):
 
 @admin.register(OrderLine)
 class OrderLineAdmin(admin.ModelAdmin):
-    readonly_fields = ["price"]
+    readonly_fields = ["total"]
     list_display = [
         "id",
         "order",
-        "buyer_product",
+        "product",
         "roll",
         "quantity",
-        "price"
+        "price",
+        "total"
     ]
 
 

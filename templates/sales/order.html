@@ -55,7 +55,7 @@
         <tr>
           <th>Product Code</th>
           <th>Quantity (m<sup>2</sup>)</th>
-          <th>Buyer Price (R/m<sup>2</sup>)</th>
+          <th>Price (R/m<sup>2</sup>)</th>
           <th>Amount (R)</th>
           {% if order.editable %}<th>Actions</th>{% endif %}
         </tr>
@@ -63,10 +63,10 @@
         <tbody>
         {% for ol in order.orderlines %}
           <tr>
-            <td>{{ ol.buyer_product.product }}</td>
+            <td>{{ ol.product }}</td>
             <td>{{ ol.quantity }}</td>
-            <td>{{ ol.buyer_product.price }}</td>
             <td>{{ ol.price }}</td>
+            <td>{{ ol.total }}</td>
             {% if order.editable %}
             <td style="text-align: justify">
               <a {%  if not order.is_delivered  %}href="{% url 'order-item-update' ol.id %}"{% endif %}><span data-feather="edit"></span></a>
