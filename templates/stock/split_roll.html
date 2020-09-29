@@ -22,4 +22,15 @@
     </div>
   </div>
 
+  <script>
+    var available = {{ roll.total }};
+    document.getElementsByName("available")[0].value = available;
+    var size_element = document.getElementsByName("size")[0];
+    size_element.max = available;
+    size_element.min = 0;
+    size_element.value = 1;
+
+  </script>
+
+
 {% endblock %}

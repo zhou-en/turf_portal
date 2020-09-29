@@ -121,6 +121,33 @@
             </tr>
           {% endif %}
         {% endfor %}
+        {# LOOSE #}
+        {% for roll in rolls %}
+          {% if roll.status == "LOOSE" or roll.status == "RETURNED" %}
+            <tr>
+              <td>{{ roll.id }}</td>
+              <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
+              <td class="text-success">{{ roll.available }}</td>
+
+              {% if roll.reserved != 0 %}
+                <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:1 }}</a></td>
+              {% else %}
+                <td>{{ roll.reserved }}</td>
+              {% endif %}
+
+              {% if roll.sold != 0 %}
+                <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:1 }}</a></td>
+              {% else %}
+                <td>{{ roll.sold }}</td>
+              {% endif %}
+
+              <td>{{ roll.location }}</td>
+              <td>{{ roll.modified|date:"Y/m/d" }}</td>
+              <td>{{ roll.created|date:"Y/m/d" }}</td>
+              <td><a href="{% url 'roll-split' roll.id %}" class="btn btn-sm btn-primary float-lg-right">Split</a></td>
+            </tr>
+          {% endif %}
+        {% endfor %}
         {# DEPLETED #}
         {% for roll in rolls %}
           {% if roll.status == "DEPLETED" %}
@@ -193,8 +220,8 @@
                   datasets: [{
                       label: "m²",
                       data: defaultData,
-                      backgroundColor: ["#32CD32", "#949FB1", "#FDB45C", "#46BFBD", "#4D5360", "#F7464A"],
-                      hoverBackgroundColor: ["#7CFC00", "#A8B3C5", "#FFC870", "#5AD3D1", "#616774", "#FF5A5E"],
+                      backgroundColor: ["#32CD32", "#949FB1", "#FDB45C", "#FFFFFF", "#46BFBD", "#4D5360", "#F7464A"],
+                      hoverBackgroundColor: ["#7CFC00", "#A8B3C5", "#FFC870", "#FFFFFF", "#5AD3D1", "#616774", "#FF5A5E"],
                       {#borderColor: [#}
                       {#    'rgba(255, 99, 132, 1)',#}
                       {#    'rgba(54, 162, 235, 1)',#}

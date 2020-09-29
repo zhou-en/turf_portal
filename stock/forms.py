@@ -29,14 +29,27 @@ class LoadStocksForm(forms.ModelForm):
         model = TurfRoll
         fields = ["status", "spec", "location", "quantity"]
 
+    status = forms.ChoiceField(
+        choices=((c.label, c.value) for c in TurfRoll.Status),
+        widget=forms.Select(attrs={"onChange": 'disableSizeField()'}),
+        required=False
+    )
+
     quantity = forms.IntegerField(
         help_text="Number of rolls to be loaded.",
         label="Quantity"
     )
 
+    size = forms.IntegerField(
+        help_text="Size of loose roll in square meters.",
+        label="Loose Size"
+    )
+
     def __init__(self, *args, **kwargs):
         self.base_fields["spec"].empty_label = None
         self.base_fields["location"].empty_label = None
+        self.base_fields["size"].required = False
+        # self.base_fields["size"].disabled = True
         super().__init__(*args, **kwargs)
 
 

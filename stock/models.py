@@ -162,6 +162,7 @@ class TurfRoll(TimeStampedModel, models.Model):
         OPENED = 'OPENED', _('Opened')
         DEPLETED = 'DEPLETED', _('Depleted')
         RETURNED = 'RETURNED', _('Returned')
+        LOOSE = 'LOOSE', _('Loose')
 
     status = models.CharField(
         max_length=63,
@@ -191,6 +192,8 @@ class TurfRoll(TimeStampedModel, models.Model):
             return "info"
         if self.status == TurfRoll.Status.RETURNED:
             return "warning"
+        if self.status == TurfRoll.Status.LOOSE:
+            return "light"
 
     @property
     def reserved(self):

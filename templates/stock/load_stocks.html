@@ -15,11 +15,27 @@
         </table>
         <br>
         <input type="submit" formnovalidate name="cancel" value="Cancel" class="btn btn-sm btn-secondary"/>
-        <input type="submit" value="Create" class="btn btn-sm btn-primary">
+        <input type="submit" value="Load" class="btn btn-sm btn-primary">
       </form>
 
 
     </div>
   </div>
 
+  <script>
+      document.getElementsByName("size")[0].disabled = true;
+      function disableSizeField() {
+          var selections = document.getElementById("id_status");
+          var selected_index = document.getElementById("id_status").selectedIndex;
+          if (selections[selected_index].text === "LOOSE") {
+              console.log("Loose selected");
+              document.getElementsByName("size")[0].disabled = false;
+              document.getElementsByName("size")[0].required = true;
+          } else{
+              console.log(selections[selected_index].text);
+              document.getElementsByName("size")[0].disabled = true;
+              document.getElementsByName("size")[0].required = false;
+          }
+      }
+  </script>
 {% endblock %}

@@ -23,7 +23,7 @@ class ProductListView(ListView):
     model = Product
     template_name = "stock/products.html"
     context_object_name = 'products'
-    queryset = Product.objects.all().order_by("has_stock", "spec__product__code")
+    queryset = Product.objects.all().order_by("has_stock")
 
     def get_context_data(self, **kwargs):
         context = super(ProductListView, self).get_context_data(**kwargs)
@@ -130,7 +130,7 @@ class StockDataView(APIView):
         for roll in TurfRoll.objects.exclude(status__exact=TurfRoll.Status.DEPLETED):
             code = roll.spec.code
             default_data = [roll.available, roll.sold, roll.reserved]
-            if roll.status == TurfRoll.Status.RETURNED:
+            if roll.status == TurfRoll.Status.LOOSE:
                 default_data.append(roll.blank)
             else:
                 default_data.append(0)
@@ -182,22 +182,39 @@ class LoadStocksView(CreateView):
         else:
             logger.debug("Start loading stock ...")
             quantity = int(request.POST.get("quantity"))
-
+            status = request.POST.get("status").upper()
             spec = RollSpec.objects.get(id=request.POST.get("spec"))
             location = Warehouse.objects.get(id=request.POST.get("location"))
-            for n in range(int(quantity)):
-                logger.info("Loading %s: %d", spec, n)
-                TurfRoll.objects.create(
-                    spec=spec,
-                    location=location,
-                    total=spec.length * spec.width.value
+            if status != TurfRoll.Status.LOOSE:
+                for n in range(int(quantity)):
+                    logger.info("Loading %s: %d", spec, n)
+                    TurfRoll.objects.create(
+                        spec=spec,
+                        location=location,
+                        total=spec.length * spec.width.value
+                    )
+                logger.info(
+                    "%s %s rolls have been loaded to %s",
+                    quantity,
+                    spec,
+                    location
                 )
-            logger.info(
-                "%s %s rolls have been loaded to %s",
-                quantity,
-                spec,
-                location
-            )
+            else:
+                loose_size = int(request.POST.get("size"))
+                for n in range(int(quantity)):
+                    logger.info("Loading loose %s: %d", spec, n)
+                    TurfRoll.objects.create(
+                        spec=spec,
+                        location=location,
+                        total=loose_size,
+                        status=TurfRoll.Status.LOOSE
+                    )
+                logger.info(
+                    "%s %s loose rolls have been loaded to %s",
+                    quantity,
+                    spec,
+                    location
+                )
         return HttpResponseRedirect(reverse_lazy("stocks"))
 
 
@@ -206,15 +223,13 @@ class SplitRollView(CreateView):
     model = TurfRoll
     template_name = "stock/split_roll.html"
     success_url = reverse_lazy('stocks')
-    # context_object_name = 'turf_roll'
     form_class = SplitRollForm
 
-    def get_form(self, form_class=None):
-        form = super().get_form()
+    def get_context_data(self, **kwargs):
         roll = TurfRoll.objects.get(id=self.kwargs.get("pk"))
-        form.base_fields["available"].initial = roll.available
-        form.base_fields["available"].max_value = roll.available
-        return form
+        context = super().get_context_data(**kwargs)
+        context["roll"] = roll
+        return context
 
     def post(self, request, *args, **kwargs):
         if "cancel" in request.POST:
@@ -227,10 +242,10 @@ class SplitRollView(CreateView):
                 spec=roll.spec,
                 location=roll.location,
                 total=split_size,
-                status=TurfRoll.Status.RETURNED
+                status=TurfRoll.Status.LOOSE
             )
             if roll.status == TurfRoll.Status.SEALED:
-                roll.status = TurfRoll.Status.OPENED
+                roll.status = TurfRoll.Status.LOOSE
             roll.total = roll.total - split_size
             roll.save()
         return HttpResponseRedirect(reverse_lazy("stocks"))
