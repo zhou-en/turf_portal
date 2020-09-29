@@ -6,13 +6,13 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView, UpdateView, DeleteView, \
+from django.views.generic import View, UpdateView, DeleteView, \
     DetailView, ListView, CreateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from stock.models import Product, TurfRoll, Warehouse, RollSpec
-from stock.forms import ProductCreateForm, ProductUpdateForm, LoadStocksForm
+from stock.forms import ProductCreateForm, ProductUpdateForm, LoadStocksForm, SplitRollForm
 
 logger = logging.getLogger(__name__)
 
@@ -125,15 +125,20 @@ class StockDataView(APIView):
     permission_classes = []
 
     def get(self, request, format=None):
-        labels = ["Available", "Sold", "Reserved"]
+        labels = ["Available", "Sold", "Reserved", "Blank"]
         data = {}
         for roll in TurfRoll.objects.exclude(status__exact=TurfRoll.Status.DEPLETED):
             code = roll.spec.code
+            default_data = [roll.available, roll.sold, roll.reserved]
+            if roll.status == TurfRoll.Status.RETURNED:
+                default_data.append(roll.blank)
+            else:
+                default_data.append(0)
             data.update({
                 roll.id: {
                     "code": code,
                     "labels": labels,
-                    "default": [roll.available, roll.sold, roll.reserved],
+                    "default": default_data,
                 }
             })
         return Response(data)
@@ -184,7 +189,8 @@ class LoadStocksView(CreateView):
                 logger.info("Loading %s: %d", spec, n)
                 TurfRoll.objects.create(
                     spec=spec,
-                    location=location
+                    location=location,
+                    total=spec.length * spec.width.value
                 )
             logger.info(
                 "%s %s rolls have been loaded to %s",
@@ -194,4 +200,38 @@ class LoadStocksView(CreateView):
             )
         return HttpResponseRedirect(reverse_lazy("stocks"))
 
+
+@method_decorator(login_required, name='dispatch')
+class SplitRollView(CreateView):
+    model = TurfRoll
+    template_name = "stock/split_roll.html"
+    success_url = reverse_lazy('stocks')
+    # context_object_name = 'turf_roll'
+    form_class = SplitRollForm
+
+    def get_form(self, form_class=None):
+        form = super().get_form()
+        roll = TurfRoll.objects.get(id=self.kwargs.get("pk"))
+        form.base_fields["available"].initial = roll.available
+        form.base_fields["available"].max_value = roll.available
+        return form
+
+    def post(self, request, *args, **kwargs):
+        if "cancel" in request.POST:
+            return HttpResponseRedirect(reverse_lazy("stocks"))
+        else:
+            roll_pk = self.kwargs.get("pk")
+            split_size = float(self.request.POST.get("size"))
+            roll = TurfRoll.objects.get(id=roll_pk)
+            new_roll = TurfRoll.objects.create(
+                spec=roll.spec,
+                location=roll.location,
+                total=split_size,
+                status=TurfRoll.Status.RETURNED
+            )
+            if roll.status == TurfRoll.Status.SEALED:
+                roll.status = TurfRoll.Status.OPENED
+            roll.total = roll.total - split_size
+            roll.save()
+        return HttpResponseRedirect(reverse_lazy("stocks"))
 

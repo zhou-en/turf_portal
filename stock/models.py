@@ -177,11 +177,8 @@ class TurfRoll(TimeStampedModel, models.Model):
         return f"{self.id}: {self.spec.code} - {self.status}   - available:{self.available}"
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            self.total = self.spec.width.value * self.spec.length
-        else:
-            if self.total == 0:
-                self.status = self.Status.DEPLETED
+        if self.total == 0:
+            self.status = self.Status.DEPLETED
         super().save(*args, **kwargs)
 
     @property
@@ -218,5 +215,12 @@ class TurfRoll(TimeStampedModel, models.Model):
         Total minus delivered and reserved.
         status.
         """
-        return float(self.spec.length * self.spec.width.value - self.reserved - self.sold)
+        return float(self.total)
 
+    @property
+    def blank(self):
+        """
+        For visualizing the returned rolls.
+        status.
+        """
+        return float(self.spec.width.value * self.spec.length - self.total - self.sold)

@@ -82,7 +82,12 @@
     {% endif %}
     </div>
     <div class="card-footer text-lg-center">
-      <a href="{% url 'orders' %}" class="btn btn-sm btn-secondary float-lg-left">Back to Orders</a>
+      <a href="{% url 'orders' %}" class="btn btn-sm btn-secondary float-lg-left" style="margin-right: 10px;">Back to Orders</a>
+
+      {% if order.status != "DRAFT" %}
+        <a class="btn btn-sm btn-danger float-lg-left" data-toggle="modal" data-target="#revert-order-modal">Revert</a>
+      {% endif %}
+
       {% if order.editable %}
         <a href="{% url 'order-add-item' order.id %}" style="margin-left: 10px;" class="btn btn-sm btn-primary float-lg-right">Add A Item</a>
       {% endif %}
@@ -120,6 +125,32 @@
         <div class="modal-footer">
           <a href="{% url 'order' order.id %}" class="btn btn-sm btn-secondary float-lg-left">Cancel</a>
           <a href="{% url 'order-submit' order.id %}" class="btn btn-sm btn-primary float-lg-right">Submit</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div id="revert-order-modal" class="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Revert Order</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <p>The order and its invoice will be deleted after reverting.</p>
+          <p>Proceed?</p>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <a href="{% url 'order' order.id %}" class="btn btn-sm btn-secondary float-lg-left">Cancel</a>
+          <a href="{% url 'order-revert' order.id %}" class="btn btn-sm btn-danger float-lg-right">Revert</a>
         </div>
 
       </div>

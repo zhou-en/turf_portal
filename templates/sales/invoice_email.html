@@ -195,12 +195,12 @@
             {% for ol in orderlines %}
               <tr>
                 <td>
-                  <span class="text-inverse" >{{ ol.buyer_product.product.name }}</span><br>
-                  <small>{{ ol.buyer_product.product.description }}</small>
+                  <span class="text-inverse" >{{ ol.product.name }}</span><br>
+                  <small>{{ ol.product.description }}</small>
                 </td>
-                <td class="text-right" style="text-align:right">{{ ol.buyer_product.price }}</td>
+                <td class="text-right" style="text-align:right">{{ ol.price }}</td>
                 <td class="text-right" style="text-align:right">{{ ol.quantity }}</td>
-                <td class="text-right" style="text-align:right">R{{ ol.price }}</td>
+                <td class="text-right" style="text-align:right">R{{ ol.total }}</td>
               </tr>
             {% endfor %}
             </tbody>

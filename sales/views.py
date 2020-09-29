@@ -403,6 +403,13 @@ def submit_order(request, pk):
 
 
 @login_required
+def revert_order(request, pk):
+    order = Order.objects.get(id=pk)
+    order.revert()
+    return HttpResponseRedirect(reverse_lazy("orders"))
+
+
+@login_required
 def send_invoice_email(request, pk):
     from django.core.mail import send_mail
     order = Order.objects.get(id=pk)

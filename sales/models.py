@@ -93,19 +93,6 @@ class BuyerProduct(TimeStampedModel, models.Model):
             ) if roll.available > 0
         ]
 
-#
-#
-# class Payment(TimeStampedModel, models.Model):
-#     """
-#     Payment made towards each orde.
-#     """
-#     buyer = models.ForeignKey(Buyer, on_delete=models.DO_NOTHING)
-#     invoice = models.ForeignKey(Invoice, on_delete=models.DO_NOTHING)
-#     amount = models.FloatField(default=0.0)
-#
-#     def __str__(self):
-#         return f"Payment: R{self.amount}"
-
 
 class Order(TimeStampedModel, models.Model):
     """
@@ -179,6 +166,29 @@ class Order(TimeStampedModel, models.Model):
             invoice.status = Invoice.Status.DRAFT
         invoice.number = self.number
         invoice.save()
+
+    def revert(self):
+        """
+        Revert an order, i.e. remove all orderlines, payments, invoice, and itself.
+        """
+        # Revert quantity deducted from roll
+        if self.status == Order.Status.CLOSED:
+            for ol in self.orderline_set.all():
+                ol.roll.total += ol.quantity
+                if ol.roll.status == TurfRoll.Status.DEPLETED:
+                    ol.roll.status = TurfRoll.Status.OPENED
+                ol.roll.save()
+        # remove orderlines
+        for ol in self.orderline_set.all():
+            ol.delete()
+        # remove payments
+        if self.invoice.payment_set.exists():
+            for payment in self.invoice.payment_set.all():
+                payment.delete()
+        # remove invoice
+        self.invoice.delete()
+        # remove order
+        self.delete()
 
     def deliver(self):
         """

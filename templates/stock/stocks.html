@@ -36,6 +36,7 @@
           <th>Warehouse</th>
           <th>Last Sold Date</th>
           <th>Loaded Date</th>
+          <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -62,6 +63,7 @@
             <td>{{ roll.location }}</td>
             <td>{{ roll.modified|date:"Y/m/d" }}</td>
             <td>{{ roll.created|date:"Y/m/d" }}</td>
+            <td><a href="{% url 'roll-split' roll.id %}" class="btn btn-sm btn-primary float-lg-right">Split</a></td>
           </tr>
           {% endif %}
         {% endfor %}
@@ -88,6 +90,7 @@
               <td>{{ roll.location }}</td>
               <td>{{ roll.modified|date:"Y/m/d" }}</td>
               <td>{{ roll.created|date:"Y/m/d" }}</td>
+              <td><a href="{% url 'roll-split' roll.id %}" class="btn btn-sm btn-primary float-lg-right">Split</a></td>
             </tr>
           {% endif %}
         {% endfor %}
@@ -114,6 +117,7 @@
               <td>{{ roll.location }}</td>
               <td>{{ roll.modified|date:"Y/m/d" }}</td>
               <td>{{ roll.created|date:"Y/m/d" }}</td>
+              <td><a href="{% url 'roll-split' roll.id %}" class="btn btn-sm btn-primary float-lg-right">Split</a></td>
             </tr>
           {% endif %}
         {% endfor %}
@@ -140,6 +144,7 @@
               <td>{{ roll.location }}</td>
               <td>{{ roll.modified|date:"Y/m/d" }}</td>
               <td>{{ roll.created|date:"Y/m/d" }}</td>
+              <td>-</td>
             </tr>
           {% endif %}
         {% endfor %}
@@ -149,9 +154,6 @@
   </div>
   </div>
   <br>
-
-
-
 {% endfor %}
 
   <script>
