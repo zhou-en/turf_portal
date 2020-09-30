@@ -1,3 +1,5 @@
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Button, Submit
 from django.utils.translation import gettext_lazy as _
 from django.utils.safestring import mark_safe
 from django import forms
@@ -16,6 +18,9 @@ class BuyerCreateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.base_fields["status"].disabled = True
+        self.helper = FormHelper()
+        self.helper.add_input(Button('cancel', 'Cancel', onclick='window.history.back();'))
+        self.helper.add_input(Submit('submit', 'Submit'))
         super(BuyerCreateForm, self).__init__(*args, **kwargs)
 
 
@@ -26,6 +31,12 @@ class BuyerUpdateForm(forms.ModelForm):
         fields = "__all__"
 
     field_order = ["buyer_type", "name", "mobile", "email", "address", "contact_person"]
+
+    def __init__(self, *args, **kwargs):
+        self.helper = FormHelper()
+        self.helper.add_input(Button('cancel', 'Cancel', onclick='window.history.back();'))
+        self.helper.add_input(Submit('submit', 'Submit'))
+        super(BuyerUpdateForm, self).__init__(*args, **kwargs)
 
 
 class BuyerProductAdminForm(forms.ModelForm):

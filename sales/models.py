@@ -90,7 +90,7 @@ class BuyerProduct(TimeStampedModel, models.Model):
         return [
             roll for roll in TurfRoll.objects.filter(
                 spec_id=self.product.spec_id
-            ) if roll.available > 0
+            ) if roll.available >= 0 and roll.status != TurfRoll.Status.DEPLETED
         ]
 
 
@@ -128,7 +128,7 @@ class Order(TimeStampedModel, models.Model):
         if not self.pk:
             from sales.utils import remove_none_alphanumeric
             name_str = remove_none_alphanumeric(self.buyer.name.upper())
-            time_str = timezone.now().strftime('%Y%m%d')
+            time_str = timezone.now().strftime('%Y%m%d%H')
             self.number = f"{name_str}-{time_str}"
         super().save(*args, **kwargs)
 

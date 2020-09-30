@@ -25,7 +25,7 @@
       </dl>
     </div>
   <div class="card-footer">
-{#    <a href="{% url 'products' %}" class="btn btn-sm btn-secondary">Back to Products</a>#}
+    <a href="{% url 'products' %}" class="btn btn-sm btn-secondary">Back to Products</a>
 {#    <a href="{% url 'product-update' product.id %}" class="btn btn-sm btn-primary">Update</a>#}
 {#    <a href="{% url 'product-delete' product.id %}" class="btn btn-sm btn-danger">Delete</a>#}
   </div>
@@ -35,18 +35,18 @@
 
   <div class="card">
     <div class="card-header">
-      <h5 class="card-title"># of Rolls Available: {{ product.roll_count }}</h5>
+      <h5 class="card-title">Rolls Available: {{ product.roll_count }}</h5>
     </div>
     <div class="card-body">
     {% if available_rolls %}
-      <table id="product-roll-table" class="display table table-striped table-hover">
+      <table id="product-roll-table" class="display table table-responsive-sm table-hover">
         <thead class="thead-dark">
         <tr>
           <th>ID</th>
           <th>Specification</th>
           <th>Available (m<sup>2</sup>)</th>
           <th>Reserved (m<sup>2</sup>)</th>
-          <th>Delivered (m<sup>2</sup>)</th>
+          <th>Sold (m<sup>2</sup>)</th>
           <th>Status</th>
           <th>Location</th>
         </tr>
@@ -58,8 +58,8 @@
             <td>{{ roll.spec }}</td>
             <td>{{ roll.available }}</td>
             <td>{{ roll.reserved }}</td>
-            <td>{{ roll.delivered }}</td>
-            <td>{{ roll.status }}</td>
+            <td>{{ roll.sold }}</td>
+            <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
             <td>{{ roll.location }}</td>
           </tr>
         {% endfor %}
@@ -69,6 +69,9 @@
       <h5>No stocks available for this product.</h5>
     {% endif %}
     </div>
+  <div class="card-footer">
+
+  </div>
   </div>
 
   <script>

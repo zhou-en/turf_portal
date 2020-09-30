@@ -399,7 +399,7 @@ class OrderItemUpdateView(UpdateView):
 def submit_order(request, pk):
     order = Order.objects.get(id=pk)
     order.submit()
-    return HttpResponseRedirect(reverse_lazy("orders"))
+    return HttpResponseRedirect(reverse_lazy("order", kwargs={"pk": order.id}))
 
 
 @login_required

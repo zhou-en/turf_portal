@@ -1,3 +1,5 @@
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Button, Submit
 from django.utils.translation import gettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.core.exceptions import ValidationError
@@ -37,10 +39,15 @@ class PaymentCreateForm(forms.ModelForm):
             pk = kwargs.pop("pk")
             invoice = Invoice.objects.filter(id=pk)
             self.base_fields["invoice"].queryset = invoice
+            # ToDo: the followings are not showing in the create page
             self.base_fields["amount"].max_value = invoice.first().amount_due
             self.base_fields["amount"].initial = invoice.first().amount_due
             self.base_fields["amount"].min_value = 0.0
         self.base_fields["invoice"].empty_label = None
+        self.base_fields["invoice"].disabled = True
+        self.helper = FormHelper()
+        self.helper.add_input(Button('cancel', 'Cancel', onclick='window.history.back();'))
+        self.helper.add_input(Submit('submit', 'Submit'))
         super(PaymentCreateForm, self).__init__(*args, **kwargs)
 
     def clean_amount(self):

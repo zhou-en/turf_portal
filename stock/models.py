@@ -111,7 +111,6 @@ class Product(TimeStampedModel, models.Model):
     """
     spec = models.ForeignKey(RollSpec, on_delete=models.DO_NOTHING, blank=True, null=True)
     code = models.CharField(max_length=255, blank=True, null=True)
-    has_stock = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.code}"
@@ -129,6 +128,12 @@ class Product(TimeStampedModel, models.Model):
     def save(self, *args, **kwargs):
         self.code = f"{self.spec.color.name.upper()[0]}{self.spec.height.value}-{self.spec.width}m"
         super(Product, self).save(*args, **kwargs)
+
+    @property
+    def has_stock(self):
+        if TurfRoll.objects.filter(spec=self.spec).exclude(status__exact=TurfRoll.Status.DEPLETED):
+            return True
+        return False
 
     @property
     def roll_count(self):
@@ -171,6 +176,7 @@ class TurfRoll(TimeStampedModel, models.Model):
     )
     spec = models.ForeignKey(RollSpec, on_delete=models.DO_NOTHING)
     total = models.IntegerField(default=0)
+    original_size = models.IntegerField(default=0)
     sold = models.IntegerField(default=0)
     location = models.ForeignKey(Warehouse, on_delete=models.DO_NOTHING, blank=True, null=True)
 
@@ -193,7 +199,7 @@ class TurfRoll(TimeStampedModel, models.Model):
         if self.status == TurfRoll.Status.RETURNED:
             return "warning"
         if self.status == TurfRoll.Status.LOOSE:
-            return "light"
+            return "outline-success"
 
     @property
     def reserved(self):
@@ -213,17 +219,17 @@ class TurfRoll(TimeStampedModel, models.Model):
         return 0
 
     @property
-    def available(self):
-        """
-        Total minus delivered and reserved.
-        status.
-        """
-        return float(self.total)
-
-    @property
     def blank(self):
         """
         For visualizing the returned rolls.
         status.
         """
-        return float(self.spec.width.value * self.spec.length - self.total - self.sold)
+        return float(self.spec.width.value * self.spec.length - self.original_size)
+
+    @property
+    def available(self):
+        """
+        Total minus delivered and reserved.
+        status.
+        """
+        return float(self.original_size - self.reserved - self.sold)

@@ -14,11 +14,6 @@
         <dt class="col-sm-3">Number</dt>
         <dd class="col-sm-9">{{ order.number }}</dd>
 
-        {% if invoice %}
-          <dt class="col-sm-3">Invoice</dt>
-          <dd class="col-sm-9"><a href="{% url 'invoice' invoice.id %}">{{ invoice.number }}</a></dd>
-        {% endif %}
-
         <dt class="col-sm-3">Buyer</dt>
         <dd class="col-sm-9"><a href="{% url 'buyer' order.buyer.id %}">{{ order.buyer.name }}</a></dd>
 
@@ -33,7 +28,10 @@
 
         {% if order.invoice %}
           <dt class="col-sm-3">Invoice</dt>
-          <dd class="col-sm-9"><a href="{% url 'invoice' order.invoice.id %}">{{ order.invoice.number }}</a></dd>
+          <dd class="col-sm-9">
+            <a href="{% url 'invoice' order.invoice.id %}">{{ order.invoice.number }}</a>
+            <a class="btn btn-sm btn-outline-{{ order.invoice.status_color }}" style="pointer-events: none; margin-left: 10px;">{{ order.invoice.status }}</a>
+          </dd>
         {% endif %}
 
       </dl>
@@ -96,7 +94,7 @@
       {% if order.status == "DRAFT" %}
         <a type="button" class="btn btn-sm btn-primary float-lg-right" data-toggle="modal" data-target="#submit-order-modal">Submit</a>
       {% elif order.status == "SUBMITTED" %}
-        <a type="button" class="btn btn-sm btn-info float-lg-right" data-toggle="modal" data-target="#send-invoice-modal">Invoice</a>
+        <a type="button" class="btn btn-sm btn-info float-lg-right" data-toggle="modal" data-target="#send-invoice-modal">Invoice Buyer</a>
       {% elif order.status == "INVOICED" %}
         <a type="button" class="btn btn-sm btn-warning float-lg-right" data-toggle="modal" data-target="#deliver-order-modal">Deliver</a>
       {% endif %}
@@ -117,7 +115,10 @@
 
         <!-- Modal body -->
         <div class="modal-body">
-          <p>An invoice will be created for this order after submission. You can still update this order before delivering or sending invoice to the buyer.</p>
+          <p>
+            An invoice will be created for this order after submission.
+            You can still add items to this order before invoicing the buyer.
+          </p>
           <p>Proceed?</p>
         </div>
 
@@ -196,7 +197,10 @@
         <!-- Modal body -->
         <div class="modal-body text-justify">
           <div>
-            <p>After the invoice sent to the buyer, the order will be READONLY status will be set to <a class="btn btn-info disabled">INVOICED</a>.</p>
+            <p>
+              After the invoice sent to the buyer, the order will be READONLY status will be set to <a class="btn btn-info disabled">INVOICED</a>.
+              No items will be allowed to add to this order.
+            </p>
           <p>Proceed?</p>
           </div>
 

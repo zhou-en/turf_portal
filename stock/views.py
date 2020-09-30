@@ -23,7 +23,7 @@ class ProductListView(ListView):
     model = Product
     template_name = "stock/products.html"
     context_object_name = 'products'
-    queryset = Product.objects.all().order_by("has_stock")
+    queryset = Product.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super(ProductListView, self).get_context_data(**kwargs)
@@ -34,7 +34,7 @@ class ProductListView(ListView):
 class ProductCreateView(CreateView):
     model = Product
     template_name = 'stock/product_create.html'
-    success_url = reverse_lazy('product')
+    success_url = reverse_lazy('products')
     form_class = ProductCreateForm
 
     def post(self, request, *args, **kwargs):
@@ -52,9 +52,13 @@ class ProductDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # context["available_rolls"] = TurfRoll.objects.filter(
+        #     spec__id=self.object.spec_id
+        # ).filter(~Q(status=TurfRoll.Status.DEPLETED))
+
         context["available_rolls"] = TurfRoll.objects.filter(
-            spec__id=self.object.spec_id
-        ).filter(~Q(status=TurfRoll.Status.DEPLETED))
+            spec=self.object.spec
+        ).order_by("status")
 
         return context
 
@@ -191,7 +195,8 @@ class LoadStocksView(CreateView):
                     TurfRoll.objects.create(
                         spec=spec,
                         location=location,
-                        total=spec.length * spec.width.value
+                        total=spec.length * spec.width.value,
+                        original_size=spec.length * spec.width.value
                     )
                 logger.info(
                     "%s %s rolls have been loaded to %s",
@@ -207,6 +212,7 @@ class LoadStocksView(CreateView):
                         spec=spec,
                         location=location,
                         total=loose_size,
+                        original_size=loose_size,
                         status=TurfRoll.Status.LOOSE
                     )
                 logger.info(
@@ -242,11 +248,13 @@ class SplitRollView(CreateView):
                 spec=roll.spec,
                 location=roll.location,
                 total=split_size,
+                original_size=split_size,
                 status=TurfRoll.Status.LOOSE
             )
             if roll.status == TurfRoll.Status.SEALED:
                 roll.status = TurfRoll.Status.LOOSE
             roll.total = roll.total - split_size
+            roll.original_size = roll.original_size - split_size
             roll.save()
         return HttpResponseRedirect(reverse_lazy("stocks"))
 

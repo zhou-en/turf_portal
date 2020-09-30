@@ -49,6 +49,16 @@ class PaymentCreateView(CreateView):
     template_name = 'invoice/payment_create.html'
     form_class = PaymentCreateForm
 
+    def get_form(self, form_class=None):
+        form = super().get_form()
+        pk = self.kwargs.get("pk")
+        invoice = Invoice.objects.filter(id=pk)
+        form.base_fields["invoice"].queryset = invoice
+        form.initial.update(
+            {"invoice": invoice.first().id}
+        )
+        return form
+
     def get_success_url(self):
         pk = self.kwargs.pop("pk")
         return reverse_lazy('invoice', kwargs={'pk': pk})
@@ -59,6 +69,14 @@ class PaymentCreateView(CreateView):
         else:
             pk = kwargs.pop("pk")
             return super(PaymentCreateView, self).post(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        invoice = Invoice.objects.get(id=self.kwargs.get("pk"))
+        context.update(
+            {"invoice": invoice}
+        )
+        return context
 
 
 class ExportPDFView(View):
@@ -83,8 +101,8 @@ class ExportPDFView(View):
             page_size="A4",
             margin_left="15mm",
             margin_right="15mm",
-            margin_top="20mm",
-            margin_bottom="20mm",
+            margin_top="15mm",
+            margin_bottom="15mm",
             orientation="Landscape",
         )
         return HttpResponse(pdf, content_type='application/pdf')

@@ -1,8 +1,10 @@
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Button, Submit
 from django import forms
 from django.forms.widgets import SelectDateWidget, Select
 from django.utils.safestring import mark_safe
 
-from sales.models import Product, TurfRoll
+from stock.models import Product, RollSpec, TurfRoll
 
 
 class ProductCreateForm(forms.ModelForm):
@@ -11,7 +13,14 @@ class ProductCreateForm(forms.ModelForm):
         model = Product
         fields = "__all__"
 
-    field_order = ["product", "price"]
+    def __init__(self, *args, **kwargs):
+        self.base_fields["spec"].required = True
+        self.base_fields["has_stock"].disabled = True
+        self.base_fields["code"].disabled = True
+        self.helper = FormHelper()
+        self.helper.add_input(Button('cancel', 'Cancel', onclick='window.history.back();'))
+        self.helper.add_input(Submit('submit', 'Submit'))
+        super().__init__(*args, **kwargs)
 
 
 class ProductUpdateForm(forms.ModelForm):
@@ -49,7 +58,9 @@ class LoadStocksForm(forms.ModelForm):
         self.base_fields["spec"].empty_label = None
         self.base_fields["location"].empty_label = None
         self.base_fields["size"].required = False
-        # self.base_fields["size"].disabled = True
+        self.helper = FormHelper()
+        self.helper.add_input(Button('cancel', 'Cancel', onclick='window.history.back();'))
+        self.helper.add_input(Submit('submit', 'Submit'))
         super().__init__(*args, **kwargs)
 
 

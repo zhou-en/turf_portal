@@ -96,6 +96,7 @@ class TurfRollAdmin(admin.ModelAdmin):
     list_display = [
         "id",
         "spec",
+        "original_size",
         "total",
         "sold",
         "status",

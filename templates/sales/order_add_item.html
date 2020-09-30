@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
   <br>
@@ -29,10 +30,11 @@
           <table id="{{ bp.id }}" class="table table-sm table-borderless">
             <thead>
             <tr>
+              <th>Roll ID</th>
               <th>Quantity (m<sup>2</sup>)</th>
               <th>Available (m<sup>2</sup>)</th>
               <th>Reserved (m<sup>2</sup>)</th>
-              <th>Delivered (m<sup>2</sup>)</th>
+              <th>Sold (m<sup>2</sup>)</th>
               <th>Status</th>
               <th>Location</th>
             </tr>
@@ -40,23 +42,24 @@
             <tbody>
             {% for roll in bp.available_rolls  %}
               <tr>
+                <td>{{ roll.id }}</td>
                 <td>
-                  <input max="{{ roll.available }}" min="0" name="turf-roll" id="{{ roll.id }}" style="border: none; outline: none;" type="number" placeholder="m²" onkeyup="updateSelectedRolls()">
+                  <input max="{{ roll.available }}" min="0" name="turf-roll" id="{{ roll.id }}" type="number" placeholder="Quantity in m²" onkeyup="updateSelectedRolls()">
                 </td>
                 <td class="text-success">{{ roll.available }}</td>
 
                 {% if roll.reserved != 0 %}
-                  <td class="text-warning">{{ roll.reserved }}</td>
+                  <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:1 }}</a></td>
                 {% else %}
                   <td>{{ roll.reserved }}</td>
                 {% endif %}
 
-                {% if roll.delivered != 0 %}
-                  <td class="text-primary">{{ roll.delivered }}</td>
+                {% if roll.sold != 0 %}
+                  <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:1 }}</a></td>
                 {% else %}
-                  <td>{{ roll.delivered }}</td>
+                  <td>{{ roll.sold }}</td>
                 {% endif %}
-                <td>{{ roll.status }}</td>
+                <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
                 <td>{{ roll.location }}</td>
               </tr>
             {% endfor %}
