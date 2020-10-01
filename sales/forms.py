@@ -148,7 +148,7 @@ class OrderItemUpdateForm(forms.ModelForm):
         self.base_fields["price"].label = "Price (R)"
         self.base_fields["quantity"].label = mark_safe("Quantity (m<sup>2</sup>)")
         self.base_fields["product"].disabled = True
-        spec = kwargs["instance"].buyer_product.product.spec
+        spec = kwargs["instance"].product.spec
         roll_queryset = TurfRoll.objects.filter(spec=spec)
         self.base_fields["roll"].queryset = roll_queryset
         self.base_fields["roll"].empty_label = None
