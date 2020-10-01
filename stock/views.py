@@ -12,7 +12,13 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from stock.models import Product, TurfRoll, Warehouse, RollSpec
-from stock.forms import ProductCreateForm, ProductUpdateForm, LoadStocksForm, SplitRollForm
+from stock.forms import (
+    ProductCreateForm,
+    ProductUpdateForm,
+    LoadStocksForm,
+    SplitRollForm,
+    RelocateStockForm
+)
 
 logger = logging.getLogger(__name__)
 
@@ -227,7 +233,7 @@ class LoadStocksView(CreateView):
 @method_decorator(login_required, name='dispatch')
 class SplitRollView(CreateView):
     model = TurfRoll
-    template_name = "stock/split_roll.html"
+    template_name = "stock/split_stock.html"
     success_url = reverse_lazy('stocks')
     form_class = SplitRollForm
 
@@ -258,3 +264,19 @@ class SplitRollView(CreateView):
             roll.save()
         return HttpResponseRedirect(reverse_lazy("stocks"))
 
+
+@method_decorator(login_required, name='dispatch')
+class RelocateStockView(UpdateView):
+    model = TurfRoll
+    template_name = 'stock/relocate_stock.html'
+    context_object_name = "stock"
+    form_class = RelocateStockForm
+
+    def get_success_url(self):
+        return reverse_lazy('stocks')
+
+    def post(self, request, *args, **kwargs):
+        if "cancel" in request.POST:
+            return HttpResponseRedirect(reverse_lazy("stocks"))
+        else:
+            return super(RelocateStockView, self).post(request, *args, **kwargs)

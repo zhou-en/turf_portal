@@ -44,7 +44,7 @@
               <tr>
                 <td>{{ roll.id }}</td>
                 <td>
-                  <input max="{{ roll.available }}" min="0" name="turf-roll" id="{{ roll.id }}" type="text" placeholder="Quantity in m²" onkeyup="updateSelectedRolls()">
+                  <input max="{{ roll.available }}" min="0" name="turf-roll" id="{{ roll.id }}" type="number" placeholder="Quantity in m²" onchange="updateSelectedRolls()">
                 </td>
                 <td class="text-success">{{ roll.available }}</td>
 

@@ -120,7 +120,7 @@ class OrderCreateForm(forms.ModelForm):
             pk = kwargs.pop("pk")
             buyer = Buyer.objects.filter(id=pk)
             self.base_fields["buyer"].queryset = buyer
-            self.base_fields["buyer"].empty_label = None
+        self.base_fields["buyer"].empty_label = None
         super(OrderCreateForm, self).__init__(*args, **kwargs)
 
 

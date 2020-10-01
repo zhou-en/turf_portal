@@ -186,12 +186,13 @@ class TurfRoll(TimeStampedModel, models.Model):
     def save(self, *args, **kwargs):
         if self.total == 0:
             self.status = self.Status.DEPLETED
+            self.location = None
         super().save(*args, **kwargs)
 
     @property
     def status_color(self):
         if self.status == TurfRoll.Status.DEPLETED:
-            return "secondary"
+            return "outline-secondary"
         if self.status == TurfRoll.Status.OPENED:
             return "success"
         if self.status == TurfRoll.Status.SEALED:

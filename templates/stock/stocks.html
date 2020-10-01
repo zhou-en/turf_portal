@@ -40,36 +40,8 @@
         </tr>
         </thead>
         <tbody>
-        {# OPENED #}
         {% for roll in rolls %}
-          {% if roll.status == "OPENED" %}
-          <tr>
-            <td>{{ roll.id }}</td>
-            <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
-            <td class="text-success">{{ roll.available }}</td>
-
-            {% if roll.reserved != 0 %}
-              <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:1 }}</a></td>
-            {% else %}
-              <td>{{ roll.reserved }}</td>
-            {% endif %}
-
-            {% if roll.sold != 0 %}
-              <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:1 }}</a></td>
-            {% else %}
-              <td>{{ roll.sold }}</td>
-            {% endif %}
-
-            <td>{{ roll.location }}</td>
-            <td>{{ roll.modified|date:"Y/m/d" }}</td>
-            <td>{{ roll.created|date:"Y/m/d" }}</td>
-            <td><a href="{% url 'roll-split' roll.id %}" class="btn btn-sm btn-primary">Split</a></td>
-          </tr>
-          {% endif %}
-        {% endfor %}
-        {# RETRUNED #}
-        {% for roll in rolls %}
-          {% if roll.status == "RETURNED" %}
+          {% if roll.status != "DEPLETED" %}
             <tr>
               <td>{{ roll.id }}</td>
               <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
@@ -90,61 +62,14 @@
               <td>{{ roll.location }}</td>
               <td>{{ roll.modified|date:"Y/m/d" }}</td>
               <td>{{ roll.created|date:"Y/m/d" }}</td>
-              <td><a href="{% url 'roll-split' roll.id %}" class="btn btn-sm btn-primary">Split</a></td>
-            </tr>
-          {% endif %}
-        {% endfor %}
-        {# SEALED #}
-        {% for roll in rolls %}
-          {% if roll.status == "SEALED" %}
-            <tr>
-              <td>{{ roll.id }}</td>
-              <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
-              <td class="text-success">{{ roll.available }}</td>
-
-              {% if roll.reserved != 0 %}
-                <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:1 }}</a></td>
-              {% else %}
-                <td>{{ roll.reserved }}</td>
-              {% endif %}
-
-              {% if roll.sold != 0 %}
-                <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:1 }}</a></td>
-              {% else %}
-                <td>{{ roll.sold }}</td>
-              {% endif %}
-
-              <td>{{ roll.location }}</td>
-              <td>{{ roll.modified|date:"Y/m/d" }}</td>
-              <td>{{ roll.created|date:"Y/m/d" }}</td>
-              <td><a href="{% url 'roll-split' roll.id %}" class="btn btn-sm btn-primary">Split</a></td>
-            </tr>
-          {% endif %}
-        {% endfor %}
-        {# LOOSE #}
-        {% for roll in rolls %}
-          {% if roll.status == "LOOSE" or roll.status == "RETURNED" %}
-            <tr>
-              <td>{{ roll.id }}</td>
-              <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
-              <td class="text-success">{{ roll.available }}</td>
-
-              {% if roll.reserved != 0 %}
-                <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:1 }}</a></td>
-              {% else %}
-                <td>{{ roll.reserved }}</td>
-              {% endif %}
-
-              {% if roll.sold != 0 %}
-                <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:1 }}</a></td>
-              {% else %}
-                <td>{{ roll.sold }}</td>
-              {% endif %}
-
-              <td>{{ roll.location }}</td>
-              <td>{{ roll.modified|date:"Y/m/d" }}</td>
-              <td>{{ roll.created|date:"Y/m/d" }}</td>
-              <td><a href="{% url 'roll-split' roll.id %}" class="btn btn-sm btn-primary">Split</a></td>
+              <td>
+                {% if roll.available != 0 %}
+                  <a href="{% url 'stock-split' roll.id %}" class="btn btn-sm btn-primary">Split</a>
+                {% else %}
+                  <a href="{% url 'stock-split' roll.id %}" style="pointer-events: none;" class="btn btn-sm btn-outline-secondary">Split</a>
+                {% endif %}
+                <a href="{% url 'stock-relocate' roll.id %}" class="btn btn-sm btn-info">Relocate</a>
+              </td>
             </tr>
           {% endif %}
         {% endfor %}
@@ -171,7 +96,7 @@
               <td>{{ roll.location }}</td>
               <td>{{ roll.modified|date:"Y/m/d" }}</td>
               <td>{{ roll.created|date:"Y/m/d" }}</td>
-              <td style="text-align: justify">-</td>
+              <td style="text-align: center">-</td>
             </tr>
           {% endif %}
         {% endfor %}

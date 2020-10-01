@@ -17,13 +17,11 @@
         <input type="submit" formnovalidate name="cancel" value="Cancel" class="btn btn-sm btn-secondary"/>
         <input type="submit" value="Split" class="btn btn-sm btn-primary">
       </form>
-
-
     </div>
   </div>
 
   <script>
-    var available = {{ roll.total }};
+    var available = {{ roll.available }};
     document.getElementsByName("available")[0].value = available;
     var size_element = document.getElementsByName("size")[0];
     size_element.max = available;
