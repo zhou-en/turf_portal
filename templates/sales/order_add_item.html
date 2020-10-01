@@ -25,11 +25,11 @@
 
     <ul>
       {% for bp in buyer_products %}
-        <li><h4><u>{{ bp.product.code }}: R{{ bp.price }}/m<sup>2</sup></u></h4></li>
+        <li><h4>{{ bp.product.code }}: R{{ bp.price }}/m<sup>2</sup></h4></li>
         {% if bp.available_rolls and not bp.product.code in ordered_product %}
           <table id="{{ bp.id }}" class="table table-sm table-borderless">
             <thead>
-            <tr>
+            <tr style="border-bottom: 1px solid black; padding: 5px">
               <th>Roll ID</th>
               <th>Quantity (m<sup>2</sup>)</th>
               <th>Available (m<sup>2</sup>)</th>
@@ -44,7 +44,7 @@
               <tr>
                 <td>{{ roll.id }}</td>
                 <td>
-                  <input max="{{ roll.available }}" min="0" name="turf-roll" id="{{ roll.id }}" type="number" placeholder="Quantity in m²" onkeyup="updateSelectedRolls()">
+                  <input max="{{ roll.available }}" min="0" name="turf-roll" id="{{ roll.id }}" type="text" placeholder="Quantity in m²" onkeyup="updateSelectedRolls()">
                 </td>
                 <td class="text-success">{{ roll.available }}</td>
 
@@ -75,11 +75,11 @@
       {% endfor %}
     </ul>
     </div>
-    <div class="card-footer text-lg-center">
+    {{ form.selected_items }}
+    <div class="card-footer">
       <a href="{% url 'order' order.id %}" class="btn btn-sm btn-secondary float-lg-left">Cancel</a>
       <input type="submit" value="Add To Order" class="btn btn-sm btn-primary float-lg-right">
     </div>
-    {{ form.selected_items }}
     </form>
     <br>
     <br>
@@ -116,7 +116,7 @@
             var obj = Object();
             var bp_id = rolls[i].parentElement.parentElement.parentElement.parentElement.id;
             obj.roll_id = rolls[i].id;
-            obj.quantity = rolls[i].value;
+            obj.quantity = Number(rolls[i].value);
             obj.buyer_product_id = bp_id;
             requested_rolls.push(obj);
         }

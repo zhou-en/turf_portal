@@ -24,7 +24,7 @@
       <!-- begin invoice-company -->
       <div id="action-buttons" class="invoice-company text-inverse f-w-600">
             <span class="pull-right hidden-print">
-            <a href="{% url 'invoice-export' order.invoice.id %}" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-file-pdf-o t-plus-1 text-danger fa-fw fa-lg"></i> Export as PDF</a>
+            <a href="{% url 'invoice-export' order.invoice.id %}" target="_blank" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-file-pdf-o t-plus-1 text-danger fa-fw fa-lg"></i> Export as PDF</a>
             <!--<a class="btn btn-sm btn-white m-b-10 p-l-5" href="mailto: order.buyer.email ?subject=Invoice Email Test&body=<b>test email</b>"><i class="fa fa-envelope t-plus-1 fa-fw fa-lg"></i>Email to Buyer</a> -->
             <a class="btn btn-sm btn-white m-b-10 p-l-5" data-toggle="modal" data-target="#send-invoice-email-modal"><i class="fa fa-envelope t-plus-1 fa-fw fa-lg"></i>Email to Buyer</a>
             </span>
