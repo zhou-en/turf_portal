@@ -163,9 +163,9 @@
           <small>to</small>
           <address class="m-t-5 m-b-5">
             <strong class="text-inverse">{{ buyer.name }}</strong><br>
-            {% if order.buyer.address %}{{ order.buyer.address }}<br>{% endif %}
-            {% if order.buyer.mobile %}Phone: {{ buyer.mobile }}<br>{% endif %}
-            {% if order.buyer.email %}Email: {{ buyer.email }}{% endif %}
+            {% if buyer.address %}{{ buyer.address }}<br>{% endif %}
+            {% if buyer.mobile %}Phone: {{ buyer.mobile }}<br>{% endif %}
+            {% if buyer.email %}Email: {{ buyer.email }}{% endif %}
           </address>
         </div>
         <div class="invoice-date">
