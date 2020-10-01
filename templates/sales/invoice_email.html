@@ -156,7 +156,7 @@
             Boston<br>
             Bellville 7350<br>
             Phone: 0768308920<br>
-            Email: turfd@email.com
+            Email: flying66free@gmail.com
           </address>
         </div>
         <div class="invoice-to">
@@ -188,7 +188,7 @@
               <th class="text-right" style="text-align:left">Products</th>
               <th class="text-right" style="text-align:right">Rate (R/m<sup>2</sup>)</th>
               <th class="text-right" style="text-align:right">Quantity (m<sup>2</sup>)</th>
-              <th class="text-right" style="text-align:right">Item Total (Incl.)</th>
+              <th class="text-right" style="text-align:right">Item Total</th>
             </tr>
             </thead>
             <tbody>
@@ -198,9 +198,9 @@
                   <span class="text-inverse" >{{ ol.product.name }}</span><br>
                   <small>{{ ol.product.description }}</small>
                 </td>
-                <td class="text-right" style="text-align:right">{{ ol.price }}</td>
+                <td class="text-right" style="text-align:right">{{ ol.price|floatformat:2 }}</td>
                 <td class="text-right" style="text-align:right">{{ ol.quantity }}</td>
-                <td class="text-right" style="text-align:right">R{{ ol.total }}</td>
+                <td class="text-right" style="text-align:right">R{{ ol.total|floatformat:2 }}</td>
               </tr>
             {% endfor %}
             </tbody>
@@ -214,23 +214,27 @@
             <div class="invoice-price-row">
               <div class="sub-price">
                 <small>SUBTOTAL</small>
-                <span class="text-inverse">R{{ order.total_exclude_vat }}</span>
+                <span class="text-inverse">R{{ order.total_amount|floatformat:2 }}</span>
               </div>
               <div class="sub-price">
+              <!--
                 {% if send_email %}
                   +
                 {% else %}
                 <i class="fa fa-plus text-muted"></i>
                 {% endif %}
+                -->
               </div>
               <div class="sub-price">
+                <!--
                 <small>VAT (15%)</small>
-                <span class="text-inverse">R{{ order.total_vat }}</span>
+                <span class="text-inverse">R{{ order.total_vat|floatformat:2 }}</span>
+                -->
               </div>
             </div>
           </div>
           <div class="invoice-price-right">
-            <small>TOTAL</small> <span class="f-w-600">R{{ order.total_amount }}</span>
+            <small>TOTAL</small> <span class="f-w-600">R{{ order.total_amount|floatformat:2 }}</span>
           </div>
         </div>
         <!-- end invoice-price -->
@@ -252,7 +256,7 @@
           <!-- <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> matiasgallipoli.com</span>-->
           {% if not send_email %}
           <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-square"></i>0768308920</span>
-          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> flying66free@gmail.com</span>
+          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i>TURFD &lt;flying66free@gmail.com&gt;</span>
           {% endif %}
         </p>
       </div>

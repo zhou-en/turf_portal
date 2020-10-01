@@ -32,13 +32,13 @@
         <dd class="col-sm-9"><a href="{% url 'buyer' invoice.buyer.id %}"><span>{{ invoice.buyer.name }}</span></a></dd>
 
         <dt class="col-sm-3">Total (R)</dt>
-        <dd class="col-sm-9">{{ invoice.order.total_amount }}</dd>
+        <dd class="col-sm-9">{{ invoice.order.total_amount|floatformat:2 }}</dd>
 
         <dt class="col-sm-3">Amount Paid (R)</dt>
-        <dd class="col-sm-9 text-success">{{ invoice.total_payment }}</dd>
+        <dd class="col-sm-9 text-success">{{ invoice.total_payment|floatformat:2 }}</dd>
 
         <dt class="col-sm-3">Amount Due (R)</dt>
-        <dd class="col-sm-9 text-danger">{{ invoice.amount_due }}</dd>
+        <dd class="col-sm-9 text-danger">{{ invoice.amount_due|floatformat:2 }}</dd>
 
         <dt class="col-sm-3">Created Date</dt>
         <dd class="col-sm-9">{{ invoice.created }}</dd>
@@ -62,8 +62,8 @@
           <tr>
             <td>{{ ol.product }}</td>
             <td>{{ ol.quantity }}</td>
-            <td>{{ ol.price }}</td>
-            <td>{{ ol.total }}</td>
+            <td>{{ ol.price|floatformat:2 }}</td>
+            <td>{{ ol.total|floatformat:2 }}</td>
           </tr>
         {% endfor %}
         </tbody>
@@ -104,7 +104,7 @@
           <tbody>
           {% for p in payments %}
             <tr>
-              <td class="text-success">{{ p.amount }}</td>
+              <td class="text-success">{{ p.amount|floatformat:2 }}</td>
               <td>{{ p.method }}</td>
               <td>{{ p.created|date:"Y/m/d" }}</td>
             </tr>

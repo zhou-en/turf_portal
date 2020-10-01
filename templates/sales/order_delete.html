@@ -52,8 +52,8 @@
           <tr>
             <td>{{ ol.product }}</td>
             <td>{{ ol.quantity }}</td>
-            <td>{{ ol.price }}</td>
-            <td>{{ ol.total }}</td>
+            <td>{{ ol.price|floatformat:2 }}</td>
+            <td>{{ ol.total|floatformat:2 }}</td>
             <td style="text-align: justify">
               <a {%  if not order.is_delivered  %}href=""{% endif %}><span data-feather="edit"></span></a>
               <a {%  if not order.is_delivered  %}href=""{% endif %}><span data-feather="trash-2"></span></a>

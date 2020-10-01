@@ -18,7 +18,7 @@
         <dd class="col-sm-9"><a href="{% url 'buyer' order.buyer.id %}">{{ order.buyer.name }}</a></dd>
 
         <dt class="col-sm-3">Total (R)</dt>
-        <dd class="col-sm-9">{{ order.total_amount }}</dd>
+        <dd class="col-sm-9">{{ order.total_amount|floatformat:2 }}</dd>
 
         <dt class="col-sm-3">Created Date</dt>
         <dd class="col-sm-9">{{ order.created|date:"Y/m/d" }}</dd>
@@ -63,8 +63,8 @@
           <tr>
             <td>{{ ol.product }}</td>
             <td>{{ ol.quantity }}</td>
-            <td>{{ ol.price }}</td>
-            <td>{{ ol.total }}</td>
+            <td>{{ ol.price|floatformat:2 }}</td>
+            <td>{{ ol.total|floatformat:2 }}</td>
             {% if order.editable %}
             <td style="text-align: justify">
               <a {%  if not order.is_delivered  %}href="{% url 'order-item-update' ol.id %}"{% endif %}><span data-feather="edit"></span></a>

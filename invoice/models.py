@@ -57,8 +57,8 @@ class Invoice(TimeStampedModel, models.Model):
     def total_payment(self):
         result = self.payment_set.all().aggregate(Sum("amount"))
         if result.get("amount__sum"):
-            return float(result.get("amount__sum"))
-        return 0.0
+            return round(float(result.get("amount__sum")), 2)
+        return round(0.0, 2)
 
     @property
     def payment_complete(self):
@@ -71,7 +71,7 @@ class Invoice(TimeStampedModel, models.Model):
         """
         total amount - total payment
         """
-        return self.order.total_amount - self.total_payment
+        return round((self.order.total_amount - self.total_payment), 2)
 
     @property
     def has_payment(self):
@@ -126,6 +126,7 @@ class Payment(TimeStampedModel, models.Model):
         return f"{self.amount}"
 
     def save(self, *args, **kwargs):
+        self.amount = round(self.amount, 2)
         super().save(*args, **kwargs)
         if self.invoice.payment_complete:
             self.invoice.close()

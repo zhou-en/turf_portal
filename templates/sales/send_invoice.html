@@ -72,7 +72,7 @@
               <th>Products</th>
               <th class="text-center" width="15%">Rate (R/m<sup>2</sup>)</th>
               <th class="text-center" width="15%">Quantity (m<sup>2</sup>)</th>
-              <th class="text-right" width="20%">Item Total (Incl.)</th>
+              <th class="text-right" width="20%">Item Total</th>
             </tr>
             </thead>
             <tbody>
@@ -87,26 +87,6 @@
               <td class="text-right">R{{ ol.total }}</td>
             </tr>
             {% endfor %}
-            <!--
-            <tr>
-              <td>
-                <span class="text-inverse">Artificial Grass</span><br>
-                <small>Color: Autumn; Height: 25mm; Width: 4m</small>
-              </td>
-              <td class="text-center">R50.00</td>
-              <td class="text-center">20</td>
-              <td class="text-right">R2,000.00</td>
-            </tr>
-            <tr>
-              <td>
-                <span class="text-inverse">Artificial Grass</span><br>
-                <small>Color: Spring; Height: 30mm; Width: 2m</small>
-              </td>
-              <td class="text-center">R50.00</td>
-              <td class="text-center">30</td>
-              <td class="text-right">R2,500.00</td>
-            </tr>
-            -->
             </tbody>
           </table>
         </div>
@@ -117,14 +97,19 @@
             <div class="invoice-price-row">
               <div class="sub-price">
                 <small>SUBTOTAL</small>
-                <span class="text-inverse">R{{ order.total_exclude_vat }}</span>
+                <span class="text-inverse">R{{ order.total_amount }}</span>
               </div>
+
               <div class="sub-price">
+                <!--
                 <i class="fa fa-plus text-muted"></i>
+                -->
               </div>
               <div class="sub-price">
+                <!--
                 <small>VAT (15%)</small>
                 <span class="text-inverse">R{{ order.total_vat }}</span>
+                -->
               </div>
             </div>
           </div>
@@ -150,7 +135,7 @@
         <p class="text-center">
           <!-- <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> matiasgallipoli.com</span> -->
           <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-square"></i>0768308920</span>
-          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> flying66free@gmail.com</span>
+          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i>TURFD &lt;flying66free@gmail.com&gt;</span>
         </p>
       </div>
       <!-- end invoice-footer -->

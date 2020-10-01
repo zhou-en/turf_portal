@@ -153,6 +153,7 @@
       });
 
       function setBarChart(labels, defaultData, ctx) {
+          var xStepSize = Math.ceil(Math.max(defaultData) / 15);
           var myChart = new Chart(ctx, {
               type: "horizontalBar",
               data: {
@@ -198,7 +199,7 @@
                       xAxes: [
                           {
                               ticks: {
-                                  stepSize: 20,
+                                  stepSize: xStepSize,
                                   autoSkip: false
                               },
                               scaleLabel: {

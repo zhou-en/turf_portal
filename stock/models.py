@@ -95,14 +95,14 @@ class RollSpec(TimeStampedModel, models.Model):
         verbose_name_plural = "Roll Specs"
 
     def __str__(self):
-        return f"{self.category} - {self.color} - {self.height}mm - {self.width}m - {self.length}m"
+        return self.code
 
     @property
     def code(self):
         """
         Return the spec code.
         """
-        return f"{self.color.name.upper()[0]}{self.height.value}-{self.width.value}m"
+        return f"{self.height.value}{self.color.name.upper()[0]}-{self.width.value}"
 
 
 class Product(TimeStampedModel, models.Model):
@@ -126,7 +126,7 @@ class Product(TimeStampedModel, models.Model):
         return f"Color: {self.spec.color.name}; Height: {self.spec.height.value}mm; Width: {self.spec.width.value}m"
 
     def save(self, *args, **kwargs):
-        self.code = f"{self.spec.color.name.upper()[0]}{self.spec.height.value}-{self.spec.width}m"
+        self.code = f"{self.spec.height.value}{self.spec.color.name.upper()[0]}-{self.spec.width}"
         super(Product, self).save(*args, **kwargs)
 
     @property

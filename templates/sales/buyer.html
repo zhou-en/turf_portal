@@ -40,7 +40,7 @@
         <dd class="col-sm-9">{{ buyer.contact_person }}</dd>
 
         <dt class="col-sm-3">Total Revenue (R)</dt>
-        <dd class="col-sm-9">{{ buyer.history_total }}</dd>
+        <dd class="col-sm-9">{{ buyer.history_total|floatformat:2 }}</dd>
       </dl>
     </div>
   <div class="card-footer">
@@ -57,7 +57,7 @@
     </div>
     <div class="card-body table-responsive-sm">
     {% if buyer_products %}
-      <table id="buyer-product-table" class="display table table-sm table-striped table-hover">
+      <table id="buyer-product-table" class="display table table-sm table-hover">
         <thead class="thead-dark">
         <tr>
           <th>Product Code</th>
@@ -72,12 +72,12 @@
         <tbody>
         {% for bp in buyer_products %}
           <tr>
-            <td><a href="{% url 'product' bp.product.id %}" >{{ bp.product.code }}</a></td>
+            <td><a href="{% url 'buyer-product-update' bp.id %}" >{{ bp.product.code }}</a></td>
             <td>{{ bp.product.spec.category }}</td>
             <td>{{ bp.product.spec.color }}</td>
             <td>{{ bp.product.spec.height }}</td>
             <td>{{ bp.product.spec.width }}</td>
-            <td>{{ bp.price }}</td>
+            <td>{{ bp.price|floatformat:2 }}</td>
             <td>
               <a href="{% url 'buyer-product-update' bp.id %}"><span data-feather="edit"></span></a>
               <a href="{% url 'buyer-product-delete' bp.id %}"><span data-feather="trash-2"></span></a>
@@ -102,7 +102,7 @@
     </div>
     <div class="card-body table-responsive-sm">
     {% if buyer_orders %}
-      <table id="buyer-orders-table" class="display table table-sm table-striped table-hover">
+      <table id="buyer-orders-table" class="display table table-sm table-hover">
         <thead class="thead-dark">
         <tr>
           <th>Order</th>
@@ -118,7 +118,7 @@
           <tr>
             <td><a href="{% url 'order' order.id %}" >{{ order.number }}</a></td>
             <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a></td>
-            <td>{{ order.total_amount }}</td>
+            <td>{{ order.total_amount|floatformat:2 }}</td>
             <td>{{ order.created }}</td>
             <td>{{ order.closed_date }}</td>
             {% if order.invoice %}

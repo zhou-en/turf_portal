@@ -62,7 +62,7 @@ class Buyer(TimeStampedModel, models.Model):
         total = 0
         for order in self.order_set.filter(status=Order.Status.CLOSED):
             total += order.total_amount
-        return total
+        return "%.2f" % total
 
     @property
     def has_open_orders(self):
@@ -83,7 +83,7 @@ class BuyerProduct(TimeStampedModel, models.Model):
         unique_together = ("buyer", "product")
 
     def __str__(self):
-        return f"Buyer: {self.buyer.name} - {self.product}: R{self.price}"
+        return "%s %s: R%.2f" % (self.buyer.name, self.product.code, self.price)
 
     @property
     def available_rolls(self):
@@ -139,8 +139,8 @@ class Order(TimeStampedModel, models.Model):
         """
         result = self.orderline_set.aggregate(Sum('total'))
         if result.get("total__sum"):
-            return float(result.get("total__sum"))
-        return 0.0
+            return round(float(result.get("total__sum")), 2)
+        return round(0.00, 2)
 
     @property
     def orderlines(self):
@@ -281,11 +281,11 @@ class Order(TimeStampedModel, models.Model):
 
     @property
     def total_vat(self):
-        return float(self.total_amount) * 0.15
+        return round(float(self.total_amount) * 0.15, 2)
 
     @property
     def total_exclude_vat(self):
-        return self.total_amount - self.total_vat
+        return round((self.total_amount - self.total_vat), 2)
 
 
 class OrderLine(TimeStampedModel, models.Model):
@@ -304,6 +304,8 @@ class OrderLine(TimeStampedModel, models.Model):
         return f"Order: {self.product}: {self.quantity} for {self.price}"
 
     def save(self, *args, **kwargs):
+        self.price = round(self.price, 2)
+        self.total = round(self.total, 2)
         super().save(*args, **kwargs)
 
     def sold(self):

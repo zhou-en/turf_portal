@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
 
 {% block content %}
   <br>
@@ -10,12 +10,7 @@
     <div class="card-body">
         <form method="post">
             {% csrf_token %}
-            <table>
-              {{ form.as_table }}
-            </table>
-          <br>
-          <input type="submit" formnovalidate name="cancel" value="Cancel" class="btn btn-sm btn-secondary"/>
-          <input type="submit" value="Save" class="btn btn-sm btn-primary">
+            {% crispy form %}
         </form>
     </div>
 </div>

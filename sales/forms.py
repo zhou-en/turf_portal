@@ -77,9 +77,10 @@ class BuyerProductCreateForm(forms.ModelForm):
     field_order = ["buyer", "product", "price"]
 
     def __init__(self, *args, **kwargs):
-
-        # self.base_fields["product"].queryset = Product.objects.exclude(has_stock=False)
         self.base_fields["buyer"].disabled = True
+        self.helper = FormHelper()
+        self.helper.add_input(Button('cancel', 'Cancel', onclick='window.history.back();'))
+        self.helper.add_input(Submit('submit', 'Submit'))
         super(BuyerProductCreateForm, self).__init__(*args, **kwargs)
 
 
@@ -89,9 +90,12 @@ class BuyerProductUpdateForm(forms.ModelForm):
         fields = "__all__"
 
     def __init__(self, *args, **kwargs):
-
-        # self.base_fields["product"].queryset = Product.objects.filter(has_stock__exact=True)
+        instance = kwargs.get("instance")
         self.base_fields["buyer"].disabled = True
+        self.base_fields["product"].disabled = True
+        self.helper = FormHelper()
+        self.helper.add_input(Button('cancel', 'Cancel', onclick='window.history.back();'))
+        self.helper.add_input(Submit('submit', 'Save'))
         super(BuyerProductUpdateForm, self).__init__(*args, **kwargs)
 
 
@@ -152,4 +156,7 @@ class OrderItemUpdateForm(forms.ModelForm):
         roll_queryset = TurfRoll.objects.filter(spec=spec)
         self.base_fields["roll"].queryset = roll_queryset
         self.base_fields["roll"].empty_label = None
+        self.helper = FormHelper()
+        self.helper.add_input(Button('cancel', 'Cancel', onclick='window.history.back();'))
+        self.helper.add_input(Submit('submit', 'Save'))
         super().__init__(*args, **kwargs)
