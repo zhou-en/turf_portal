@@ -119,10 +119,11 @@ class BuyerProductCreateView(CreateView):
         form.fields['buyer'].choices = [(buyer.name, buyer.name)]
         buyer_product_choices = []
         existing_bp_codes = [bp.product.id for bp in buyer.buyerproduct_set.all()]
-        for product in Product.objects.exclude(id__in=existing_bp_codes).exclude(has_stock=False):
-            buyer_product_choices.extend(
-                [(product.code, _(product.code))]
-            )
+        for product in Product.objects.exclude(id__in=existing_bp_codes):
+            if product.has_stock:
+                buyer_product_choices.extend(
+                    [(product.code, _(product.code))]
+                )
         form.fields['product'].choices = buyer_product_choices
         return form
 
