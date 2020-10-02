@@ -345,12 +345,14 @@ class OrderAddItemView(CreateView):
         buyer = order.buyer
         buyer_products = BuyerProduct.objects.filter(buyer=buyer)
         ordered_products = [ol.product.code for ol in order.orderline_set.all()]
+        ordered_rolls = [ol.roll_id for ol in order.orderline_set.all()]
         context.update(
             {
                 "buyer_products": buyer_products,
                 "order": order,
                 "buyer": buyer,
-                "ordered_product": ordered_products
+                "ordered_product": ordered_products,
+                "ordered_rolls": ordered_rolls
             }
         )
         return context

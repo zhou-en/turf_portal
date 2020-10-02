@@ -306,6 +306,8 @@ class OrderLine(TimeStampedModel, models.Model):
     def save(self, *args, **kwargs):
         self.price = round(self.price, 2)
         self.total = round(self.total, 2)
+        if self.total != self.price * self.quantity:
+            self.total = self.price * self.quantity
         super().save(*args, **kwargs)
 
     def sold(self):

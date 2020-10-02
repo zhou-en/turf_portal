@@ -26,7 +26,7 @@
     <ul>
       {% for bp in buyer_products %}
         <li><h4>{{ bp.product.code }}: R{{ bp.price }}/m<sup>2</sup></h4></li>
-        {% if bp.available_rolls and not bp.product.code in ordered_product %}
+        {% if bp.available_rolls %}
           <table id="{{ bp.id }}" class="table table-sm table-borderless">
             <thead>
             <tr style="border-bottom: 1px solid black; padding: 5px">
@@ -41,6 +41,7 @@
             </thead>
             <tbody>
             {% for roll in bp.available_rolls  %}
+              {% if not roll.id in ordered_rolls  %}
               <tr>
                 <td>{{ roll.id }}</td>
                 <td>
@@ -62,6 +63,7 @@
                 <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
                 <td>{{ roll.location }}</td>
               </tr>
+              {% endif %}
             {% endfor %}
             </tbody>
           </table>

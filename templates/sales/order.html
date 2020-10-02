@@ -52,6 +52,7 @@
         <thead class="thead-dark">
         <tr>
           <th>Product Code</th>
+          <th>Roll ID</th>
           <th>Quantity (m<sup>2</sup>)</th>
           <th>Price (R/m<sup>2</sup>)</th>
           <th>Amount (R)</th>
@@ -62,6 +63,7 @@
         {% for ol in order.orderlines %}
           <tr>
             <td>{{ ol.product }}</td>
+            <td>{{ ol.roll_id }}</td>
             <td>{{ ol.quantity }}</td>
             <td>{{ ol.price|floatformat:2 }}</td>
             <td>{{ ol.total|floatformat:2 }}</td>
