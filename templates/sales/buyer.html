@@ -91,7 +91,11 @@
     {% endif %}
     </div>
     <div class="card-footer">
-      <a href="{% url 'buyer-product-create' buyer.id %}" class="btn btn-sm btn-primary float-lg-right">Add Product</a>
+      {% if buyer.has_product_available %}
+      <a id="add-product-btn" href="{% url 'buyer-product-create' buyer.id %}" class="btn btn-sm btn-primary float-lg-right">Add Product</a>
+        {% else %}
+      <a id="add-product-btn" href="{% url 'buyer-product-create' buyer.id %}" class="btn btn-sm btn-primary float-lg-right disabled">Add Product</a>
+      {% endif %}
     </div>
   </div>
 

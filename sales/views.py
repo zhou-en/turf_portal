@@ -117,7 +117,7 @@ class BuyerProductCreateView(CreateView):
         buyer_id = self.kwargs.get("pk")
         buyer = Buyer.objects.get(id=buyer_id)
         form.fields['buyer'].choices = [(buyer.name, buyer.name)]
-        buyer_product_choices = []
+        buyer_product_choices = [(None, _("Select a product"))]
         existing_bp_codes = [bp.product.id for bp in buyer.buyerproduct_set.all()]
         for product in Product.objects.exclude(id__in=existing_bp_codes):
             if product.has_stock:
@@ -194,17 +194,14 @@ class BuyerProductDeleteView(DeleteView):
         if "cancel" in request.POST:
             return HttpResponseRedirect(reverse_lazy("buyer", kwargs={'pk': buyer_product.buyer_id}))
         else:
-            if buyer_product.buyer.has_open_orders:
+            open_order = buyer_product.buyer.has_open_order(buyer_product)
+            if open_order:
                 messages.error(
                     request,
-                    f'Failed to remove {buyer_product.product.code} from buyer '
-                    f'{buyer_product.buyer.name} who has open orders!'
+                    f'Unable to remove {buyer_product.product.code} from buyer. '
+                    f'It is allocated in an open order: {open_order.number}!'
                 )
                 return HttpResponseRedirect(reverse_lazy("buyer", kwargs={'pk': buyer_product.buyer_id}))
-            # else:
-            #     for orderline in OrderLine.objects.filter(buyer_product=buyer_product):
-            #         orderline.buyer_product = None
-            #         orderline.save()
         return super(BuyerProductDeleteView, self).post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):

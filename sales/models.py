@@ -64,10 +64,24 @@ class Buyer(TimeStampedModel, models.Model):
             total += order.total_amount
         return "%.2f" % total
 
+    def has_open_order(self, buyer_product):
+        open_orders = self.order_set.exclude(status__exact=Order.Status.CLOSED)
+        for order in open_orders:
+            if order.orderline_set.filter(product=buyer_product.product):
+                return order
+        return None
+
     @property
-    def has_open_orders(self):
-        if self.order_set.exclude(status__exact=Order.Status.CLOSED):
-            return True
+    def has_product_available(self):
+        """
+        Returns true if there are products that have stock and not in buyer
+        product list.
+        """
+        buyer_existing_products = [bp.product for bp in self.buyerproduct_set.all()]
+        for product in Product.objects.all():
+            if product not in buyer_existing_products:
+                if product.has_stock:
+                    return True
         return False
 
 
