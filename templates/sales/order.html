@@ -53,6 +53,7 @@
         <tr>
           <th>Product Code</th>
           <th>Roll ID</th>
+          <th>Batch</th>
           <th>Quantity (m<sup>2</sup>)</th>
           <th>Price (R/m<sup>2</sup>)</th>
           <th>Amount (R)</th>
@@ -64,6 +65,7 @@
           <tr>
             <td>{{ ol.product }}</td>
             <td>{{ ol.roll_id }}</td>
+            <td>{{ ol.roll.batch }}</td>
             <td>{{ ol.quantity }}</td>
             <td>{{ ol.price|floatformat:2 }}</td>
             <td>{{ ol.total|floatformat:2 }}</td>

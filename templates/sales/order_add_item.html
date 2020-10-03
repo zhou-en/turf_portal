@@ -36,6 +36,7 @@
               <th>Reserved (m<sup>2</sup>)</th>
               <th>Sold (m<sup>2</sup>)</th>
               <th>Status</th>
+              <th>Batch</th>
               <th>Location</th>
             </tr>
             </thead>
@@ -61,6 +62,7 @@
                   <td>{{ roll.sold }}</td>
                 {% endif %}
                 <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
+                <td>{{ roll.batch }}</td>
                 <td>{{ roll.location }}</td>
               </tr>
               {% endif %}

@@ -193,6 +193,7 @@ class LoadStocksView(CreateView):
             logger.debug("Start loading stock ...")
             quantity = int(request.POST.get("quantity"))
             status = request.POST.get("status").upper()
+            batch_id = request.POST.get("batch")
             spec = RollSpec.objects.get(id=request.POST.get("spec"))
             location = Warehouse.objects.get(id=request.POST.get("location"))
             if status != TurfRoll.Status.LOOSE:
@@ -200,6 +201,7 @@ class LoadStocksView(CreateView):
                     logger.info("Loading %s: %d", spec, n)
                     TurfRoll.objects.create(
                         spec=spec,
+                        batch_id=batch_id,
                         location=location,
                         total=spec.length * spec.width.value,
                         original_size=spec.length * spec.width.value
@@ -252,6 +254,7 @@ class SplitRollView(CreateView):
             roll = TurfRoll.objects.get(id=roll_pk)
             new_roll = TurfRoll.objects.create(
                 spec=roll.spec,
+                batch=roll.batch,
                 location=roll.location,
                 total=split_size,
                 original_size=split_size,

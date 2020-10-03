@@ -48,6 +48,7 @@
           <th>Reserved (m<sup>2</sup>)</th>
           <th>Sold (m<sup>2</sup>)</th>
           <th>Status</th>
+          <th>Batch</th>
           <th>Location</th>
         </tr>
         </thead>
@@ -57,9 +58,19 @@
             <td>{{ roll.id }}</td>
             <td>{{ roll.spec }}</td>
             <td>{{ roll.available }}</td>
-            <td>{{ roll.reserved }}</td>
-            <td>{{ roll.sold }}</td>
+            {% if roll.reserved != 0 %}
+              <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:1 }}</a></td>
+            {% else %}
+              <td>{{ roll.reserved }}</td>
+            {% endif %}
+
+            {% if roll.sold != 0 %}
+              <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:1 }}</a></td>
+            {% else %}
+              <td>{{ roll.sold }}</td>
+            {% endif %}
             <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
+            <td>{{ roll.batch }}</td>
             <td>{{ roll.location }}</td>
           </tr>
         {% endfor %}

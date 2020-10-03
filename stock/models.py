@@ -155,6 +155,30 @@ class Product(TimeStampedModel, models.Model):
         return square_meters
 
 
+class Batch(TimeStampedModel, models.Model):
+    """
+    Stock batches
+    """
+    class Meta:
+        verbose_name_plural = "Batches"
+
+    number = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.number}"
+
+    @property
+    def total_sale(self):
+        """
+        Return total sales of all product from this bactch.
+        """
+        from sales.models import OrderLine, Order
+        result = OrderLine.objects.filter(
+            order__status=Order.Status.CLOSED
+        ).filter(roll__batch__number=self.number).aggregate(Sum("total"))
+        return float(result.get("total__sum"))
+
+
 class TurfRoll(TimeStampedModel, models.Model):
     """
     Rolls stored in the warehouse.
@@ -179,6 +203,7 @@ class TurfRoll(TimeStampedModel, models.Model):
     original_size = models.IntegerField(default=0)
     sold = models.IntegerField(default=0)
     location = models.ForeignKey(Warehouse, on_delete=models.DO_NOTHING, blank=True, null=True)
+    batch = models.ForeignKey(Batch, on_delete=models.DO_NOTHING, blank=True, null=True)
 
     def __str__(self):
         return f"{self.id}: {self.spec.code} - {self.status}   - available:{self.available}"

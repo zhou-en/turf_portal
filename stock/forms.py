@@ -36,7 +36,7 @@ class LoadStocksForm(forms.ModelForm):
 
     class Meta:
         model = TurfRoll
-        fields = ["status", "spec", "location", "quantity"]
+        fields = ["status", "spec", "batch", "location", "quantity"]
 
     status = forms.ChoiceField(
         choices=((c.label, c.value) for c in TurfRoll.Status),
@@ -56,6 +56,7 @@ class LoadStocksForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.base_fields["spec"].empty_label = None
+        self.base_fields["batch"].empty_label = None
         self.base_fields["location"].empty_label = None
         self.base_fields["size"].required = False
         self.helper = FormHelper()

@@ -1,7 +1,8 @@
+from django.utils import timezone
 from django.contrib import admin
 
 from stock.models import (
-    Product, Category, Color, Width, Height, RollSpec, Warehouse, TurfRoll
+    Product, Category, Color, Width, Height, RollSpec, Warehouse, TurfRoll, Batch
 )
 
 
@@ -46,6 +47,7 @@ class TurfRollAdmin(admin.ModelAdmin):
     list_display = [
         "id",
         "spec",
+        "batch",
         "original_size",
         "total",
         "sold",
@@ -77,3 +79,12 @@ class WarehouseAdmin(admin.ModelAdmin):
         "address",
     ]
 
+
+@admin.register(Batch)
+class BatchAdmin(admin.ModelAdmin):
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(BatchAdmin, self).get_form(request, obj, **kwargs)
+        form.base_fields['number'].initial = \
+            f"BATCH-{timezone.now().date().strftime('%Y%m%d')}"
+        return form

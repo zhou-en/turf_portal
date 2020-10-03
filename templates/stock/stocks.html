@@ -15,7 +15,7 @@
     </div>
   <div class="card-body">
     <div class="card-content table-responsive-sm">
-      <table id="stocks-table" class="table table-sm table-hover table-borderless">
+      <table id="stocks-table-{{ spec.id }}" class="table table-sm table-hover table-borderless">
         <thead style="border-bottom: 1px solid black;">
         <tr>
           <th>ID</th>
@@ -23,6 +23,7 @@
           <th>Available (m<sup>2</sup>)</th>
           <th>Reserved (m<sup>2</sup>)</th>
           <th>Sold (m<sup>2</sup>)</th>
+          <th>Batch</th>
           <th>Warehouse</th>
           <th>Last Sold Date</th>
           <th>Loaded Date</th>
@@ -49,6 +50,7 @@
                 <td>{{ roll.sold }}</td>
               {% endif %}
 
+              <td>{{ roll.batch }}</td>
               <td>{{ roll.location }}</td>
               <td>{{ roll.modified|date:"Y/m/d" }}</td>
               <td>{{ roll.created|date:"Y/m/d" }}</td>
@@ -83,6 +85,7 @@
                 <td>{{ roll.sold }}</td>
               {% endif %}
 
+              <td>{{ roll.batch }}</td>
               <td>{{ roll.location }}</td>
               <td>{{ roll.modified|date:"Y/m/d" }}</td>
               <td>{{ roll.created|date:"Y/m/d" }}</td>
@@ -110,6 +113,12 @@
 {% endfor %}
 
   <script>
+
+      {% for spec, rolls in turf_rolls.items %}
+      $(document).ready( function () {
+          $('#stocks-table-{{ spec.id }}').DataTable();
+      } );
+      {% endfor %}
 
       var endpoint = "/api/stock/data/";
       {#var defaultData = [];#}
