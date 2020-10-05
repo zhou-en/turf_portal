@@ -22,7 +22,10 @@ from sales.views import (
     revert_order,
     send_invoice_email,
     deliver,
-    InvoiceOrderView
+    InvoiceOrderView,
+    DiscountCreateView,
+    DiscountUpdateView,
+    DiscountDeleteView
 )
 
 urlpatterns = [
@@ -38,6 +41,9 @@ urlpatterns = [
     path("orders/", OrderListView.as_view(), name="orders"),
     path("closed_orders/<int:pk>/", FilteredOrderListView.as_view(), name="closed-orders"),
     path("reserved_orders/<int:pk>/", FilteredOrderListView.as_view(), name="reserved-orders"),
+    path("order/<int:pk>/discount_create", DiscountCreateView.as_view(), name="discount-create"),
+    path("discount/<int:pk>/update", DiscountUpdateView.as_view(), name="discount-update"),
+    path("discount/<int:pk>/delete", DiscountDeleteView.as_view(), name="discount-delete"),
     path("order_create/", OrderCreateView.as_view(), name="order-create"),
     path("buyer/<int:pk>/order_create/", BuyerOrderCreateView.as_view(), name="buyer-order-create"),
     path("order/<int:pk>/add_item/", OrderAddItemView.as_view(), name="order-add-item"),

@@ -24,6 +24,8 @@ from sales.forms import (
     OrderCreateForm,
     OrderAddItemForm,
     OrderItemUpdateForm,
+    DiscountCreateForm,
+    DiscountUpdateForm
 )
 
 logger = logging.getLogger(__name__)
@@ -239,6 +241,7 @@ class FilteredOrderListView(ListView):
             context["orderlines"] = OrderLine.objects.filter(
                 roll=roll,
                 order__status__in=[
+                    Order.Status.DRAFT,
                     Order.Status.SUBMITTED,
                     Order.Status.INVOICED,
                     Order.Status.DELIVERED,
@@ -341,7 +344,7 @@ class OrderAddItemView(CreateView):
         order = Order.objects.get(id=self.kwargs.get("pk"))
         buyer = order.buyer
         buyer_products = BuyerProduct.objects.filter(buyer=buyer)
-        ordered_products = [ol.product.code for ol in order.orderline_set.all()]
+        ordered_products = [ol.product.code for ol in order.orderline_set.exclude(product=None)]
         ordered_rolls = [ol.roll_id for ol in order.orderline_set.all()]
         context.update(
             {
@@ -364,7 +367,7 @@ class OrderItemDeleteView(DeleteView):
     template_name = 'sales/orderline_delete.html'
 
     def get_success_url(self):
-        return HttpResponseRedirect(reverse_lazy("orders"))
+        return reverse_lazy('order', kwargs={'pk': self.object.order_id})
 
     def post(self, request, *args, **kwargs):
         self.order_id = OrderLine.objects.get(id=kwargs.get("pk")).order_id
@@ -453,16 +456,78 @@ class InvoiceOrderView(DetailView):
         if order.status == Order.Status.SUBMITTED:
             order.invoice_order()
         context["order"] = order
-        context["orderlines"] = order.orderline_set.all()
+        context["orderlines"] = order.orderlines
         return render(request, template_name="sales/send_invoice.html", context=context)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         order = Order.objects.get(id=kwargs.get("pk"))
-        # Pre-populate invoice choices and then disable it in forms.py
-        # form = PaymentCreateForm(pk=self.object.id)
-        # form.base_fields["invoice"].queryset = Invoice.objects.filter(id=self.object.id)
         context["order"] = order
-        # context["payments"] = self.object.payment_set.all()
         return context
 
+
+@method_decorator(login_required, name="dispatch")
+class DiscountCreateView(CreateView):
+    model = OrderLine
+    template_name = 'sales/discount_create.html'
+    form_class = DiscountCreateForm
+
+    def get_form(self, form_class=None):
+        form = super().get_form()
+        order_id = self.kwargs.get("pk")
+        order = Order.objects.filter(id=order_id)
+        form.base_fields["order"].queryset = order
+        return form
+
+    def post(self, request, *args, **kwargs):
+        order_id = self.kwargs.get("pk")
+        price = request.POST.get("price")
+        OrderLine.objects.create(
+            order_id=order_id,
+            product=None,
+            roll=None,
+            quantity=1,
+            price=float(price)
+        )
+        return HttpResponseRedirect(reverse_lazy("order", kwargs={"pk": order_id}))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        order = Order.objects.get(id=self.kwargs.get("pk"))
+        context["order"] = order
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class DiscountUpdateView(UpdateView):
+    model = OrderLine
+    template_name = 'sales/discount_update.html'
+    form_class = DiscountUpdateForm
+
+    def get_success_url(self):
+        return reverse_lazy('order', kwargs={'pk': self.object.order_id})
+
+    def post(self, request, *args, **kwargs):
+        if "cancel" in request.POST:
+            return HttpResponseRedirect(reverse_lazy("order", kwargs={"pk": self.kwargs.get("pk")}))
+        else:
+            return super(DiscountUpdateView, self).post(request, *args, **kwargs)
+
+
+@method_decorator(login_required, name='dispatch')
+class DiscountDeleteView(DeleteView):
+    model = OrderLine
+    context_object_name = "discount"
+    template_name = 'sales/discount_delete.html'
+
+    def get_success_url(self):
+        return reverse_lazy('order', kwargs={'pk': self.object.order_id})
+
+    def post(self, request, *args, **kwargs):
+        order_id = OrderLine.objects.get(id=kwargs.get("pk")).order_id
+        OrderLine.objects.get(id=kwargs.get("pk")).delete()
+        return HttpResponseRedirect(reverse_lazy("order", kwargs={"pk": order_id}))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context

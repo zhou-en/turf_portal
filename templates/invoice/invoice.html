@@ -34,6 +34,11 @@
         <dt class="col-sm-3">Total (R)</dt>
         <dd class="col-sm-9">{{ invoice.order.total_amount|floatformat:2 }}</dd>
 
+        {% if invoice.order.discounted %}
+        <dt class="col-sm-3">Discount (R)</dt>
+        <dd class="col-sm-9">-{{ invoice.order.discount|floatformat:2 }}</dd>
+        {% endif %}
+
         <dt class="col-sm-3">Amount Paid (R)</dt>
         <dd class="col-sm-9 text-success">{{ invoice.total_payment|floatformat:2 }}</dd>
 
@@ -60,10 +65,17 @@
         <tbody>
         {% for ol in invoice.order.orderlines %}
           <tr>
-            <td>{{ ol.product }}</td>
-            <td>{{ ol.quantity }}</td>
-            <td>{{ ol.price|floatformat:2 }}</td>
-            <td>{{ ol.total|floatformat:2 }}</td>
+            {% if ol.is_discount %}
+              <td>Discount</td>
+              <td>{{ ol.quantity }}</td>
+              <td>-{{ ol.price|floatformat:2 }}</td>
+              <td>-{{ ol.total|floatformat:2 }}</td>
+            {% else %}
+              <td>{{ ol.product }}</td>
+              <td>{{ ol.quantity }}</td>
+              <td>{{ ol.price|floatformat:2 }}</td>
+              <td>{{ ol.total|floatformat:2 }}</td>
+            {% endif %}
           </tr>
         {% endfor %}
         </tbody>

@@ -30,7 +30,7 @@
           <tr>
             <td><a style="display: inline-block; height: 100%; width: 100%" href="{% url 'order' order.id %}"><span>{{ order.number }}</span></a></td>
             <td>{{ order.buyer.name }}</td>
-            <td>{{ order.total_amount|floatformat:2 }}</td>
+            <td>{{ order.total_wt_discount|floatformat:2 }}</td>
             <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a></td>
             <td>{{ order.modified }}</td>
             <td>{% if not order.closed_date %}-{% else %}{{ order.closed_date }}{% endif %}</td>
@@ -67,7 +67,7 @@
             <tr>
               <td><a href="{% url 'order' order.id %}"><span>{{ order.number }}</span></a></td>
               <td>{{ order.buyer.name }}</td>
-              <td>{{ order.total_amount|floatformat:2 }}</td>
+              <td>{{ order.total_wt_discount|floatformat:2 }}</td>
               <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a></td>
               <td>{{ order.modified|date:"Y/m/d" }}</td>
               <td>{% if not order.closed_date %}-{% else %}{{ order.closed_date|date:"Y/m/d" }}{% endif %}</td>
@@ -83,19 +83,23 @@
 
   <script>
       $(document).ready( function () {
-          var oTable = $('#open-orders-table').dataTable();
-          oTable.fnSort(
-              [
-                  [4,'des'],
-              ]
+          $('#open-orders-table').dataTable(
+              {
+                  "order": [
+                      [4,'desc'],
+                      [0,'desc'],
+                  ]
+              }
           );
       } );
       $(document).ready( function () {
-          var oTable = $('#closed-orders-table').dataTable();
-          oTable.fnSort(
-              [
-                  [5,'des'],
-              ]
+          $('#closed-orders-table').dataTable(
+              {
+                  "order": [
+                      [4,'desc'],
+                      [0,'desc'],
+                  ]
+              }
           );
       } );
   </script>

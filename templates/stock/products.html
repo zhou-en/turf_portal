@@ -45,11 +45,13 @@
 
   <script>
       $(document).ready( function () {
-         var oTable= $('#product-table').DataTable();
-          oTable.fnSort(
-              [
-                  [0,'dsc'],
-              ]
+          $('#product-table').dataTable(
+              {
+                  "order": [
+                      [5,'asc'],
+                      [0,'asc'],
+                  ]
+              }
           );
       } );
   </script>

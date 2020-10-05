@@ -46,7 +46,7 @@
   <div class="card-footer">
     <a href="{% url 'buyers' %}" class="btn btn-sm btn-secondary">Back to Buyers</a>
     <a href="{% url 'buyer-update' buyer.id %}" class="btn btn-sm btn-primary float-lg-right">Update</a>
-    <a href="{% url 'buyer-delete' buyer.id %}" class="btn btn-sm btn-danger">Deactivate</a>
+{#    <a href="{% url 'buyer-delete' buyer.id %}" class="btn btn-sm btn-danger">Deactivate</a>#}
   </div>
 </div>
 
@@ -122,7 +122,7 @@
           <tr>
             <td><a href="{% url 'order' order.id %}" >{{ order.number }}</a></td>
             <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a></td>
-            <td>{{ order.total_amount|floatformat:2 }}</td>
+            <td>{{ order.total_wt_discount|floatformat:2 }}</td>
             <td>{{ order.created }}</td>
             <td>{{ order.closed_date }}</td>
             {% if order.invoice %}
@@ -144,15 +144,16 @@
   </div>
 
   <script>
-    $(document).ready( function () {
-        var oTable = $('#buyer-orders-table').dataTable();
-        oTable.fnSort(
-          [
-            [0,'dsc'],
-          ]
-        );
-      }
-    );
+      $(document).ready( function () {
+          $('#buyer-orders-table').dataTable(
+              {
+                  "order": [
+                      [4,'desc'],
+                      [0,'desc'],
+                  ]
+              }
+          );
+      } );
   </script>
 
 {% endblock %}

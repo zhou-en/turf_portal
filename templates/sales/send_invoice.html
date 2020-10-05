@@ -78,13 +78,23 @@
             <tbody>
             {% for ol in orderlines %}
             <tr>
+              {% if ol.is_discount %}
               <td>
-                <span class="text-inverse">{{ ol.product.name }}</span><br>
-                <small>{{ ol.product.description }}</small>
+                <span class="text-inverse">Discount</span><br>
+                <small>Discount that was applied to this order.</small>
               </td>
-              <td class="text-center">{{ ol.price|floatformat:2 }}</td>
+              <td class="text-center">-{{ ol.price|floatformat:2 }}</td>
               <td class="text-center">{{ ol.quantity }}</td>
-              <td class="text-right">R{{ ol.total|floatformat:2 }}</td>
+              <td class="text-right">-R{{ ol.total|floatformat:2 }}</td>
+              {% else %}
+                <td>
+                  <span class="text-inverse">{{ ol.product.name }}</span><br>
+                  <small>{{ ol.product.description }}</small>
+                </td>
+                <td class="text-center">{{ ol.price|floatformat:2 }}</td>
+                <td class="text-center">{{ ol.quantity }}</td>
+                <td class="text-right">R{{ ol.total|floatformat:2 }}</td>
+              {% endif %}
             </tr>
             {% endfor %}
             </tbody>
@@ -97,7 +107,7 @@
             <div class="invoice-price-row">
               <div class="sub-price">
                 <small>SUBTOTAL</small>
-                <span class="text-inverse">R{{ order.total_amount|floatformat:2 }}</span>
+                <span class="text-inverse">R{{ order.total_wt_discount|floatformat:2 }}</span>
               </div>
 
               <div class="sub-price">
@@ -114,7 +124,7 @@
             </div>
           </div>
           <div class="invoice-price-right">
-            <small>TOTAL</small> <span class="f-w-600">R{{ order.total_amount|floatformat:2 }}</span>
+            <small>TOTAL</small> <span class="f-w-600">R{{ order.total_wt_discount|floatformat:2 }}</span>
           </div>
         </div>
         <!-- end invoice-price -->

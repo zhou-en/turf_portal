@@ -20,11 +20,19 @@
         <dt class="col-sm-3">Total (R)</dt>
         <dd class="col-sm-9">{{ order.total_amount|floatformat:2 }}</dd>
 
-        <dt class="col-sm-3">Created Date</dt>
-        <dd class="col-sm-9">{{ order.created|date:"Y/m/d" }}</dd>
+        {% if order.discounted %}
+          <dt class="col-sm-3">Discount (R)</dt>
+          <dd class="col-sm-9">-{{ order.discount|floatformat:2 }}</dd>
 
-        <dt class="col-sm-3">Closed Date</dt>
-        <dd class="col-sm-9">{% if not order.closed_date %}-{% else %}{{ order.closed_date|date:"Y/m/d" }}{% endif %}</dd>
+          <dt class="col-sm-3">Total Due (R)</dt>
+          <dd class="col-sm-9">{{ order.total_wt_discount|floatformat:2 }}</dd>
+        {% endif %}
+
+{#        <dt class="col-sm-3">Created Date</dt>#}
+{#        <dd class="col-sm-9">{{ order.created|date:"Y/m/d" }}</dd>#}
+{##}
+{#        <dt class="col-sm-3">Closed Date</dt>#}
+{#        <dd class="col-sm-9">{% if not order.closed_date %}-{% else %}{{ order.closed_date|date:"Y/m/d" }}{% endif %}</dd>#}
 
         {% if order.invoice %}
           <dt class="col-sm-3">Invoice</dt>
@@ -63,17 +71,31 @@
         <tbody>
         {% for ol in order.orderlines %}
           <tr>
-            <td>{{ ol.product }}</td>
-            <td>{{ ol.roll_id }}</td>
-            <td>{{ ol.roll.batch }}</td>
-            <td>{{ ol.quantity }}</td>
-            <td>{{ ol.price|floatformat:2 }}</td>
-            <td>{{ ol.total|floatformat:2 }}</td>
+            {% if ol.is_discount %}
+              <td>Discount</td>
+              <td></td>
+              <td></td>
+              <td>{{ ol.quantity }}</td>
+              <td>-{{ ol.price|floatformat:2 }}</td>
+              <td>-{{ ol.total|floatformat:2 }}</td>
+            {% else %}
+              <td>{{ ol.product }}</td>
+              <td>{{ ol.roll_id }}</td>
+              <td>{{ ol.roll.batch }}</td>
+              <td>{{ ol.quantity }}</td>
+              <td>{{ ol.price|floatformat:2 }}</td>
+              <td>{{ ol.total|floatformat:2 }}</td>
+            {% endif %}
             {% if order.editable %}
-            <td style="text-align: justify">
-              <a {%  if not order.is_delivered  %}href="{% url 'order-item-update' ol.id %}"{% endif %}><span data-feather="edit"></span></a>
-              <a {%  if not order.is_delivered  %}href="{% url 'order-item-delete' ol.id %}"{% endif %}><span data-feather="trash-2"></span></a>
-            </td>
+              <td style="text-align: justify">
+                {% if ol.is_discount %}
+                  <a href="{% url 'discount-update' ol.id %}"><span data-feather="edit"></span></a>
+                  <a href="{% url 'discount-delete' ol.id %}"><span data-feather="trash-2"></span></a>
+                {% else %}
+                  <a {%  if not order.is_delivered  %}href="{% url 'order-item-update' ol.id %}"{% endif %}><span data-feather="edit"></span></a>
+                  <a {%  if not order.is_delivered  %}href="{% url 'order-item-delete' ol.id %}"{% endif %}><span data-feather="trash-2"></span></a>
+                {% endif %}
+              </td>
             {% endif %}
           </tr>
         {% endfor %}
@@ -101,6 +123,9 @@
         <a type="button" class="btn btn-sm btn-info float-lg-right" data-toggle="modal" data-target="#send-invoice-modal">Invoice Buyer</a>
       {% elif order.status == "INVOICED" %}
         <a type="button" class="btn btn-sm btn-warning float-lg-right" data-toggle="modal" data-target="#deliver-order-modal">Deliver</a>
+      {% endif %}
+      {% if not order.discounted %}
+        <a href="{% url 'discount-create' order.id %}" style="margin-right: 10px;" class="btn btn-sm btn-primary float-lg-right" >Discount</a>
       {% endif %}
     {% endif %}
     </div>

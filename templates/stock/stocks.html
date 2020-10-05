@@ -63,11 +63,7 @@
                 <a href="{% url 'stock-relocate' roll.id %}" class="btn btn-sm btn-info">Relocate</a>
               </td>
             </tr>
-          {% endif %}
-        {% endfor %}
-        {# DEPLETED #}
-        {% for roll in rolls %}
-          {% if roll.status == "DEPLETED" %}
+          {% else %}
             <tr>
               <td>{{ roll.id }}</td>
               <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
@@ -86,10 +82,15 @@
               {% endif %}
 
               <td>{{ roll.batch }}</td>
-              <td>{{ roll.location }}</td>
+
+              {% if roll.location %}
+                <td>{{ roll.location }}</td>
+              {% else %}
+                <td></td>
+              {% endif %}
               <td>{{ roll.modified|date:"Y/m/d" }}</td>
               <td>{{ roll.created|date:"Y/m/d" }}</td>
-              <td style="text-align: center">-</td>
+              <td style="text-align: center"></td>
             </tr>
           {% endif %}
         {% endfor %}
@@ -116,7 +117,14 @@
 
       {% for spec, rolls in turf_rolls.items %}
       $(document).ready( function () {
-          $('#stocks-table-{{ spec.id }}').DataTable();
+          $('#stocks-table-{{ spec.id }}').DataTable(
+              {
+                  "order": [
+                      [2,'desc'],
+                      [1,'desc'],
+                ]
+              }
+          );
       } );
       {% endfor %}
 
@@ -134,7 +142,7 @@
                   console.log(chart_id);
                   var default_data = data[key].default;
                   var labels = data[key].labels;
-                  var code = data[key].code + " - Roll ID: " + key.toString();
+                  var code = "ID: " + key.toString();
                   console.log(chart_id);
                   var ctx = document.getElementById(chart_id);
                   setDoughnutChart(labels, default_data, ctx, code);

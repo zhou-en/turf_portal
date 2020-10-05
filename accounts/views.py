@@ -97,7 +97,7 @@ class DataView(APIView):
             product_data.update(
                 {p.code: 0.0}
             )
-        for ol in OrderLine.objects.all():
+        for ol in OrderLine.objects.exclude(product=None, roll=None):
             if ol.order.status == Order.Status.CLOSED:
                 pcode = ol.product.code
                 ptotal = ol.total

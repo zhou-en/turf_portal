@@ -151,7 +151,7 @@ class Order(TimeStampedModel, models.Model):
         """
         Returns total amount of the entire order, i.e. sum of all orderline prices.
         """
-        result = self.orderline_set.aggregate(Sum('total'))
+        result = self.orderline_set.exclude(product=None, roll=None).aggregate(Sum('total'))
         if result.get("total__sum"):
             return round(float(result.get("total__sum")), 2)
         return round(0.00, 2)
@@ -161,7 +161,7 @@ class Order(TimeStampedModel, models.Model):
         """
         Returns all ordered items for the order.
         """
-        return self.orderline_set.all()
+        return self.orderline_set.all().order_by("product")
 
     def submit(self):
         """
@@ -301,6 +301,33 @@ class Order(TimeStampedModel, models.Model):
     def total_exclude_vat(self):
         return round((self.total_amount - self.total_vat), 2)
 
+    @property
+    def discount(self):
+        """
+        Return the amount of discount applied to this order.
+        """
+        result = self.orderline_set.filter(product=None, roll=None, quantity=1.0).aggregate(Sum("total"))
+        if result.get("total__sum"):
+            return result.get("total__sum")
+        return 0
+
+    @property
+    def discounted(self):
+        """
+        Return true if there is an orderline has no spec and roll fields, i.e.
+        discount orderline
+        """
+        if self.orderline_set.filter(roll=None, product=None, quantity=1):
+            return True
+        return False
+
+    @property
+    def total_wt_discount(self):
+        """
+        Return total order amount without applying discount
+        """
+        return self.total_amount - self.discount
+
 
 class OrderLine(TimeStampedModel, models.Model):
     """
@@ -309,7 +336,7 @@ class OrderLine(TimeStampedModel, models.Model):
 
     order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)
     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING, blank=True, null=True)
-    roll = models.ForeignKey(TurfRoll, on_delete=models.DO_NOTHING)
+    roll = models.ForeignKey(TurfRoll, on_delete=models.DO_NOTHING, blank=True, null=True)
     quantity = models.FloatField(default=0.0)
     price = models.FloatField(default=0.0, blank=True, null=True)  # price from buyer
     total = models.FloatField(default=0.0, blank=True, null=True)  # quantity * price
@@ -328,6 +355,16 @@ class OrderLine(TimeStampedModel, models.Model):
         """
         Update the sold field for the selected roll.
         """
-        self.roll.sold += self.quantity
-        self.roll.total -= self.quantity
-        self.roll.save()
+        if self.product and self.roll:
+            self.roll.sold += self.quantity
+            self.roll.total -= self.quantity
+            self.roll.save()
+
+    @property
+    def is_discount(self):
+        """
+        Return true if this is a discount orderline, i.e. no product and roll
+        """
+        if not (self.product and self.roll):
+            return True
+        return False

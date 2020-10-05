@@ -62,7 +62,7 @@ class Invoice(TimeStampedModel, models.Model):
 
     @property
     def payment_complete(self):
-        if self.order.total_amount == self.total_payment:
+        if self.order.total_wt_discount == self.total_payment:
             return True
         return False
 
@@ -71,7 +71,7 @@ class Invoice(TimeStampedModel, models.Model):
         """
         total amount - total payment
         """
-        return round((self.order.total_amount - self.total_payment), 2)
+        return round((self.order.total_amount - self.order.discount - self.total_payment), 2)
 
     @property
     def has_payment(self):

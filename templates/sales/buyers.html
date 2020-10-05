@@ -11,7 +11,7 @@
     <h5 class="card-title">Buyers</h5>
   </div>
   <div class="card-body table-responsive-sm">
-    <table id="buyer_table" class="display table table-striped table-hover">
+    <table id="buyers_table" class="display table table-striped table-hover">
       <thead class="thead-dark">
       <tr>
         <th>Name</th>
@@ -20,6 +20,7 @@
         <th>Mobile</th>
         <th>Email</th>
         <th>Address</th>
+        <th>Total Revenue (R)</th>
         <th>Actions</th>
       </tr>
       </thead>
@@ -32,6 +33,7 @@
           <td>{{ buyer.mobile }}</td>
           <td>{{ buyer.email }}</td>
           <td>{{ buyer.address }}</td>
+          <td>{{ buyer.history_total }}</td>
           <td>
             <a href="{% url 'buyer-update' buyer.id %}"><span data-feather="edit"></span></a>
             <a href="{% url 'buyer-delete' buyer.id %}"><span data-feather="trash-2"></span></a>
@@ -45,7 +47,13 @@
 
   <script>
       $(document).ready( function () {
-          $('#buyer_table').DataTable();
+          $('#buyers_table').dataTable(
+              {
+                  "order": [
+                      [0,'asc'],
+                  ]
+              }
+          );
       } );
   </script>
 

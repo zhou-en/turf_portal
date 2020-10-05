@@ -52,6 +52,7 @@
   <br>
   <br>
   <br>
+  <!--
   <div>
     <h3 class="h3">Recent Opened Orders</h3>
     <hr>
@@ -88,6 +89,8 @@
       </table>
     </div>
   </div>
+  -->
+
   <script>
       function getRandomColor() {
           var letters = '0123456789ABCDEF'.split('');
@@ -107,11 +110,13 @@
       }
 
       $(document).ready(function () {
-          var oTable = $('#recent-orders-table').dataTable();
-          oTable.fnSort(
-              [
-                  [4, 'des'],
-              ]
+          $('#recent-orders-table').dataTable(
+              {
+                  "order": [
+                      [4,'desc'],
+                      [0,'desc'],
+                  ]
+              }
           );
       });
       var endpoint = "/api/chart/data/";

@@ -74,20 +74,24 @@
 
   <script>
       $(document).ready( function () {
-          var oTable = $('#opened-invoices-table').DataTable();
-          oTable.fnSort(
-              [
-                  [3,'asc'],
-              ]
+          $('#opened-invoices-table').DataTable(
+              {
+                  "order": [
+                      [4,'desc'],
+                      [0,'desc'],
+                  ]
+              }
           );
       } );
 
       $(document).ready( function () {
-          var oTable = $('#closed-invoices-table').DataTable();
-          oTable.fnSort(
-              [
-                  [3,'asc'],
-              ]
+          $('#closed-invoices-table').DataTable(
+              {
+                  "order": [
+                      [5,'desc'],
+                      [0,'desc'],
+                  ]
+              }
           );
       } );
   </script>

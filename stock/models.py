@@ -119,11 +119,16 @@ class Product(TimeStampedModel, models.Model):
     def name(self):
         if self.spec.category.name == "Grass":
             return "Artificial Grass"
+        elif not self.spec:
+            return "Discount"
         return self.spec.category
 
     @property
     def description(self):
-        return f"Color: {self.spec.color.name}; Height: {self.spec.height.value}mm; Width: {self.spec.width.value}m"
+        if self.spec:
+            return f"Color: {self.spec.color.name}; Height: {self.spec.height.value}mm; Width: {self.spec.width.value}m"
+        else:
+            return "Discount that was applied to this order."
 
     def save(self, *args, **kwargs):
         self.code = f"{self.spec.height.value}{self.spec.color.name.upper()[0]}-{self.spec.width}"
@@ -235,6 +240,7 @@ class TurfRoll(TimeStampedModel, models.Model):
         from sales.models import Order
         result = self.orderline_set.filter(
             order__status__in=[
+                Order.Status.DRAFT,
                 Order.Status.SUBMITTED,
                 Order.Status.INVOICED,
                 Order.Status.DELIVERED,

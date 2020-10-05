@@ -162,3 +162,36 @@ class OrderItemUpdateForm(forms.ModelForm):
         self.helper.add_input(Button('cancel', 'Cancel', onclick='window.history.back();'))
         self.helper.add_input(Submit('submit', 'Save'))
         super().__init__(*args, **kwargs)
+
+
+class DiscountCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = OrderLine
+        fields = ["order", "price"]
+
+    def __init__(self, *args, **kwargs):
+        self.base_fields["order"].empty_label = None
+        self.base_fields["order"].disabled = True
+        self.base_fields["price"].label = "Discount (R)"
+
+        self.helper = FormHelper()
+        self.helper.add_input(Button('cancel', 'Cancel', onclick='window.history.back();'))
+        self.helper.add_input(Submit('submit', 'Save'))
+        super(DiscountCreateForm, self).__init__(*args, **kwargs)
+
+
+class DiscountUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = OrderLine
+        fields = ["order", "price"]
+
+    def __init__(self, *args, **kwargs):
+        self.base_fields["order"].empty_label = None
+        self.base_fields["order"].disabled = True
+        self.base_fields["price"].label = "Discount (R)"
+        self.helper = FormHelper()
+        self.helper.add_input(Button('cancel', 'Cancel', onclick='window.history.back();'))
+        self.helper.add_input(Submit('submit', 'Submit'))
+        super(DiscountUpdateForm, self).__init__(*args, **kwargs)
