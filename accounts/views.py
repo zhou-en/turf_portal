@@ -11,7 +11,7 @@ from rest_framework import authentication, permissions
 from django.contrib.auth.models import User
 
 from sales.models import Order, Buyer, OrderLine
-from stock.models import RollSpec, Product
+from stock.models import RollSpec, Product, TurfRoll
 
 # User = get_user_model()
 
@@ -51,13 +51,15 @@ class DataView(APIView):
     permission_classes = []
 
     def get(self, request, format=None):
-        data_set = {}
-        for p in Product.objects.all():
-            data_set.update(
-                {p.code: p.stock_count}
-            )
-        labels = sorted(data_set.keys())
-        default_items = [data_set[k] for k in labels]
+        stock_available_data = {}
+        for roll in TurfRoll.objects.all():
+            if roll.spec.code in stock_available_data:
+                stock_available_data[roll.spec.code] += roll.available
+            else:
+                stock_available_data[roll.spec.code] = roll.available
+
+        labels = sorted(stock_available_data.keys())
+        default_items = [stock_available_data[k] for k in labels]
         data = {
             "stock_data": {
                 "labels": labels,
@@ -91,29 +93,21 @@ class DataView(APIView):
             }
         )
 
-        # total turnover per product
-        product_data = {}
-        for p in Product.objects.all():
-            product_data.update(
-                {p.code: 0.0}
-            )
-        for ol in OrderLine.objects.exclude(product=None, roll=None):
-            if ol.order.status == Order.Status.CLOSED:
-                pcode = ol.product.code
-                ptotal = ol.total
-                if pcode in product_data:
-                    product_data[pcode] += ptotal
-                else:
-                    product_data.update(
-                        {pcode: float(ptotal)}
-                    )
-        product_labels = sorted(product_data.keys())
-        product_total = [product_data[k] for k in product_labels]
+        # total stock sold
+        stock_sold_data = {}
+        for roll in TurfRoll.objects.all():
+            if roll.spec.code in stock_sold_data:
+                stock_sold_data[roll.spec.code] += roll.sold
+            else:
+                stock_sold_data[roll.spec.code] = roll.sold
+
+        stock_sold_labels = sorted(stock_sold_data.keys())
+        stock_sold_total = [stock_sold_data[k] for k in stock_sold_labels]
         data.update(
             {
-                "product_data": {
-                    "labels": product_labels,
-                    "default": product_total
+                "stock_sold_data": {
+                    "labels": stock_sold_labels,
+                    "default": stock_sold_total
                 }
             }
         )

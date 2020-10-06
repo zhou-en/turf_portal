@@ -33,8 +33,10 @@
         <dt class="col-sm-3">Email</dt>
         <dd class="col-sm-9">{{ buyer.email }}</dd>
 
+        {% if buyer.address %}
         <dt class="col-sm-3">Address</dt>
         <dd class="col-sm-9">{{ buyer.address }}</dd>
+        {% endif %}
 
         <dt class="col-sm-3">Contact Person</dt>
         <dd class="col-sm-9">{{ buyer.contact_person }}</dd>

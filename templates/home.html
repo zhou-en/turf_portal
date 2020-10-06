@@ -27,7 +27,7 @@
     <br>
     <br>
     <div id="chartContainer" class="col-sm-6" style="width: 40%; display: inline-block;">
-      <canvas id="product-chart" name="product-chart"></canvas>
+      <canvas id="product-chart" name="stock-sold-chart"></canvas>
     </div>
     <div id="chartContainer" class="col-sm-6" style="width: 40%; display: inline-block;">
       <canvas id="buyer-chart" name="buyer-chart"></canvas>
@@ -42,7 +42,7 @@
         <canvas id="sales-chart" name="sales-chart"></canvas>
       </div>
       <div id="chartContainer">
-        <canvas id="product-chart" name="product-chart"></canvas>
+        <canvas id="product-chart" name="stock-sold-chart"></canvas>
       </div>
       <div id="chartContainer">
         <canvas id="buyer-chart" name="buyer-chart"></canvas>
@@ -129,7 +129,7 @@
           success: function (data) {
               var stock_data = data.stock_data;
               var sales_data = data.sales_data;
-              var product_data = data.product_data;
+              var stock_sold_data = data.stock_sold_data;
               var buyer_data = data.buyer_data;
               var ctxes = document.getElementsByName('stock-chart');
               for (var i=0; i<ctxes.length; i++) {
@@ -146,9 +146,9 @@
                   setBuyerChart(buyer_data.labels, buyer_data.default, ctxes[i]);
               }
 
-              ctxes = document.getElementsByName('product-chart');
+              ctxes = document.getElementsByName('stock-sold-chart');
               for (var i=0; i<ctxes.length; i++) {
-                  setProductChart(product_data.labels, product_data.default, ctxes[i]);
+                  setProductChart(stock_sold_data.labels, stock_sold_data.default, ctxes[i]);
               }
           },
           error: function (error_data) {
@@ -160,11 +160,11 @@
       function setBarChart(labels, defaultData, ctx) {
           var xStepSize = Math.ceil(Math.max(defaultData) / 15);
           var myChart = new Chart(ctx, {
-              type: "horizontalBar",
+              type: "bar",
               data: {
                   labels: labels,
                   datasets: [{
-                      label: "Number of m² left",
+                      label: "Number of m² available",
                       data: defaultData,
                       backgroundColor: [
                           'rgba(255, 99, 132, 1)',
@@ -196,7 +196,7 @@
                             },
                             scaleLabel: {
                                 display: true,
-                                labelString: 'Product Code',
+                                labelString: 'm²',
                                 fontStyle: "bold"
                             }
                         }
@@ -209,7 +209,7 @@
                               },
                               scaleLabel: {
                                   display: true,
-                                  labelString: 'm²',
+                                  labelString: 'Product Code',
                                   fontStyle: "bold"
                               },
                           }
@@ -218,7 +218,7 @@
                   legend: {display: false},
                   title: {
                       display: true,
-                      text: 'Available stocks in m²',
+                      text: 'Total Stock Available per Product in m²',
                       fontStyle: "bold"
                   }
               }
@@ -282,7 +282,7 @@
               data: {
                   labels: labels,
                   datasets: [{
-                      label: "Total sales per product in Rand",
+                      label: "Stock Sold in m²",
                       data: defaultData,
                       backgroundColor: [
                           'rgba(255, 99, 132, 1)',
@@ -314,7 +314,7 @@
 
                           scaleLabel: {
                               display: true,
-                              labelString: 'Rand',
+                              labelString: 'm²',
                               fontStyle: "bold"
                           }
                       }],
@@ -329,7 +329,7 @@
                   legend: {display: false},
                   title: {
                       display: true,
-                      text: 'Total sales per product in Rand',
+                      text: 'Total Stock Sold per Product in m²',
                       fontStyle: "bold"
                   }
               }
@@ -354,7 +354,7 @@
                   responsive: true,
                   title: {
                       display: true,
-                      text: 'Total Accumulated Sales (in Rand)'
+                      text: 'Total Accumulated Sales in Rand'
                   },
                   legend: {display: false},
                   scales: {
