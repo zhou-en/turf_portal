@@ -32,7 +32,11 @@
           <td>{{ buyer.contact_person }}</td>
           <td>{{ buyer.mobile }}</td>
           <td>{{ buyer.email }}</td>
+          {% if buyer.address %}
           <td>{{ buyer.address }}</td>
+          {% else %}
+          <td></td>
+          {% endif %}
           <td>{{ buyer.history_total }}</td>
           <td>
             <a href="{% url 'buyer-update' buyer.id %}"><span data-feather="edit"></span></a>
