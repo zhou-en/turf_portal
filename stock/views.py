@@ -165,12 +165,27 @@ class StockListView(ListView):
         context = super().get_context_data(**kwargs)
         context["turf_rolls"] = {}
         context["all_rolls"] = TurfRoll.objects.all().order_by("spec__product__code")
-        specs = RollSpec.objects.all().order_by("product__code")
+        specs = RollSpec.objects.all()
+        status_order = [
+            TurfRoll.Status.LOOSE,
+            TurfRoll.Status.OPENED,
+            TurfRoll.Status.SEALED,
+            TurfRoll.Status.DEPLETED
+        ]
+
         for spec in specs:
             if spec.turfroll_set.exists():
-                context["turf_rolls"].update(
-                    {spec: [roll for roll in spec.turfroll_set.all()]}
-                )
+                # context["turf_rolls"].update(
+                #     {spec: [roll for roll in spec.turfroll_set.all()]}
+                # )
+                rolls = []
+                for s in status_order:
+                    if spec.turfroll_set.filter(status=s):
+                        rolls.extend(spec.turfroll_set.filter(status=s))
+                if rolls:
+                    context["turf_rolls"].update(
+                        {spec: rolls}
+                    )
         return context
 
 

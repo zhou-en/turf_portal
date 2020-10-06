@@ -245,7 +245,7 @@ class TurfRoll(TimeStampedModel, models.Model):
                 Order.Status.INVOICED,
                 Order.Status.DELIVERED,
             ]
-        ).aggregate(Sum("quantity"))
+        ).exclude(product=None, roll=None).aggregate(Sum("quantity"))
         if result.get("quantity__sum"):
             return float(result.get("quantity__sum"))
         return 0

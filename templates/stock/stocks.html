@@ -98,6 +98,7 @@
       </table>
     </div>
 
+  <!--
     <div class="text-center">
       {% for roll_data in all_rolls %}
         {% if roll_data.status != "DEPLETED" and roll_data.spec == spec %}
@@ -107,7 +108,7 @@
         {% endif %}
       {% endfor %}
     </div>
-
+-->
   </div>
   </div>
   <br>
@@ -118,16 +119,11 @@
       {% for spec, rolls in turf_rolls.items %}
       $(document).ready( function () {
           $('#stocks-table-{{ spec.id }}').DataTable(
-              {
-                  "order": [
-                      [2,'desc'],
-                      [1,'desc'],
-                ]
-              }
+              {"ordering": false}
           );
       } );
       {% endfor %}
-
+/*
       var endpoint = "/api/stock/data/";
       {#var defaultData = [];#}
       {#var labels = [];#}
@@ -135,15 +131,12 @@
           method: "GET",
           url: endpoint,
           success: function (data) {
-              console.log(data);
               Object.keys(data).forEach(function(key) {
-                  console.table('Key : ' + key + ', Value : ' + data[key].code)
+                  //console.table('Key : ' + key + ', Value : ' + data[key].code)
                   var chart_id = "stock-roll-chart-" + (key).toString();
-                  console.log(chart_id);
                   var default_data = data[key].default;
                   var labels = data[key].labels;
                   var code = "ID: " + key.toString();
-                  console.log(chart_id);
                   var ctx = document.getElementById(chart_id);
                   setDoughnutChart(labels, default_data, ctx, code);
               })
@@ -194,7 +187,7 @@
           });
       }
 
-
+*/
   </script>
 
 

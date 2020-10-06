@@ -74,7 +74,7 @@
           <tr>
             <td><a href="{% url 'order' order.id %}"><span>{{ order.number }}</span></a></td>
             <td>{{ order.buyer.name }}</td>
-            <td>{{ order.total_amount }}</td>
+            <td>{{ order.total_wt_discount }}</td>
             <td>{{ order.created }}</td>
             <td>{{ order.modified }}</td>
             <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a>

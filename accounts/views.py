@@ -71,7 +71,7 @@ class DataView(APIView):
                 status__exact=Order.Status.CLOSED
         ).order_by("closed_date"):
             sales_data.update(
-                {s.closed_date.strftime("%Y-%m-%d %H:%m:%S"): s.total_amount}
+                {s.closed_date.strftime("%Y-%m-%d %H:%m:%S"): s.total_wt_discount}
             )
         sales_labels = sales_data.keys()
         sales_total = []
