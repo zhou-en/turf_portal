@@ -17,7 +17,7 @@ from stock.forms import (
     ProductUpdateForm,
     LoadStocksForm,
     SplitRollForm,
-    RelocateStockForm
+    RollUpdateForm
 )
 
 logger = logging.getLogger(__name__)
@@ -284,11 +284,11 @@ class SplitRollView(CreateView):
 
 
 @method_decorator(login_required, name='dispatch')
-class RelocateStockView(UpdateView):
+class RollUpdateView(UpdateView):
     model = TurfRoll
-    template_name = 'stock/relocate_stock.html'
-    context_object_name = "stock"
-    form_class = RelocateStockForm
+    template_name = 'stock/roll_update.html'
+    context_object_name = "roll"
+    form_class = RollUpdateForm
 
     def get_success_url(self):
         return reverse_lazy('stocks')
@@ -297,4 +297,4 @@ class RelocateStockView(UpdateView):
         if "cancel" in request.POST:
             return HttpResponseRedirect(reverse_lazy("stocks"))
         else:
-            return super(RelocateStockView, self).post(request, *args, **kwargs)
+            return super(RollUpdateView, self).post(request, *args, **kwargs)

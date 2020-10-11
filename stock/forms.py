@@ -87,7 +87,7 @@ class SplitRollForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
 
-class RelocateStockForm(forms.ModelForm):
+class RollUpdateForm(forms.ModelForm):
 
     class Meta:
         model = TurfRoll
@@ -95,12 +95,11 @@ class RelocateStockForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.base_fields["spec"].disabled = True
-        self.base_fields["location"].empty_label = None
         self.base_fields["total"].disabled = True
         self.base_fields["original_size"].disabled = True
-        self.base_fields["status"].disabled = True
         self.base_fields["sold"].disabled = True
+        self.base_fields["batch"].disabled = True
         self.helper = FormHelper()
         self.helper.add_input(Button('cancel', 'Cancel', onclick='window.history.back();'))
-        self.helper.add_input(Submit('submit', 'Move'))
+        self.helper.add_input(Submit('submit', 'Save'))
         super().__init__(*args, **kwargs)

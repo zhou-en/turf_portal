@@ -209,6 +209,7 @@ class TurfRoll(TimeStampedModel, models.Model):
     sold = models.IntegerField(default=0)
     location = models.ForeignKey(Warehouse, on_delete=models.DO_NOTHING, blank=True, null=True)
     batch = models.ForeignKey(Batch, on_delete=models.DO_NOTHING, blank=True, null=True)
+    note = models.TextField(max_length=511, blank=True, null=True)
 
     def __str__(self):
         return f"{self.id}: {self.spec.code} - {self.status}   - available:{self.available}"

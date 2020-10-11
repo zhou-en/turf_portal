@@ -101,6 +101,16 @@
           return color;
       }
 
+      function generateBackgroundColors(numberOfColors) {
+          var colorArray = []
+          for(var i=0; i<numberOfColors; i++) {
+              color = getRandomColor();
+              console.log(color);
+              colorArray.push(color);
+          }
+          return colorArray
+      }
+
       if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
           document.getElementById("large-screen-charts").hidden = true;
           document.getElementById("small-screen-charts").hidden = false;
@@ -226,7 +236,7 @@
       }
 
       function setBuyerChart(labels, defaultData, ctx) {
-
+          colors = generateBackgroundColors(labels.length);
           var myChart = new Chart(ctx, {
               type: "pie",
               data: {
@@ -234,24 +244,9 @@
                   datasets: [{
                       label: "Total sales per buyer in Rand",
                       data: defaultData,
-                      backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
-                      hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"],
-                      {#backgroundColor: [#}
-                      {#    'rgba(255, 99, 132, 1)',#}
-                      {#    'rgba(54, 162, 235, 1)',#}
-                      {#    'rgba(255, 206, 86, 1)',#}
-                      {#    'rgba(75, 192, 192, 1)',#}
-                      {#    'rgba(153, 102, 255, 1)',#}
-                      {#    'rgba(255, 159, 64, 1)'#}
-                      {#],#}
-                      {#borderColor: [#}
-                      {#    'rgba(255, 99, 132, 1)',#}
-                      {#    'rgba(54, 162, 235, 1)',#}
-                      {#    'rgba(255, 206, 86, 1)',#}
-                      {#    'rgba(75, 192, 192, 1)',#}
-                      {#    'rgba(153, 102, 255, 1)',#}
-                      {#    'rgba(255, 159, 64, 1)'#}
-                      {#],#}
+                      {#borderColor: colors,#}
+                      backgroundColor: colors,
+                      hoverBackgroundColor: colors,
                       borderWidth: 1.5
                   }]
               },

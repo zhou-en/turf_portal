@@ -42,7 +42,7 @@
             </thead>
             <tbody>
             {% for roll in bp.available_rolls  %}
-              {% if not roll.id in ordered_rolls  %}
+              {% if not roll.id in ordered_rolls and roll.available != 0  %}
               <tr>
                 <td>{{ roll.id }}</td>
                 <td width="20%">

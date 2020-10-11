@@ -19,6 +19,7 @@
         <thead style="border-bottom: 1px solid black;">
         <tr>
           <th>ID</th>
+          <th>Note</th>
           <th>Status</th>
           <th>Available (m<sup>2</sup>)</th>
           <th>Reserved (m<sup>2</sup>)</th>
@@ -34,7 +35,12 @@
         {% for roll in rolls %}
           {% if roll.status != "DEPLETED" %}
             <tr>
-              <td>{{ roll.id }}</td>
+              <td><a href="{% url 'roll-update' roll.id %}">{{ roll.id }}</a></td>
+              {% if roll.note %}
+                <td>{{ roll.note }}</td>
+              {% else %}
+                <td></td>
+              {% endif %}
               <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
               <td class="text-success">{{ roll.available }}</td>
 
@@ -60,12 +66,16 @@
                 {% else %}
                   <a href="{% url 'stock-split' roll.id %}" style="pointer-events: none;" class="btn btn-sm btn-outline-secondary">Split</a>
                 {% endif %}
-                <a href="{% url 'stock-relocate' roll.id %}" class="btn btn-sm btn-info">Relocate</a>
               </td>
             </tr>
           {% else %}
             <tr>
               <td>{{ roll.id }}</td>
+              {% if roll.note %}
+                <td>{{ roll.note }}</td>
+              {% else %}
+                <td></td>
+              {% endif %}
               <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
               <td class="text-success">{{ roll.available }}</td>
 
