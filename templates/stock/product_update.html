@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <br>
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Update Buyer Details:</h5>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            <table>
+              {{ form.as_table }}
+            </table>
+            <input type="submit" value="Update" class="btn btn-sm btn-primary">
+            <input type="submit" formnovalidate name="cancel" value="Cancel" class="btn btn-sm btn-secondary"/>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

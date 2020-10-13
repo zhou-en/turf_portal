@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <br>
+  <div class="card">
+  <div class="card-header">
+    <h5 class="card-title">Warehouses</h5>
+  </div>
+  <div class="card-body table-responsive-sm">
+  <br>
+    <table id="warehouse-table" class="display table table-striped table-hover">
+      <thead class="thead-dark">
+      <tr>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Rolls Stored</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for warehouse in warehouses %}
+        <tr>
+          <td><a href="{% url 'warehouse' warehouse.id %}">{{ warehouse.number }}</a></td>
+          <td>{{ warehouse.name }}</td>
+          <td>{{ warehouse.address }}</td>
+          <td>{{ warehouse.roll_count }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  </div>
+
+  <script>
+      $(document).ready( function () {
+          $('#warehouse-table').DataTable();
+      } );
+  </script>
+
+
+{% endblock %}

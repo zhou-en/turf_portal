@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <br>
+  <a href="{% url 'product-create' %}" class="btn btn-sm btn-primary float-lg-right">New Product</a>
+  <br>
+  <br>
+  <hr>
+  <br>
+  <div class="card">
+  <div class="card-header">
+    <h5 class="card-title">Products List</h5>
+  </div>
+  <div class="card-body table-responsive-sm">
+    <table id="product-table" class="display table table-responsive-sm table-hover">
+      <thead class="thead-dark">
+      <tr>
+        <th>Product Code</th>
+        <th>Category</th>
+        <th>Color</th>
+        <th>Height (mm)</th>
+        <th>Width (m)</th>
+        <th>Stocks</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for product in products %}
+        <tr>
+          <td><a href="{% url 'product' product.id %}">{{ product.code }}</a></td>
+          <td>{{ product.spec.category }}</td>
+          <td>{{ product.spec.color }}</td>
+          <td>{{ product.spec.height }}</td>
+          <td>{{ product.spec.width }}</td>
+          {% if product.has_stock %}
+            <td><a class="btn btn-sm btn-success" style="pointer-events: none;">Available</a></td>
+          {% else %}
+            <td><a class="btn btn-sm btn-secondary" style="pointer-events: none;">Out of Stock</a></td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  </div>
+
+  <script>
+      $(document).ready( function () {
+          $('#product-table').dataTable(
+              {
+                  "order": [
+                      [5,'asc'],
+                      [0,'asc'],
+                  ]
+              }
+          );
+      } );
+  </script>
+
+
+{% endblock %}

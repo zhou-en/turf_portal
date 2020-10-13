@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <br>
+    <a href="{% url 'buyer-create' %}" class="btn btn-sm btn-primary float-lg-right">New Buyer</a>
+    <br>
+  <br>
+
+  <div class="card">
+  <div class="card-header">
+    <h5 class="card-title">Buyers</h5>
+  </div>
+  <div class="card-body table-responsive-sm">
+    <table id="buyers_table" class="display table table-striped table-hover">
+      <thead class="thead-dark">
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Contact Person</th>
+        <th>Mobile</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Total Revenue (R)</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for buyer in buyers %}
+        <tr>
+          <td><a href="{% url 'buyer' buyer.id %}"><span>{{ buyer.name }}</span></a></td>
+          <td>{{ buyer.buyer_type }}</td>
+          <td>{{ buyer.contact_person }}</td>
+          <td>{{ buyer.mobile }}</td>
+          <td>{{ buyer.email }}</td>
+          {% if buyer.address %}
+          <td>{{ buyer.address }}</td>
+          {% else %}
+          <td></td>
+          {% endif %}
+          <td>{{ buyer.history_total }}</td>
+          <td>
+            <a href="{% url 'buyer-update' buyer.id %}"><span data-feather="edit"></span></a>
+            <a href="{% url 'buyer-delete' buyer.id %}"><span data-feather="trash-2"></span></a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  </div>
+
+  <script>
+      $(document).ready( function () {
+          $('#buyers_table').dataTable(
+              {
+                  "order": [
+                      [0,'asc'],
+                  ]
+              }
+          );
+      } );
+  </script>
+
+{% endblock %}

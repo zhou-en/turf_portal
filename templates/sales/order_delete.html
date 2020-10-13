@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<div class="card">
+  <div class="card-header">
+      <h5 class="card-title">Order Details</h5>
+  </div>
+    <div class="card-body">
+      <dl class="row">
+        <dt class="col-sm-3">Status</dt>
+        <dd class="col-sm-9">{{ order.status }}</dd>
+
+        <dt class="col-sm-3">Number</dt>
+        <dd class="col-sm-9">{{ order.number }}</dd>
+
+        <dt class="col-sm-3">Buyer</dt>
+        <dd class="col-sm-9">{{ order.buyer }}</dd>
+
+        <dt class="col-sm-3">Created Date</dt>
+        <dd class="col-sm-9">{{ order.created }}</dd>
+
+        <dt class="col-sm-3">Total (R)</dt>
+        <dd class="col-sm-9">{{ order.total_amount }}</dd>
+      </dl>
+    </div>
+  <div class="card-footer">
+{#    <a href="{% url 'buyers' %}" class="btn btn-sm btn-secondary">Back to Buyers</a>#}
+  </div>
+</div>
+
+<br>
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Ordered Items</h5>
+    </div>
+    <div class="card-body  table-responsive-sm">
+    {% if order.orderlines %}
+      <table id="order-line-table" class="display table table-striped table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th>Product Code</th>
+          <th>Quantity (m<sup>2</sup>)</th>
+          <th>Buyer Price (R/m<sup>2</sup>)</th>
+          <th>Price (R)</th>
+          <th>Amount (R)</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for ol in order.orderlines %}
+          <tr>
+            <td>{{ ol.product }}</td>
+            <td>{{ ol.quantity }}</td>
+            <td>{{ ol.price|floatformat:2 }}</td>
+            <td>{{ ol.total|floatformat:2 }}</td>
+            <td style="text-align: justify">
+              <a {%  if not order.is_delivered  %}href=""{% endif %}><span data-feather="edit"></span></a>
+              <a {%  if not order.is_delivered  %}href=""{% endif %}><span data-feather="trash-2"></span></a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>There is no item added to this order yet.</p>
+    {% endif %}
+    </div>
+    <div class="card-footer">
+      <a href="{% url 'orders' %}" class="btn btn-sm btn-secondary">Back to Orders</a>
+      <a href="{% url 'order-add-item' order.id %}" class="btn btn-sm btn-primary">Add A Item</a>
+      {% if order.orderlines %}
+        <a href="" class="btn btn-sm btn-primary">Submit Order</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <script>
+      $(document).ready( function () {
+          $('#order-line-table').DataTable();
+      } );
+  </script>
+
+{% endblock %}

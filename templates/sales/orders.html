@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <br>
+    <a href="{% url 'order-create' %}" class="btn btn-sm btn-primary float-lg-right">New Order</a>
+    <br>
+  <br>
+  <hr>
+  <br>
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Open Orders</h5>
+    </div>
+    <div class="card-body table-responsive-sm">
+
+      <table id="open-orders-table" class="display table table-striped table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th>Order #</th>
+          <th>Buyer</th>
+          <th>Total</th>
+          <th>Status</th>
+          <th>Last Updated Date</th>
+          <th>Closed Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+          {% if order.status != "CLOSED" %}
+          <tr>
+            <td><a style="display: inline-block; height: 100%; width: 100%" href="{% url 'order' order.id %}"><span>{{ order.number }}</span></a></td>
+            <td>{{ order.buyer.name }}</td>
+            <td>{{ order.total_wt_discount|floatformat:2 }}</td>
+            <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a></td>
+            <td>{{ order.modified }}</td>
+            <td>{% if not order.closed_date %}-{% else %}{{ order.closed_date }}{% endif %}</td>
+          </tr>
+          {% endif %}
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer">
+    </div>
+  </div>
+<br>
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Closed Orders</h5>
+    </div>
+    <div class="card-body table-responsive-sm">
+
+      <table id="closed-orders-table" class="display table table-striped table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th>Order #</th>
+          <th>Buyer</th>
+          <th>Total</th>
+          <th>Status</th>
+          <th>Last Updated Date</th>
+          <th>Closed Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+          {% if order.status == "CLOSED" %}
+            <tr>
+              <td><a href="{% url 'order' order.id %}"><span>{{ order.number }}</span></a></td>
+              <td>{{ order.buyer.name }}</td>
+              <td>{{ order.total_wt_discount|floatformat:2 }}</td>
+              <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a></td>
+              <td>{{ order.modified|date:"Y/m/d" }}</td>
+              <td>{% if not order.closed_date %}-{% else %}{{ order.closed_date|date:"Y/m/d" }}{% endif %}</td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer">
+    </div>
+  </div>
+
+  <script>
+      $(document).ready( function () {
+          $('#open-orders-table').dataTable(
+              {
+                  "order": [
+                      [4,'desc'],
+                      [0,'desc'],
+                  ]
+              }
+          );
+      } );
+      $(document).ready( function () {
+          $('#closed-orders-table').dataTable(
+              {
+                  "order": [
+                      [4,'desc'],
+                      [0,'desc'],
+                  ]
+              }
+          );
+      } );
+  </script>
+
+{% endblock %}

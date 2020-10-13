@@ -1,0 +1,271 @@
+[
+{
+    "model": "stock.category",
+    "pk": 1,
+    "fields": {
+        "created": "2020-09-08T10:37:40.303Z",
+        "modified": "2020-09-08T10:37:40.303Z",
+        "name": "Grass"
+    }
+},
+{
+    "model": "stock.height",
+    "pk": 1,
+    "fields": {
+        "created": "2020-09-08T10:37:56.072Z",
+        "modified": "2020-09-08T10:37:56.072Z",
+        "value": 30
+    }
+},
+{
+    "model": "stock.height",
+    "pk": 2,
+    "fields": {
+        "created": "2020-09-08T10:44:00.478Z",
+        "modified": "2020-09-08T10:44:00.478Z",
+        "value": 25
+    }
+},
+{
+    "model": "stock.width",
+    "pk": 1,
+    "fields": {
+        "created": "2020-09-08T10:38:07.884Z",
+        "modified": "2020-09-08T10:38:07.884Z",
+        "value": 2
+    }
+},
+{
+    "model": "stock.width",
+    "pk": 2,
+    "fields": {
+        "created": "2020-09-08T10:41:28.646Z",
+        "modified": "2020-09-08T10:41:28.646Z",
+        "value": 4
+    }
+},
+{
+    "model": "stock.color",
+    "pk": 1,
+    "fields": {
+        "created": "2020-09-08T10:38:26.287Z",
+        "modified": "2020-09-08T10:40:47.592Z",
+        "name": "Autumn"
+    }
+},
+{
+    "model": "stock.color",
+    "pk": 2,
+    "fields": {
+        "created": "2020-09-08T10:44:11.355Z",
+        "modified": "2020-09-08T10:44:11.355Z",
+        "name": "Spring"
+    }
+},
+{
+    "model": "stock.warehouse",
+    "pk": 1,
+    "fields": {
+        "created": "2020-09-09T15:54:00.530Z",
+        "modified": "2020-09-09T15:54:00.530Z",
+        "number": 1505,
+        "name": "Alternative Storage",
+        "address": "Bellville, Cape Town"
+    }
+},
+{
+    "model": "stock.warehouse",
+    "pk": 2,
+    "fields": {
+        "created": "2020-09-09T15:54:15.897Z",
+        "modified": "2020-09-09T15:54:15.897Z",
+        "number": 1506,
+        "name": "Alternative Storage",
+        "address": "Bellville, Cape Town"
+    }
+},
+{
+    "model": "stock.rollspec",
+    "pk": 1,
+    "fields": {
+        "created": "2020-09-09T15:57:00.456Z",
+        "modified": "2020-09-09T15:57:00.456Z",
+        "category": 1,
+        "color": 1,
+        "height": 1,
+        "width": 1,
+        "length": 25
+    }
+},
+{
+    "model": "stock.rollspec",
+    "pk": 2,
+    "fields": {
+        "created": "2020-09-09T16:12:06.365Z",
+        "modified": "2020-09-09T16:12:06.365Z",
+        "category": 1,
+        "color": 2,
+        "height": 2,
+        "width": 1,
+        "length": 25
+    }
+},
+{
+    "model": "stock.rollspec",
+    "pk": 3,
+    "fields": {
+        "created": "2020-09-09T16:12:39.665Z",
+        "modified": "2020-09-09T16:12:39.665Z",
+        "category": 1,
+        "color": 2,
+        "height": 1,
+        "width": 1,
+        "length": 25
+    }
+},
+{
+    "model": "stock.rollspec",
+    "pk": 4,
+    "fields": {
+        "created": "2020-09-09T16:13:27.929Z",
+        "modified": "2020-09-09T16:13:27.929Z",
+        "category": 1,
+        "color": 1,
+        "height": 2,
+        "width": 1,
+        "length": 25
+    }
+},
+{
+    "model": "stock.rollspec",
+    "pk": 5,
+    "fields": {
+        "created": "2020-09-10T15:07:21.279Z",
+        "modified": "2020-09-10T15:07:21.279Z",
+        "category": 1,
+        "color": 1,
+        "height": 1,
+        "width": 2,
+        "length": 25
+    }
+},
+{
+    "model": "stock.rollspec",
+    "pk": 6,
+    "fields": {
+        "created": "2020-09-10T15:07:45.880Z",
+        "modified": "2020-09-10T15:07:45.880Z",
+        "category": 1,
+        "color": 1,
+        "height": 2,
+        "width": 2,
+        "length": 25
+    }
+},
+{
+    "model": "stock.rollspec",
+    "pk": 7,
+    "fields": {
+        "created": "2020-09-10T15:08:44.280Z",
+        "modified": "2020-09-10T15:08:44.280Z",
+        "category": 1,
+        "color": 2,
+        "height": 2,
+        "width": 2,
+        "length": 25
+    }
+},
+{
+    "model": "stock.rollspec",
+    "pk": 8,
+    "fields": {
+        "created": "2020-09-10T15:09:14.732Z",
+        "modified": "2020-09-10T15:09:14.732Z",
+        "category": 1,
+        "color": 2,
+        "height": 1,
+        "width": 2,
+        "length": 25
+    }
+},
+{
+    "model": "stock.product",
+    "pk": 1,
+    "fields": {
+        "created": "2020-09-08T10:39:09.621Z",
+        "modified": "2020-09-09T16:13:29.344Z",
+        "spec": 4,
+        "code": "A25-2m"
+    }
+},
+{
+    "model": "stock.product",
+    "pk": 2,
+    "fields": {
+        "created": "2020-09-08T10:52:21.788Z",
+        "modified": "2020-09-09T16:12:41.541Z",
+        "spec": 3,
+        "code": "S30-2m"
+    }
+},
+{
+    "model": "stock.product",
+    "pk": 4,
+    "fields": {
+        "created": "2020-09-08T11:00:49.444Z",
+        "modified": "2020-09-09T23:39:31.012Z",
+        "spec": 2,
+        "code": "S25-2m"
+    }
+},
+{
+    "model": "stock.product",
+    "pk": 6,
+    "fields": {
+        "created": "2020-09-09T16:04:51.290Z",
+        "modified": "2020-09-09T23:39:26.899Z",
+        "spec": 1,
+        "code": "A30-2m"
+    }
+},
+{
+    "model": "stock.product",
+    "pk": 7,
+    "fields": {
+        "created": "2020-09-10T15:07:25.503Z",
+        "modified": "2020-09-10T15:07:25.503Z",
+        "spec": 5,
+        "code": "A30-4m"
+    }
+},
+{
+    "model": "stock.product",
+    "pk": 8,
+    "fields": {
+        "created": "2020-09-10T15:07:47.184Z",
+        "modified": "2020-09-10T15:07:47.184Z",
+        "spec": 6,
+        "code": "A25-4m"
+    }
+},
+{
+    "model": "stock.product",
+    "pk": 9,
+    "fields": {
+        "created": "2020-09-10T15:08:45.360Z",
+        "modified": "2020-09-10T15:08:45.361Z",
+        "spec": 7,
+        "code": "S25-4m"
+    }
+},
+{
+    "model": "stock.product",
+    "pk": 10,
+    "fields": {
+        "created": "2020-09-10T15:09:16.418Z",
+        "modified": "2020-09-10T15:09:16.418Z",
+        "spec": 8,
+        "code": "S30-4m"
+    }
+}
+]

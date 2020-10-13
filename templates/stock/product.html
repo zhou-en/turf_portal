@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<div class="card">
+  <div class="card-header">
+      <h5 class="card-title">Product Details</h5>
+  </div>
+    <div class="card-body">
+      <dl class="row">
+        <dt class="col-sm-3">Product Code</dt>
+        <dd class="col-sm-9">{{ product.code }}</dd>
+
+        <dt class="col-sm-3">Category</dt>
+        <dd class="col-sm-9">{{ product.spec.category }}</dd>
+
+        <dt class="col-sm-3">Color</dt>
+        <dd class="col-sm-9">{{ product.spec.color }}</dd>
+
+        <dt class="col-sm-3">Height (mm)</dt>
+        <dd class="col-sm-9">{{ product.spec.height }}</dd>
+
+        <dt class="col-sm-3">Width (m)</dt>
+        <dd class="col-sm-9">{{ product.spec.width }}</dd>
+      </dl>
+    </div>
+  <div class="card-footer">
+    <a href="{% url 'products' %}" class="btn btn-sm btn-secondary">Back to Products</a>
+{#    <a href="{% url 'product-update' product.id %}" class="btn btn-sm btn-primary">Update</a>#}
+{#    <a href="{% url 'product-delete' product.id %}" class="btn btn-sm btn-danger">Delete</a>#}
+  </div>
+</div>
+
+  <br>
+
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Rolls Available: {{ product.roll_count }}</h5>
+    </div>
+    <div class="card-body table-responsive-sm">
+    {% if available_rolls %}
+      <table id="product-roll-table" class="display table table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th>ID</th>
+          <th>Specification</th>
+          <th>Available (m<sup>2</sup>)</th>
+          <th>Reserved (m<sup>2</sup>)</th>
+          <th>Sold (m<sup>2</sup>)</th>
+          <th>Status</th>
+          <th>Batch</th>
+          <th>Location</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for roll in available_rolls %}
+          <tr>
+            <td>{{ roll.id }}</td>
+            <td>{{ roll.spec }}</td>
+            <td>{{ roll.available }}</td>
+            {% if roll.reserved != 0 %}
+              <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:1 }}</a></td>
+            {% else %}
+              <td>{{ roll.reserved }}</td>
+            {% endif %}
+
+            {% if roll.sold != 0 %}
+              <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:1 }}</a></td>
+            {% else %}
+              <td>{{ roll.sold }}</td>
+            {% endif %}
+            <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
+            <td>{{ roll.batch }}</td>
+            <td>{{ roll.location }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <h5>No stocks available for this product.</h5>
+    {% endif %}
+    </div>
+  <div class="card-footer">
+
+  </div>
+  </div>
+
+  <script>
+      $(document).ready( function () {
+          $('#product-roll-table').DataTable();
+      } );
+  </script>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <br>
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title"><strong>{{ roll.spec.code }}: ({{ filter.name }}: {{ filter.result }} m<sup>2</sup>)</strong></h5>
+    </div>
+    <div class="card-body">
+      <div class="card-content table-responsive-sm">
+        <table id="orders-table" class="display table table-hover">
+          <thead>
+          <tr>
+            <th>Order #</th>
+            <th>Buyer</th>
+            <th>Status</th>
+            <th>Quantity</th>
+            <th>Created Date</th>
+            <th>Closed Date</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for line in orderlines %}
+            <tr>
+              <td><a href="{% url 'order' line.order.id %}"><span>{{ line.order.number }}</span></a></td>
+              <td>{{ line.order.buyer }}</td>
+              <td><a class="btn btn-sm btn-{{ line.order.status_color }}" style="pointer-events: none;">{{ line.order.status }}</a></td>
+              <td>{{ line.quantity }}</td>
+              <td>{{ line.order.created }}</td>
+              <td>{% if not order.closed_date %}-{% else %}{{ order.closed_date }}{% endif %}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a href="#" onclick="window.history.back()" class="btn btn-sm btn-secondary">Back</a>
+    </div>
+  </div>
+
+  <script>
+  </script>
+
+{% endblock %}

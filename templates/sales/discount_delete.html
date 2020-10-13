@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <br>
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Remove Discount from Order</h5>
+    </div>
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        <dl class="row">
+          <dt class="col-sm-3">Order</dt>
+          <dd class="col-sm-9">{{ discount.order.number }}</dd>
+
+          <dt class="col-sm-3">Discount</dt>
+          <dd class="col-sm-9">{{ discount.total }}</dd>
+        </dl>
+
+        <div class="alert alert-warning" role="alert">
+          This will remove this discount from order: {{ discount.order.number }}. Proceed?
+        </div>
+        <br>
+        <input type="submit" value="Delete" class="btn btn-sm btn-danger">
+        <input type="submit" formnovalidate name="cancel" value="Cancel" class="btn btn-sm btn-secondary"/>
+      </form>
+    </div>
+</div>
+
+{% endblock %}

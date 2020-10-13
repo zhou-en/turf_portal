@@ -1,0 +1,387 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h2 class="h3">Dashboard</h2>
+    <!--
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group mr-2">
+        <button type="button" class="btn btn-sm btn-outline-secondary disabled">Share</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary disabled">Export</button>
+      </div>
+      <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle disabled">
+        <span data-feather="calendar"></span>
+        This week
+      </button>
+    </div>
+    -->
+  </div>
+
+  <div id="large-screen-charts" class="container-fluid text-center">
+    <div id="chartContainer" class="col-sm-6" style="width: 40%; display: inline-block;">
+      <canvas id="stock-chart" name="stock-chart"></canvas>
+    </div>
+    <div id="chartContainer" class="col-sm-6" style="width: 40%; display: inline-block;">
+      <canvas id="sales-chart" name="sales-chart"></canvas>
+    </div>
+    <br>
+    <br>
+    <div id="chartContainer" class="col-sm-6" style="width: 40%; display: inline-block;">
+      <canvas id="product-chart" name="stock-sold-chart"></canvas>
+    </div>
+    <div id="chartContainer" class="col-sm-6" style="width: 40%; display: inline-block;">
+      <canvas id="buyer-chart" name="buyer-chart"></canvas>
+    </div>
+  </div>
+
+    <div id="small-screen-charts" class="container-fluid">
+      <div id="chartContainer">
+        <canvas id="stock-chart" name="stock-chart"></canvas>
+      </div>
+      <div id="chartContainer">
+        <canvas id="sales-chart" name="sales-chart"></canvas>
+      </div>
+      <div id="chartContainer">
+        <canvas id="product-chart" name="stock-sold-chart"></canvas>
+      </div>
+      <div id="chartContainer">
+        <canvas id="buyer-chart" name="buyer-chart"></canvas>
+      </div>
+    </div>
+
+  <br>
+  <br>
+  <br>
+  <!--
+  <div>
+    <h3 class="h3">Recent Opened Orders</h3>
+    <hr>
+    <div class="table-responsive-sm">
+      <table id="recent-orders-table" class="display table table-responsive-sm table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th>Order #</th>
+          <th>Buyer</th>
+          <th>Total</th>
+          <th>Created Date</th>
+          <th>Last Updated</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in recent_orders %}
+          <tr>
+            <td><a href="{% url 'order' order.id %}"><span>{{ order.number }}</span></a></td>
+            <td>{{ order.buyer.name }}</td>
+            <td>{{ order.total_wt_discount }}</td>
+            <td>{{ order.created }}</td>
+            <td>{{ order.modified }}</td>
+            <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a>
+            </td>
+            <td>
+              <a href=""><span data-feather="edit"></span></a>
+              <a href=""><span data-feather="trash-2"></span></a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  -->
+
+  <script>
+      function getRandomColor() {
+          var letters = '0123456789ABCDEF'.split('');
+          var color = '#';
+          for (var i = 0; i < 6; i++) {
+              color += letters[Math.floor(Math.random() * 16)];
+          }
+          return color;
+      }
+
+      function generateBackgroundColors(numberOfColors) {
+          var colorArray = []
+          for(var i=0; i<numberOfColors; i++) {
+              color = getRandomColor();
+              console.log(color);
+              colorArray.push(color);
+          }
+          return colorArray
+      }
+
+      if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+          document.getElementById("large-screen-charts").hidden = true;
+          document.getElementById("small-screen-charts").hidden = false;
+      } else {
+          document.getElementById("large-screen-charts").hidden = false;
+          document.getElementById("small-screen-charts").hidden = true;
+      }
+
+      $(document).ready(function () {
+          $('#recent-orders-table').dataTable(
+              {
+                  "order": [
+                      [4,'desc'],
+                      [0,'desc'],
+                  ]
+              }
+          );
+      });
+      var endpoint = "/api/chart/data/";
+      var customer = parseInt("{{ data.customers }}");
+      var defaultData = [];
+      var labels = [];
+      $.ajax({
+          method: "GET",
+          url: endpoint,
+          success: function (data) {
+              var stock_data = data.stock_data;
+              var sales_data = data.sales_data;
+              var stock_sold_data = data.stock_sold_data;
+              var buyer_data = data.buyer_data;
+              var ctxes = document.getElementsByName('stock-chart');
+              for (var i=0; i<ctxes.length; i++) {
+                  setBarChart(stock_data.labels, stock_data.default, ctxes[i]);
+              }
+
+              ctxes = document.getElementsByName('sales-chart');
+              for (var i=0; i<ctxes.length; i++) {
+                  setLineChart(sales_data.labels, sales_data.default, ctxes[i]);
+              }
+
+              ctxes = document.getElementsByName('buyer-chart');
+              for (var i=0; i<ctxes.length; i++) {
+                  setBuyerChart(buyer_data.labels, buyer_data.default, ctxes[i]);
+              }
+
+              ctxes = document.getElementsByName('stock-sold-chart');
+              for (var i=0; i<ctxes.length; i++) {
+                  setProductChart(stock_sold_data.labels, stock_sold_data.default, ctxes[i]);
+              }
+          },
+          error: function (error_data) {
+              console.log("error");
+              console.log(error_data);
+          }
+      });
+
+      function setBarChart(labels, defaultData, ctx) {
+          var xStepSize = Math.ceil(Math.max(defaultData) / 15);
+          var myChart = new Chart(ctx, {
+              type: "bar",
+              data: {
+                  labels: labels,
+                  datasets: [{
+                      label: "Number of m² available",
+                      data: defaultData,
+                      backgroundColor: [
+                          'rgba(255, 99, 132, 1)',
+                          'rgba(54, 162, 235, 1)',
+                          'rgba(255, 206, 86, 1)',
+                          'rgba(75, 192, 192, 1)',
+                          'rgba(153, 102, 255, 1)',
+                          'rgba(255, 159, 64, 1)'
+                      ],
+                      borderColor: [
+                          'rgba(255, 99, 132, 1)',
+                          'rgba(54, 162, 235, 1)',
+                          'rgba(255, 206, 86, 1)',
+                          'rgba(75, 192, 192, 1)',
+                          'rgba(153, 102, 255, 1)',
+                          'rgba(255, 159, 64, 1)'
+                      ],
+                      borderWidth: 1.5
+                  }]
+              },
+              options: {
+                  maintainAspectRatio: true,
+                  responsive: true,
+                  scales: {
+                      yAxes: [
+                          {
+                            ticks: {
+                                beginAtZero: true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'm²',
+                                fontStyle: "bold"
+                            }
+                        }
+                      ],
+                      xAxes: [
+                          {
+                              ticks: {
+                                  stepSize: xStepSize,
+                                  autoSkip: false
+                              },
+                              scaleLabel: {
+                                  display: true,
+                                  labelString: 'Product Code',
+                                  fontStyle: "bold"
+                              },
+                          }
+                      ]
+                  },
+                  legend: {display: false},
+                  title: {
+                      display: true,
+                      text: 'Total Stock Available per Product in m²',
+                      fontStyle: "bold"
+                  }
+              }
+          });
+      }
+
+      function setBuyerChart(labels, defaultData, ctx) {
+          colors = generateBackgroundColors(labels.length);
+          var myChart = new Chart(ctx, {
+              type: "pie",
+              data: {
+                  labels: labels,
+                  datasets: [{
+                      label: "Total sales per buyer in Rand",
+                      data: defaultData,
+                      {#borderColor: colors,#}
+                      backgroundColor: colors,
+                      hoverBackgroundColor: colors,
+                      borderWidth: 1.5
+                  }]
+              },
+              options: {
+                  responsive: true,
+                  legend: {
+                      display: true,
+                      position: 'right'
+                  },
+                  title: {
+                      display: true,
+                      text: 'Total sales per buyer in Rand',
+                      fontStyle: "bold"
+                  },
+                  plugins: {
+                      labels: {
+                          render: 'label'
+                      }
+                  }
+              }
+          });
+      }
+
+      function setProductChart(labels, defaultData, ctx) {
+
+          var myChart = new Chart(ctx, {
+              type: "bar",
+              data: {
+                  labels: labels,
+                  datasets: [{
+                      label: "Stock Sold in m²",
+                      data: defaultData,
+                      backgroundColor: [
+                          'rgba(255, 99, 132, 1)',
+                          'rgba(54, 162, 235, 1)',
+                          'rgba(255, 206, 86, 1)',
+                          'rgba(75, 192, 192, 1)',
+                          'rgba(153, 102, 255, 1)',
+                          'rgba(255, 159, 64, 1)'
+                      ],
+                      borderColor: [
+                          'rgba(255, 99, 132, 1)',
+                          'rgba(54, 162, 235, 1)',
+                          'rgba(255, 206, 86, 1)',
+                          'rgba(75, 192, 192, 1)',
+                          'rgba(153, 102, 255, 1)',
+                          'rgba(255, 159, 64, 1)'
+                      ],
+                      borderWidth: 1.5
+                  }]
+              },
+              options: {
+                  maintainAspectRatio: true,
+                  responsive: true,
+                  scales: {
+                      yAxes: [{
+                          ticks: {
+                              beginAtZero: true
+                          },
+
+                          scaleLabel: {
+                              display: true,
+                              labelString: 'm²',
+                              fontStyle: "bold"
+                          }
+                      }],
+                      xAxes: [{
+                          scaleLabel: {
+                              display: true,
+                              labelString: 'Product Code',
+                              fontStyle: "bold"
+                          }
+                      }]
+                  },
+                  legend: {display: false},
+                  title: {
+                      display: true,
+                      text: 'Total Stock Sold per Product in m²',
+                      fontStyle: "bold"
+                  }
+              }
+          });
+      }
+
+      function setLineChart(labels, defaultData, ctx) {
+          var myChart = new Chart(ctx, {
+              type: "line",
+              data: {
+                  labels: labels,
+                  datasets: [{
+                      label: "Order of Sales (R)",
+                      data: defaultData,
+                      borderColor: "#3e95cd",
+                      fill: true,
+                      borderWidth: 2
+                  }]
+              },
+              options: {
+                  maintainAspectRatio: true,
+                  responsive: true,
+                  title: {
+                      display: true,
+                      text: 'Total Accumulated Sales in Rand'
+                  },
+                  legend: {display: false},
+                  scales: {
+                      yAxes: [
+                          {
+                              ticks: {
+                                  beginAtZero: true
+                              },
+
+                              scaleLabel: {
+                                  display: true,
+                                  labelString: 'Rand',
+                                  fontStyle: 'bold'
+                              }
+                          }
+                      ],
+                      xAxes: [
+                          {
+                              ticks: {
+                                  display: false
+                              },
+                              scaleLabel: {
+                                  display: true,
+                                  labelString: 'Closed Orders',
+                                  fontStyle: 'bold'
+                              }
+                          }
+                      ]
+                  }
+              }
+          });
+      }
+
+  </script>
+{% endblock %}

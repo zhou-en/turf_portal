@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <br>
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Create A New Order:</h5>
+    </div>
+    <div class="card-body">
+
+      <form method="post">
+        {% csrf_token %}
+        <h5>Select A Buyer</h5>
+        {{ form.buyer|as_crispy_field }}
+      <br>
+      <br>
+        {% if create %}
+          <input type="submit" formnovalidate name="cancel" value="Cancel" class="btn btn-secondary btn-sm"/>
+          <input type="submit" value="Next" class="btn btn-primary btn-sm">
+        {% endif %}
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+<script type="text/javascript">
+{#var displayBuyerProduct function() = {#}
+</script>

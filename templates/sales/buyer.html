@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <br>
+  {% if messages %}
+    {% for message in messages %}
+      {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+    {% endfor %}
+
+  {% endif %}
+
+  <br>
+<div class="card">
+  <div class="card-header">
+      <h5 class="card-title">Buyer Details</h5>
+  </div>
+    <div class="card-body">
+      <dl class="row">
+        <dt class="col-sm-3">Name</dt>
+        <dd class="col-sm-9">{{ buyer.name }}</dd>
+
+        <dt class="col-sm-3">Status</dt>
+        <dd class="col-sm-9">{{ buyer.status }}</dd>
+
+        <dt class="col-sm-3">Type</dt>
+        <dd class="col-sm-9">{{ buyer.buyer_type }}</dd>
+
+        <dt class="col-sm-3">Mobile</dt>
+        <dd class="col-sm-9">{{ buyer.mobile }}</dd>
+
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9">{{ buyer.email }}</dd>
+
+        {% if buyer.address %}
+        <dt class="col-sm-3">Address</dt>
+        <dd class="col-sm-9">{{ buyer.address }}</dd>
+        {% endif %}
+
+        <dt class="col-sm-3">Contact Person</dt>
+        <dd class="col-sm-9">{{ buyer.contact_person }}</dd>
+
+        <dt class="col-sm-3">Total Revenue (R)</dt>
+        <dd class="col-sm-9">{{ buyer.history_total|floatformat:2 }}</dd>
+      </dl>
+    </div>
+  <div class="card-footer">
+    <a href="{% url 'buyers' %}" class="btn btn-sm btn-secondary">Back to Buyers</a>
+    <a href="{% url 'buyer-update' buyer.id %}" class="btn btn-sm btn-primary float-lg-right">Update</a>
+{#    <a href="{% url 'buyer-delete' buyer.id %}" class="btn btn-sm btn-danger">Deactivate</a>#}
+  </div>
+</div>
+
+<br>
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Products Assigned to Buyer</h5>
+    </div>
+    <div class="card-body table-responsive-sm">
+    {% if buyer_products %}
+      <table id="buyer-product-table" class="display table table-sm table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th>Product Code</th>
+          <th>Category</th>
+          <th>Color</th>
+          <th>Height (mm)</th>
+          <th>Width (m)</th>
+          <th>Price (R/m<sup>2</sup>)</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for bp in buyer_products %}
+          <tr>
+            <td><a href="{% url 'buyer-product-update' bp.id %}" >{{ bp.product.code }}</a></td>
+            <td>{{ bp.product.spec.category }}</td>
+            <td>{{ bp.product.spec.color }}</td>
+            <td>{{ bp.product.spec.height }}</td>
+            <td>{{ bp.product.spec.width }}</td>
+            <td>{{ bp.price|floatformat:2 }}</td>
+            <td>
+              <a href="{% url 'buyer-product-update' bp.id %}"><span data-feather="edit"></span></a>
+              <a href="{% url 'buyer-product-delete' bp.id %}"><span data-feather="trash-2"></span></a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No product assigned to buyer yet.</p>
+    {% endif %}
+    </div>
+    <div class="card-footer">
+      {% if buyer.has_product_available %}
+      <a id="add-product-btn" href="{% url 'buyer-product-create' buyer.id %}" class="btn btn-sm btn-primary float-lg-right">Add Product</a>
+        {% else %}
+      <a id="add-product-btn" href="{% url 'buyer-product-create' buyer.id %}" class="btn btn-sm btn-primary float-lg-right disabled">Add Product</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <br>
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Buyer Order History</h5>
+    </div>
+    <div class="card-body table-responsive-sm">
+    {% if buyer_orders %}
+      <table id="buyer-orders-table" class="display table table-sm table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th>Order</th>
+          <th>Status</th>
+          <th>Total (R)</th>
+          <th>Created Date</th>
+          <th>Closed Date</th>
+          <th>Invoice</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in buyer_orders %}
+          <tr>
+            <td><a href="{% url 'order' order.id %}" >{{ order.number }}</a></td>
+            <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a></td>
+            <td>{{ order.total_wt_discount|floatformat:2 }}</td>
+            <td>{{ order.created }}</td>
+            <td>{{ order.closed_date }}</td>
+            {% if order.invoice %}
+              <td><a href="{% url 'invoice' order.invoice.id %}" >{{ order.invoice.number }}</a></td>
+            {% else %}
+              <td>-</td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>Buyer hasn't placed any order yet.</p>
+    {% endif %}
+    </div>
+    <div class="card-footer">
+      <a href="{% url 'buyer-order-create' buyer.id %}" class="btn btn-sm btn-primary float-lg-right">New Order</a>
+    </div>
+  </div>
+
+  <script>
+      $(document).ready( function () {
+          $('#buyer-orders-table').dataTable(
+              {
+                  "order": [
+                      [4,'desc'],
+                      [0,'desc'],
+                  ]
+              }
+          );
+      } );
+  </script>
+
+{% endblock %}

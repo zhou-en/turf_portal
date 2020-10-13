@@ -1,0 +1,200 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="shortcut icon" type="image/png" href="{% static 'favicon.jpg' %}"/>
+  <meta charset="UTF-8">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link href="{% static 'css/invoice.css' %}" rel="stylesheet">
+  <title>Invoice</title>
+</head>
+<body>
+
+<div class="container">
+  <div class="col-md-10 my-auto">
+    <div class="invoice">
+      <!-- begin invoice-company -->
+      <div id="action-buttons" class="invoice-company text-inverse f-w-600">
+            <span class="pull-right hidden-print">
+            <a href="{% url 'invoice-export' order.invoice.id %}" target="_blank" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-file-pdf-o t-plus-1 text-danger fa-fw fa-lg"></i> Export as PDF</a>
+            <!--<a class="btn btn-sm btn-white m-b-10 p-l-5" href="mailto: order.buyer.email ?subject=Invoice Email Test&body=<b>test email</b>"><i class="fa fa-envelope t-plus-1 fa-fw fa-lg"></i>Email to Buyer</a> -->
+            <a class="btn btn-sm btn-white m-b-10 p-l-5" data-toggle="modal" data-target="#send-invoice-email-modal"><i class="fa fa-envelope t-plus-1 fa-fw fa-lg"></i>Email to Buyer</a>
+            </span>
+        TURFD
+      </div>
+      <!-- end invoice-company -->
+      <!-- begin invoice-header -->
+      <div class="invoice-header">
+        <div class="invoice-from">
+          <small>from</small>
+          <address class="m-t-5 m-b-5">
+            <strong class="text-inverse">TURFD</strong><br>
+            Boston<br>
+            Bellville 7350<br>
+            Phone: 0768308920<br>
+            Email: flying66free@gggmail.com
+          </address>
+        </div>
+        <div class="invoice-to">
+          <small>to</small>
+          <address class="m-t-5 m-b-5">
+            <strong class="text-inverse">{{ order.buyer.name }}</strong><br>
+            {% if order.buyer.address %}{{ order.buyer.address }}<br>{% endif %}
+            {% if order.buyer.mobile %}Phone: {{ order.buyer.mobile }}<br>{% endif %}
+            {% if order.buyer.email %}Email: {{ order.buyer.email }}{% endif %}
+          </address>
+        </div>
+        <div class="invoice-date">
+          <small>Invoice Date</small>
+          <div class="date text-inverse m-t-5">{{ order.invoice.created|date }}</div>
+          <small>Invoice Number</small>
+          <div class="invoice-detail">
+            <div class="date text-inverse m-t-5">{{ order.invoice.number }}</div><br>
+          </div>
+        </div>
+      </div>
+      <!-- end invoice-header -->
+      <!-- begin invoice-content -->
+      <div class="invoice-content">
+        <!-- begin table-responsive -->
+        <div class="table-responsive">
+          <table class="table table-borderless text">
+            <thead>
+            <tr>
+              <th>Products</th>
+              <th class="text-center" width="15%">Rate (R/m<sup>2</sup>)</th>
+              <th class="text-center" width="15%">Quantity (m<sup>2</sup>)</th>
+              <th class="text-right" width="20%">Item Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for ol in orderlines %}
+            <tr>
+              {% if ol.is_discount %}
+              <td>
+                <span class="text-inverse">Discount</span><br>
+                <small>Discount that was applied to this order.</small>
+              </td>
+              <td class="text-center">-{{ ol.price|floatformat:2 }}</td>
+              <td class="text-center">{{ ol.quantity }}</td>
+              <td class="text-right">-R{{ ol.total|floatformat:2 }}</td>
+              {% else %}
+                <td>
+                  <span class="text-inverse">{{ ol.product.name }}</span><br>
+                  <small>{{ ol.product.description }}</small>
+                </td>
+                <td class="text-center">{{ ol.price|floatformat:2 }}</td>
+                <td class="text-center">{{ ol.quantity }}</td>
+                <td class="text-right">R{{ ol.total|floatformat:2 }}</td>
+              {% endif %}
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <!-- end table-responsive -->
+        <!-- begin invoice-price -->
+        <div class="invoice-price">
+          <div class="invoice-price-left">
+            <div class="invoice-price-row">
+              <div class="sub-price">
+                <small>SUBTOTAL</small>
+                <span class="text-inverse">R{{ order.total_wt_discount|floatformat:2 }}</span>
+              </div>
+
+              <div class="sub-price">
+                <!--
+                <i class="fa fa-plus text-muted"></i>
+                -->
+              </div>
+              <div class="sub-price">
+                <!--
+                <small>VAT (15%)</small>
+                <span class="text-inverse">R{{ order.total_vat }}</span>
+                -->
+              </div>
+            </div>
+          </div>
+          <div class="invoice-price-right">
+            <small>TOTAL</small> <span class="f-w-600">R{{ order.total_wt_discount|floatformat:2 }}</span>
+          </div>
+        </div>
+        <!-- end invoice-price -->
+      </div>
+      <!-- end invoice-content -->
+      <!-- begin invoice-note -->
+      <div class="invoice-note">
+        * <b>Bank Details: Bank: FMB; Account #: 1234567890; Branch: Tygervalley 632005;</b><br>
+        * Payment is due within 7 days<br>
+        * If you have any questions concerning this invoice, contact Turfd, Pty. Ltd.
+      </div>
+      <!-- end invoice-note -->
+      <!-- begin invoice-footer -->
+      <div class="invoice-footer">
+        <p class="text-center m-b-5 f-w-600">
+          THANK YOU FOR YOUR BUSINESS
+        </p>
+        <p class="text-center">
+          <!-- <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> matiasgallipoli.com</span> -->
+          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-square"></i>0768308920</span>
+          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i>TURFD &lt;flying66free@gmail.com&gt;</span>
+        </p>
+      </div>
+      <!-- end invoice-footer -->
+    </div>
+  </div>
+</div>
+
+<div id="back-button" class="container">
+<br>
+  <div class="col-md-10 my-auto">
+  <a href="{% url 'order' order.id %}" class="btn btn-sm btn-white m-b-10 p-l-5">Back</a>
+  </div>
+</div>
+
+<div id="send-invoice-email-modal" class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Confirm Sending Invoice to Buyer</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body text-justify">
+        <div>
+          <p>Sending email to
+            <p class="ml-lg-4"><strong>{{ order.buyer.name }}</strong></p>
+            <p class="ml-lg-4">{{ order.buyer.email }}</p>
+          <p>Proceed?</p>
+        </div>
+
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer text-lg-center">
+        <a href="{% url 'order' order.id %}" class="btn btn-sm btn-secondary">Cancel</a>
+        <a href="{% url 'send-invoice-email' order.id %}" class="btn btn-sm btn-primary float-lg-right">Send</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>

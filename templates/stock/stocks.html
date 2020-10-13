@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <br>
+  <a href="{% url 'load-stocks' %}" class="btn btn-sm btn-primary float-lg-right">Load Stocks</a>
+  <br>
+  <br>
+
+{% for spec, rolls in turf_rolls.items %}
+
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title"><strong>{{ spec.code }}</strong></h5>
+    </div>
+  <div class="card-body">
+    <div class="card-content table-responsive-sm">
+      <table id="stocks-table-{{ spec.id }}" class="table table-sm table-hover table-borderless">
+        <thead style="border-bottom: 1px solid black;">
+        <tr>
+          <th>ID</th>
+          <th>Note</th>
+          <th>Status</th>
+          <th>Available (m<sup>2</sup>)</th>
+          <th>Reserved (m<sup>2</sup>)</th>
+          <th>Sold (m<sup>2</sup>)</th>
+          <th>Batch</th>
+          <th>Warehouse</th>
+          <th>Last Sold Date</th>
+          <th>Loaded Date</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for roll in rolls %}
+          {% if roll.status != "DEPLETED" %}
+            <tr>
+              <td><a href="{% url 'roll-update' roll.id %}">{{ roll.id }}</a></td>
+              {% if roll.note %}
+                <td>{{ roll.note }}</td>
+              {% else %}
+                <td></td>
+              {% endif %}
+              <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
+              <td class="text-success">{{ roll.available }}</td>
+
+              {% if roll.reserved != 0 %}
+                <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:1 }}</a></td>
+              {% else %}
+                <td>{{ roll.reserved }}</td>
+              {% endif %}
+
+              {% if roll.sold != 0 %}
+                <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:1 }}</a></td>
+              {% else %}
+                <td>{{ roll.sold }}</td>
+              {% endif %}
+
+              <td>{{ roll.batch }}</td>
+              <td>{{ roll.location }}</td>
+              <td>{{ roll.modified|date:"Y/m/d" }}</td>
+              <td>{{ roll.created|date:"Y/m/d" }}</td>
+              <td>
+                {% if roll.available != 0 %}
+                  <a href="{% url 'stock-split' roll.id %}" class="btn btn-sm btn-primary">Split</a>
+                {% else %}
+                  <a href="{% url 'stock-split' roll.id %}" style="pointer-events: none;" class="btn btn-sm btn-outline-secondary">Split</a>
+                {% endif %}
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td>{{ roll.id }}</td>
+              {% if roll.note %}
+                <td>{{ roll.note }}</td>
+              {% else %}
+                <td></td>
+              {% endif %}
+              <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
+              <td class="text-success">{{ roll.available }}</td>
+
+              {% if roll.reserved != 0 %}
+                <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:1 }}</a></td>
+              {% else %}
+                <td>{{ roll.reserved }}</td>
+              {% endif %}
+
+              {% if roll.sold != 0 %}
+                <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:1 }}</a></td>
+              {% else %}
+                <td>{{ roll.sold }}</td>
+              {% endif %}
+
+              <td>{{ roll.batch }}</td>
+
+              {% if roll.location %}
+                <td>{{ roll.location }}</td>
+              {% else %}
+                <td></td>
+              {% endif %}
+              <td>{{ roll.modified|date:"Y/m/d" }}</td>
+              <td>{{ roll.created|date:"Y/m/d" }}</td>
+              <td style="text-align: center"></td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  <!--
+    <div class="text-center">
+      {% for roll_data in all_rolls %}
+        {% if roll_data.status != "DEPLETED" and roll_data.spec == spec %}
+          <div id="chartContainer" class="col-sm-6" style="width: 30%; height: 30%;display: inline-block;">
+            <canvas id="stock-roll-chart-{{ roll_data.id }}"></canvas>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+-->
+  </div>
+  </div>
+  <br>
+{% endfor %}
+
+  <script>
+
+      {% for spec, rolls in turf_rolls.items %}
+      $(document).ready( function () {
+          $('#stocks-table-{{ spec.id }}').DataTable(
+              {"ordering": false}
+          );
+      } );
+      {% endfor %}
+/*
+      var endpoint = "/api/stock/data/";
+      {#var defaultData = [];#}
+      {#var labels = [];#}
+      $.ajax({
+          method: "GET",
+          url: endpoint,
+          success: function (data) {
+              Object.keys(data).forEach(function(key) {
+                  //console.table('Key : ' + key + ', Value : ' + data[key].code)
+                  var chart_id = "stock-roll-chart-" + (key).toString();
+                  var default_data = data[key].default;
+                  var labels = data[key].labels;
+                  var code = "ID: " + key.toString();
+                  var ctx = document.getElementById(chart_id);
+                  setDoughnutChart(labels, default_data, ctx, code);
+              })
+
+          },
+          error: function (error_data) {
+              console.log("error");
+              console.log(error_data);
+          }
+      });
+
+      function setDoughnutChart(labels, defaultData, ctx, code) {
+          var myChart = new Chart(ctx, {
+              type: "doughnut",
+              data: {
+                  labels: labels,
+                  datasets: [{
+                      label: "m²",
+                      data: defaultData,
+                      backgroundColor: ["#32CD32", "#949FB1", "#FDB45C", "#FFFFFF", "#46BFBD", "#4D5360", "#F7464A"],
+                      hoverBackgroundColor: ["#7CFC00", "#A8B3C5", "#FFC870", "#FFFFFF", "#5AD3D1", "#616774", "#FF5A5E"],
+                      {#borderColor: [#}
+                      {#    'rgba(255, 99, 132, 1)',#}
+                      {#    'rgba(54, 162, 235, 1)',#}
+                      {#    'rgba(255, 206, 86, 1)',#}
+                      {#    'rgba(75, 192, 192, 1)',#}
+                      {#    'rgba(153, 102, 255, 1)',#}
+                      {#    'rgba(255, 159, 64, 1)'#}
+                      {#],#}
+                      borderWidth: 1.5
+                  }]
+              },
+              options: {
+                  maintainAspectRatio: false,
+                  responsive: true,
+                  legend: {
+                      display: false,
+                      labels: {
+                          fontSize: 10
+                      }
+                  },
+                  title: {
+                      display: true,
+                      text: code,
+                      fontStyle: "bold"
+                  }
+              }
+          });
+      }
+
+*/
+  </script>
+
+
+{% endblock %}

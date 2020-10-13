@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+  {% if messages %}
+    {% for message in messages %}
+      {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+    {% endfor %}
+
+  {% endif %}
+<div class="card">
+  <div class="card-header">
+      <h5 class="card-title">Invoice Details</h5>
+  </div>
+    <div class="card-body table-responsive-sm">
+      <dl class="row">
+        <dt class="col-sm-3">Status</dt>
+        <dd class="col-sm-9">
+          <a class="btn btn-sm btn-{{ invoice.status_color }}" style="pointer-events: none;">
+            {{ invoice.status }}
+          </a>
+        </dd>
+
+        <dt class="col-sm-3">Number</dt>
+        <dd class="col-sm-9">{{ invoice.number }}</dd>
+
+        <dt class="col-sm-3">Order</dt>
+        <dd class="col-sm-9"><a href="{% url 'order' invoice.order.id %}"><span>{{ invoice.order.number }}</span></a></dd>
+
+        <dt class="col-sm-3">Buyer</dt>
+        <dd class="col-sm-9"><a href="{% url 'buyer' invoice.buyer.id %}"><span>{{ invoice.buyer.name }}</span></a></dd>
+
+        <dt class="col-sm-3">Total (R)</dt>
+        <dd class="col-sm-9">{{ invoice.order.total_amount|floatformat:2 }}</dd>
+
+        {% if invoice.order.discounted %}
+        <dt class="col-sm-3">Discount (R)</dt>
+        <dd class="col-sm-9">-{{ invoice.order.discount|floatformat:2 }}</dd>
+        {% endif %}
+
+        <dt class="col-sm-3">Amount Paid (R)</dt>
+        <dd class="col-sm-9 text-success">{{ invoice.total_payment|floatformat:2 }}</dd>
+
+        <dt class="col-sm-3">Amount Due (R)</dt>
+        <dd class="col-sm-9 text-danger">{{ invoice.amount_due|floatformat:2 }}</dd>
+
+        <dt class="col-sm-3">Created Date</dt>
+        <dd class="col-sm-9">{{ invoice.created }}</dd>
+
+        <dt class="col-sm-3">Closed Date</dt>
+        <dd class="col-sm-9">{% if not invoice.closed_date %}-{% else %}{{ invoice.closed_date }}{% endif %}</dd>
+      </dl>
+
+      <hr>
+      <table id="order-line-table" class="table table-sm table-borderless">
+        <thead>
+        <tr>
+          <th>Product Code</th>
+          <th>Quantity (m<sup>2</sup>)</th>
+          <th>Price (R/m<sup>2</sup>)</th>
+          <th>Amount (R)</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for ol in invoice.order.orderlines %}
+          <tr>
+            {% if ol.is_discount %}
+              <td>Discount</td>
+              <td>{{ ol.quantity }}</td>
+              <td>-{{ ol.price|floatformat:2 }}</td>
+              <td>-{{ ol.total|floatformat:2 }}</td>
+            {% else %}
+              <td>{{ ol.product }}</td>
+              <td>{{ ol.quantity }}</td>
+              <td>{{ ol.price|floatformat:2 }}</td>
+              <td>{{ ol.total|floatformat:2 }}</td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card-footer text-lg-center">
+
+      {% if not invoice.has_payment %}
+        <a href="{% url 'invoices' %}" class="btn btn-sm btn-secondary float-lg-left">Back</a>
+        {% if invoice.is_payable %}
+          <a class="btn btn-sm btn-primary float-lg-right" style="margin-left: 20px;" href="{% url 'payment-create' invoice.id %}">Add Payment</a>
+        {% endif %}
+      {% endif %}
+      {% if invoice.is_invoiceable %}
+        <a class="btn btn-sm btn-primary float-lg-right" style="margin-left: 20px;" href="{% url 'invoice-order' invoice.order.id %}">Email Invoice to Buyer</a>
+      {% endif %}
+    </div>
+</div>
+
+  {% if invoice.has_payment %}
+<br>
+<br>
+<br>
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">Payment Received</h5>
+      </div>
+      <div class="card-body table-responsive-sm">
+        <table class="table table-sm table-borderless">
+          <thead>
+          <tr>
+            <th>Amount (R)</th>
+            <th>Method</th>
+            <th>Payment Date</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for p in payments %}
+            <tr>
+              <td class="text-success">{{ p.amount|floatformat:2 }}</td>
+              <td>{{ p.method }}</td>
+              <td>{{ p.created|date:"Y/m/d" }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer text-center">
+        {% if payments %}
+          <a href="{% url 'invoices' %}" class="btn btn-sm btn-secondary float-lg-left">Back</a>
+        {% endif %}
+        {% if invoice.is_payable %}
+          <a class="btn btn-sm btn-primary float-lg-right" style="margin-left: 20px;" href="{% url 'payment-create' invoice.id %}">Add Payment</a>
+        {% endif %}
+      </div>
+
+    </div>
+
+  {% endif %}
+
+{% endblock %}
