@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
+import sys
 import logging
 import logging.config
 from pathlib import Path
@@ -87,10 +88,10 @@ WSGI_APPLICATION = 'turf_portal.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
+        'NAME': config('DB_NAME', 'turf-portal'),
+        'USER': config('DB_USER', 'turf-portal-user'),
         'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
+        'HOST': config('DB_HOST', '127.0.0.1'),
         'PORT': '5432',
 
     }
@@ -213,5 +214,5 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = config("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = config("EMAIL_HOST_USER", 'test_user')
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", 'test_password')
