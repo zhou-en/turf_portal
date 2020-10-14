@@ -71,5 +71,6 @@ jobs:
         DB_USER: postgres
         DB_PASSWORD: postgres
       run: |
+        python manage.py migrate
         pytest --cov --cov-config=.coveragerc
 
