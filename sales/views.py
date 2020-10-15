@@ -370,9 +370,12 @@ class OrderItemDeleteView(DeleteView):
         return reverse_lazy('order', kwargs={'pk': self.object.order_id})
 
     def post(self, request, *args, **kwargs):
-        self.order_id = OrderLine.objects.get(id=kwargs.get("pk")).order_id
-        OrderLine.objects.get(id=kwargs.get("pk")).delete()
-        return HttpResponseRedirect(reverse_lazy("order", kwargs={"pk": self.order_id}))
+        order_id = OrderLine.objects.get(id=kwargs.get("pk")).order_id
+        if "cancel" in request.POST:
+            return HttpResponseRedirect(reverse_lazy("order", kwargs={"pk": order_id}))
+        else:
+            OrderLine.objects.get(id=kwargs.get("pk")).delete()
+            return HttpResponseRedirect(reverse_lazy("order", kwargs={"pk": order_id}))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -147,16 +147,15 @@ class OrderItemUpdateForm(forms.ModelForm):
         fields = "__all__"
 
     def __init__(self, *args, **kwargs):
+        instance = kwargs.get("instance", None)
         self.base_fields["order"].disabled = True
         self.base_fields["price"].disabled = True
-        self.base_fields["price"].label = "Price (R)"
-        self.base_fields["quantity"].label = mark_safe("Quantity (m<sup>2</sup>)")
+        self.base_fields["price"].label = mark_safe(f"Price (R/{instance.roll.spec.sale_by})")
+        self.base_fields["quantity"].label = mark_safe(f"Quantity ({instance.roll.spec.sale_by})")
         self.base_fields["product"].disabled = True
         self.base_fields["roll"].disabled = True
+        self.base_fields["total"].label = mark_safe(f"Total ({instance.roll.spec.sale_by})")
         self.base_fields["total"].disabled = True
-        # spec = kwargs["instance"].product.spec
-        # roll_queryset = TurfRoll.objects.filter(spec=spec)
-        # self.base_fields["roll"].queryset = roll_queryset
         self.base_fields["roll"].empty_label = None
         self.helper = FormHelper()
         self.helper.add_input(Button('cancel', 'Cancel', onclick='window.history.back();'))
