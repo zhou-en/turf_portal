@@ -1,0 +1,2804 @@
+[
+{
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+        "action_time": "2020-10-03T20:54:33.283Z",
+        "user": 1,
+        "content_type": 17,
+        "object_id": "1",
+        "object_repr": "25A-2",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+        "action_time": "2020-10-03T22:41:32.540Z",
+        "user": 1,
+        "content_type": 21,
+        "object_id": "1",
+        "object_repr": "BATCH-20201003",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+        "action_time": "2020-10-03T22:42:38.796Z",
+        "user": 1,
+        "content_type": 21,
+        "object_id": "1",
+        "object_repr": "BATCH-20201002",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Number\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 4,
+    "fields": {
+        "action_time": "2020-10-03T22:46:25.854Z",
+        "user": 1,
+        "content_type": 21,
+        "object_id": "2",
+        "object_repr": "BATCH-20201123",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 5,
+    "fields": {
+        "action_time": "2020-10-03T22:50:59.992Z",
+        "user": 1,
+        "content_type": 20,
+        "object_id": "25",
+        "object_repr": "25: 30A-2 - SEALED   - available:50.0",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Batch\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 6,
+    "fields": {
+        "action_time": "2020-10-03T22:51:06.445Z",
+        "user": 1,
+        "content_type": 20,
+        "object_id": "26",
+        "object_repr": "26: 30A-2 - SEALED   - available:50.0",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Batch\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 7,
+    "fields": {
+        "action_time": "2020-10-05T19:41:08.394Z",
+        "user": 1,
+        "content_type": 10,
+        "object_id": "10",
+        "object_repr": "Order: None: 1.0 for 150.0",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Price\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 8,
+    "fields": {
+        "action_time": "2020-10-05T20:03:55.114Z",
+        "user": 1,
+        "content_type": 20,
+        "object_id": "7",
+        "object_repr": "7: 25A-2 - DEPLETED   - available:0.0",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Status\", \"Total\", \"Sold\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 9,
+    "fields": {
+        "action_time": "2020-10-05T20:41:38.974Z",
+        "user": 1,
+        "content_type": 10,
+        "object_id": "19",
+        "object_repr": "Order: None: 1.0 for 3000.0",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 1,
+    "fields": {
+        "name": "Can add log entry",
+        "content_type": 1,
+        "codename": "add_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 2,
+    "fields": {
+        "name": "Can change log entry",
+        "content_type": 1,
+        "codename": "change_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 3,
+    "fields": {
+        "name": "Can delete log entry",
+        "content_type": 1,
+        "codename": "delete_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 4,
+    "fields": {
+        "name": "Can view log entry",
+        "content_type": 1,
+        "codename": "view_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 5,
+    "fields": {
+        "name": "Can add permission",
+        "content_type": 2,
+        "codename": "add_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 6,
+    "fields": {
+        "name": "Can change permission",
+        "content_type": 2,
+        "codename": "change_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 7,
+    "fields": {
+        "name": "Can delete permission",
+        "content_type": 2,
+        "codename": "delete_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 8,
+    "fields": {
+        "name": "Can view permission",
+        "content_type": 2,
+        "codename": "view_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 9,
+    "fields": {
+        "name": "Can add group",
+        "content_type": 3,
+        "codename": "add_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 10,
+    "fields": {
+        "name": "Can change group",
+        "content_type": 3,
+        "codename": "change_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 11,
+    "fields": {
+        "name": "Can delete group",
+        "content_type": 3,
+        "codename": "delete_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 12,
+    "fields": {
+        "name": "Can view group",
+        "content_type": 3,
+        "codename": "view_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 13,
+    "fields": {
+        "name": "Can add user",
+        "content_type": 4,
+        "codename": "add_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 14,
+    "fields": {
+        "name": "Can change user",
+        "content_type": 4,
+        "codename": "change_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 15,
+    "fields": {
+        "name": "Can delete user",
+        "content_type": 4,
+        "codename": "delete_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 16,
+    "fields": {
+        "name": "Can view user",
+        "content_type": 4,
+        "codename": "view_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 17,
+    "fields": {
+        "name": "Can add content type",
+        "content_type": 5,
+        "codename": "add_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 18,
+    "fields": {
+        "name": "Can change content type",
+        "content_type": 5,
+        "codename": "change_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 19,
+    "fields": {
+        "name": "Can delete content type",
+        "content_type": 5,
+        "codename": "delete_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 20,
+    "fields": {
+        "name": "Can view content type",
+        "content_type": 5,
+        "codename": "view_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 21,
+    "fields": {
+        "name": "Can add session",
+        "content_type": 6,
+        "codename": "add_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 22,
+    "fields": {
+        "name": "Can change session",
+        "content_type": 6,
+        "codename": "change_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 23,
+    "fields": {
+        "name": "Can delete session",
+        "content_type": 6,
+        "codename": "delete_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 24,
+    "fields": {
+        "name": "Can view session",
+        "content_type": 6,
+        "codename": "view_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 25,
+    "fields": {
+        "name": "Can add buyer",
+        "content_type": 7,
+        "codename": "add_buyer"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 26,
+    "fields": {
+        "name": "Can change buyer",
+        "content_type": 7,
+        "codename": "change_buyer"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 27,
+    "fields": {
+        "name": "Can delete buyer",
+        "content_type": 7,
+        "codename": "delete_buyer"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 28,
+    "fields": {
+        "name": "Can view buyer",
+        "content_type": 7,
+        "codename": "view_buyer"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 29,
+    "fields": {
+        "name": "Can add buyer product",
+        "content_type": 8,
+        "codename": "add_buyerproduct"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 30,
+    "fields": {
+        "name": "Can change buyer product",
+        "content_type": 8,
+        "codename": "change_buyerproduct"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 31,
+    "fields": {
+        "name": "Can delete buyer product",
+        "content_type": 8,
+        "codename": "delete_buyerproduct"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 32,
+    "fields": {
+        "name": "Can view buyer product",
+        "content_type": 8,
+        "codename": "view_buyerproduct"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+        "name": "Can add order",
+        "content_type": 9,
+        "codename": "add_order"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+        "name": "Can change order",
+        "content_type": 9,
+        "codename": "change_order"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+        "name": "Can delete order",
+        "content_type": 9,
+        "codename": "delete_order"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+        "name": "Can view order",
+        "content_type": 9,
+        "codename": "view_order"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+        "name": "Can add order line",
+        "content_type": 10,
+        "codename": "add_orderline"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+        "name": "Can change order line",
+        "content_type": 10,
+        "codename": "change_orderline"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 39,
+    "fields": {
+        "name": "Can delete order line",
+        "content_type": 10,
+        "codename": "delete_orderline"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 40,
+    "fields": {
+        "name": "Can view order line",
+        "content_type": 10,
+        "codename": "view_orderline"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 41,
+    "fields": {
+        "name": "Can add invoice",
+        "content_type": 11,
+        "codename": "add_invoice"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 42,
+    "fields": {
+        "name": "Can change invoice",
+        "content_type": 11,
+        "codename": "change_invoice"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 43,
+    "fields": {
+        "name": "Can delete invoice",
+        "content_type": 11,
+        "codename": "delete_invoice"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 44,
+    "fields": {
+        "name": "Can view invoice",
+        "content_type": 11,
+        "codename": "view_invoice"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 45,
+    "fields": {
+        "name": "Can add payment",
+        "content_type": 12,
+        "codename": "add_payment"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 46,
+    "fields": {
+        "name": "Can change payment",
+        "content_type": 12,
+        "codename": "change_payment"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 47,
+    "fields": {
+        "name": "Can delete payment",
+        "content_type": 12,
+        "codename": "delete_payment"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 48,
+    "fields": {
+        "name": "Can view payment",
+        "content_type": 12,
+        "codename": "view_payment"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 49,
+    "fields": {
+        "name": "Can add category",
+        "content_type": 13,
+        "codename": "add_category"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 50,
+    "fields": {
+        "name": "Can change category",
+        "content_type": 13,
+        "codename": "change_category"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 51,
+    "fields": {
+        "name": "Can delete category",
+        "content_type": 13,
+        "codename": "delete_category"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 52,
+    "fields": {
+        "name": "Can view category",
+        "content_type": 13,
+        "codename": "view_category"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 53,
+    "fields": {
+        "name": "Can add color",
+        "content_type": 14,
+        "codename": "add_color"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 54,
+    "fields": {
+        "name": "Can change color",
+        "content_type": 14,
+        "codename": "change_color"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 55,
+    "fields": {
+        "name": "Can delete color",
+        "content_type": 14,
+        "codename": "delete_color"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 56,
+    "fields": {
+        "name": "Can view color",
+        "content_type": 14,
+        "codename": "view_color"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 57,
+    "fields": {
+        "name": "Can add height",
+        "content_type": 15,
+        "codename": "add_height"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 58,
+    "fields": {
+        "name": "Can change height",
+        "content_type": 15,
+        "codename": "change_height"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 59,
+    "fields": {
+        "name": "Can delete height",
+        "content_type": 15,
+        "codename": "delete_height"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 60,
+    "fields": {
+        "name": "Can view height",
+        "content_type": 15,
+        "codename": "view_height"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 61,
+    "fields": {
+        "name": "Can add width",
+        "content_type": 16,
+        "codename": "add_width"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 62,
+    "fields": {
+        "name": "Can change width",
+        "content_type": 16,
+        "codename": "change_width"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 63,
+    "fields": {
+        "name": "Can delete width",
+        "content_type": 16,
+        "codename": "delete_width"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 64,
+    "fields": {
+        "name": "Can view width",
+        "content_type": 16,
+        "codename": "view_width"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 65,
+    "fields": {
+        "name": "Can add product",
+        "content_type": 17,
+        "codename": "add_product"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 66,
+    "fields": {
+        "name": "Can change product",
+        "content_type": 17,
+        "codename": "change_product"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 67,
+    "fields": {
+        "name": "Can delete product",
+        "content_type": 17,
+        "codename": "delete_product"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 68,
+    "fields": {
+        "name": "Can view product",
+        "content_type": 17,
+        "codename": "view_product"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 69,
+    "fields": {
+        "name": "Can add roll spec",
+        "content_type": 18,
+        "codename": "add_rollspec"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 70,
+    "fields": {
+        "name": "Can change roll spec",
+        "content_type": 18,
+        "codename": "change_rollspec"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 71,
+    "fields": {
+        "name": "Can delete roll spec",
+        "content_type": 18,
+        "codename": "delete_rollspec"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 72,
+    "fields": {
+        "name": "Can view roll spec",
+        "content_type": 18,
+        "codename": "view_rollspec"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 73,
+    "fields": {
+        "name": "Can add warehouse",
+        "content_type": 19,
+        "codename": "add_warehouse"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 74,
+    "fields": {
+        "name": "Can change warehouse",
+        "content_type": 19,
+        "codename": "change_warehouse"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 75,
+    "fields": {
+        "name": "Can delete warehouse",
+        "content_type": 19,
+        "codename": "delete_warehouse"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 76,
+    "fields": {
+        "name": "Can view warehouse",
+        "content_type": 19,
+        "codename": "view_warehouse"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 77,
+    "fields": {
+        "name": "Can add turf roll",
+        "content_type": 20,
+        "codename": "add_turfroll"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 78,
+    "fields": {
+        "name": "Can change turf roll",
+        "content_type": 20,
+        "codename": "change_turfroll"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 79,
+    "fields": {
+        "name": "Can delete turf roll",
+        "content_type": 20,
+        "codename": "delete_turfroll"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 80,
+    "fields": {
+        "name": "Can view turf roll",
+        "content_type": 20,
+        "codename": "view_turfroll"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 81,
+    "fields": {
+        "name": "Can add batch",
+        "content_type": 21,
+        "codename": "add_batch"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 82,
+    "fields": {
+        "name": "Can change batch",
+        "content_type": 21,
+        "codename": "change_batch"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 83,
+    "fields": {
+        "name": "Can delete batch",
+        "content_type": 21,
+        "codename": "delete_batch"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 84,
+    "fields": {
+        "name": "Can view batch",
+        "content_type": 21,
+        "codename": "view_batch"
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$twDpOslirtsU$m4dL8nxaA9phFbtsAgxIiliAqlubS8sbjTCu3xLsPPY=",
+        "last_login": "2020-10-11T21:23:57.450Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin@email.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2020-09-22T21:59:48.709Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 1,
+    "fields": {
+        "app_label": "admin",
+        "model": "logentry"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 2,
+    "fields": {
+        "app_label": "auth",
+        "model": "permission"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 3,
+    "fields": {
+        "app_label": "auth",
+        "model": "group"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 4,
+    "fields": {
+        "app_label": "auth",
+        "model": "user"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 5,
+    "fields": {
+        "app_label": "contenttypes",
+        "model": "contenttype"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 6,
+    "fields": {
+        "app_label": "sessions",
+        "model": "session"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 7,
+    "fields": {
+        "app_label": "sales",
+        "model": "buyer"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 8,
+    "fields": {
+        "app_label": "sales",
+        "model": "buyerproduct"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 9,
+    "fields": {
+        "app_label": "sales",
+        "model": "order"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 10,
+    "fields": {
+        "app_label": "sales",
+        "model": "orderline"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 11,
+    "fields": {
+        "app_label": "invoice",
+        "model": "invoice"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 12,
+    "fields": {
+        "app_label": "invoice",
+        "model": "payment"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 13,
+    "fields": {
+        "app_label": "stock",
+        "model": "category"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 14,
+    "fields": {
+        "app_label": "stock",
+        "model": "color"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 15,
+    "fields": {
+        "app_label": "stock",
+        "model": "height"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 16,
+    "fields": {
+        "app_label": "stock",
+        "model": "width"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 17,
+    "fields": {
+        "app_label": "stock",
+        "model": "product"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 18,
+    "fields": {
+        "app_label": "stock",
+        "model": "rollspec"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 19,
+    "fields": {
+        "app_label": "stock",
+        "model": "warehouse"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 20,
+    "fields": {
+        "app_label": "stock",
+        "model": "turfroll"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 21,
+    "fields": {
+        "app_label": "stock",
+        "model": "batch"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "agssyos40kucw9lojn78hrviq0m2g2fz",
+    "fields": {
+        "session_data": ".eJxVjMsOwiAQRf-FtSEwWB4u3fcbyAwDUjU0Ke3K-O_apAvd3nPOfYmI21rj1vMSJxYXocXpdyNMj9x2wHdst1mmua3LRHJX5EG7HGfOz-vh_h1U7PVbKzdYBcayMj5ohwlDCsb6rBAKB0c6aCCvBsDCZ8-GStYMxYOzAYjE-wO-hDd1:1kKqKY:6MYOcIm5iuO9zYlV_S8ZxxbisjkgEe9MKq9gzpsE06g",
+        "expire_date": "2020-10-06T22:00:10.173Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "kv87jkhqwt3qv3uoq3fo9qe4younmycu",
+    "fields": {
+        "session_data": ".eJxVjMsOwiAQRf-FtSEwWB4u3fcbyAwDUjU0Ke3K-O_apAvd3nPOfYmI21rj1vMSJxYXocXpdyNMj9x2wHdst1mmua3LRHJX5EG7HGfOz-vh_h1U7PVbKzdYBcayMj5ohwlDCsb6rBAKB0c6aCCvBsDCZ8-GStYMxYOzAYjE-wO-hDd1:1kPvII:OAUcFNtaNk4Qi2lYoylZLdR9oeYoW4iU6ABu6TMXe1s",
+        "expire_date": "2020-10-20T22:18:50.623Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "or2sijvll3ahxzg5cm7b45v7c4qv3gc6",
+    "fields": {
+        "session_data": ".eJxVjMsOwiAQRf-FtSEwWB4u3fcbyAwDUjU0Ke3K-O_apAvd3nPOfYmI21rj1vMSJxYXocXpdyNMj9x2wHdst1mmua3LRHJX5EG7HGfOz-vh_h1U7PVbKzdYBcayMj5ohwlDCsb6rBAKB0c6aCCvBsDCZ8-GStYMxYOzAYjE-wO-hDd1:1kPtPq:Fu4sThTq1hqUHZ2yV_2znh0PNzsHVz5JA6RLqJk64so",
+        "expire_date": "2020-10-20T20:18:30.327Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "r1j8gkjbujfkgieni6we8zjvqu0e5srd",
+    "fields": {
+        "session_data": ".eJxVjMsOwiAQRf-FtSEwWB4u3fcbyAwDUjU0Ke3K-O_apAvd3nPOfYmI21rj1vMSJxYXocXpdyNMj9x2wHdst1mmua3LRHJX5EG7HGfOz-vh_h1U7PVbKzdYBcayMj5ohwlDCsb6rBAKB0c6aCCvBsDCZ8-GStYMxYOzAYjE-wO-hDd1:1kRiov:4loiESZR8YHL_5EyC8pW86lHjuVHadWICCV0B0wapNo",
+        "expire_date": "2020-10-25T21:23:57.519Z"
+    }
+},
+{
+    "model": "sales.buyer",
+    "pk": 1,
+    "fields": {
+        "created": "2020-10-02T21:37:02.848Z",
+        "modified": "2020-10-02T21:37:02.848Z",
+        "buyer_type": "CONTRACTOR",
+        "name": "test buyer A",
+        "address": "boston, bellville, cpt",
+        "contact_person": "aaa",
+        "mobile": "1234567890",
+        "email": "buyerA@email.com",
+        "status": "ACTIVE"
+    }
+},
+{
+    "model": "sales.buyer",
+    "pk": 2,
+    "fields": {
+        "created": "2020-10-02T21:52:59.992Z",
+        "modified": "2020-10-06T22:28:22.467Z",
+        "buyer_type": "CONTRACTOR",
+        "name": "Stodels",
+        "address": null,
+        "contact_person": "BBB",
+        "mobile": "0987654321",
+        "email": "stodels@email.co.za",
+        "status": "ACTIVE"
+    }
+},
+{
+    "model": "sales.buyer",
+    "pk": 3,
+    "fields": {
+        "created": "2020-10-03T21:09:16.699Z",
+        "modified": "2020-10-03T21:09:16.699Z",
+        "buyer_type": "SHOP",
+        "name": "EasyGrass",
+        "address": "city bowl, cpt",
+        "contact_person": "ease grass",
+        "mobile": "0987654321",
+        "email": "easegrass@email.co.za",
+        "status": "ACTIVE"
+    }
+},
+{
+    "model": "sales.buyer",
+    "pk": 4,
+    "fields": {
+        "created": "2020-10-11T21:39:39.558Z",
+        "modified": "2020-10-11T21:39:39.558Z",
+        "buyer_type": "SHOP",
+        "name": "Village Hardware",
+        "address": "edgemead, cpt",
+        "contact_person": "valliage person",
+        "mobile": "123456",
+        "email": "village@email.com",
+        "status": "ACTIVE"
+    }
+},
+{
+    "model": "sales.buyer",
+    "pk": 5,
+    "fields": {
+        "created": "2020-10-11T22:25:16.030Z",
+        "modified": "2020-10-11T22:25:16.030Z",
+        "buyer_type": "CONTRACTOR",
+        "name": "Walter",
+        "address": "bellville, cpt",
+        "contact_person": "Walter",
+        "mobile": "123456789",
+        "email": "walter@email.com",
+        "status": "ACTIVE"
+    }
+},
+{
+    "model": "sales.buyerproduct",
+    "pk": 1,
+    "fields": {
+        "created": "2020-10-02T21:37:16.557Z",
+        "modified": "2020-10-02T21:37:16.557Z",
+        "buyer": 1,
+        "product": 1,
+        "price": 150.0
+    }
+},
+{
+    "model": "sales.buyerproduct",
+    "pk": 2,
+    "fields": {
+        "created": "2020-10-02T21:37:36.425Z",
+        "modified": "2020-10-02T21:37:36.425Z",
+        "buyer": 1,
+        "product": 6,
+        "price": 250.0
+    }
+},
+{
+    "model": "sales.buyerproduct",
+    "pk": 3,
+    "fields": {
+        "created": "2020-10-02T21:53:15.587Z",
+        "modified": "2020-10-02T21:53:15.587Z",
+        "buyer": 2,
+        "product": 8,
+        "price": 250.0
+    }
+},
+{
+    "model": "sales.buyerproduct",
+    "pk": 4,
+    "fields": {
+        "created": "2020-10-02T21:53:30.249Z",
+        "modified": "2020-10-02T21:53:30.249Z",
+        "buyer": 2,
+        "product": 7,
+        "price": 270.0
+    }
+},
+{
+    "model": "sales.buyerproduct",
+    "pk": 5,
+    "fields": {
+        "created": "2020-10-03T21:09:43.447Z",
+        "modified": "2020-10-03T21:09:43.447Z",
+        "buyer": 3,
+        "product": 8,
+        "price": 230.0
+    }
+},
+{
+    "model": "sales.buyerproduct",
+    "pk": 6,
+    "fields": {
+        "created": "2020-10-03T21:17:11.002Z",
+        "modified": "2020-10-03T21:17:11.003Z",
+        "buyer": 3,
+        "product": 6,
+        "price": 145.0
+    }
+},
+{
+    "model": "sales.buyerproduct",
+    "pk": 7,
+    "fields": {
+        "created": "2020-10-03T21:17:55.586Z",
+        "modified": "2020-10-03T21:17:55.586Z",
+        "buyer": 3,
+        "product": 1,
+        "price": 150.0
+    }
+},
+{
+    "model": "sales.buyerproduct",
+    "pk": 8,
+    "fields": {
+        "created": "2020-10-03T21:38:18.364Z",
+        "modified": "2020-10-03T21:39:03.086Z",
+        "buyer": 2,
+        "product": 6,
+        "price": 123.0
+    }
+},
+{
+    "model": "sales.buyerproduct",
+    "pk": 10,
+    "fields": {
+        "created": "2020-10-11T21:52:04.884Z",
+        "modified": "2020-10-11T21:52:04.884Z",
+        "buyer": 4,
+        "product": 6,
+        "price": 150.0
+    }
+},
+{
+    "model": "sales.buyerproduct",
+    "pk": 11,
+    "fields": {
+        "created": "2020-10-11T21:52:40.420Z",
+        "modified": "2020-10-11T21:52:40.421Z",
+        "buyer": 4,
+        "product": 7,
+        "price": 250.0
+    }
+},
+{
+    "model": "sales.buyerproduct",
+    "pk": 12,
+    "fields": {
+        "created": "2020-10-11T22:25:28.007Z",
+        "modified": "2020-10-11T22:25:28.007Z",
+        "buyer": 5,
+        "product": 8,
+        "price": 250.0
+    }
+},
+{
+    "model": "sales.buyerproduct",
+    "pk": 13,
+    "fields": {
+        "created": "2020-10-11T22:25:38.559Z",
+        "modified": "2020-10-11T22:25:38.559Z",
+        "buyer": 5,
+        "product": 6,
+        "price": 120.0
+    }
+},
+{
+    "model": "sales.order",
+    "pk": 1,
+    "fields": {
+        "created": "2020-10-02T21:37:41.541Z",
+        "modified": "2020-10-02T21:39:26.528Z",
+        "status": "CLOSED",
+        "buyer": 1,
+        "number": "TESTBUYERA-2020100221",
+        "closed_date": "2020-10-02T21:39:26.528Z"
+    }
+},
+{
+    "model": "sales.order",
+    "pk": 2,
+    "fields": {
+        "created": "2020-10-02T21:53:44.023Z",
+        "modified": "2020-10-02T22:00:54.921Z",
+        "status": "CLOSED",
+        "buyer": 2,
+        "number": "STODELS-2020100221",
+        "closed_date": "2020-10-02T22:00:54.921Z"
+    }
+},
+{
+    "model": "sales.order",
+    "pk": 3,
+    "fields": {
+        "created": "2020-10-03T20:50:06.928Z",
+        "modified": "2020-10-03T22:15:44.905Z",
+        "status": "CLOSED",
+        "buyer": 2,
+        "number": "STODELS-2020100320",
+        "closed_date": "2020-10-03T22:15:44.905Z"
+    }
+},
+{
+    "model": "sales.order",
+    "pk": 4,
+    "fields": {
+        "created": "2020-10-03T21:17:34.011Z",
+        "modified": "2020-10-03T22:16:07.765Z",
+        "status": "CLOSED",
+        "buyer": 3,
+        "number": "EASYGRASS-2020100321",
+        "closed_date": "2020-10-03T22:16:07.765Z"
+    }
+},
+{
+    "model": "sales.order",
+    "pk": 5,
+    "fields": {
+        "created": "2020-10-03T22:58:28.599Z",
+        "modified": "2020-10-03T23:12:13.884Z",
+        "status": "CLOSED",
+        "buyer": 1,
+        "number": "TESTBUYERA-2020100322",
+        "closed_date": "2020-10-03T23:12:13.883Z"
+    }
+},
+{
+    "model": "sales.order",
+    "pk": 6,
+    "fields": {
+        "created": "2020-10-03T23:09:57.093Z",
+        "modified": "2020-10-03T23:15:39.268Z",
+        "status": "CLOSED",
+        "buyer": 3,
+        "number": "EASYGRASS-2020100323",
+        "closed_date": "2020-10-03T23:15:39.268Z"
+    }
+},
+{
+    "model": "sales.order",
+    "pk": 7,
+    "fields": {
+        "created": "2020-10-05T18:37:40.030Z",
+        "modified": "2020-10-05T20:00:37.024Z",
+        "status": "CLOSED",
+        "buyer": 1,
+        "number": "TESTBUYERA-2020100518",
+        "closed_date": "2020-10-05T20:00:37.024Z"
+    }
+},
+{
+    "model": "sales.order",
+    "pk": 8,
+    "fields": {
+        "created": "2020-10-05T20:04:11.486Z",
+        "modified": "2020-10-05T20:05:31.762Z",
+        "status": "CLOSED",
+        "buyer": 2,
+        "number": "STODELS-2020100520",
+        "closed_date": "2020-10-05T20:05:31.762Z"
+    }
+},
+{
+    "model": "sales.order",
+    "pk": 9,
+    "fields": {
+        "created": "2020-10-05T20:09:43.238Z",
+        "modified": "2020-10-05T20:11:38.755Z",
+        "status": "CLOSED",
+        "buyer": 3,
+        "number": "EASYGRASS-2020100520",
+        "closed_date": "2020-10-05T20:11:38.754Z"
+    }
+},
+{
+    "model": "sales.order",
+    "pk": 10,
+    "fields": {
+        "created": "2020-10-05T20:31:31.753Z",
+        "modified": "2020-10-05T21:29:02.683Z",
+        "status": "CLOSED",
+        "buyer": 1,
+        "number": "TESTBUYERA-2020100520",
+        "closed_date": "2020-10-05T21:29:02.683Z"
+    }
+},
+{
+    "model": "sales.order",
+    "pk": 11,
+    "fields": {
+        "created": "2020-10-11T21:52:49.849Z",
+        "modified": "2020-10-11T22:07:45.014Z",
+        "status": "CLOSED",
+        "buyer": 4,
+        "number": "VILLAGEHARDWARE-2020101121",
+        "closed_date": "2020-10-11T22:07:45.014Z"
+    }
+},
+{
+    "model": "sales.order",
+    "pk": 12,
+    "fields": {
+        "created": "2020-10-11T22:25:45.016Z",
+        "modified": "2020-10-11T22:27:28.608Z",
+        "status": "CLOSED",
+        "buyer": 5,
+        "number": "WALTER-2020101122",
+        "closed_date": "2020-10-11T22:27:28.607Z"
+    }
+},
+{
+    "model": "sales.orderline",
+    "pk": 1,
+    "fields": {
+        "created": "2020-10-02T21:37:55.691Z",
+        "modified": "2020-10-02T21:37:55.691Z",
+        "order": 1,
+        "product": 1,
+        "roll": 6,
+        "quantity": 20.0,
+        "price": 150.0,
+        "total": 3000.0
+    }
+},
+{
+    "model": "sales.orderline",
+    "pk": 2,
+    "fields": {
+        "created": "2020-10-02T21:53:54.059Z",
+        "modified": "2020-10-02T21:58:36.372Z",
+        "order": 2,
+        "product": 7,
+        "roll": 18,
+        "quantity": 55.0,
+        "price": 270.0,
+        "total": 14850.0
+    }
+},
+{
+    "model": "sales.orderline",
+    "pk": 3,
+    "fields": {
+        "created": "2020-10-03T21:21:42.668Z",
+        "modified": "2020-10-03T21:21:42.668Z",
+        "order": 4,
+        "product": 1,
+        "roll": 6,
+        "quantity": 30.0,
+        "price": 150.0,
+        "total": 4500.0
+    }
+},
+{
+    "model": "sales.orderline",
+    "pk": 4,
+    "fields": {
+        "created": "2020-10-03T22:10:10.486Z",
+        "modified": "2020-10-03T22:10:10.486Z",
+        "order": 3,
+        "product": 8,
+        "roll": 22,
+        "quantity": 20.0,
+        "price": 250.0,
+        "total": 5000.0
+    }
+},
+{
+    "model": "sales.orderline",
+    "pk": 5,
+    "fields": {
+        "created": "2020-10-03T22:59:05.006Z",
+        "modified": "2020-10-03T22:59:05.006Z",
+        "order": 5,
+        "product": 6,
+        "roll": 26,
+        "quantity": 30.0,
+        "price": 250.0,
+        "total": 7500.0
+    }
+},
+{
+    "model": "sales.orderline",
+    "pk": 6,
+    "fields": {
+        "created": "2020-10-03T23:11:11.796Z",
+        "modified": "2020-10-03T23:11:11.796Z",
+        "order": 6,
+        "product": 8,
+        "roll": 29,
+        "quantity": 50.0,
+        "price": 230.0,
+        "total": 11500.0
+    }
+},
+{
+    "model": "sales.orderline",
+    "pk": 7,
+    "fields": {
+        "created": "2020-10-03T23:11:11.836Z",
+        "modified": "2020-10-03T23:11:11.836Z",
+        "order": 6,
+        "product": 6,
+        "roll": 25,
+        "quantity": 50.0,
+        "price": 145.0,
+        "total": 7250.0
+    }
+},
+{
+    "model": "sales.orderline",
+    "pk": 8,
+    "fields": {
+        "created": "2020-10-05T18:37:54.399Z",
+        "modified": "2020-10-05T19:19:20.858Z",
+        "order": 7,
+        "product": 1,
+        "roll": 8,
+        "quantity": 50.0,
+        "price": 150.0,
+        "total": 7500.0
+    }
+},
+{
+    "model": "sales.orderline",
+    "pk": 10,
+    "fields": {
+        "created": "2020-10-05T19:07:53.482Z",
+        "modified": "2020-10-05T19:41:08.391Z",
+        "order": 7,
+        "product": null,
+        "roll": null,
+        "quantity": 1.0,
+        "price": 150.0,
+        "total": 150.0
+    }
+},
+{
+    "model": "sales.orderline",
+    "pk": 11,
+    "fields": {
+        "created": "2020-10-05T19:14:34.521Z",
+        "modified": "2020-10-05T19:14:34.521Z",
+        "order": 7,
+        "product": 1,
+        "roll": 7,
+        "quantity": 30.0,
+        "price": 150.0,
+        "total": 4500.0
+    }
+},
+{
+    "model": "sales.orderline",
+    "pk": 12,
+    "fields": {
+        "created": "2020-10-05T20:04:22.601Z",
+        "modified": "2020-10-05T20:04:22.601Z",
+        "order": 8,
+        "product": 8,
+        "roll": 22,
+        "quantity": 30.0,
+        "price": 250.0,
+        "total": 7500.0
+    }
+},
+{
+    "model": "sales.orderline",
+    "pk": 13,
+    "fields": {
+        "created": "2020-10-05T20:04:31.364Z",
+        "modified": "2020-10-05T20:04:31.364Z",
+        "order": 8,
+        "product": null,
+        "roll": null,
+        "quantity": 1.0,
+        "price": 200.0,
+        "total": 200.0
+    }
+},
+{
+    "model": "sales.orderline",
+    "pk": 14,
+    "fields": {
+        "created": "2020-10-05T20:10:13.428Z",
+        "modified": "2020-10-05T20:10:13.428Z",
+        "order": 9,
+        "product": 8,
+        "roll": 28,
+        "quantity": 20.0,
+        "price": 230.0,
+        "total": 4600.0
+    }
+},
+{
+    "model": "sales.orderline",
+    "pk": 15,
+    "fields": {
+        "created": "2020-10-05T20:10:13.472Z",
+        "modified": "2020-10-05T20:10:13.472Z",
+        "order": 9,
+        "product": 1,
+        "roll": 9,
+        "quantity": 10.0,
+        "price": 150.0,
+        "total": 1500.0
+    }
+},
+{
+    "model": "sales.orderline",
+    "pk": 16,
+    "fields": {
+        "created": "2020-10-05T20:10:13.503Z",
+        "modified": "2020-10-05T20:10:13.503Z",
+        "order": 9,
+        "product": 1,
+        "roll": 24,
+        "quantity": 20.0,
+        "price": 150.0,
+        "total": 3000.0
+    }
+},
+{
+    "model": "sales.orderline",
+    "pk": 17,
+    "fields": {
+        "created": "2020-10-05T20:10:26.604Z",
+        "modified": "2020-10-05T20:10:26.604Z",
+        "order": 9,
+        "product": null,
+        "roll": null,
+        "quantity": 1.0,
+        "price": 100.0,
+        "total": 100.0
+    }
+},
+{
+    "model": "sales.orderline",
+    "pk": 18,
+    "fields": {
+        "created": "2020-10-05T20:31:45.396Z",
+        "modified": "2020-10-05T20:31:45.396Z",
+        "order": 10,
+        "product": 6,
+        "roll": 3,
+        "quantity": 10.0,
+        "price": 250.0,
+        "total": 2500.0
+    }
+},
+{
+    "model": "sales.orderline",
+    "pk": 22,
+    "fields": {
+        "created": "2020-10-05T21:26:40.557Z",
+        "modified": "2020-10-05T21:26:40.557Z",
+        "order": 10,
+        "product": 1,
+        "roll": 11,
+        "quantity": 25.0,
+        "price": 150.0,
+        "total": 3750.0
+    }
+},
+{
+    "model": "sales.orderline",
+    "pk": 23,
+    "fields": {
+        "created": "2020-10-05T21:27:10.733Z",
+        "modified": "2020-10-05T21:27:25.342Z",
+        "order": 10,
+        "product": null,
+        "roll": null,
+        "quantity": 1.0,
+        "price": 155.0,
+        "total": 155.0
+    }
+},
+{
+    "model": "sales.orderline",
+    "pk": 25,
+    "fields": {
+        "created": "2020-10-11T21:53:14.952Z",
+        "modified": "2020-10-11T21:53:14.953Z",
+        "order": 11,
+        "product": 7,
+        "roll": 18,
+        "quantity": 45.0,
+        "price": 250.0,
+        "total": 11250.0
+    }
+},
+{
+    "model": "sales.orderline",
+    "pk": 26,
+    "fields": {
+        "created": "2020-10-11T22:26:13.744Z",
+        "modified": "2020-10-11T22:26:13.744Z",
+        "order": 12,
+        "product": 8,
+        "roll": 22,
+        "quantity": 30.0,
+        "price": 250.0,
+        "total": 7500.0
+    }
+},
+{
+    "model": "invoice.invoice",
+    "pk": 1,
+    "fields": {
+        "created": "2020-10-02T21:38:01.671Z",
+        "modified": "2020-10-02T21:39:26.522Z",
+        "status": "CLOSED",
+        "order": 1,
+        "buyer": 1,
+        "number": "TESTBUYERA-2020100221",
+        "closed_date": "2020-10-02T21:39:26.521Z"
+    }
+},
+{
+    "model": "invoice.invoice",
+    "pk": 2,
+    "fields": {
+        "created": "2020-10-02T21:58:42.194Z",
+        "modified": "2020-10-02T22:00:54.914Z",
+        "status": "CLOSED",
+        "order": 2,
+        "buyer": 2,
+        "number": "STODELS-2020100221",
+        "closed_date": "2020-10-02T22:00:54.914Z"
+    }
+},
+{
+    "model": "invoice.invoice",
+    "pk": 3,
+    "fields": {
+        "created": "2020-10-03T21:21:47.311Z",
+        "modified": "2020-10-03T22:16:07.755Z",
+        "status": "CLOSED",
+        "order": 4,
+        "buyer": 3,
+        "number": "EASYGRASS-2020100321",
+        "closed_date": "2020-10-03T22:16:07.755Z"
+    }
+},
+{
+    "model": "invoice.invoice",
+    "pk": 4,
+    "fields": {
+        "created": "2020-10-03T22:14:52.197Z",
+        "modified": "2020-10-03T22:15:44.864Z",
+        "status": "CLOSED",
+        "order": 3,
+        "buyer": 2,
+        "number": "STODELS-2020100320",
+        "closed_date": "2020-10-03T22:15:44.864Z"
+    }
+},
+{
+    "model": "invoice.invoice",
+    "pk": 5,
+    "fields": {
+        "created": "2020-10-03T22:59:15.949Z",
+        "modified": "2020-10-03T23:12:13.873Z",
+        "status": "CLOSED",
+        "order": 5,
+        "buyer": 1,
+        "number": "TESTBUYERA-2020100322",
+        "closed_date": "2020-10-03T23:12:13.872Z"
+    }
+},
+{
+    "model": "invoice.invoice",
+    "pk": 6,
+    "fields": {
+        "created": "2020-10-03T23:11:16.230Z",
+        "modified": "2020-10-03T23:15:39.256Z",
+        "status": "CLOSED",
+        "order": 6,
+        "buyer": 3,
+        "number": "EASYGRASS-2020100323",
+        "closed_date": "2020-10-03T23:15:39.256Z"
+    }
+},
+{
+    "model": "invoice.invoice",
+    "pk": 7,
+    "fields": {
+        "created": "2020-10-05T19:21:57.578Z",
+        "modified": "2020-10-05T20:00:37.015Z",
+        "status": "CLOSED",
+        "order": 7,
+        "buyer": 1,
+        "number": "TESTBUYERA-2020100518",
+        "closed_date": "2020-10-05T20:00:37.015Z"
+    }
+},
+{
+    "model": "invoice.invoice",
+    "pk": 8,
+    "fields": {
+        "created": "2020-10-05T20:04:47.946Z",
+        "modified": "2020-10-05T20:05:31.756Z",
+        "status": "CLOSED",
+        "order": 8,
+        "buyer": 2,
+        "number": "STODELS-2020100520",
+        "closed_date": "2020-10-05T20:05:31.756Z"
+    }
+},
+{
+    "model": "invoice.invoice",
+    "pk": 9,
+    "fields": {
+        "created": "2020-10-05T20:10:39.039Z",
+        "modified": "2020-10-05T20:11:38.747Z",
+        "status": "CLOSED",
+        "order": 9,
+        "buyer": 3,
+        "number": "EASYGRASS-2020100520",
+        "closed_date": "2020-10-05T20:11:38.747Z"
+    }
+},
+{
+    "model": "invoice.invoice",
+    "pk": 10,
+    "fields": {
+        "created": "2020-10-05T21:28:03.390Z",
+        "modified": "2020-10-05T21:29:02.670Z",
+        "status": "CLOSED",
+        "order": 10,
+        "buyer": 1,
+        "number": "TESTBUYERA-2020100520",
+        "closed_date": "2020-10-05T21:29:02.669Z"
+    }
+},
+{
+    "model": "invoice.invoice",
+    "pk": 11,
+    "fields": {
+        "created": "2020-10-11T21:53:24.889Z",
+        "modified": "2020-10-11T22:07:44.993Z",
+        "status": "CLOSED",
+        "order": 11,
+        "buyer": 4,
+        "number": "VILLAGEHARDWARE-2020101121",
+        "closed_date": "2020-10-11T22:07:44.992Z"
+    }
+},
+{
+    "model": "invoice.invoice",
+    "pk": 12,
+    "fields": {
+        "created": "2020-10-11T22:26:30.643Z",
+        "modified": "2020-10-11T22:27:28.599Z",
+        "status": "CLOSED",
+        "order": 12,
+        "buyer": 5,
+        "number": "WALTER-2020101122",
+        "closed_date": "2020-10-11T22:27:28.598Z"
+    }
+},
+{
+    "model": "invoice.payment",
+    "pk": 1,
+    "fields": {
+        "created": "2020-10-02T21:39:26.467Z",
+        "modified": "2020-10-02T21:39:26.467Z",
+        "method": "CASH",
+        "invoice": 1,
+        "amount": 3000.0
+    }
+},
+{
+    "model": "invoice.payment",
+    "pk": 2,
+    "fields": {
+        "created": "2020-10-02T22:00:54.882Z",
+        "modified": "2020-10-02T22:00:54.882Z",
+        "method": "EFT",
+        "invoice": 2,
+        "amount": 14850.0
+    }
+},
+{
+    "model": "invoice.payment",
+    "pk": 3,
+    "fields": {
+        "created": "2020-10-03T22:15:44.795Z",
+        "modified": "2020-10-03T22:15:44.795Z",
+        "method": "EFT",
+        "invoice": 4,
+        "amount": 5000.0
+    }
+},
+{
+    "model": "invoice.payment",
+    "pk": 4,
+    "fields": {
+        "created": "2020-10-03T22:16:07.721Z",
+        "modified": "2020-10-03T22:16:07.721Z",
+        "method": "CASH",
+        "invoice": 3,
+        "amount": 4500.0
+    }
+},
+{
+    "model": "invoice.payment",
+    "pk": 5,
+    "fields": {
+        "created": "2020-10-03T23:12:13.847Z",
+        "modified": "2020-10-03T23:12:13.847Z",
+        "method": "EFT",
+        "invoice": 5,
+        "amount": 7500.0
+    }
+},
+{
+    "model": "invoice.payment",
+    "pk": 6,
+    "fields": {
+        "created": "2020-10-03T23:15:39.225Z",
+        "modified": "2020-10-03T23:15:39.225Z",
+        "method": "EFT",
+        "invoice": 6,
+        "amount": 18750.0
+    }
+},
+{
+    "model": "invoice.payment",
+    "pk": 7,
+    "fields": {
+        "created": "2020-10-05T20:00:36.953Z",
+        "modified": "2020-10-05T20:00:36.953Z",
+        "method": "CASH",
+        "invoice": 7,
+        "amount": 11850.0
+    }
+},
+{
+    "model": "invoice.payment",
+    "pk": 8,
+    "fields": {
+        "created": "2020-10-05T20:05:31.724Z",
+        "modified": "2020-10-05T20:05:31.724Z",
+        "method": "EFT",
+        "invoice": 8,
+        "amount": 7300.0
+    }
+},
+{
+    "model": "invoice.payment",
+    "pk": 9,
+    "fields": {
+        "created": "2020-10-05T20:11:38.712Z",
+        "modified": "2020-10-05T20:11:38.712Z",
+        "method": "EFT",
+        "invoice": 9,
+        "amount": 9000.0
+    }
+},
+{
+    "model": "invoice.payment",
+    "pk": 10,
+    "fields": {
+        "created": "2020-10-05T21:28:58.314Z",
+        "modified": "2020-10-05T21:28:58.314Z",
+        "method": "EFT",
+        "invoice": 10,
+        "amount": 3000.0
+    }
+},
+{
+    "model": "invoice.payment",
+    "pk": 11,
+    "fields": {
+        "created": "2020-10-05T21:29:02.631Z",
+        "modified": "2020-10-05T21:29:02.632Z",
+        "method": "EFT",
+        "invoice": 10,
+        "amount": 3095.0
+    }
+},
+{
+    "model": "invoice.payment",
+    "pk": 12,
+    "fields": {
+        "created": "2020-10-11T22:07:44.888Z",
+        "modified": "2020-10-11T22:07:44.888Z",
+        "method": "EFT",
+        "invoice": 11,
+        "amount": 11250.0
+    }
+},
+{
+    "model": "invoice.payment",
+    "pk": 13,
+    "fields": {
+        "created": "2020-10-11T22:27:28.542Z",
+        "modified": "2020-10-11T22:27:28.542Z",
+        "method": "EFT",
+        "invoice": 12,
+        "amount": 7500.0
+    }
+},
+{
+    "model": "stock.category",
+    "pk": 1,
+    "fields": {
+        "created": "2020-09-08T10:37:40.303Z",
+        "modified": "2020-09-08T10:37:40.303Z",
+        "name": "Grass"
+    }
+},
+{
+    "model": "stock.height",
+    "pk": 1,
+    "fields": {
+        "created": "2020-09-08T10:37:56.072Z",
+        "modified": "2020-09-08T10:37:56.072Z",
+        "value": 30
+    }
+},
+{
+    "model": "stock.height",
+    "pk": 2,
+    "fields": {
+        "created": "2020-09-08T10:44:00.478Z",
+        "modified": "2020-09-08T10:44:00.478Z",
+        "value": 25
+    }
+},
+{
+    "model": "stock.width",
+    "pk": 1,
+    "fields": {
+        "created": "2020-09-08T10:38:07.884Z",
+        "modified": "2020-09-08T10:38:07.884Z",
+        "value": 2
+    }
+},
+{
+    "model": "stock.width",
+    "pk": 2,
+    "fields": {
+        "created": "2020-09-08T10:41:28.646Z",
+        "modified": "2020-09-08T10:41:28.646Z",
+        "value": 4
+    }
+},
+{
+    "model": "stock.color",
+    "pk": 1,
+    "fields": {
+        "created": "2020-09-08T10:38:26.287Z",
+        "modified": "2020-09-08T10:40:47.592Z",
+        "name": "Autumn"
+    }
+},
+{
+    "model": "stock.color",
+    "pk": 2,
+    "fields": {
+        "created": "2020-09-08T10:44:11.355Z",
+        "modified": "2020-09-08T10:44:11.355Z",
+        "name": "Spring"
+    }
+},
+{
+    "model": "stock.warehouse",
+    "pk": 1,
+    "fields": {
+        "created": "2020-09-09T15:54:00.530Z",
+        "modified": "2020-09-09T15:54:00.530Z",
+        "number": 1505,
+        "name": "Alternative Storage",
+        "address": "Bellville, Cape Town"
+    }
+},
+{
+    "model": "stock.warehouse",
+    "pk": 2,
+    "fields": {
+        "created": "2020-09-09T15:54:15.897Z",
+        "modified": "2020-09-09T15:54:15.897Z",
+        "number": 1506,
+        "name": "Alternative Storage",
+        "address": "Bellville, Cape Town"
+    }
+},
+{
+    "model": "stock.rollspec",
+    "pk": 1,
+    "fields": {
+        "created": "2020-09-09T15:57:00.456Z",
+        "modified": "2020-09-09T15:57:00.456Z",
+        "category": 1,
+        "color": 1,
+        "height": 1,
+        "width": 1,
+        "length": 25
+    }
+},
+{
+    "model": "stock.rollspec",
+    "pk": 2,
+    "fields": {
+        "created": "2020-09-09T16:12:06.365Z",
+        "modified": "2020-09-09T16:12:06.365Z",
+        "category": 1,
+        "color": 2,
+        "height": 2,
+        "width": 1,
+        "length": 25
+    }
+},
+{
+    "model": "stock.rollspec",
+    "pk": 3,
+    "fields": {
+        "created": "2020-09-09T16:12:39.665Z",
+        "modified": "2020-09-09T16:12:39.665Z",
+        "category": 1,
+        "color": 2,
+        "height": 1,
+        "width": 1,
+        "length": 25
+    }
+},
+{
+    "model": "stock.rollspec",
+    "pk": 4,
+    "fields": {
+        "created": "2020-09-09T16:13:27.929Z",
+        "modified": "2020-09-09T16:13:27.929Z",
+        "category": 1,
+        "color": 1,
+        "height": 2,
+        "width": 1,
+        "length": 25
+    }
+},
+{
+    "model": "stock.rollspec",
+    "pk": 5,
+    "fields": {
+        "created": "2020-09-10T15:07:21.279Z",
+        "modified": "2020-09-10T15:07:21.279Z",
+        "category": 1,
+        "color": 1,
+        "height": 1,
+        "width": 2,
+        "length": 25
+    }
+},
+{
+    "model": "stock.rollspec",
+    "pk": 6,
+    "fields": {
+        "created": "2020-09-10T15:07:45.880Z",
+        "modified": "2020-09-10T15:07:45.880Z",
+        "category": 1,
+        "color": 1,
+        "height": 2,
+        "width": 2,
+        "length": 25
+    }
+},
+{
+    "model": "stock.rollspec",
+    "pk": 7,
+    "fields": {
+        "created": "2020-09-10T15:08:44.280Z",
+        "modified": "2020-09-10T15:08:44.280Z",
+        "category": 1,
+        "color": 2,
+        "height": 2,
+        "width": 2,
+        "length": 25
+    }
+},
+{
+    "model": "stock.rollspec",
+    "pk": 8,
+    "fields": {
+        "created": "2020-09-10T15:09:14.732Z",
+        "modified": "2020-09-10T15:09:14.732Z",
+        "category": 1,
+        "color": 2,
+        "height": 1,
+        "width": 2,
+        "length": 25
+    }
+},
+{
+    "model": "stock.product",
+    "pk": 1,
+    "fields": {
+        "created": "2020-09-08T10:39:09.621Z",
+        "modified": "2020-10-03T20:55:08.153Z",
+        "spec": 4,
+        "code": "25A-2"
+    }
+},
+{
+    "model": "stock.product",
+    "pk": 2,
+    "fields": {
+        "created": "2020-09-08T10:52:21.788Z",
+        "modified": "2020-10-03T20:55:07.981Z",
+        "spec": 3,
+        "code": "30S-2"
+    }
+},
+{
+    "model": "stock.product",
+    "pk": 4,
+    "fields": {
+        "created": "2020-09-08T11:00:49.444Z",
+        "modified": "2020-10-03T20:55:08.020Z",
+        "spec": 2,
+        "code": "25S-2"
+    }
+},
+{
+    "model": "stock.product",
+    "pk": 6,
+    "fields": {
+        "created": "2020-09-09T16:04:51.290Z",
+        "modified": "2020-10-03T20:55:08.066Z",
+        "spec": 1,
+        "code": "30A-2"
+    }
+},
+{
+    "model": "stock.product",
+    "pk": 7,
+    "fields": {
+        "created": "2020-09-10T15:07:25.503Z",
+        "modified": "2020-10-03T20:55:08.106Z",
+        "spec": 5,
+        "code": "30A-4"
+    }
+},
+{
+    "model": "stock.product",
+    "pk": 8,
+    "fields": {
+        "created": "2020-09-10T15:07:47.184Z",
+        "modified": "2020-10-03T20:55:08.123Z",
+        "spec": 6,
+        "code": "25A-4"
+    }
+},
+{
+    "model": "stock.product",
+    "pk": 9,
+    "fields": {
+        "created": "2020-09-10T15:08:45.360Z",
+        "modified": "2020-10-03T20:55:08.137Z",
+        "spec": 7,
+        "code": "25S-4"
+    }
+},
+{
+    "model": "stock.product",
+    "pk": 10,
+    "fields": {
+        "created": "2020-09-10T15:09:16.418Z",
+        "modified": "2020-10-03T20:55:08.144Z",
+        "spec": 8,
+        "code": "30S-4"
+    }
+},
+{
+    "model": "stock.batch",
+    "pk": 1,
+    "fields": {
+        "created": "2020-10-03T22:41:32.536Z",
+        "modified": "2020-10-03T22:42:38.794Z",
+        "number": "BATCH-20201002"
+    }
+},
+{
+    "model": "stock.batch",
+    "pk": 2,
+    "fields": {
+        "created": "2020-10-03T22:46:25.851Z",
+        "modified": "2020-10-03T22:46:25.851Z",
+        "number": "BATCH-20201123"
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 1,
+    "fields": {
+        "created": "2020-10-02T21:35:20.551Z",
+        "modified": "2020-10-03T22:43:57.117Z",
+        "status": "SEALED",
+        "spec": 1,
+        "total": 50,
+        "original_size": 50,
+        "sold": 0,
+        "location": 1,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 2,
+    "fields": {
+        "created": "2020-10-02T21:35:20.585Z",
+        "modified": "2020-10-11T23:04:43.952Z",
+        "status": "SEALED",
+        "spec": 1,
+        "total": 50,
+        "original_size": 50,
+        "sold": 0,
+        "location": 1,
+        "batch": 1,
+        "note": "11111"
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 3,
+    "fields": {
+        "created": "2020-10-02T21:35:20.593Z",
+        "modified": "2020-10-05T21:29:02.708Z",
+        "status": "OPENED",
+        "spec": 1,
+        "total": 40,
+        "original_size": 50,
+        "sold": 10,
+        "location": 1,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 4,
+    "fields": {
+        "created": "2020-10-02T21:35:20.602Z",
+        "modified": "2020-10-03T22:43:57.287Z",
+        "status": "SEALED",
+        "spec": 1,
+        "total": 50,
+        "original_size": 50,
+        "sold": 0,
+        "location": 1,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 5,
+    "fields": {
+        "created": "2020-10-02T21:35:20.611Z",
+        "modified": "2020-10-03T22:43:57.296Z",
+        "status": "SEALED",
+        "spec": 1,
+        "total": 50,
+        "original_size": 50,
+        "sold": 0,
+        "location": 1,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 6,
+    "fields": {
+        "created": "2020-10-02T21:35:37.138Z",
+        "modified": "2020-10-03T22:43:57.452Z",
+        "status": "DEPLETED",
+        "spec": 4,
+        "total": 0,
+        "original_size": 50,
+        "sold": 50,
+        "location": null,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 7,
+    "fields": {
+        "created": "2020-10-02T21:35:37.155Z",
+        "modified": "2020-10-05T20:03:55.094Z",
+        "status": "DEPLETED",
+        "spec": 4,
+        "total": 0,
+        "original_size": 30,
+        "sold": 30,
+        "location": null,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 8,
+    "fields": {
+        "created": "2020-10-02T21:35:37.163Z",
+        "modified": "2020-10-05T20:00:37.049Z",
+        "status": "DEPLETED",
+        "spec": 4,
+        "total": 0,
+        "original_size": 50,
+        "sold": 50,
+        "location": null,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 9,
+    "fields": {
+        "created": "2020-10-02T21:35:37.171Z",
+        "modified": "2020-10-05T20:11:38.813Z",
+        "status": "OPENED",
+        "spec": 4,
+        "total": 40,
+        "original_size": 50,
+        "sold": 10,
+        "location": 1,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 10,
+    "fields": {
+        "created": "2020-10-02T21:35:37.179Z",
+        "modified": "2020-10-03T22:43:57.320Z",
+        "status": "SEALED",
+        "spec": 4,
+        "total": 50,
+        "original_size": 50,
+        "sold": 0,
+        "location": 1,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 11,
+    "fields": {
+        "created": "2020-10-02T21:35:37.187Z",
+        "modified": "2020-10-05T21:29:02.723Z",
+        "status": "OPENED",
+        "spec": 4,
+        "total": 25,
+        "original_size": 50,
+        "sold": 25,
+        "location": 1,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 12,
+    "fields": {
+        "created": "2020-10-02T21:35:37.196Z",
+        "modified": "2020-10-03T22:43:57.337Z",
+        "status": "SEALED",
+        "spec": 4,
+        "total": 50,
+        "original_size": 50,
+        "sold": 0,
+        "location": 1,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 13,
+    "fields": {
+        "created": "2020-10-02T21:35:37.205Z",
+        "modified": "2020-10-03T22:43:57.345Z",
+        "status": "SEALED",
+        "spec": 4,
+        "total": 50,
+        "original_size": 50,
+        "sold": 0,
+        "location": 1,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 14,
+    "fields": {
+        "created": "2020-10-02T21:35:37.213Z",
+        "modified": "2020-10-03T22:43:57.353Z",
+        "status": "SEALED",
+        "spec": 4,
+        "total": 50,
+        "original_size": 50,
+        "sold": 0,
+        "location": 1,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 15,
+    "fields": {
+        "created": "2020-10-02T21:35:37.222Z",
+        "modified": "2020-10-05T21:27:33.142Z",
+        "status": "OPENED",
+        "spec": 4,
+        "total": 50,
+        "original_size": 50,
+        "sold": 0,
+        "location": 1,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 16,
+    "fields": {
+        "created": "2020-10-02T21:35:52.935Z",
+        "modified": "2020-10-03T22:43:57.370Z",
+        "status": "SEALED",
+        "spec": 5,
+        "total": 100,
+        "original_size": 100,
+        "sold": 0,
+        "location": 1,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 17,
+    "fields": {
+        "created": "2020-10-02T21:35:52.950Z",
+        "modified": "2020-10-03T22:43:57.378Z",
+        "status": "SEALED",
+        "spec": 5,
+        "total": 100,
+        "original_size": 100,
+        "sold": 0,
+        "location": 1,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 18,
+    "fields": {
+        "created": "2020-10-02T21:35:52.958Z",
+        "modified": "2020-10-11T22:07:45.038Z",
+        "status": "DEPLETED",
+        "spec": 5,
+        "total": 0,
+        "original_size": 100,
+        "sold": 100,
+        "location": null,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 19,
+    "fields": {
+        "created": "2020-10-02T21:35:52.966Z",
+        "modified": "2020-10-03T22:43:57.386Z",
+        "status": "SEALED",
+        "spec": 5,
+        "total": 100,
+        "original_size": 100,
+        "sold": 0,
+        "location": 1,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 20,
+    "fields": {
+        "created": "2020-10-02T21:35:52.975Z",
+        "modified": "2020-10-03T22:43:57.394Z",
+        "status": "SEALED",
+        "spec": 5,
+        "total": 100,
+        "original_size": 100,
+        "sold": 0,
+        "location": 1,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 21,
+    "fields": {
+        "created": "2020-10-02T21:35:52.983Z",
+        "modified": "2020-10-03T22:43:57.403Z",
+        "status": "SEALED",
+        "spec": 5,
+        "total": 100,
+        "original_size": 100,
+        "sold": 0,
+        "location": 1,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 22,
+    "fields": {
+        "created": "2020-10-02T21:36:13.556Z",
+        "modified": "2020-10-11T22:27:28.654Z",
+        "status": "OPENED",
+        "spec": 6,
+        "total": 20,
+        "original_size": 100,
+        "sold": 80,
+        "location": 1,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 23,
+    "fields": {
+        "created": "2020-10-02T21:36:13.588Z",
+        "modified": "2020-10-03T22:43:57.411Z",
+        "status": "SEALED",
+        "spec": 6,
+        "total": 100,
+        "original_size": 100,
+        "sold": 0,
+        "location": 1,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 24,
+    "fields": {
+        "created": "2020-10-03T20:48:57.874Z",
+        "modified": "2020-10-05T20:11:38.827Z",
+        "status": "DEPLETED",
+        "spec": 4,
+        "total": 0,
+        "original_size": 20,
+        "sold": 20,
+        "location": null,
+        "batch": 1,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 25,
+    "fields": {
+        "created": "2020-10-03T22:47:21.284Z",
+        "modified": "2020-10-03T23:15:39.297Z",
+        "status": "DEPLETED",
+        "spec": 1,
+        "total": 0,
+        "original_size": 50,
+        "sold": 50,
+        "location": null,
+        "batch": 2,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 26,
+    "fields": {
+        "created": "2020-10-03T22:47:21.306Z",
+        "modified": "2020-10-11T23:03:51.488Z",
+        "status": "OPENED",
+        "spec": 1,
+        "total": 20,
+        "original_size": 50,
+        "sold": 30,
+        "location": 1,
+        "batch": 2,
+        "note": "This is a broken roll."
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 27,
+    "fields": {
+        "created": "2020-10-03T22:53:46.576Z",
+        "modified": "2020-10-03T22:53:46.576Z",
+        "status": "SEALED",
+        "spec": 6,
+        "total": 100,
+        "original_size": 100,
+        "sold": 0,
+        "location": 1,
+        "batch": 2,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 28,
+    "fields": {
+        "created": "2020-10-03T22:53:46.589Z",
+        "modified": "2020-10-05T20:11:38.791Z",
+        "status": "OPENED",
+        "spec": 6,
+        "total": 80,
+        "original_size": 100,
+        "sold": 20,
+        "location": 1,
+        "batch": 2,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 29,
+    "fields": {
+        "created": "2020-10-03T22:53:46.598Z",
+        "modified": "2020-10-03T23:15:39.284Z",
+        "status": "OPENED",
+        "spec": 6,
+        "total": 50,
+        "original_size": 100,
+        "sold": 50,
+        "location": 1,
+        "batch": 2,
+        "note": null
+    }
+},
+{
+    "model": "stock.turfroll",
+    "pk": 30,
+    "fields": {
+        "created": "2020-10-03T22:53:46.606Z",
+        "modified": "2020-10-03T22:53:46.606Z",
+        "status": "SEALED",
+        "spec": 6,
+        "total": 100,
+        "original_size": 100,
+        "sold": 0,
+        "location": 1,
+        "batch": 2,
+        "note": null
+    }
+}
+]
