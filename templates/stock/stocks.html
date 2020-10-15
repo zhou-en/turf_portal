@@ -9,6 +9,7 @@
 
 {% for spec, rolls in turf_rolls.items %}
 
+  {% if spec.is_turf %}
   <div class="card">
     <div class="card-header">
       <h5 class="card-title"><strong>{{ spec.code }}</strong></h5>
@@ -122,8 +123,124 @@
   </div>
   </div>
   <br>
-{% endfor %}
 
+  {% else %}
+
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title"><strong>{{ spec.code }}</strong></h5>
+    </div>
+    <div class="card-body">
+      <div class="card-content table-responsive-sm">
+        <table id="stocks-table-{{ spec.id }}" class="table table-sm table-hover table-borderless">
+          <thead style="border-bottom: 1px solid black;">
+          <tr>
+            <th>ID</th>
+            <th>Note</th>
+            <th>Status</th>
+            <th>Available (m)</th>
+            <th>Reserved (m)</th>
+            <th>Sold (m)</th>
+            <th>Batch</th>
+            <th>Warehouse</th>
+            <th>Last Sold Date</th>
+            <th>Loaded Date</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for roll in rolls %}
+            {% if roll.status != "DEPLETED" %}
+              <tr>
+                <td><a href="{% url 'roll-update' roll.id %}">{{ roll.id }}</a></td>
+                {% if roll.note %}
+                  <td>{{ roll.note }}</td>
+                {% else %}
+                  <td></td>
+                {% endif %}
+                <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
+                <td class="text-success">{{ roll.available }}</td>
+
+                {% if roll.reserved != 0 %}
+                  <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:1 }}</a></td>
+                {% else %}
+                  <td>{{ roll.reserved }}</td>
+                {% endif %}
+
+                {% if roll.sold != 0 %}
+                  <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:1 }}</a></td>
+                {% else %}
+                  <td>{{ roll.sold }}</td>
+                {% endif %}
+
+                <td>{{ roll.batch }}</td>
+                <td>{{ roll.location }}</td>
+                <td>{{ roll.modified|date:"Y/m/d" }}</td>
+                <td>{{ roll.created|date:"Y/m/d" }}</td>
+                <td>
+                  {% if roll.available != 0 %}
+                    <a href="{% url 'stock-split' roll.id %}" class="btn btn-sm btn-primary">Split</a>
+                  {% else %}
+                    <a href="{% url 'stock-split' roll.id %}" style="pointer-events: none;" class="btn btn-sm btn-outline-secondary">Split</a>
+                  {% endif %}
+                </td>
+              </tr>
+            {% else %}
+              <tr>
+                <td>{{ roll.id }}</td>
+                {% if roll.note %}
+                  <td>{{ roll.note }}</td>
+                {% else %}
+                  <td></td>
+                {% endif %}
+                <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
+                <td class="text-success">{{ roll.available }}</td>
+
+                {% if roll.reserved != 0 %}
+                  <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:1 }}</a></td>
+                {% else %}
+                  <td>{{ roll.reserved }}</td>
+                {% endif %}
+
+                {% if roll.sold != 0 %}
+                  <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:1 }}</a></td>
+                {% else %}
+                  <td>{{ roll.sold }}</td>
+                {% endif %}
+
+                <td>{{ roll.batch }}</td>
+
+                {% if roll.location %}
+                  <td>{{ roll.location }}</td>
+                {% else %}
+                  <td></td>
+                {% endif %}
+                <td>{{ roll.modified|date:"Y/m/d" }}</td>
+                <td>{{ roll.created|date:"Y/m/d" }}</td>
+                <td style="text-align: center"></td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!--
+      <div class="text-center">
+        {% for roll_data in all_rolls %}
+          {% if roll_data.status != "DEPLETED" and roll_data.spec == spec %}
+            <div id="chartContainer" class="col-sm-6" style="width: 30%; height: 30%;display: inline-block;">
+              <canvas id="stock-roll-chart-{{ roll_data.id }}"></canvas>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+  -->
+    </div>
+  </div>
+
+  {% endif %}
+{% endfor %}
   <script>
 
       {% for spec, rolls in turf_rolls.items %}

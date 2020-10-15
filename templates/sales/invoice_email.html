@@ -186,9 +186,9 @@
             <thead>
             <tr>
               <th class="text-right" style="text-align:left">Products</th>
-              <th class="text-right" style="text-align:right">Rate (R/m<sup>2</sup>)</th>
-              <th class="text-right" style="text-align:right">Quantity (m<sup>2</sup>)</th>
-              <th class="text-right" style="text-align:right">Item Total</th>
+              <th class="text-right" style="text-align:left">Rate</th>
+              <th class="text-right" style="text-align:left">Quantity</th>
+              <th class="text-right" style="text-align:left">Item Total</th>
             </tr>
             </thead>
             <tbody>
@@ -199,7 +199,7 @@
                     <span class="text-inverse">Discount</span><br>
                     <small>Discount that was applied to this order.</small>
                   </td>
-                  <td class="text-center">-{{ ol.price|floatformat:2 }}</td>
+                  <td class="text-center">-R{{ ol.price|floatformat:2 }}</td>
                   <td class="text-center">{{ ol.quantity }}</td>
                   <td class="text-right">-R{{ ol.total|floatformat:2 }}</td>
                 {% else %}
@@ -207,8 +207,8 @@
                     <span class="text-inverse">{{ ol.product.name }}</span><br>
                     <small>{{ ol.product.description }}</small>
                   </td>
-                  <td class="text-center">{{ ol.price|floatformat:2 }}</td>
-                  <td class="text-center">{{ ol.quantity }}</td>
+                  <td class="text-center">{{ ol.price|floatformat:2 }} (R/{{ ol.roll.spec.sale_by }})</td>
+                  <td class="text-center">{{ ol.quantity }} ({{ ol.roll.spec.sale_by }})</td>
                   <td class="text-right">R{{ ol.total|floatformat:2 }}</td>
                 {% endif %}
               </tr>
