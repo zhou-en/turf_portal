@@ -214,13 +214,23 @@ class LoadStocksView(CreateView):
             if status != TurfRoll.Status.LOOSE:
                 for n in range(int(quantity)):
                     logger.info("Loading %s: %d", spec, n)
-                    TurfRoll.objects.create(
-                        spec=spec,
-                        batch_id=batch_id,
-                        location=location,
-                        total=spec.length * spec.width.value,
-                        original_size=spec.length * spec.width.value
-                    )
+
+                    if spec.is_turf:
+                        TurfRoll.objects.create(
+                            spec=spec,
+                            batch_id=batch_id,
+                            location=location,
+                            total=spec.length * spec.width.value,
+                            original_size=spec.length * spec.width.value
+                        )
+                    else:
+                        TurfRoll.objects.create(
+                            spec=spec,
+                            batch_id=batch_id,
+                            location=location,
+                            total=spec.length,
+                            original_size=spec.length
+                        )
                 logger.info(
                     "%s %s rolls have been loaded to %s",
                     quantity,

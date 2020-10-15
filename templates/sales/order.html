@@ -62,9 +62,9 @@
           <th>Product Code</th>
           <th>Roll ID</th>
           <th>Batch</th>
-          <th>Quantity (m<sup>2</sup>)</th>
-          <th>Price (R/m<sup>2</sup>)</th>
-          <th>Amount (R)</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Amount</th>
           {% if order.editable %}<th>Actions</th>{% endif %}
         </tr>
         </thead>
@@ -76,15 +76,15 @@
               <td></td>
               <td></td>
               <td>{{ ol.quantity }}</td>
-              <td>-{{ ol.price|floatformat:2 }}</td>
-              <td>-{{ ol.total|floatformat:2 }}</td>
+              <td>-R{{ ol.price|floatformat:2 }}</td>
+              <td>-R{{ ol.total|floatformat:2 }}</td>
             {% else %}
               <td>{{ ol.product }}</td>
-              <td>{{ ol.roll_id }}</td>
+              <td><a href="{% url 'roll-update' ol.roll.id %}">{{ ol.roll.id }}</a></td>
               <td>{{ ol.roll.batch }}</td>
-              <td>{{ ol.quantity }}</td>
-              <td>{{ ol.price|floatformat:2 }}</td>
-              <td>{{ ol.total|floatformat:2 }}</td>
+              <td>{{ ol.quantity }} ({{ ol.roll.spec.sale_by }})</td>
+              <td>{{ ol.price|floatformat:2 }} (R/{{ ol.roll.spec.sale_by }})</td>
+              <td>R{{ ol.total|floatformat:2 }}</td>
             {% endif %}
             {% if order.editable %}
               <td style="text-align: justify">

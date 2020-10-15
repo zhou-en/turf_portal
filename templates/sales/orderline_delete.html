@@ -4,19 +4,19 @@
   <br>
 <div class="card">
     <div class="card-header">
-        <h5 class="card-title">This item will be removed.</h5>
+        <h5 class="card-title">This item will be removed from the order.</h5>
     </div>
     <div class="card-body">
         <form method="post">
             {% csrf_token %}
             <dl class="row">
             <dt class="col-sm-3">Product</dt>
-            <dd class="col-sm-9">{{ object.buyer_product.product }}</dd>
+            <dd class="col-sm-9">{{ object.product }}</dd>
 
-            <dt class="col-sm-3">Quantity (m<sup>2</sup>)</dt>
+            <dt class="col-sm-3">Quantity ({{ object.roll.spec.sale_by }})</dt>
             <dd class="col-sm-9">{{ object.quantity }}</dd>
 
-            <dt class="col-sm-3">Price (R)</dt>
+            <dt class="col-sm-3">Price (R/{{ object.roll.spec.sale_by }})</dt>
             <dd class="col-sm-9">{{ object.price|floatformat:2 }}</dd>
 
             <dt class="col-sm-3">Amount (R)</dt>

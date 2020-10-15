@@ -57,9 +57,9 @@
         <thead>
         <tr>
           <th>Product Code</th>
-          <th>Quantity (m<sup>2</sup>)</th>
-          <th>Price (R/m<sup>2</sup>)</th>
-          <th>Amount (R)</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Amount</th>
         </tr>
         </thead>
         <tbody>
@@ -67,14 +67,14 @@
           <tr>
             {% if ol.is_discount %}
               <td>Discount</td>
-              <td>{{ ol.quantity }}</td>
-              <td>-{{ ol.price|floatformat:2 }}</td>
-              <td>-{{ ol.total|floatformat:2 }}</td>
+              <td>{{ ol.quantity }} {{ ol.product.spec.sale_by }}</td>
+              <td>-R{{ ol.price|floatformat:2 }}</td>
+              <td>-R{{ ol.total|floatformat:2 }}</td>
             {% else %}
               <td>{{ ol.product }}</td>
-              <td>{{ ol.quantity }}</td>
-              <td>{{ ol.price|floatformat:2 }}</td>
-              <td>{{ ol.total|floatformat:2 }}</td>
+              <td>{{ ol.quantity }} {{ ol.product.spec.sale_by }}</td>
+              <td>{{ ol.price|floatformat:2 }} (R/{{ ol.product.spec.sale_by }})</td>
+              <td>R{{ ol.total|floatformat:2 }}</td>
             {% endif %}
           </tr>
         {% endfor %}
