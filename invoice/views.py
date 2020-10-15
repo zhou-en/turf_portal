@@ -88,7 +88,7 @@ class ExportPDFView(View):
 
         context = {
             "order": invoice.order,
-            "orderlines": invoice.order.orderline_set.all(),
+            "orderlines": invoice.order.orderline_set.all().order_by("product"),
             "invoice": invoice,
             "buyer": invoice.buyer,
             "send_email": False
