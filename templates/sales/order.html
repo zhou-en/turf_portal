@@ -28,12 +28,6 @@
           <dd class="col-sm-9">{{ order.total_wt_discount|floatformat:2 }}</dd>
         {% endif %}
 
-{#        <dt class="col-sm-3">Created Date</dt>#}
-{#        <dd class="col-sm-9">{{ order.created|date:"Y/m/d" }}</dd>#}
-{##}
-{#        <dt class="col-sm-3">Closed Date</dt>#}
-{#        <dd class="col-sm-9">{% if not order.closed_date %}-{% else %}{{ order.closed_date|date:"Y/m/d" }}{% endif %}</dd>#}
-
         {% if order.invoice %}
           <dt class="col-sm-3">Invoice</dt>
           <dd class="col-sm-9">
@@ -45,7 +39,6 @@
       </dl>
     </div>
   <div class="card-footer">
-{#    <a href="{% url 'buyers' %}" class="btn btn-sm btn-secondary">Back to Buyers</a>#}
   </div>
 </div>
 
