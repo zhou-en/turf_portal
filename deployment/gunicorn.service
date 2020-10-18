@@ -1,0 +1,14 @@
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=lubuntu
+Group=www-data
+WorkingDirectory=/var/www/turf_portal
+ExecStart=/var/www/turf_env/bin/gunicorn --access-logfile - --workers 3 --bind unix:/var/www/turf_portal/turf_portal.sock turf_portal.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+
