@@ -3,7 +3,11 @@
 {% block content %}
 
   <br>
-  <a href="{% url 'load-stocks' %}" class="btn btn-sm btn-primary float-lg-right">Load Stocks</a>
+  <div class="row">
+    <div class="container-fluid">
+    <a href="{% url 'load-stocks' %}" class="btn btn-sm btn-primary float-lg-right">Load Stocks</a>
+    </div>
+  </div>
   <br>
 
 {% for spec, rolls in turf_rolls.items %}
