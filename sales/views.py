@@ -427,12 +427,12 @@ def send_invoice_email(request, pk):
         "invoice": order.invoice,
         "buyer": order.buyer,
         "send_email": True,
-        "bank": os.getenv("BANK", ""),
-        "branch": os.getenv("BRANCH", ""),
-        "branch_code": os.getenv("BRANCH_CODE", ""),
-        "swift_code": os.getenv("SWIFT_CODE", ""),
-        "account_number": os.getenv("ACCOUNT_NUMBER", ""),
-        "account_type": os.getenv("ACCOUNT_TYPE", ""),
+        "bank": settings.BANK,
+        "branch": settings.BRANCH,
+        "branch_code": settings.BRANCH_CODE,
+        "swift_code": settings.SWIFT_CODE,
+        "account_number": settings.ACCOUNT_NUMBER,
+        "account_type": settings.ACCOUNT_TYPE,
     }
     html_message = render_to_string('sales/invoice_email.html', context)
     plain_message = strip_tags(html_message)
@@ -469,12 +469,12 @@ class InvoiceOrderView(DetailView):
         context["orderlines"] = order.orderlines
         context.update(
             {
-                "bank": os.getenv("BANK", ""),
-                "branch": os.getenv("BRANCH", ""),
-                "branch_code": os.getenv("BRANCH_CODE", ""),
-                "swift_code": os.getenv("SWIFT_CODE", ""),
-                "account_number": os.getenv("ACCOUNT_NUMBER", ""),
-                "account_type": os.getenv("ACCOUNT_TYPE", "")
+                "bank": settings.BANK,
+                "branch": settings.BRANCH,
+                "branch_code": settings.BRANCH_CODE,
+                "swift_code": settings.SWIFT_CODE,
+                "account_number": settings.ACCOUNT_NUMBER,
+                "account_type": settings.ACCOUNT_TYPE,
             }
         )
         # import ipdb; ipdb.set_trace()
