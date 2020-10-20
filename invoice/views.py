@@ -1,5 +1,6 @@
 import logging
 import pydf
+from django.conf import settings
 from django.urls import reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -91,7 +92,13 @@ class ExportPDFView(View):
             "orderlines": invoice.order.orderline_set.all().order_by("product"),
             "invoice": invoice,
             "buyer": invoice.buyer,
-            "send_email": False
+            "send_email": False,
+            "bank": settings.BANK,
+            "branch": settings.BRANCH,
+            "branch_code": settings.BRANCH_CODE,
+            "swift_code": settings.SWIFT_CODE,
+            "account_number": settings.ACCOUNT_NUMBER,
+            "account_type": settings.ACCOUNT_TYPE,
         }
         filename = "%s.pdf" % invoice.number
         template = get_template("sales/invoice_email.html")

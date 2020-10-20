@@ -132,9 +132,10 @@
       <!-- end invoice-content -->
       <!-- begin invoice-note -->
       <div class="invoice-note">
-        * <b>Bank Details: Bank: FMB; Account #: 62288005690; Type: Savings; Branch code: 250655;</b><br>
         * Payment is due within 7 days<br>
-        * If you have any questions concerning this invoice, contact Turfd, Pty. Ltd.
+        * If you have any questions concerning this invoice, contact Turfd, Pty. Ltd.<br>
+        * Bank Details:<br>
+        <p style="margin-left: 40px">Bank: <b>{{ bank }}</b>; Account: <b>{{ account_number }}</b>; Type: <b>{{ account_type }}</b>; Branch code: <b>{{ branch_code }}</b>; Branch: <b>{{ branch }}</b>; Swift: <b>{{ swift_code }}</b></p>
       </div>
       <!-- end invoice-note -->
       <!-- begin invoice-footer -->
