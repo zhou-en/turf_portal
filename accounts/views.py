@@ -52,7 +52,7 @@ class DataView(APIView):
 
     def get(self, request, format=None):
         stock_available_data = {}
-        for roll in TurfRoll.objects.all():
+        for roll in TurfRoll.objects.exclude(spec__category__name="Join Tape"):
             if roll.spec.code in stock_available_data:
                 stock_available_data[roll.spec.code] += roll.available
             else:
@@ -95,7 +95,7 @@ class DataView(APIView):
 
         # total stock sold
         stock_sold_data = {}
-        for roll in TurfRoll.objects.all():
+        for roll in TurfRoll.objects.exclude(spec__category__name="Join Tape"):
             if roll.spec.code in stock_sold_data:
                 stock_sold_data[roll.spec.code] += roll.sold
             else:

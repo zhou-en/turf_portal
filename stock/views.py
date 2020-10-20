@@ -175,9 +175,6 @@ class StockListView(ListView):
 
         for spec in specs:
             if spec.turfroll_set.exists():
-                # context["turf_rolls"].update(
-                #     {spec: [roll for roll in spec.turfroll_set.all()]}
-                # )
                 rolls = []
                 for s in status_order:
                     if spec.turfroll_set.filter(status=s):
