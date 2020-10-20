@@ -192,16 +192,16 @@ class Product(TimeStampedModel, models.Model):
         )
 
     @property
-    def stock_count(self):
+    def stock_available(self):
         """
         Return the available square meters for a roll.
         """
-        square_meters = 0
+        available_size = 0
         for roll in TurfRoll.objects.exclude(
             status__exact=TurfRoll.Status.DEPLETED
         ).filter(spec=self.spec):
-            square_meters += roll.available
-        return square_meters
+            available_size += roll.available
+        return available_size
 
 
 class Batch(TimeStampedModel, models.Model):
