@@ -220,7 +220,7 @@ EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", 'test_password')
 # Banking Details
 BANK = config("BANK", "")
 BRANCH = config("BRANCH", "")
-BRANCH_CODE = config("BRANCH_CODE", ""),
+BRANCH_CODE = config("BRANCH_CODE", "")
 SWIFT_CODE = config("SWIFT_CODE", "")
 ACCOUNT_NUMBER = config("ACCOUNT_NUMBER", "")
 ACCOUNT_TYPE = config("ACCOUNT_TYPE", "")
