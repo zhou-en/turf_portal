@@ -174,7 +174,7 @@
               data: {
                   labels: labels,
                   datasets: [{
-                      label: "Number of m² available",
+                      label: "Available(m²)",
                       data: defaultData,
                       backgroundColor: [
                           'rgba(255, 99, 132, 1)',
@@ -228,7 +228,7 @@
                   legend: {display: false},
                   title: {
                       display: true,
-                      text: 'Available per Product in m²',
+                      text: 'Stock Available in m²',
                       fontStyle: "bold"
                   }
               }
@@ -242,7 +242,7 @@
               data: {
                   labels: labels,
                   datasets: [{
-                      label: "Total sales per buyer in Rand",
+                      label: "Total (R)",
                       data: defaultData,
                       {#borderColor: colors,#}
                       backgroundColor: colors,
@@ -277,7 +277,7 @@
               data: {
                   labels: labels,
                   datasets: [{
-                      label: "Stock Sold in m²",
+                      label: "Total(R)",
                       data: defaultData,
                       backgroundColor: [
                           'rgba(255, 99, 132, 1)',
@@ -309,14 +309,14 @@
 
                           scaleLabel: {
                               display: true,
-                              labelString: 'm²',
+                              labelString: 'Rand',
                               fontStyle: "bold"
                           }
                       }],
                       xAxes: [{
                           scaleLabel: {
                               display: true,
-                              labelString: 'Product Code',
+                              labelString: 'Month',
                               fontStyle: "bold"
                           }
                       }]
@@ -324,7 +324,7 @@
                   legend: {display: false},
                   title: {
                       display: true,
-                      text: 'Sold per Product in m²',
+                      text: 'Monthly Sales in the Last 12 Months',
                       fontStyle: "bold"
                   }
               }
@@ -337,7 +337,7 @@
               data: {
                   labels: labels,
                   datasets: [{
-                      label: "Order of Sales (R)",
+                      label: "Total(R)",
                       data: defaultData,
                       borderColor: "#3e95cd",
                       fill: true,
@@ -349,7 +349,7 @@
                   responsive: true,
                   title: {
                       display: true,
-                      text: 'Total Sales in Rand'
+                      text: 'Daily Sales in the Past 30 Days'
                   },
                   legend: {display: false},
                   scales: {
@@ -369,11 +369,11 @@
                       xAxes: [
                           {
                               ticks: {
-                                  display: false
+                                  display: true
                               },
                               scaleLabel: {
                                   display: true,
-                                  labelString: 'Closed Orders',
+                                  labelString: 'Date',
                                   fontStyle: 'bold'
                               }
                           }
