@@ -127,6 +127,8 @@ class DataView(APIView):
                 {b.name: b.history_total}
             )
         buyer_labels = sorted(buyer_data.keys())
+        if len(buyer_labels) > 10:
+            buyer_labels = sorted(buyer_data.keys()[:10])
         buyer_total = [buyer_data[k] for k in buyer_labels]
         data.update(
             {
