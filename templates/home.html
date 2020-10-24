@@ -17,7 +17,7 @@
     -->
   </div>
 
-  <div id="large-screen-charts" class="container-fluid text-center">
+  <div id="large-screen-charts" class="chart-container text-center">
     <div id="chartContainer" class="col-sm-6" style="width: 40%; display: inline-block;">
       <canvas id="stock-chart" name="stock-chart"></canvas>
     </div>
@@ -34,8 +34,8 @@
     </div>
   </div>
 
-    <div id="small-screen-charts" class="container-fluid">
-      <div id="chartContainer">
+    <div id="small-screen-charts" class="chart-container">
+      <div id="chartContainer" class="chart-container">
         <canvas id="stock-chart" name="stock-chart"></canvas>
       </div>
       <div id="chartContainer">
@@ -251,6 +251,7 @@
                   }]
               },
               options: {
+                  maintainAspectRatio: true,
                   responsive: true,
                   legend: {
                       display: true,
