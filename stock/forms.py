@@ -97,10 +97,8 @@ class RollUpdateForm(forms.ModelForm):
         instance = kwargs.get("instance", None)
         self.base_fields["spec"].disabled = True
         self.base_fields["total"].disabled = True
-        self.base_fields["original_size"].disabled = True
         self.base_fields["sold"].disabled = True
-        self.base_fields["batch"].disabled = True
-        self.base_fields["total"].label = mark_safe("Total (m<sup>2</sup>)")
+        self.base_fields["total"].label = mark_safe("Running Total (m<sup>2</sup>)")
         self.base_fields["original_size"].label = mark_safe("Original Size (m<sup>2</sup>)")
         self.base_fields["sold"].label = mark_safe("Sold (m<sup>2</sup>)")
         if not instance.spec.is_turf:
