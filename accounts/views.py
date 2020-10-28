@@ -102,7 +102,7 @@ class DataView(APIView):
         ).order_by("closed_date"):
             closed_month = s.closed_date.strftime("%Y-%m")
             order_total = s.total_wt_discount
-            if closed_month in sales_data:
+            if closed_month in stock_sold_data:
                 stock_sold_data[closed_month] += order_total
             else:
                 stock_sold_data.update({closed_month: order_total})
