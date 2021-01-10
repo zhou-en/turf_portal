@@ -224,3 +224,6 @@ BRANCH_CODE = config("BRANCH_CODE", "")
 SWIFT_CODE = config("SWIFT_CODE", "")
 ACCOUNT_NUMBER = config("ACCOUNT_NUMBER", "")
 ACCOUNT_TYPE = config("ACCOUNT_TYPE", "")
+
+if 'test' in sys.argv or 'test_coverage' or "--cov" in sys.argv: #Covers regular testing and django-coverage
+    DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
