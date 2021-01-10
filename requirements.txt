@@ -4,7 +4,7 @@ attrs==20.2.0
 backcall==0.2.0
 black==20.8b1
 cairocffi==1.1.0
-CairoSVG==2.4.2
+CairoSVG==2.5.1
 cffi==1.14.3
 click==7.1.2
 coverage==5.3
