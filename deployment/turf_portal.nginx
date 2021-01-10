@@ -1,0 +1,15 @@
+server {
+	listen 80;
+    	server_name 192.168.101.162;
+
+	location = /favicon.ico { access_log off; log_not_found off; }
+    	
+	location /static/ {
+        	root /var/www/turf_portal;
+    	}
+	
+	location / {
+        	include proxy_params;
+        	proxy_pass http://unix:/var/www/turf_portal/turf_portal.sock;
+    	}
+}

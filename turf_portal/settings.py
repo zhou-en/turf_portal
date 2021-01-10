@@ -88,8 +88,8 @@ WSGI_APPLICATION = 'turf_portal.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config('DB_NAME', 'turf-portal'),
-        'USER': config('DB_USER', 'turf-portal-user'),
+        'NAME': config('DB_NAME', 'turf_portal'),
+        'USER': config('DB_USER', 'turf_portal_user'),
         'PASSWORD': config('DB_PASSWORD'),
         'HOST': config('DB_HOST', '127.0.0.1'),
         'PORT': '5432',
@@ -216,3 +216,14 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = config("EMAIL_HOST_USER", 'test_user')
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", 'test_password')
+
+# Banking Details
+BANK = config("BANK", "")
+BRANCH = config("BRANCH", "")
+BRANCH_CODE = config("BRANCH_CODE", "")
+SWIFT_CODE = config("SWIFT_CODE", "")
+ACCOUNT_NUMBER = config("ACCOUNT_NUMBER", "")
+ACCOUNT_TYPE = config("ACCOUNT_TYPE", "")
+
+if 'test' in sys.argv or 'test_coverage' or "--cov" in sys.argv: #Covers regular testing and django-coverage
+    DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'

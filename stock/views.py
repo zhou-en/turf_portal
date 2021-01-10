@@ -6,8 +6,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.views.generic import View, UpdateView, DeleteView, \
-    DetailView, ListView, CreateView
+from django.views.generic import (
+    View,
+    UpdateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    CreateView,
+)
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -17,18 +23,18 @@ from stock.forms import (
     ProductUpdateForm,
     LoadStocksForm,
     SplitRollForm,
-    RollUpdateForm
+    RollUpdateForm,
 )
 
 logger = logging.getLogger(__name__)
 
 
 # Create your views here.
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
 class ProductListView(ListView):
     model = Product
     template_name = "stock/products.html"
-    context_object_name = 'products'
+    context_object_name = "products"
     queryset = Product.objects.all()
 
     def get_context_data(self, **kwargs):
@@ -36,11 +42,11 @@ class ProductListView(ListView):
         return context
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
 class ProductCreateView(CreateView):
     model = Product
-    template_name = 'stock/product_create.html'
-    success_url = reverse_lazy('products')
+    template_name = "stock/product_create.html"
+    success_url = reverse_lazy("products")
     form_class = ProductCreateForm
 
     def post(self, request, *args, **kwargs):
@@ -50,10 +56,10 @@ class ProductCreateView(CreateView):
             return super(ProductCreateView, self).post(request, *args, **kwargs)
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
 class ProductDetailView(DetailView):
     model = Product
-    template_name = 'stock/product.html'
+    template_name = "stock/product.html"
     context_object_name = "product"
 
     def get_context_data(self, **kwargs):
@@ -69,15 +75,15 @@ class ProductDetailView(DetailView):
         return context
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
 class ProductUpdateView(UpdateView):
     model = Product
-    template_name = 'stock/product_update.html'
+    template_name = "stock/product_update.html"
     context_object_name = "product"
     form_class = ProductUpdateForm
 
     def get_success_url(self):
-        return reverse_lazy('product', kwargs={'pk': self.object.id})
+        return reverse_lazy("product", kwargs={"pk": self.object.id})
 
     def post(self, request, *args, **kwargs):
         if "cancel" in request.POST:
@@ -86,11 +92,11 @@ class ProductUpdateView(UpdateView):
             return super(ProductUpdateView, self).post(request, *args, **kwargs)
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
 class ProductDeleteView(DeleteView):
     model = Product
-    template_name = 'stock/product_delete.html'
-    success_url = reverse_lazy('products')
+    template_name = "stock/product_delete.html"
+    success_url = reverse_lazy("products")
 
     def post(self, request, *args, **kwargs):
         if "cancel" in request.POST:
@@ -99,10 +105,10 @@ class ProductDeleteView(DeleteView):
             return super(ProductDeleteView, self).post(request, *args, **kwargs)
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
 class WarehouseDetailView(DetailView):
     model = Warehouse
-    template_name = 'stock/warehouse.html'
+    template_name = "stock/warehouse.html"
     context_object_name = "warehouse"
 
     def get_context_data(self, **kwargs):
@@ -114,11 +120,11 @@ class WarehouseDetailView(DetailView):
         return context
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
 class WarehouseListView(ListView):
     model = Warehouse
     template_name = "stock/warehouses.html"
-    context_object_name = 'warehouses'
+    context_object_name = "warehouses"
     queryset = Warehouse.objects.all()
     # paginate_by = 10
 
@@ -127,10 +133,10 @@ class WarehouseListView(ListView):
         return context
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
 class StockDataView(APIView):
-    """
-    """
+    """"""
+
     authentication_classes = []
     permission_classes = []
 
@@ -144,21 +150,23 @@ class StockDataView(APIView):
                 default_data.append(roll.blank)
             else:
                 default_data.append(0)
-            data.update({
-                roll.id: {
-                    "code": code,
-                    "labels": labels,
-                    "default": default_data,
+            data.update(
+                {
+                    roll.id: {
+                        "code": code,
+                        "labels": labels,
+                        "default": default_data,
+                    }
                 }
-            })
+            )
         return Response(data)
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
 class StockListView(ListView):
     model = TurfRoll
     template_name = "stock/stocks.html"
-    context_object_name = 'turf_rolls'
+    context_object_name = "turf_rolls"
     queryset = TurfRoll.objects.all()
 
     def get_context_data(self, **kwargs):
@@ -170,31 +178,26 @@ class StockListView(ListView):
             TurfRoll.Status.LOOSE,
             TurfRoll.Status.OPENED,
             TurfRoll.Status.SEALED,
-            TurfRoll.Status.DEPLETED
+            # TurfRoll.Status.DEPLETED,
         ]
 
         for spec in specs:
             if spec.turfroll_set.exists():
-                # context["turf_rolls"].update(
-                #     {spec: [roll for roll in spec.turfroll_set.all()]}
-                # )
                 rolls = []
                 for s in status_order:
                     if spec.turfroll_set.filter(status=s):
                         rolls.extend(spec.turfroll_set.filter(status=s))
                 if rolls:
-                    context["turf_rolls"].update(
-                        {spec: rolls}
-                    )
+                    context["turf_rolls"].update({spec: rolls})
         return context
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
 class LoadStocksView(CreateView):
     model = TurfRoll
     template_name = "stock/load_stocks.html"
-    success_url = reverse_lazy('stocks')
-    context_object_name = 'turf_roll'
+    success_url = reverse_lazy("stocks")
+    context_object_name = "turf_roll"
     form_class = LoadStocksForm
 
     def get_context_data(self, **kwargs):
@@ -221,7 +224,7 @@ class LoadStocksView(CreateView):
                             batch_id=batch_id,
                             location=location,
                             total=spec.length * spec.width.value,
-                            original_size=spec.length * spec.width.value
+                            original_size=spec.length * spec.width.value,
                         )
                     else:
                         TurfRoll.objects.create(
@@ -229,13 +232,10 @@ class LoadStocksView(CreateView):
                             batch_id=batch_id,
                             location=location,
                             total=spec.length,
-                            original_size=spec.length
+                            original_size=spec.length,
                         )
                 logger.info(
-                    "%s %s rolls have been loaded to %s",
-                    quantity,
-                    spec,
-                    location
+                    "%s %s rolls have been loaded to %s", quantity, spec, location
                 )
             else:
                 loose_size = int(request.POST.get("size"))
@@ -246,22 +246,19 @@ class LoadStocksView(CreateView):
                         location=location,
                         total=loose_size,
                         original_size=loose_size,
-                        status=TurfRoll.Status.LOOSE
+                        status=TurfRoll.Status.LOOSE,
                     )
                 logger.info(
-                    "%s %s loose rolls have been loaded to %s",
-                    quantity,
-                    spec,
-                    location
+                    "%s %s loose rolls have been loaded to %s", quantity, spec, location
                 )
         return HttpResponseRedirect(reverse_lazy("stocks"))
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
 class SplitRollView(CreateView):
     model = TurfRoll
     template_name = "stock/split_stock.html"
-    success_url = reverse_lazy('stocks')
+    success_url = reverse_lazy("stocks")
     form_class = SplitRollForm
 
     def get_context_data(self, **kwargs):
@@ -283,7 +280,7 @@ class SplitRollView(CreateView):
                 location=roll.location,
                 total=split_size,
                 original_size=split_size,
-                status=TurfRoll.Status.LOOSE
+                status=TurfRoll.Status.LOOSE,
             )
             if roll.status == TurfRoll.Status.SEALED:
                 roll.status = TurfRoll.Status.LOOSE
@@ -293,15 +290,15 @@ class SplitRollView(CreateView):
         return HttpResponseRedirect(reverse_lazy("stocks"))
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
 class RollUpdateView(UpdateView):
     model = TurfRoll
-    template_name = 'stock/roll_update.html'
+    template_name = "stock/roll_update.html"
     context_object_name = "roll"
     form_class = RollUpdateForm
 
     def get_success_url(self):
-        return reverse_lazy('stocks')
+        return reverse_lazy("stocks")
 
     def post(self, request, *args, **kwargs):
         if "cancel" in request.POST:

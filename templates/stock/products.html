@@ -18,9 +18,10 @@
         <th>Product Code</th>
         <th>Category</th>
         <th>Color</th>
-        <th>Height (mm)</th>
-        <th>Width (m)</th>
-        <th>Stocks</th>
+        <th>Height</th>
+        <th>Width</th>
+        <th>Stocks Status</th>
+        <th>Available</th>
       </tr>
       </thead>
       <tbody>
@@ -29,13 +30,14 @@
           <td><a href="{% url 'product' product.id %}">{{ product.code }}</a></td>
           <td>{{ product.spec.category }}</td>
           <td>{{ product.spec.color }}</td>
-          <td>{{ product.spec.height }}</td>
-          <td>{{ product.spec.width }}</td>
+          <td>{{ product.spec.height }} (mm)</td>
+          <td>{{ product.spec.width }} (m)</td>
           {% if product.has_stock %}
             <td><a class="btn btn-sm btn-success" style="pointer-events: none;">Available</a></td>
           {% else %}
             <td><a class="btn btn-sm btn-secondary" style="pointer-events: none;">Out of Stock</a></td>
           {% endif %}
+          <td>{{ product.stock_available }} {% if product.stock_available != 0 %}({{ product.spec.sale_by }}){% endif %}</td>
         </tr>
       {% endfor %}
       </tbody>

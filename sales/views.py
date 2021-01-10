@@ -1,4 +1,5 @@
 import logging
+import os
 import json
 from django.conf import settings
 from django.contrib import messages
@@ -425,7 +426,13 @@ def send_invoice_email(request, pk):
         "orderlines": order.orderline_set.all(),
         "invoice": order.invoice,
         "buyer": order.buyer,
-        "send_email": True
+        "send_email": True,
+        "bank": settings.BANK,
+        "branch": settings.BRANCH,
+        "branch_code": settings.BRANCH_CODE,
+        "swift_code": settings.SWIFT_CODE,
+        "account_number": settings.ACCOUNT_NUMBER,
+        "account_type": settings.ACCOUNT_TYPE,
     }
     html_message = render_to_string('sales/invoice_email.html', context)
     plain_message = strip_tags(html_message)
@@ -460,6 +467,17 @@ class InvoiceOrderView(DetailView):
             order.invoice_order()
         context["order"] = order
         context["orderlines"] = order.orderlines
+        context.update(
+            {
+                "bank": settings.BANK,
+                "branch": settings.BRANCH,
+                "branch_code": settings.BRANCH_CODE,
+                "swift_code": settings.SWIFT_CODE,
+                "account_number": settings.ACCOUNT_NUMBER,
+                "account_type": settings.ACCOUNT_TYPE,
+            }
+        )
+        # import ipdb; ipdb.set_trace()
         return render(request, template_name="sales/send_invoice.html", context=context)
 
     def get_context_data(self, **kwargs):

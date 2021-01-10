@@ -153,10 +153,11 @@
           <small>from</small>
           <address class="m-t-5 m-b-5">
             <strong class="text-inverse">TURFD</strong><br>
-            Boston<br>
-            Bellville 7350<br>
-            Phone: 0768308920<br>
-            Email: flying66free@gmail.com
+            58 London Circle<br>
+            Brackengate Business Park<br>
+            Brackenfell<br>
+            Phone: +27769436850<br>
+            Email: ying.fan1985@gmail.com
           </address>
         </div>
         <div class="invoice-to">
@@ -252,9 +253,10 @@
       <!-- end invoice-content -->
       <!-- begin invoice-note -->
       <div class="invoice-note">
-        * <b>Bank Details: Bank: FMB; Account #: 1234567890; Branch: Tygervalley 632005;</b><br>
         * Payment is due within 7 days<br>
-        * If you have any questions concerning this invoice, contact Turfd, Pty. Ltd.
+        * If you have any questions concerning this invoice, contact Turfd, Pty. Ltd. <br>
+        * Bank Details:<br>
+        <p style="margin-left: 40px">Bank: <b>{{ bank }}</b>; Account: <b>{{ account_number }}</b>; Type: <b>{{ account_type }}</b>; Branch code: <b>{{ branch_code }}</b>; Branch: <b>{{ branch }}</b>; Swift: <b>{{ swift_code }}</b></p>
       </div>
       <!-- end invoice-note -->
       <!-- begin invoice-footer -->
@@ -265,8 +267,8 @@
         <p class="text-center">
           <!-- <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> matiasgallipoli.com</span>-->
           {% if not send_email %}
-          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-square"></i>0768308920</span>
-          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i>TURFD &lt;flying66free@gmail.com&gt;</span>
+          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-square"></i>+27769436850</span>
+          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i>TURFD &lt;ying.fan1985@gmail.com&gt;</span>
           {% endif %}
         </p>
       </div>

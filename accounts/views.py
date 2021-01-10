@@ -52,7 +52,7 @@ class DataView(APIView):
 
     def get(self, request, format=None):
         stock_available_data = {}
-        for roll in TurfRoll.objects.all():
+        for roll in TurfRoll.objects.exclude(spec__category__name="Join Tape"):
             if roll.spec.code in stock_available_data:
                 stock_available_data[roll.spec.code] += roll.available
             else:
@@ -70,19 +70,21 @@ class DataView(APIView):
         sales_data = {}
         today = timezone.now().date()
         for s in Order.objects.filter(
-                status__exact=Order.Status.CLOSED
+            status__exact=Order.Status.CLOSED
         ).order_by("closed_date"):
-            sales_data.update(
-                {s.closed_date.strftime("%Y-%m-%d %H:%m:%S"): s.total_wt_discount}
-            )
+            closed_date = s.closed_date.strftime("%Y-%m-%d")
+            order_total = s.total_wt_discount
+            if closed_date in sales_data:
+                sales_data[closed_date] += order_total
+            else:
+                sales_data.update({closed_date: order_total})
+
         sales_labels = sales_data.keys()
+        if len(labels) > 30:
+            sales_labels = sales_data.keys()[:30]
         sales_total = []
         for i, k in enumerate(sales_labels):
-            if i == 0:
-                sales_total.append(sales_data[k])
-            else:
-                previous_total = sales_total[i-1]
-                sales_total.append(previous_total + sales_data[k])
+            sales_total.append(sales_data[k])
 
         data.update(
             {
@@ -95,13 +97,19 @@ class DataView(APIView):
 
         # total stock sold
         stock_sold_data = {}
-        for roll in TurfRoll.objects.all():
-            if roll.spec.code in stock_sold_data:
-                stock_sold_data[roll.spec.code] += roll.sold
+        for s in Order.objects.filter(
+            status__exact=Order.Status.CLOSED
+        ).order_by("closed_date"):
+            closed_month = s.closed_date.strftime("%Y-%m")
+            order_total = s.total_wt_discount
+            if closed_month in stock_sold_data:
+                stock_sold_data[closed_month] += order_total
             else:
-                stock_sold_data[roll.spec.code] = roll.sold
+                stock_sold_data.update({closed_month: order_total})
 
         stock_sold_labels = sorted(stock_sold_data.keys())
+        if len(stock_sold_labels) > 12:
+            sorted(stock_sold_data.keys()[:12])
         stock_sold_total = [stock_sold_data[k] for k in stock_sold_labels]
         data.update(
             {
@@ -119,6 +127,8 @@ class DataView(APIView):
                 {b.name: b.history_total}
             )
         buyer_labels = sorted(buyer_data.keys())
+        if len(buyer_labels) > 10:
+            buyer_labels = sorted(buyer_data.keys()[:10])
         buyer_total = [buyer_data[k] for k in buyer_labels]
         data.update(
             {

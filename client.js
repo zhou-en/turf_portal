@@ -5,7 +5,7 @@ const config = {
     password: "postgres",
     port: 5432
 };
-pgtools.createdb(config, "turf-portal", function(err, res) {
+pgtools.createdb(config, "turf_portal", function(err, res) {
     if (err) {
         console.error(err);
         process.exit(-1);

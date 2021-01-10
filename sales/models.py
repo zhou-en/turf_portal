@@ -142,7 +142,7 @@ class Order(TimeStampedModel, models.Model):
         if not self.pk:
             from sales.utils import remove_none_alphanumeric
             name_str = remove_none_alphanumeric(self.buyer.name.upper())
-            time_str = timezone.now().strftime('%Y%m%d%H')
+            time_str = timezone.now().strftime('%Y%m%d%H%M')
             self.number = f"{name_str}-{time_str}"
         super().save(*args, **kwargs)
 
