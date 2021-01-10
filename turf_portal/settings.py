@@ -88,8 +88,8 @@ WSGI_APPLICATION = 'turf_portal.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config('DB_NAME', 'turf-portal'),
-        'USER': config('DB_USER', 'turf-portal-user'),
+        'NAME': config('DB_NAME', 'turf_portal'),
+        'USER': config('DB_USER', 'turf_portal_user'),
         'PASSWORD': config('DB_PASSWORD'),
         'HOST': config('DB_HOST', '127.0.0.1'),
         'PORT': '5432',
