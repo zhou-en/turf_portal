@@ -36,7 +36,7 @@ class Invoice(TimeStampedModel, models.Model):
     closed_date = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.number}"
+        return f"{self.number} - {self.status}"
 
     def save(self, *args, **kwargs):
         # Only set number when creates
