@@ -16,9 +16,7 @@
 </div>
 
   <script>
-    var max_discount = {{ order.total_amount }} * 0.5;
     var price_elem = document.getElementsByName("price")[0];
-    price_elem.max = max_discount;
     price_elem.min = 0.0;
   </script>
 {% endblock %}

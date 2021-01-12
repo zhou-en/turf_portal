@@ -55,14 +55,14 @@ class PaymentCreateForm(forms.ModelForm):
         amount = cleaned_data.get('amount')
         max_amount = self.base_fields["amount"].max_value
         if amount and amount > max_amount:
-            # self.add_error('amount', "The paid amount is exceeded due amount.")
             raise ValidationError(
                 _('Amount exceeded due amount: R%(value)s'),
                 code='invalid',
                 params={'value': f"{max_amount}"},
             )
-        if not amount or (amount <= 0):
-            # self.add_error('amount', "The paid amount is exceeded due amount.")
+        try:
+            amount = float(amount)
+        except ValueError as err:
             raise ValidationError(
                 _('Invalid amount: %(value)s'),
                 code='invalid',
