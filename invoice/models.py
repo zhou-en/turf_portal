@@ -36,13 +36,16 @@ class Invoice(TimeStampedModel, models.Model):
     closed_date = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.number} - {self.status}"
+        return f"{self.id}: {self.number} - {self.status}"
 
     def save(self, *args, **kwargs):
         # Only set number when creates
         if not self.number:
-            self.number = self.order.number
-        super(Invoice, self).save(*args, **kwargs)
+            from sales.utils import remove_none_alphanumeric
+            name_str = remove_none_alphanumeric(self.buyer.name.upper())
+            time_str = self.order.number.split("-")[-1]
+            self.number = f"{name_str}-INV-{time_str}"
+        super().save(*args, **kwargs)
 
     def send(self):
         """

@@ -143,7 +143,7 @@ class Order(TimeStampedModel, models.Model):
             from sales.utils import remove_none_alphanumeric
             name_str = remove_none_alphanumeric(self.buyer.name.upper())
             time_str = timezone.now().strftime('%Y%m%d%H%M')
-            self.number = f"{name_str}-{time_str}"
+            self.number = f"{name_str}-ORD-{time_str}"
         super().save(*args, **kwargs)
 
     @property
@@ -178,7 +178,6 @@ class Order(TimeStampedModel, models.Model):
         logger.info("Invoice was created for order: %s", self.number)
         if created:
             invoice.status = Invoice.Status.DRAFT
-        invoice.number = self.number
         invoice.save()
 
     def revert(self):
