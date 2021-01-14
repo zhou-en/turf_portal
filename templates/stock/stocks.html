@@ -32,7 +32,7 @@
           <th>Warehouse</th>
           <th>Last Sold Date</th>
           <th>Loaded Date</th>
-          <th>Actions</th>
+<!--           <th>Actions</th> -->
         </tr>
         </thead>
         <tbody>
@@ -64,13 +64,13 @@
               <td>{{ roll.location }}</td>
               <td>{{ roll.modified|date:"Y/m/d" }}</td>
               <td>{{ roll.created|date:"Y/m/d" }}</td>
-              <td>
+<!--               <td>
                 {% if roll.available != 0 %}
                   <a href="{% url 'stock-split' roll.id %}" class="btn btn-sm btn-primary">Split</a>
                 {% else %}
                   <a href="{% url 'stock-split' roll.id %}" style="pointer-events: none;" class="btn btn-sm btn-outline-secondary">Split</a>
                 {% endif %}
-              </td>
+              </td> -->
             </tr>
           {% else %}
             <tr>
@@ -104,7 +104,7 @@
               {% endif %}
               <td>{{ roll.modified|date:"Y/m/d" }}</td>
               <td>{{ roll.created|date:"Y/m/d" }}</td>
-              <td style="text-align: center"></td>
+<!--               <td style="text-align: center"></td> -->
             </tr>
           {% endif %}
         {% endfor %}
@@ -148,7 +148,7 @@
             <th>Warehouse</th>
             <th>Last Sold Date</th>
             <th>Loaded Date</th>
-            <th>Actions</th>
+<!--             <th>Actions</th> -->
           </tr>
           </thead>
           <tbody>
@@ -180,13 +180,13 @@
                 <td>{{ roll.location }}</td>
                 <td>{{ roll.modified|date:"Y/m/d" }}</td>
                 <td>{{ roll.created|date:"Y/m/d" }}</td>
-                <td>
+<!--                 <td>
                   {% if roll.available != 0 %}
                     <a href="{% url 'stock-split' roll.id %}" class="btn btn-sm btn-primary">Split</a>
                   {% else %}
                     <a href="{% url 'stock-split' roll.id %}" style="pointer-events: none;" class="btn btn-sm btn-outline-secondary">Split</a>
                   {% endif %}
-                </td>
+                </td> -->
               </tr>
             {% else %}
               <tr>
@@ -220,7 +220,7 @@
                 {% endif %}
                 <td>{{ roll.modified|date:"Y/m/d" }}</td>
                 <td>{{ roll.created|date:"Y/m/d" }}</td>
-                <td style="text-align: center"></td>
+<!--                 <td style="text-align: center"></td> -->
               </tr>
             {% endif %}
           {% endfor %}
