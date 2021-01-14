@@ -249,7 +249,10 @@
       {% for spec, rolls in turf_rolls.items %}
       $(document).ready( function () {
           $('#stocks-table-{{ spec.id }}').DataTable(
-              {"ordering": false}
+              {
+                "ordering": false,
+                "pageLength": 100
+              }
           );
       } );
       {% endfor %}
