@@ -1,13 +1,11 @@
 import logging
 from django.urls import reverse_lazy
 from django.db.models import Q
-from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
+from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import (
-    View,
     UpdateView,
     DeleteView,
     DetailView,
@@ -39,6 +37,14 @@ class ProductListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ProductListView, self).get_context_data(**kwargs)
+        new_spec_available = False
+        existing_product_spec_ids = [p.spec.id for p in self.queryset]
+        for spec in RollSpec.objects.all():
+            if spec.id not in existing_product_spec_ids:
+                new_spec_available = True
+        context.update(
+            {"new_spec_available": new_spec_available}
+        )
         return context
 
 
@@ -49,11 +55,24 @@ class ProductCreateView(CreateView):
     success_url = reverse_lazy("products")
     form_class = ProductCreateForm
 
+    def get_form(self, form_class=None):
+        form = super().get_form()
+        existing_product_specs = [product.spec.id for product in Product.objects.all()]
+        spec_choices = [(None, _("Select a spec for product"))]
+        for spec in RollSpec.objects.all().exclude(id__in=existing_product_specs):
+            spec_choices.extend([(spec.id, _(spec.code))])
+        form.fields["spec"].choices = spec_choices
+        return form
+
     def post(self, request, *args, **kwargs):
         if "cancel" in request.POST:
             return HttpResponseRedirect(reverse_lazy("products"))
         else:
-            return super(ProductCreateView, self).post(request, *args, **kwargs)
+            spec_id = self.request.POST.get("spec")
+            Product.objects.create(
+                spec_id=spec_id,
+            )
+            return HttpResponseRedirect(reverse_lazy("products"))
 
 
 @method_decorator(login_required, name="dispatch")
@@ -64,10 +83,6 @@ class ProductDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context["available_rolls"] = TurfRoll.objects.filter(
-        #     spec__id=self.object.spec_id
-        # ).filter(~Q(status=TurfRoll.Status.DEPLETED))
-
         context["available_rolls"] = TurfRoll.objects.filter(
             spec=self.object.spec
         ).order_by("status")

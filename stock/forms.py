@@ -1,10 +1,9 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Button, Submit
 from django import forms
-from django.forms.widgets import SelectDateWidget, Select
 from django.utils.safestring import mark_safe
 
-from stock.models import Product, RollSpec, TurfRoll
+from stock.models import Product, TurfRoll
 
 
 class ProductCreateForm(forms.ModelForm):
@@ -15,8 +14,8 @@ class ProductCreateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.base_fields["spec"].required = True
-        self.base_fields["has_stock"].disabled = True
         self.base_fields["code"].disabled = True
+        self.base_fields["code"].help_text = "Code will be generated after save."
         self.helper = FormHelper()
         self.helper.add_input(Button('cancel', 'Cancel', onclick='window.history.back();'))
         self.helper.add_input(Submit('submit', 'Submit'))

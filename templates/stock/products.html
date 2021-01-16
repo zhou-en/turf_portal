@@ -2,7 +2,11 @@
 
 {% block content %}
   <br>
-  <a href="{% url 'product-create' %}" class="btn btn-sm btn-primary float-lg-right">New Product</a>
+  {% if new_spec_available %}
+    <a href="{% url 'product-create' %}" class="btn btn-sm btn-primary float-lg-right">New Product</a>
+  {% else %}
+    <a href="{% url 'product-create' %}" class="btn btn-sm btn-secondary float-lg-right disabled">New Product</a>
+  {% endif %}
   <br>
   <br>
   <hr>
