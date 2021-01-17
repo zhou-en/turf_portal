@@ -5,7 +5,7 @@
   <br>
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Select item to add to order:</h3>
+      <h3 class="card-title"><strong>Select item to add to order:</strong></h3>
     </div>
   {% if buyer_products %}
     <form id="order-add-item-form" method="post">
@@ -14,12 +14,13 @@
 
     <ul>
       {% for bp in buyer_products %}
-        <li><h4>{{ bp.product.code }}: R{{ bp.price }}/{% if bp.product.spec.is_turf %}m<sup>2</sup>{% else %}m{% endif %}</h4></li>
+        <li><h4><strong>{{ bp.product.code }}: R{{ bp.price }}/{% if bp.product.spec.is_turf %}m<sup>2</sup>{% else %}m{% endif %}</strong></h4></li>
         {% if bp.available_rolls %}
           <table id="{{ bp.product }}-{{ bp.id }}" class="table table-sm table-hover">
             <thead>
             <tr>
               <th>Roll ID</th>
+              <th>Note</th>
               <th>Quantity</th>
               <th>Available</th>
               <th>Reserved</th>
@@ -34,6 +35,11 @@
               {% if not roll.id in ordered_rolls and roll.available != 0  %}
               <tr>
                 <td><a href="{% url 'roll-update' roll.id %}">{{ roll.id }}</a></td>
+                {% if roll.note %}
+                  <td>{{ roll.note }}</td>
+                {% else %}
+                  <td></td>
+                {% endif %}
                 <td width="20%">
                   <input max="{{ roll.available }}" min="0" name="turf-roll" id="{{ roll.id }}" type="number" style="width:100px;" onchange="updateSelectedRolls()">
                 </td>
@@ -65,6 +71,8 @@
             <p> There is no stock available for this product.</p>
           </div>
         {% endif %}
+        <hr>
+        <br>
       {% endfor %}
     </ul>
     </div>
