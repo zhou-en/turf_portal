@@ -6,14 +6,18 @@
   <div class="row">
     <div class="container-fluid">
     <a href="{% url 'load-stocks' %}" class="btn btn-sm btn-primary float-lg-right">Load Stocks</a>
+    {% for spec, rolls in turf_rolls.items %}
+      <a id="{{ spec.id }}" name="spec-button" onclick='showMe("{{ spec.id }}")' class="btn btn-sm btn-outline-success">{{ spec.code }}</a>
+    {% endfor %}
     </div>
+
   </div>
   <br>
 
 {% for spec, rolls in turf_rolls.items %}
 
   {% if spec.is_turf %}
-  <div class="card">
+  <div id="card-{{ spec.id }}" class="card" style="visibility: hidden">
     <div class="card-header">
       <h5 class="card-title"><strong>{{ spec.code }}</strong></h5>
     </div>
@@ -129,7 +133,7 @@
 
   {% else %}
 
-  <div class="card">
+  <div id="card-{{ spec.id }}" class="card" style="visibility: hidden">
     <div class="card-header">
       <h5 class="card-title"><strong>{{ spec.code }}</strong></h5>
     </div>
@@ -245,6 +249,40 @@
   {% endif %}
 {% endfor %}
   <script>
+      // enable the first stock on load
+      document.getElementsByName("spec-button")[0].classList.add("btn-success");
+      document.getElementsByName("spec-button")[0].classList.remove("btn-outline-success");
+      document.getElementsByClassName("card")[0].style.visibility = "visible";
+
+      function showMe(id) {
+          let cards = document.getElementsByClassName("card");
+          for (let i=0; i<cards.length; i++) {
+              let card = cards[i];
+              card.style.visibility = "hidden";
+          }
+          let spec_btns = document.getElementsByName("spec-button");
+          for (let i=0; i<spec_btns.length; i++) {
+              let btn = spec_btns[i];
+              if (id === btn.id) {
+                  if (btn.classList.contains("btn-outline-success")) {
+                      btn.classList.remove("btn-outline-success");
+                      btn.classList.add("btn-success");
+                      let clicked_card_id = "card-" + id;
+                      let clicked_card = document.getElementById(clicked_card_id);
+                      clicked_card.parentNode.insertBefore(clicked_card, cards[0]);
+                      document.getElementsByClassName("card")[0].style.visibility = "visible";
+                  } else {
+                      btn.classList.remove("btn-success");
+                      btn.classList.add("btn-outline-success");
+                  }
+              } else {
+                  if (btn.classList.contains("btn-success")) {
+                      btn.classList.remove("btn-success");
+                      btn.classList.add("btn-outline-success");
+                  }
+              }
+          }
+      }
 
       {% for spec, rolls in turf_rolls.items %}
       $(document).ready( function () {
