@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block content %}
     <br>
@@ -29,10 +30,10 @@
           <tr>
             <td><a style="display: inline-block; height: 100%; width: 100%" href="{% url 'order' order.id %}"><span>{{ order.number }}</span></a></td>
             <td>{{ order.buyer.name }}</td>
-            <td>{{ order.total_wt_discount|floatformat:2 }}</td>
+            <td>R{{ order.total_wt_discount|floatformat:2|intcomma }}</td>
             <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a></td>
-            <td>{{ order.modified }}</td>
-            <td>{% if not order.closed_date %}-{% else %}{{ order.closed_date }}{% endif %}</td>
+            <td>{{ order.modified|date:"Y-m-d" }}</td>
+            <td>{% if not order.closed_date %}-{% else %}{{ order.closed_date|date:"Y-m-d" }}{% endif %}</td>
           </tr>
           {% endif %}
         {% endfor %}
@@ -66,10 +67,10 @@
             <tr>
               <td><a href="{% url 'order' order.id %}"><span>{{ order.number }}</span></a></td>
               <td>{{ order.buyer.name }}</td>
-              <td>{{ order.total_wt_discount|floatformat:2 }}</td>
+              <td>R{{ order.total_wt_discount|floatformat:2|intcomma }}</td>
               <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a></td>
-              <td>{{ order.modified|date:"Y/m/d" }}</td>
-              <td>{% if not order.closed_date %}-{% else %}{{ order.closed_date|date:"Y/m/d" }}{% endif %}</td>
+              <td>{{ order.modified|date:"Y-m-d" }}</td>
+              <td>{% if not order.closed_date %}-{% else %}{{ order.closed_date|date:"Y-m-d" }}{% endif %}</td>
             </tr>
           {% endif %}
         {% endfor %}

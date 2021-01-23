@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block content %}
 
@@ -50,24 +51,25 @@
                 <td></td>
               {% endif %}
               <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
-              <td class="text-success">{{ roll.available }}</td>
+              <td class="text-success">{{ roll.available|floatformat:2|intcomma }}</td>
 
               {% if roll.reserved != 0 %}
-                <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:1 }}</a></td>
+                <td><a class="text-warning" style="color: #anycolor
+                        !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:2|intcomma}}</a></td>
               {% else %}
-                <td>{{ roll.reserved }}</td>
+                <td>{{ roll.reserved|floatformat:2|intcomma }}</td>
               {% endif %}
 
               {% if roll.sold != 0 %}
-                <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:1 }}</a></td>
+                <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:2|intcomma }}</a></td>
               {% else %}
-                <td>{{ roll.sold }}</td>
+                <td>{{ roll.sold|floatformat:2|intcomma }}</td>
               {% endif %}
 
               <td>{{ roll.batch }}</td>
               <td>{{ roll.location }}</td>
-              <td>{{ roll.modified|date:"Y/m/d" }}</td>
-              <td>{{ roll.created|date:"Y/m/d" }}</td>
+              <td>{{ roll.modified|date:"Y-m-d" }}</td>
+              <td>{{ roll.created|date:"Y-m-d" }}</td>
 <!--               <td>
                 {% if roll.available != 0 %}
                   <a href="{% url 'stock-split' roll.id %}" class="btn btn-sm btn-primary">Split</a>
@@ -85,18 +87,19 @@
                 <td></td>
               {% endif %}
               <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
-              <td class="text-success">{{ roll.available }}</td>
+              <td class="text-success">{{ roll.available|floatformat:2|intcomma }}</td>
 
               {% if roll.reserved != 0 %}
-                <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:1 }}</a></td>
+                <td><a class="text-warning" style="color: #anycolor
+                        !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:2|intcomma }}</a></td>
               {% else %}
-                <td>{{ roll.reserved }}</td>
+                <td>{{ roll.reserved|floatformat:2|intcomma }}</td>
               {% endif %}
 
               {% if roll.sold != 0 %}
-                <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:1 }}</a></td>
+                <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:2|intcomma }}</a></td>
               {% else %}
-                <td>{{ roll.sold }}</td>
+                <td>{{ roll.sold|floatformat:2|intcomma }}</td>
               {% endif %}
 
               <td>{{ roll.batch }}</td>
@@ -106,8 +109,8 @@
               {% else %}
                 <td></td>
               {% endif %}
-              <td>{{ roll.modified|date:"Y/m/d" }}</td>
-              <td>{{ roll.created|date:"Y/m/d" }}</td>
+              <td>{{ roll.modified|date:"Y-m-d" }}</td>
+              <td>{{ roll.created|date:"Y-m-d" }}</td>
 <!--               <td style="text-align: center"></td> -->
             </tr>
           {% endif %}
@@ -166,24 +169,25 @@
                   <td></td>
                 {% endif %}
                 <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
-                <td class="text-success">{{ roll.available }}</td>
+                <td class="text-success">{{ roll.available|floatformat:2|intcomma }}</td>
 
                 {% if roll.reserved != 0 %}
-                  <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:1 }}</a></td>
+                  <td><a class="text-warning" style="color: #anycolor
+                          !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:2|intcomma }}</a></td>
                 {% else %}
-                  <td>{{ roll.reserved }}</td>
+                  <td>{{ roll.reserved|floatformat:2|intcomma }}</td>
                 {% endif %}
 
                 {% if roll.sold != 0 %}
-                  <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:1 }}</a></td>
+                  <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:2|intcomma }}</a></td>
                 {% else %}
-                  <td>{{ roll.sold }}</td>
+                  <td>{{ roll.sold|floatformat:2|intcomma }}</td>
                 {% endif %}
 
                 <td>{{ roll.batch }}</td>
                 <td>{{ roll.location }}</td>
-                <td>{{ roll.modified|date:"Y/m/d" }}</td>
-                <td>{{ roll.created|date:"Y/m/d" }}</td>
+                <td>{{ roll.modified|date:"Y-m-d" }}</td>
+                <td>{{ roll.created|date:"Y-m-d" }}</td>
 <!--                 <td>
                   {% if roll.available != 0 %}
                     <a href="{% url 'stock-split' roll.id %}" class="btn btn-sm btn-primary">Split</a>
@@ -201,18 +205,19 @@
                   <td></td>
                 {% endif %}
                 <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
-                <td class="text-success">{{ roll.available }}</td>
+                <td class="text-success">{{ roll.available|floatformat:2|intcomma }}</td>
 
                 {% if roll.reserved != 0 %}
-                  <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:1 }}</a></td>
+                  <td><a class="text-warning" style="color: #anycolor
+                          !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:2|intcomma}}</a></td>
                 {% else %}
-                  <td>{{ roll.reserved }}</td>
+                  <td>{{ roll.reserved|floatformat:2|intcomma }}</td>
                 {% endif %}
 
                 {% if roll.sold != 0 %}
-                  <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:1 }}</a></td>
+                  <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:2|intcomma }}</a></td>
                 {% else %}
-                  <td>{{ roll.sold }}</td>
+                  <td>{{ roll.sold|floatformat:2|intcomma }}</td>
                 {% endif %}
 
                 <td>{{ roll.batch }}</td>
@@ -222,8 +227,8 @@
                 {% else %}
                   <td></td>
                 {% endif %}
-                <td>{{ roll.modified|date:"Y/m/d" }}</td>
-                <td>{{ roll.created|date:"Y/m/d" }}</td>
+                <td>{{ roll.modified|date:"Y-m-d" }}</td>
+                <td>{{ roll.created|date:"Y-m-d" }}</td>
 <!--                 <td style="text-align: center"></td> -->
               </tr>
             {% endif %}

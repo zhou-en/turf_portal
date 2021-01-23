@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block content %}
   <br>
@@ -23,7 +24,7 @@
         <th>Height</th>
         <th>Width</th>
         <th>Stocks Status</th>
-        <th>Available</th>
+        <th>Available Total</th>
       </tr>
       </thead>
       <tbody>
@@ -32,14 +33,14 @@
           <td><a href="{% url 'product' product.id %}">{{ product.code }}</a></td>
           <td>{{ product.spec.category }}</td>
           <td>{{ product.spec.color }}</td>
-          <td>{{ product.spec.height }} (mm)</td>
-          <td>{{ product.spec.width }} (m)</td>
+          <td>{{ product.spec.height.value|floatformat:2|intcomma }} (mm)</td>
+          <td>{{ product.spec.width.value|floatformat:2|intcomma|floatformat:2|intcomma }} (m)</td>
           {% if product.has_stock %}
             <td><a class="btn btn-sm btn-success" style="pointer-events: none;">Available</a></td>
           {% else %}
             <td><a class="btn btn-sm btn-secondary" style="pointer-events: none;">Out of Stock</a></td>
           {% endif %}
-          <td>{{ product.stock_available }} {% if product.stock_available != 0 %}({{ product.spec.sale_by }}){% endif %}</td>
+          <td>{{ product.stock_available|floatformat:2|intcomma }} {% if product.stock_available != 0 %}({{ product.spec.sale_by }}){% endif %}</td>
         </tr>
       {% endfor %}
       </tbody>
