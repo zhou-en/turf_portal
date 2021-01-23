@@ -106,15 +106,14 @@ class Invoice(TimeStampedModel, models.Model):
         ]
 
 
-class Payment(TimeStampedModel, models.Model):
+class   Payment(TimeStampedModel, models.Model):
     """
     Payment made to an invoice.
     """
     class Method(models.TextChoices):
-        EFT = "EFT", _("EFT")
-        # when invoice is sent to buyer
+        CARD = 'CARD', _('Card')
         CASH = 'CASH', _('Cash')
-        # when payment is completed
+        EFT = "EFT", _("EFT")
         OTHER = 'OTHER', _('Other')
 
     method = models.CharField(

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+  {% if messages %}
+    {% for message in messages %}
+      {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+    {% endfor %}
+
+  {% endif %}
+<div class="card">
+  <div class="card-header">
+      <h5 class="card-title">Expense Details</h5>
+  </div>
+    <div class="card-body table-responsive-sm">
+      <dl class="row">
+
+        <dt class="col-sm-3">Date</dt>
+        <dd class="col-sm-9">{{ expense.date|date:"Y-m-d" }}</dd>
+
+        <dt class="col-sm-3">Description</dt>
+        <dd class="col-sm-9">{{ expense.description }}</dd>
+
+        <dt class="col-sm-3">Paid with</dt>
+        <dd class="col-sm-9">{{ expense.method }}</dd>
+
+        <dt class="col-sm-3">Amount</dt>
+        <dd class="col-sm-9" style="color:red">-R{{ expense.amount|floatformat:2 }}</dd>
+
+      </dl>
+    </div>
+
+    <div class="card-footer text-lg-center">
+      <a href="{% url 'expense-landing' %}" class="btn btn-sm btn-secondary float-lg-left">Back to Expenses</a>
+      <a href="{% url 'expense-update' expense.id %}" class="btn btn-sm btn-primary float-lg-right">Update</a>
+    </div>
+</div>
+
+
+{% endblock %}

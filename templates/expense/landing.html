@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <br>
+  <div class="row">
+    <div class="container-fluid">
+
+      <a href="{% url 'expenses' %}" class="btn btn-sm btn-danger float-lg-right">All Expenses</a>
+       <a href="{% url 'payments' %}" class="btn btn-sm
+           btn-success float-lg-right" style="margin-right: 20px">All Payments</a>
+       <a href="{% url 'expense-create' %}" class="btn btn-sm btn-primary" style="margin-right: 20px;">Add Expense</a>
+    </div>
+  </div>
+
+  <br>
+  <div class="container">
+    <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+      <i data-feather="calendar"></i>&nbsp;
+      <span></span> <i class="fa fa-caret-down"></i>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <strong class="card-title">Search Result</strong>
+      </div>
+      <div id="expense-card" class="card-body table-responsive-sm">
+{#        <table id="expenses-table" class="display table table-striped table-hover">#}
+{#          <thead class="thead-dark">#}
+{#          <tr>#}
+{#            <th>Date</th>#}
+{#            <th>Description</th>#}
+{#            <th>Paid with</th>#}
+{#            <th>Amount</th>#}
+{#          </tr>#}
+{#          </thead>#}
+{#          <tbody id="expenses-table-body">#}
+{#          </tbody>#}
+{#        </table>#}
+      </div>
+    </div>
+  </div>
+
+
+
+  <script>
+
+      $(function() {
+
+          var start = moment().startOf('month') //moment().subtract(30, 'days');
+          var end =  moment().endOf('month')//moment();
+
+          function cb(start, end) {
+              $('#reportrange span').html(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+              console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+
+              var start_date = start.format("YYYY-MM-DD");
+              var end_date = end.format("YYYY-MM-DD");
+              $.ajax({
+                  type: "GET",
+                  url: "{% url 'search-expense' %}",
+                  data: {
+                      csrfmiddlewaretoken: '{{ csrf_token }}',
+                      text: "this is my test view",
+                      start_date: start_date,
+                      end_date: end_date,
+                  },   /* Passing the text data */
+                  success:  function(response){
+                      var results = response.results;
+                        var total_income = response.total_income;
+                      console.log(total_income);
+                      // EXTRACT VALUE FOR HTML HEADER.
+                      var col = [];
+                      for (var i = 0; i < results.length; i++) {
+                          for (var key in results[i]) {
+                              if (col.indexOf(key) === -1) {
+                                  col.push(key);
+                              }
+                          }
+                      }
+                      // CREATE DYNAMIC TABLE.
+                      var table = document.createElement("table");
+                      // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+                      var tr = table.insertRow(-1);                   // TABLE ROW.
+                      for (var i = 0; i < col.length; i++) {
+                          var th = document.createElement("th");      // TABLE HEADER.
+                          th.innerHTML = col[i];
+                          tr.appendChild(th);
+                      }
+                      // ADD JSON DATA TO THE TABLE AS ROWS.
+                      var total_expense = 0;
+                      for (var i = 0; i < results.length+2; i++) {
+                          tr = table.insertRow(-1);
+                          if (i<results.length) {
+                              for (var j = 0; j < col.length; j++) {
+                                  var tabCell = tr.insertCell(-1);
+                                  if(j==col.length-1) {
+                                    tabCell.innerHTML = "-R" + results[i][col[j]].toString();
+                                  } else if (j==0) {
+                                      var expense_id = results[i][col[j]];
+                                      tabCell.innerHTML = '<a href="expense/' + expense_id + '">' + expense_id +'</a>';
+                                  }else {
+                                    tabCell.innerHTML = results[i][col[j]];
+                                  }
+                              }
+                                total_expense = total_expense + results[i].AMOUNT;
+                          } else if (i==results.length) {
+                              for (var j = 0; j < col.length; j++) {
+                                  var tabCell = tr.insertCell(-1);
+                                  if (j==col.length-2) {
+                                    tabCell.innerHTML = "Total Expense";
+                                    tabCell.style.fontWeight = 'bold';
+                                  } else if (j==col.length-1) {
+                                    tabCell.innerHTML = "-R" + total_expense.toString();
+                                    tabCell.id = "total-expense-cell";
+                                    tabCell.style.fontWeight = 'bold';
+                                  } else {
+                                    tabCell.innerHTML = ""; 
+                                  }
+                              }
+                          } else if (i==results.length+1) {
+                            for (var j = 0; j < col.length; j++) {
+                                var tabCell = tr.insertCell(-1);
+                                if (j==col.length-2) {
+                                    tabCell.innerHTML = "Payments Received During this Period";
+                                    tabCell.style.fontWeight = 'bold';
+                                  } else if (j==col.length-1) {
+                                    tabCell.innerHTML = "R" + total_income.toString();
+                                    tabCell.id = "total-income-cell";
+                                    tabCell.style.fontWeight = 'bold';
+                                  } else {
+                                    tabCell.innerHTML = ""; 
+                                  }
+                              }
+
+                          }
+                      }
+                        // Add total income and expense for the queried range
+
+                      // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+                      table.id = "expenses-table";
+                      table.classList.add("table");
+                      table.classList.add("table-sm");
+                      {#table.classList.add("table-hover");#}
+                      var divContainer = document.getElementById("expense-card");
+                      divContainer.innerHTML = "";
+                      divContainer.appendChild(table);
+                      document.getElementById("total-expense-cell").style.color="#FF0000";
+                      document.getElementById("total-income-cell").style.color="#63D463";
+                  }
+              });
+          }
+
+          $('#reportrange').daterangepicker({
+              "locale": {
+                  "applyLabel": "Search Expenses",
+                  "cancelLabel": "Clear",
+              },
+              startDate: start,
+              endDate: end,
+              ranges: {
+                  'Today': [moment(), moment()],
+                  'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                  'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                  'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                  'This Month': [moment().startOf('month'), moment().endOf('month')],
+                  'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+              }
+          },
+              cb
+
+          );
+
+          cb(start, end);
+      });
+
+      {% for spec, rolls in turf_rolls.items %}
+          $(document).ready( function () {
+              $('#expenses-table').DataTable(
+                  {
+                      "ordering": false,
+                      "pageLength": 100
+                  }
+              );
+          } );
+      {% endfor %}
+
+  </script>
+
+
+{% endblock %}

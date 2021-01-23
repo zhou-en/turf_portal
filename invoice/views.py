@@ -80,6 +80,19 @@ class PaymentCreateView(CreateView):
         return context
 
 
+@method_decorator(login_required, name='dispatch')
+class PaymentListView(ListView):
+    model = Payment
+    template_name = "invoice/payment_list.html"
+    context_object_name = 'payments'
+    queryset = Payment.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(PaymentListView, self).get_context_data(**kwargs)
+        return context
+
+
+
 class ExportPDFView(View):
 
     def get(self, request, *args, **kwargs):

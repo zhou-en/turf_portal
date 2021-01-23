@@ -18,7 +18,7 @@ def order_status_color(status):
     if status == Order.Status.DELIVERED:
         return "warning"
     if status == Order.Status.CLOSED:
-        return "secondary"
+        return "outline-secondary"
 
 
 def invoice_status_color(status):
@@ -28,7 +28,7 @@ def invoice_status_color(status):
     if status == Invoice.Status.PAYMENT_OUTSTANDING:
         return "danger"
     if status == Invoice.Status.CLOSED:
-        return "secondary"
+        return "outline-secondary"
 
 
 def buyer_status_color(status):

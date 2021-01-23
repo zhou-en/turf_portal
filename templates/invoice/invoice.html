@@ -83,9 +83,9 @@
     </div>
 
     <div class="card-footer text-lg-center">
+        <a href="{% url 'invoices' %}" class="btn btn-sm btn-secondary float-lg-left">Back</a>
 
       {% if not invoice.has_payment %}
-        <a href="{% url 'invoices' %}" class="btn btn-sm btn-secondary float-lg-left">Back</a>
         {% if invoice.is_payable %}
           <a class="btn btn-sm btn-primary float-lg-right" style="margin-left: 20px;" href="{% url 'payment-create' invoice.id %}">Add Payment</a>
         {% endif %}
@@ -125,9 +125,6 @@
         </table>
       </div>
       <div class="card-footer text-center">
-        {% if payments %}
-          <a href="{% url 'invoices' %}" class="btn btn-sm btn-secondary float-lg-left">Back</a>
-        {% endif %}
         {% if invoice.is_payable %}
           <a class="btn btn-sm btn-primary float-lg-right" style="margin-left: 20px;" href="{% url 'payment-create' invoice.id %}">Add Payment</a>
         {% endif %}
