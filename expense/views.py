@@ -21,15 +21,7 @@ logger = logging.getLogger(__name__)
 
 @login_required
 def landing(request):
-    # count = User.objects.count()
-    # # Option 2
-    # recent_orders = Order.objects.exclude(
-    #     status__exact=Order.Status.CLOSED
-    # ).filter(created__gt=timezone.now()-timedelta(7)).order_by("modified")
-    return render(request, "expense/landing.html", {
-        # "count": count,
-        # "recent_orders": recent_orders
-    })
+    return render(request, "expense/landing.html", {})
 
 
 # Create your views here.
@@ -56,8 +48,7 @@ class ExpenseCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         if "cancel" in request.POST:
             return HttpResponseRedirect(reverse_lazy("buyers"))
-        else:
-            return super(ExpenseCreateView, self).post(request, *args, **kwargs)
+        return super(ExpenseCreateView, self).post(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse_lazy("expense", kwargs={"pk": self.object.id})
