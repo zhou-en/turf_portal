@@ -23,7 +23,7 @@
         <td>{{ payment.created|date:"Y-m-d" }}</td>
         <td><a href={% url 'invoice' payment.invoice.id %}>{{ payment.invoice }}</a></td>
           <td>{{ payment.method }}</td>
-          <td>R{{ payment.amount }}</td>
+          <td style="color: green">R{{ payment.amount }}</td>
           </tr>
         {% endfor %}
       </tbody>

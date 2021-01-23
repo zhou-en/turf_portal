@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block content %}
 <br>
@@ -17,22 +18,22 @@
         <dt class="col-sm-3">Buyer</dt>
         <dd class="col-sm-9"><a href="{% url 'buyer' order.buyer.id %}">{{ order.buyer.name }}</a></dd>
 
-        <dt class="col-sm-3">Total (R)</dt>
-        <dd class="col-sm-9">{{ order.total_amount|floatformat:2 }}</dd>
+        <dt class="col-sm-3">Total</dt>
+        <dd class="col-sm-9">R{{ order.total_amount|floatformat:2|intcomma }}</dd>
 
         {% if order.discounted %}
           <dt class="col-sm-3">Discount (R)</dt>
-          <dd class="col-sm-9">-{{ order.discount|floatformat:2 }}</dd>
+          <dd class="col-sm-9">-{{ order.discount|floatformat:2|intcomma }}</dd>
 
           <dt class="col-sm-3">Total Due (R)</dt>
-          <dd class="col-sm-9">{{ order.total_wt_discount|floatformat:2 }}</dd>
+          <dd class="col-sm-9">{{ order.total_wt_discount|floatformat:2|intcomma }}</dd>
         {% endif %}
 
         {% if order.invoice %}
           <dt class="col-sm-3">Invoice</dt>
           <dd class="col-sm-9">
             <a href="{% url 'invoice' order.invoice.id %}">{{ order.invoice.number }}</a>
-            <a class="btn btn-sm btn-outline-{{ order.invoice.status_color }}" style="pointer-events: none; margin-left: 10px;">{{ order.invoice.status }}</a>
+            <a class="btn btn-sm btn-{{ order.invoice.status_color }}" style="pointer-events: none; margin-left: 10px;">{{ order.invoice.status }}</a>
           </dd>
         {% endif %}
 
@@ -68,16 +69,16 @@
               <td>Discount</td>
               <td></td>
               <td></td>
-              <td>{{ ol.quantity }}</td>
-              <td>-R{{ ol.price|floatformat:2 }}</td>
-              <td>-R{{ ol.total|floatformat:2 }}</td>
+              <td>{{ ol.quantity|floatformat:2|intcomma }}</td>
+              <td>-R{{ ol.price|floatformat:2|intcomma }}</td>
+              <td>-R{{ ol.total|floatformat:2|intcomma }}</td>
             {% else %}
               <td>{{ ol.product }}</td>
               <td><a href="{% url 'roll-update' ol.roll.id %}">{{ ol.roll.id }}</a></td>
               <td>{{ ol.roll.batch }}</td>
               <td>{{ ol.quantity }} ({{ ol.roll.spec.sale_by }})</td>
-              <td>{{ ol.price|floatformat:2 }} (R/{{ ol.roll.spec.sale_by }})</td>
-              <td>R{{ ol.total|floatformat:2 }}</td>
+              <td>{{ ol.price|floatformat:2|intcomma }} (R/{{ ol.roll.spec.sale_by }})</td>
+              <td>R{{ ol.total|floatformat:2|intcomma }}</td>
             {% endif %}
             {% if order.editable %}
               <td style="text-align: justify">

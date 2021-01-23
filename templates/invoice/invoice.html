@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block content %}
 <br>
@@ -31,25 +32,25 @@
         <dt class="col-sm-3">Buyer</dt>
         <dd class="col-sm-9"><a href="{% url 'buyer' invoice.buyer.id %}"><span>{{ invoice.buyer.name }}</span></a></dd>
 
-        <dt class="col-sm-3">Total (R)</dt>
-        <dd class="col-sm-9">{{ invoice.order.total_amount|floatformat:2 }}</dd>
+        <dt class="col-sm-3">Total</dt>
+        <dd class="col-sm-9">R{{ invoice.order.total_amount|floatformat:2|intcomma }}</dd>
 
         {% if invoice.order.discounted %}
-        <dt class="col-sm-3">Discount (R)</dt>
-        <dd class="col-sm-9">-{{ invoice.order.discount|floatformat:2 }}</dd>
+        <dt class="col-sm-3">Discount</dt>
+        <dd class="col-sm-9">-R{{ invoice.order.discount|floatformat:2|intcomma }}</dd>
         {% endif %}
 
-        <dt class="col-sm-3">Amount Paid (R)</dt>
-        <dd class="col-sm-9 text-success">{{ invoice.total_payment|floatformat:2 }}</dd>
+        <dt class="col-sm-3">Amount Paid</dt>
+        <dd class="col-sm-9 text-success">R{{ invoice.total_payment|floatformat:2|intcomma }}</dd>
 
-        <dt class="col-sm-3">Amount Due (R)</dt>
-        <dd class="col-sm-9 text-danger">{{ invoice.amount_due|floatformat:2 }}</dd>
+        <dt class="col-sm-3">Amount Due</dt>
+        <dd class="col-sm-9 text-danger">R{{ invoice.amount_due|floatformat:2|intcomma }}</dd>
 
         <dt class="col-sm-3">Created Date</dt>
-        <dd class="col-sm-9">{{ invoice.created }}</dd>
+        <dd class="col-sm-9">{{ invoice.created|date:"Y-m-d" }}</dd>
 
         <dt class="col-sm-3">Closed Date</dt>
-        <dd class="col-sm-9">{% if not invoice.closed_date %}-{% else %}{{ invoice.closed_date }}{% endif %}</dd>
+        <dd class="col-sm-9">{% if not invoice.closed_date %}-{% else %}{{ invoice.closed_date|date:"Y-m-d" }}{% endif %}</dd>
       </dl>
 
       <hr>
@@ -72,9 +73,9 @@
               <td>-R{{ ol.total|floatformat:2 }}</td>
             {% else %}
               <td>{{ ol.product }}</td>
-              <td>{{ ol.quantity }} {{ ol.product.spec.sale_by }}</td>
+              <td>{{ ol.quantity|floatformat:2|intcomma }} {{ ol.product.spec.sale_by }}</td>
               <td>{{ ol.price|floatformat:2 }} (R/{{ ol.product.spec.sale_by }})</td>
-              <td>R{{ ol.total|floatformat:2 }}</td>
+              <td>R{{ ol.total|floatformat:2|intcomma }}</td>
             {% endif %}
           </tr>
         {% endfor %}
@@ -108,7 +109,7 @@
         <table class="table table-sm table-borderless">
           <thead>
           <tr>
-            <th>Amount (R)</th>
+            <th>Amount</th>
             <th>Method</th>
             <th>Payment Date</th>
           </tr>
@@ -116,9 +117,9 @@
           <tbody>
           {% for p in payments %}
             <tr>
-              <td class="text-success">{{ p.amount|floatformat:2 }}</td>
+              <td class="text-success">R{{ p.amount|floatformat:2|intcomma }}</td>
               <td>{{ p.method }}</td>
-              <td>{{ p.created|date:"Y/m/d" }}</td>
+              <td>{{ p.created|date:"Y-m-d" }}</td>
             </tr>
           {% endfor %}
           </tbody>

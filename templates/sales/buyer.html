@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load humanize %}
 
 {% block content %}
   <br>
@@ -41,8 +42,8 @@
         <dt class="col-sm-3">Contact Person</dt>
         <dd class="col-sm-9">{{ buyer.contact_person }}</dd>
 
-        <dt class="col-sm-3">Total Revenue (R)</dt>
-        <dd class="col-sm-9">{{ buyer.history_total|floatformat:2 }}</dd>
+        <dt class="col-sm-3">Total Revenue</dt>
+        <dd class="col-sm-9">R{{ buyer.history_total|floatformat:2|intcomma }}</dd>
       </dl>
     </div>
   <div class="card-footer">
@@ -76,9 +77,9 @@
             <td><a href="{% url 'buyer-product-update' bp.id %}" >{{ bp.product.code }}</a></td>
             <td>{{ bp.product.spec.category }}</td>
             <td>{{ bp.product.spec.color }}</td>
-            <td>{{ bp.product.spec.height }}</td>
-            <td>{{ bp.product.spec.width }}</td>
-            <td>{{ bp.price|floatformat:2 }}</td>
+            <td>{{ bp.product.spec.height.value|floatformat:2|intcomma }}</td>
+            <td>{{ bp.product.spec.width.value|floatformat:2|intcomma }}</td>
+            <td>{{ bp.price|floatformat:2|intcomma }}</td>
             <td>
               <a href="{% url 'buyer-product-update' bp.id %}"><span data-feather="edit"></span></a>
               <a href="{% url 'buyer-product-delete' bp.id %}"><span data-feather="trash-2"></span></a>
@@ -112,7 +113,7 @@
         <tr>
           <th>Order</th>
           <th>Status</th>
-          <th>Total (R)</th>
+          <th>Total</th>
           <th>Created Date</th>
           <th>Closed Date</th>
           <th>Invoice</th>
@@ -123,9 +124,9 @@
           <tr>
             <td><a href="{% url 'order' order.id %}" >{{ order.number }}</a></td>
             <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a></td>
-            <td>{{ order.total_wt_discount|floatformat:2 }}</td>
-            <td>{{ order.created }}</td>
-            <td>{{ order.closed_date }}</td>
+            <td>R{{ order.total_wt_discount|floatformat:2|intcomma }}</td>
+            <td>{{ order.created|date:"Y-m-d" }}</td>
+            <td>{{ order.closed_date|date:"Y-m-d" }}</td>
             {% if order.invoice %}
               <td><a href="{% url 'invoice' order.invoice.id %}" >{{ order.invoice.number }}</a></td>
             {% else %}

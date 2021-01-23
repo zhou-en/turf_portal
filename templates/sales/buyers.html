@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block content %}
     <br>
@@ -20,7 +21,7 @@
         <th>Mobile</th>
         <th>Email</th>
         <th>Address</th>
-        <th>Total Revenue (R)</th>
+        <th>Total Revenue</th>
         <th>Actions</th>
       </tr>
       </thead>
@@ -37,7 +38,7 @@
           {% else %}
           <td></td>
           {% endif %}
-          <td>{{ buyer.history_total }}</td>
+          <td>R{{ buyer.history_total|floatformat:2|intcomma }}</td>
           <td>
             <a href="{% url 'buyer-update' buyer.id %}"><span data-feather="edit"></span></a>
             <a href="{% url 'buyer-delete' buyer.id %}"><span data-feather="trash-2"></span></a>

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block content %}
   <br>
@@ -13,6 +14,7 @@
         <th>Invoice #</th>
         <th>Status</th>
         <th>Order</th>
+        <th>Total</th>
         <th>Buyer</th>
         <th>Created Date</th>
       </tr>
@@ -24,8 +26,9 @@
           <td><a href="{% url 'invoice' invoice.id %}"><span>{{ invoice.number }}</span></a></td>
           <td><a class="btn btn-sm btn-{{ invoice.status_color }}" style="pointer-events: none;">{{ invoice.status }}</a></td>
           <td><a href="{% url 'order' invoice.order.id %}"><span>{{ invoice.order.number }}</span></a></td>
+        <td>R{{ invoice.order.total_amount|floatformat:2|intcomma }}</td>
           <td><a href="{% url 'buyer' invoice.buyer.id %}"><span>{{ invoice.buyer.name }}</span></a></td>
-          <td>{{ invoice.created|date:"Y/m/d" }}</td>
+          <td>{{ invoice.created|date:"Y-m-d" }}</td>
         </tr>
         {% endif %}
       {% endfor %}
@@ -48,6 +51,7 @@
           <th>Invoice #</th>
           <th>Status</th>
           <th>Order</th>
+          <th>Total</th>
           <th>Buyer</th>
           <th>Created Date</th>
           <th>Closed Date</th>
@@ -60,9 +64,10 @@
               <td><a href="{% url 'invoice' invoice.id %}"><span>{{ invoice.number }}</span></a></td>
               <td><a class="btn btn-sm btn-{{ invoice.status_color }}" style="pointer-events: none;">{{ invoice.status }}</a></td>
               <td><a href="{% url 'order' invoice.order.id %}"><span>{{ invoice.order.number }}</span></a></td>
+              <td>R{{ invoice.order.total_amount|floatformat:2|intcomma  }}</td>
               <td><a href="{% url 'buyer' invoice.buyer.id %}"><span>{{ invoice.buyer.name }}</span></a></td>
-              <td>{{ invoice.created|date:"Y/m/d" }}</td>
-              <td>{% if not invoice.closed_date|date:"Y/m/d" %} - {% else %}{{ invoice.closed_date|date:"Y/m/d" }} {% endif %}</td>
+              <td>{{ invoice.created|date:"Y-m-d" }}</td>
+              <td>{% if not invoice.closed_date|date:"Y-m-d" %} - {% else %}{{ invoice.closed_date|date:"Y-m-d" }} {% endif %}</td>
             </tr>
           {% endif %}
         {% endfor %}

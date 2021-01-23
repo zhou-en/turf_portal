@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block content %}
 <br>
@@ -17,17 +18,15 @@
         <dt class="col-sm-3">Color</dt>
         <dd class="col-sm-9">{{ product.spec.color }}</dd>
 
-        <dt class="col-sm-3">Height (mm)</dt>
-        <dd class="col-sm-9">{{ product.spec.height }}</dd>
+        <dt class="col-sm-3">Height</dt>
+        <dd class="col-sm-9">{{ product.spec.height.value|floatformat:2|intcomma }} mm</dd>
 
-        <dt class="col-sm-3">Width (m)</dt>
-        <dd class="col-sm-9">{{ product.spec.width }}</dd>
+        <dt class="col-sm-3">Width</dt>
+        <dd class="col-sm-9">{{ product.spec.width.value|floatformat:2|intcomma}} m</dd>
       </dl>
     </div>
   <div class="card-footer">
     <a href="{% url 'products' %}" class="btn btn-sm btn-secondary">Back to Products</a>
-{#    <a href="{% url 'product-update' product.id %}" class="btn btn-sm btn-primary">Update</a>#}
-{#    <a href="{% url 'product-delete' product.id %}" class="btn btn-sm btn-danger">Delete</a>#}
   </div>
 </div>
 
@@ -57,17 +56,18 @@
           <tr>
             <td><a href="{% url 'roll-update' roll.id %}">{{ roll.id }}</a></td>
             <td>{{ roll.spec }}</td>
-            <td>{{ roll.available }} ({{ roll.spec.sale_by }})</td>
+            <td>{{ roll.available|floatformat:2|intcomma }} {{ roll.spec.sale_by }}</td>
             {% if roll.reserved != 0 %}
-              <td><a class="text-warning" style="color: #anycolor !important;" href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:1 }} ({{ roll.spec.sale_by }})</a></td>
+              <td><a class="text-warning" style="color: #anycolor !important;"
+                      href="{% url 'reserved-orders' roll.id %}">{{ roll.reserved|floatformat:2|intcomma }} {{ roll.spec.sale_by }}</a></td>
             {% else %}
-              <td>{{ roll.reserved }}</td>
+              <td>{{ roll.reserved|floatformat:2|intcomma }}</td>
             {% endif %}
 
             {% if roll.sold != 0 %}
-              <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:1 }} ({{ roll.spec.sale_by }})</a></td>
+              <td class="text-primary"><a href="{% url "closed-orders" roll.id %}">{{ roll.sold|floatformat:2|intcomma }} {{ roll.spec.sale_by }}</a></td>
             {% else %}
-              <td>{{ roll.sold }}</td>
+              <td>{{ roll.sold|floatformat:2|intcomma }}</td>
             {% endif %}
             <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
             <td>{{ roll.batch }}</td>

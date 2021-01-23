@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -84,17 +85,17 @@
                 <span class="text-inverse">Discount</span><br>
                 <small>Discount that was applied to this order.</small>
               </td>
-              <td class="text-left">-R{{ ol.price|floatformat:2 }}</td>
-              <td class="text-left">{{ ol.quantity }}</td>
-              <td class="text-left">-R{{ ol.total|floatformat:2 }}</td>
+              <td class="text-left">-R{{ ol.price|floatformat:2|intcomma }}</td>
+              <td class="text-left">{{ ol.quantity|floatformat:2|intcomma }}</td>
+              <td class="text-left">-R{{ ol.total|floatformat:2|intcomma }}</td>
               {% else %}
                 <td>
                   <span class="text-inverse">{{ ol.product.name }}</span><br>
                   <small>{{ ol.product.description }}</small>
                 </td>
-                <td class="text-left">{{ ol.price|floatformat:2 }} (R/{{ ol.roll.spec.sale_by }})</td>
-                <td class="text-left">{{ ol.quantity }} ({{ ol.roll.spec.sale_by }})</td>
-                <td class="text-left">R{{ ol.total|floatformat:2 }}</td>
+                <td class="text-left">{{ ol.price|floatformat:2|intcomma }} (R/{{ ol.roll.spec.sale_by }})</td>
+                <td class="text-left">{{ ol.quantity|floatformat:2|intcomma }} ({{ ol.roll.spec.sale_by }})</td>
+                <td class="text-left">R{{ ol.total|floatformat:2|intcomma }}</td>
               {% endif %}
             </tr>
             {% endfor %}
@@ -108,7 +109,7 @@
             <div class="invoice-price-row">
               <div class="sub-price">
                 <small>SUBTOTAL</small>
-                <span class="text-inverse">R{{ order.total_wt_discount|floatformat:2 }}</span>
+                <span class="text-inverse">R{{ order.total_wt_discount|floatformat:2|intcomma }}</span>
               </div>
 
               <div class="sub-price">
@@ -119,13 +120,13 @@
               <div class="sub-price">
                 <!--
                 <small>VAT (15%)</small>
-                <span class="text-inverse">R{{ order.total_vat }}</span>
+                <span class="text-inverse">R{{ order.total_vat|floatformat:2|intcomma }}</span>
                 -->
               </div>
             </div>
           </div>
           <div class="invoice-price-right">
-            <small>TOTAL</small> <span class="f-w-600">R{{ order.total_wt_discount|floatformat:2 }}</span>
+            <small>TOTAL</small> <span class="f-w-600">R{{ order.total_wt_discount|floatformat:2|intcomma }}</span>
           </div>
         </div>
         <!-- end invoice-price -->
