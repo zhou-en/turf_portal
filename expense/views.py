@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.views.generic import View, DetailView, ListView, CreateView, UpdateView
+from django.views.generic import View, DetailView, ListView, CreateView, UpdateView, DeleteView
 
 from expense.models import Expense
 from expense.forms import (
@@ -40,20 +40,11 @@ class ExpenseListView(ListView):
     context_object_name = 'expenses'
     queryset = Expense.objects.all()
 
-    def get_context_data(self, **kwargs):
-        context = super(ExpenseListView, self).get_context_data(**kwargs)
-        return context
-
-
 @method_decorator(login_required, name='dispatch')
 class ExpenseDetailView(DetailView):
     model = Expense
     template_name = 'expense/detail.html'
     context_object_name = "expense"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
 
 
 @method_decorator(login_required, name='dispatch')
@@ -89,6 +80,16 @@ class ExpenseUpdateView(UpdateView):
             return super(ExpenseUpdateView, self).post(request, *args, **kwargs)
 
 
+@method_decorator(login_required, name="dispatch")
+class ExpenseDeleteView(DeleteView):
+    model = Expense
+    context_object_name = "expense"
+    template_name = "expense/delete.html"
+
+    def get_success_url(self):
+        return reverse_lazy("expenses")
+
+
 @login_required
 def search_expense(request):
     start_date = request.GET.get('start_date')
@@ -102,7 +103,7 @@ def search_expense(request):
 
     income = Payment.objects.filter(created__range=[start_date, end_date]).aggregate(Sum("amount"))
     logger.info(f"Search paymemnt between {start_date} and {end_date}")
-    total_income  = income.get("amount__sum") if income.get("amount__sum") else 0
+    total_income  = income.get("amount__sum") or 0
 
     data = {
         "results": [],

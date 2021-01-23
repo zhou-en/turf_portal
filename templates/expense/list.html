@@ -20,7 +20,7 @@
 
         {% for expense in expenses %}
           <tr>
-          <td><a href="{% url 'expense-update' expense.id %}">{{ expense.date|date:"Y-m-d" }}</a></td>
+          <td><a href="{% url 'expense' expense.id %}">{{ expense.date|date:"Y-m-d" }}</a></td>
           <td>{{ expense.description }}</td>
           <td>{{ expense.method }}</td>
           <td style="color: red;">-R{{ expense.amount }}</td>

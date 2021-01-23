@@ -33,7 +33,9 @@
 
     <div class="card-footer text-lg-center">
       <a href="{% url 'expense-landing' %}" class="btn btn-sm btn-secondary float-lg-left">Back to Expenses</a>
-      <a href="{% url 'expense-update' expense.id %}" class="btn btn-sm btn-primary float-lg-right">Update</a>
+      <a href="{% url 'expense-delete' expense.id %}" class="btn btn-sm btn-danger float-lg-right">Delete</a>
+      <a href="{% url 'expense-update' expense.id %}" class="btn btn-sm btn-primary float-lg-right" style="margin-right: 20px">Update</a>
+
     </div>
 </div>
 

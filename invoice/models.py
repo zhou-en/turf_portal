@@ -65,9 +65,7 @@ class Invoice(TimeStampedModel, models.Model):
 
     @property
     def payment_complete(self):
-        if self.order.total_wt_discount == self.total_payment:
-            return True
-        return False
+        return self.order.total_wt_discount == self.total_payment
 
     @property
     def amount_due(self):
@@ -78,9 +76,7 @@ class Invoice(TimeStampedModel, models.Model):
 
     @property
     def has_payment(self):
-        if self.payment_set.exists():
-            return True
-        return False
+        return  bool(self.payment_set.exists())
 
     @property
     def status_color(self):

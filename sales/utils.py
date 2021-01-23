@@ -11,7 +11,7 @@ def remove_none_alphanumeric(string):
 
 def order_status_color(status):
     from sales.models import Order
-    if status == Order.Status.DRAFT or status == Order.Status.SUBMITTED:
+    if status in [Order.Status.DRAFT, status == Order.Status.SUBMITTED]:
         return "success"
     if status == Order.Status.INVOICED:
         return "info"
