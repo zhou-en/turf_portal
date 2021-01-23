@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <br>
+  <div class="card">
+  <div class="card-header">
+    <h5 class="card-title">All Payments</h5>
+  </div>
+  <div class="card-body table-responsive-sm">
+    <table id="payments-table" class="display table table-striped table-hover">
+      <thead class="thead-dark">
+      <tr>
+        <th>Date</th>
+        <th>Invoice Number</th>
+        <th>Method</th>
+        <th>Amount</th>
+      </tr>
+      </thead>
+      <tbody>
+
+        {% for payment in payments %}
+          <tr>
+        <td>{{ payment.created|date:"Y-m-d" }}</td>
+        <td><a href={% url 'invoice' payment.invoice.id %}>{{ payment.invoice }}</a></td>
+          <td>{{ payment.method }}</td>
+          <td>R{{ payment.amount }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  </div>
+
+
+  <script>
+      $(document).ready( function () {
+          $('#payments-table').DataTable(
+              {
+                  "pageLength": 100,
+                  "order": [
+                      [0,'desc'],
+                  ]
+              }
+          );
+      } );
+  </script>
+
+{% endblock %}

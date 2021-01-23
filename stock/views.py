@@ -39,9 +39,12 @@ class ProductListView(ListView):
         context = super(ProductListView, self).get_context_data(**kwargs)
         new_spec_available = False
         existing_product_spec_ids = [p.spec.id for p in self.queryset]
-        for spec in RollSpec.objects.all():
-            if spec.id not in existing_product_spec_ids:
-                new_spec_available = True
+
+        new_spec_available = any(
+            spec.id not in existing_product_spec_ids
+            for spec in RollSpec.objects.all()
+        )
+
         context.update(
             {"new_spec_available": new_spec_available}
         )
@@ -65,14 +68,13 @@ class ProductCreateView(CreateView):
         return form
 
     def post(self, request, *args, **kwargs):
-        if "cancel" in request.POST:
-            return HttpResponseRedirect(reverse_lazy("products"))
-        else:
+        if "cancel" not in request.POST:
             spec_id = self.request.POST.get("spec")
             Product.objects.create(
                 spec_id=spec_id,
             )
             return HttpResponseRedirect(reverse_lazy("products"))
+        return HttpResponseRedirect(reverse_lazy("products"))
 
 
 @method_decorator(login_required, name="dispatch")
@@ -144,8 +146,7 @@ class WarehouseListView(ListView):
     # paginate_by = 10
 
     def get_context_data(self, **kwargs):
-        context = super(WarehouseListView, self).get_context_data(**kwargs)
-        return context
+        return super(WarehouseListView, self).get_context_data(**kwargs)
 
 
 @method_decorator(login_required, name="dispatch")
@@ -215,57 +216,52 @@ class LoadStocksView(CreateView):
     context_object_name = "turf_roll"
     form_class = LoadStocksForm
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
     def post(self, request, *args, **kwargs):
         if "cancel" in request.POST:
             return HttpResponseRedirect(reverse_lazy("stocks"))
-        else:
-            logger.debug("Start loading stock ...")
-            quantity = int(request.POST.get("quantity"))
-            status = request.POST.get("status").upper()
-            batch_id = request.POST.get("batch")
-            spec = RollSpec.objects.get(id=request.POST.get("spec"))
-            location = Warehouse.objects.get(id=request.POST.get("location"))
-            if status != TurfRoll.Status.LOOSE:
-                for n in range(int(quantity)):
-                    logger.info("Loading %s: %d", spec, n)
+        logger.debug("Start loading stock ...")
+        quantity = int(request.POST.get("quantity"))
+        status = request.POST.get("status").upper()
+        batch_id = request.POST.get("batch")
+        spec = RollSpec.objects.get(id=request.POST.get("spec"))
+        location = Warehouse.objects.get(id=request.POST.get("location"))
+        if status != TurfRoll.Status.LOOSE:
+            for n in range(int(quantity)):
+                logger.info("Loading %s: %d", spec, n)
 
-                    if spec.is_turf:
-                        TurfRoll.objects.create(
-                            spec=spec,
-                            batch_id=batch_id,
-                            location=location,
-                            total=spec.length * spec.width.value,
-                            original_size=spec.length * spec.width.value,
-                        )
-                    else:
-                        TurfRoll.objects.create(
-                            spec=spec,
-                            batch_id=batch_id,
-                            location=location,
-                            total=spec.length,
-                            original_size=spec.length,
-                        )
-                logger.info(
-                    "%s %s rolls have been loaded to %s", quantity, spec, location
-                )
-            else:
-                loose_size = int(request.POST.get("size"))
-                for n in range(int(quantity)):
-                    logger.info("Loading loose %s: %d", spec, n)
+                if spec.is_turf:
                     TurfRoll.objects.create(
                         spec=spec,
+                        batch_id=batch_id,
                         location=location,
-                        total=loose_size,
-                        original_size=loose_size,
-                        status=TurfRoll.Status.LOOSE,
+                        total=spec.length * spec.width.value,
+                        original_size=spec.length * spec.width.value,
                     )
-                logger.info(
-                    "%s %s loose rolls have been loaded to %s", quantity, spec, location
+                else:
+                    TurfRoll.objects.create(
+                        spec=spec,
+                        batch_id=batch_id,
+                        location=location,
+                        total=spec.length,
+                        original_size=spec.length,
+                    )
+            logger.info(
+                "%s %s rolls have been loaded to %s", quantity, spec, location
+            )
+        else:
+            loose_size = int(request.POST.get("size"))
+            for n in range(int(quantity)):
+                logger.info("Loading loose %s: %d", spec, n)
+                TurfRoll.objects.create(
+                    spec=spec,
+                    location=location,
+                    total=loose_size,
+                    original_size=loose_size,
+                    status=TurfRoll.Status.LOOSE,
                 )
+            logger.info(
+                "%s %s loose rolls have been loaded to %s", quantity, spec, location
+            )
         return HttpResponseRedirect(reverse_lazy("stocks"))
 
 
@@ -285,23 +281,22 @@ class SplitRollView(CreateView):
     def post(self, request, *args, **kwargs):
         if "cancel" in request.POST:
             return HttpResponseRedirect(reverse_lazy("stocks"))
-        else:
-            roll_pk = self.kwargs.get("pk")
-            split_size = float(self.request.POST.get("size"))
-            roll = TurfRoll.objects.get(id=roll_pk)
-            new_roll = TurfRoll.objects.create(
-                spec=roll.spec,
-                batch=roll.batch,
-                location=roll.location,
-                total=split_size,
-                original_size=split_size,
-                status=TurfRoll.Status.LOOSE,
-            )
-            if roll.status == TurfRoll.Status.SEALED:
-                roll.status = TurfRoll.Status.LOOSE
-            roll.total = roll.total - split_size
-            roll.original_size = roll.original_size - split_size
-            roll.save()
+        roll_pk = self.kwargs.get("pk")
+        split_size = float(self.request.POST.get("size"))
+        roll = TurfRoll.objects.get(id=roll_pk)
+        new_roll = TurfRoll.objects.create(
+            spec=roll.spec,
+            batch=roll.batch,
+            location=roll.location,
+            total=split_size,
+            original_size=split_size,
+            status=TurfRoll.Status.LOOSE,
+        )
+        if roll.status == TurfRoll.Status.SEALED:
+            roll.status = TurfRoll.Status.LOOSE
+        roll.total = roll.total - split_size
+        roll.original_size = roll.original_size - split_size
+        roll.save()
         return HttpResponseRedirect(reverse_lazy("stocks"))
 
 

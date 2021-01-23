@@ -22,11 +22,6 @@ class InvoiceListView(ListView):
     template_name = "invoice/invoices.html"
     context_object_name = 'invoices'
     queryset = Invoice.objects.all()
-    # paginate_by = 10
-
-    def get_context_data(self, **kwargs):
-        context = super(InvoiceListView, self).get_context_data(**kwargs)
-        return context
 
 
 @method_decorator(login_required, name='dispatch')
@@ -67,9 +62,8 @@ class PaymentCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         if "cancel" in request.POST:
             return HttpResponseRedirect(reverse_lazy("invoice", kwargs={"pk": self.kwargs.get("pk")}))
-        else:
-            pk = kwargs.pop("pk")
-            return super(PaymentCreateView, self).post(request, *args, **kwargs)
+        pk = kwargs.pop("pk")
+        return super(PaymentCreateView, self).post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -78,6 +72,14 @@ class PaymentCreateView(CreateView):
             {"invoice": invoice}
         )
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+class PaymentListView(ListView):
+    model = Payment
+    template_name = "invoice/payment_list.html"
+    context_object_name = 'payments'
+    queryset = Payment.objects.all()
 
 
 class ExportPDFView(View):

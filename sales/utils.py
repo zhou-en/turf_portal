@@ -11,14 +11,14 @@ def remove_none_alphanumeric(string):
 
 def order_status_color(status):
     from sales.models import Order
-    if status == Order.Status.DRAFT or status == Order.Status.SUBMITTED:
+    if status in [Order.Status.DRAFT, status == Order.Status.SUBMITTED]:
         return "success"
     if status == Order.Status.INVOICED:
         return "info"
     if status == Order.Status.DELIVERED:
         return "warning"
     if status == Order.Status.CLOSED:
-        return "secondary"
+        return "outline-secondary"
 
 
 def invoice_status_color(status):
@@ -28,7 +28,7 @@ def invoice_status_color(status):
     if status == Invoice.Status.PAYMENT_OUTSTANDING:
         return "danger"
     if status == Invoice.Status.CLOSED:
-        return "secondary"
+        return "outline-secondary"
 
 
 def buyer_status_color(status):

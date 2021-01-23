@@ -65,9 +65,7 @@ class Invoice(TimeStampedModel, models.Model):
 
     @property
     def payment_complete(self):
-        if self.order.total_wt_discount == self.total_payment:
-            return True
-        return False
+        return self.order.total_wt_discount == self.total_payment
 
     @property
     def amount_due(self):
@@ -78,9 +76,7 @@ class Invoice(TimeStampedModel, models.Model):
 
     @property
     def has_payment(self):
-        if self.payment_set.exists():
-            return True
-        return False
+        return  bool(self.payment_set.exists())
 
     @property
     def status_color(self):
@@ -106,15 +102,14 @@ class Invoice(TimeStampedModel, models.Model):
         ]
 
 
-class Payment(TimeStampedModel, models.Model):
+class   Payment(TimeStampedModel, models.Model):
     """
     Payment made to an invoice.
     """
     class Method(models.TextChoices):
-        EFT = "EFT", _("EFT")
-        # when invoice is sent to buyer
+        CARD = 'CARD', _('Card')
         CASH = 'CASH', _('Cash')
-        # when payment is completed
+        EFT = "EFT", _("EFT")
         OTHER = 'OTHER', _('Other')
 
     method = models.CharField(

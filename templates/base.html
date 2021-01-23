@@ -20,7 +20,9 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
   <link href="{% static 'assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
-
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <style>
     .bd-placeholder-img {
       font-size: 1.125rem;
@@ -50,7 +52,7 @@
     <div class="sidebar-heading"><a href="{% url 'home' %}"> <b>Turf Portal</b></a></div>
     <div class="list-group list-group-flush">
       <a class="list-group-item list-group-item-action bg-light" href="{% url 'home' %}">
-        <span data-feather="home"></span>
+        <span data-feather="pie-chart"></span>
         Dashboard <span class="sr-only">(current)</span>
       </a>
       <a class="list-group-item list-group-item-action bg-light" href="{% url 'orders' %}">
@@ -62,7 +64,7 @@
         Invoices
       </a>
       <a class="list-group-item list-group-item-action bg-light" href="{% url 'products' %}">
-        <span data-feather="shopping-cart"></span>
+        <span data-feather="list"></span>
         Products
       </a>
       <a class="list-group-item list-group-item-action bg-light" href="{% url 'buyers' %}">
@@ -70,12 +72,16 @@
         Buyers
       </a>
       <a class="list-group-item list-group-item-action bg-light" href="{% url 'stocks' %}">
-        <span data-feather="bar-chart-2"></span>
+        <span data-feather="database"></span>
         Stocks
       </a>
       <a class="list-group-item list-group-item-action bg-light" href="{% url 'warehouses' %}">
-        <span data-feather="archive"></span>
+        <span data-feather="home"></span>
         Warehouse
+      </a>
+      <a class="list-group-item list-group-item-action bg-light" href="{% url 'expense-landing' %}">
+        <span data-feather="dollar-sign"></span>
+        Expense
       </a>
     </div>
   </div>

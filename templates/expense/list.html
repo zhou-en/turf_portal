@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <br>
+  <div class="card">
+  <div class="card-header">
+    <h5 class="card-title">All Expenses</h5>
+  </div>
+  <div class="card-body table-responsive-sm">
+    <table id="expenses-table" class="display table table-striped table-hover">
+      <thead class="thead-dark">
+      <tr>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Paid with</th>
+        <th>Amount</th>
+      </tr>
+      </thead>
+      <tbody>
+
+        {% for expense in expenses %}
+          <tr>
+          <td><a href="{% url 'expense' expense.id %}">{{ expense.date|date:"Y-m-d" }}</a></td>
+          <td>{{ expense.description }}</td>
+          <td>{{ expense.method }}</td>
+          <td style="color: red;">-R{{ expense.amount }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  </div>
+
+
+  <script>
+      $(document).ready( function () {
+          $('#expenses-table').DataTable(
+              {
+                  "pageLength": 100,
+                  "order": [
+                      [0,'desc'],
+                  ]
+              }
+          );
+      } );
+  </script>
+
+{% endblock %}

@@ -26,6 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('sales/', include('sales.urls')),
     path('invoice/', include('invoice.urls')),
+    path('expense/', include('expense.urls')),
     path('stock/', include('stock.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('api/chart/data/', DataView.as_view()),
