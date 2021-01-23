@@ -39,10 +39,12 @@ class ProductListView(ListView):
         context = super(ProductListView, self).get_context_data(**kwargs)
         new_spec_available = False
         existing_product_spec_ids = [p.spec.id for p in self.queryset]
+
         new_spec_available = any(
             spec.id not in existing_product_spec_ids
             for spec in RollSpec.objects.all()
         )
+
         context.update(
             {"new_spec_available": new_spec_available}
         )

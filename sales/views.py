@@ -322,6 +322,7 @@ class OrderAddItemView(CreateView):
     def post(self, request, *args, **kwargs):
         if "cancel" in request.POST:
             return HttpResponseRedirect(reverse_lazy("orders"))
+
         # Get roll ids
         requested_roll_info = []
         if request.POST and request.POST.get("selected_items"):
