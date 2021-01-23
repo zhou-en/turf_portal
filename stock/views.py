@@ -144,8 +144,7 @@ class WarehouseListView(ListView):
     # paginate_by = 10
 
     def get_context_data(self, **kwargs):
-        context = super(WarehouseListView, self).get_context_data(**kwargs)
-        return context
+        return super(WarehouseListView, self).get_context_data(**kwargs)
 
 
 @method_decorator(login_required, name="dispatch")
@@ -218,50 +217,49 @@ class LoadStocksView(CreateView):
     def post(self, request, *args, **kwargs):
         if "cancel" in request.POST:
             return HttpResponseRedirect(reverse_lazy("stocks"))
-        else:
-            logger.debug("Start loading stock ...")
-            quantity = int(request.POST.get("quantity"))
-            status = request.POST.get("status").upper()
-            batch_id = request.POST.get("batch")
-            spec = RollSpec.objects.get(id=request.POST.get("spec"))
-            location = Warehouse.objects.get(id=request.POST.get("location"))
-            if status != TurfRoll.Status.LOOSE:
-                for n in range(int(quantity)):
-                    logger.info("Loading %s: %d", spec, n)
+        logger.debug("Start loading stock ...")
+        quantity = int(request.POST.get("quantity"))
+        status = request.POST.get("status").upper()
+        batch_id = request.POST.get("batch")
+        spec = RollSpec.objects.get(id=request.POST.get("spec"))
+        location = Warehouse.objects.get(id=request.POST.get("location"))
+        if status != TurfRoll.Status.LOOSE:
+            for n in range(int(quantity)):
+                logger.info("Loading %s: %d", spec, n)
 
-                    if spec.is_turf:
-                        TurfRoll.objects.create(
-                            spec=spec,
-                            batch_id=batch_id,
-                            location=location,
-                            total=spec.length * spec.width.value,
-                            original_size=spec.length * spec.width.value,
-                        )
-                    else:
-                        TurfRoll.objects.create(
-                            spec=spec,
-                            batch_id=batch_id,
-                            location=location,
-                            total=spec.length,
-                            original_size=spec.length,
-                        )
-                logger.info(
-                    "%s %s rolls have been loaded to %s", quantity, spec, location
-                )
-            else:
-                loose_size = int(request.POST.get("size"))
-                for n in range(int(quantity)):
-                    logger.info("Loading loose %s: %d", spec, n)
+                if spec.is_turf:
                     TurfRoll.objects.create(
                         spec=spec,
+                        batch_id=batch_id,
                         location=location,
-                        total=loose_size,
-                        original_size=loose_size,
-                        status=TurfRoll.Status.LOOSE,
+                        total=spec.length * spec.width.value,
+                        original_size=spec.length * spec.width.value,
                     )
-                logger.info(
-                    "%s %s loose rolls have been loaded to %s", quantity, spec, location
+                else:
+                    TurfRoll.objects.create(
+                        spec=spec,
+                        batch_id=batch_id,
+                        location=location,
+                        total=spec.length,
+                        original_size=spec.length,
+                    )
+            logger.info(
+                "%s %s rolls have been loaded to %s", quantity, spec, location
+            )
+        else:
+            loose_size = int(request.POST.get("size"))
+            for n in range(int(quantity)):
+                logger.info("Loading loose %s: %d", spec, n)
+                TurfRoll.objects.create(
+                    spec=spec,
+                    location=location,
+                    total=loose_size,
+                    original_size=loose_size,
+                    status=TurfRoll.Status.LOOSE,
                 )
+            logger.info(
+                "%s %s loose rolls have been loaded to %s", quantity, spec, location
+            )
         return HttpResponseRedirect(reverse_lazy("stocks"))
 
 
