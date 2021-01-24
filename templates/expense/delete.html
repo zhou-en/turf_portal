@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block content %}
   <br>
@@ -20,7 +21,7 @@
             <dd class="col-sm-9">{{ expense.method }}</dd>
 
             <dt class="col-sm-3">Amount</dt>
-            <dd class="col-sm-9" style="color: red">-R{{ expense.amount }}</dd>
+            <dd class="col-sm-9 text-danger">-R{{ expense.amount|floatformat:2|intcomma }}</dd>
             </dl>
 
             <div class="alert alert-warning" role="alert">

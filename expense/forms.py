@@ -45,3 +45,4 @@ class ExpenseUpdateForm(forms.ModelForm):
         self.helper.add_input(Button('cancel', 'Cancel', onclick='window.history.back();'))
         self.helper.add_input(Submit('submit', 'Submit'))
         super(ExpenseUpdateForm, self).__init__(*args, **kwargs)
+        self.fields["amount"].decimal_places = 2

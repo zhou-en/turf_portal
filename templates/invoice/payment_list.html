@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block content %}
   <br>
@@ -23,7 +24,7 @@
         <td>{{ payment.created|date:"Y-m-d" }}</td>
         <td><a href={% url 'invoice' payment.invoice.id %}>{{ payment.invoice }}</a></td>
           <td>{{ payment.method }}</td>
-          <td style="color: green">R{{ payment.amount }}</td>
+          <td style="color: green">R{{ payment.amount|floatformat:2|intcomma }}</td>
           </tr>
         {% endfor %}
       </tbody>
