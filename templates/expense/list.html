@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block content %}
   <br>
@@ -23,7 +24,7 @@
           <td><a href="{% url 'expense' expense.id %}">{{ expense.date|date:"Y-m-d" }}</a></td>
           <td>{{ expense.description }}</td>
           <td>{{ expense.method }}</td>
-          <td style="color: red;">-R{{ expense.amount }}</td>
+          <td style="color: red;">-R{{ expense.amount|floatformat:2|intcomma }}</td>
           </tr>
         {% endfor %}
       </tbody>
