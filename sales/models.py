@@ -62,7 +62,7 @@ class Buyer(TimeStampedModel, models.Model):
         total = 0
         for order in self.order_set.filter(status=Order.Status.CLOSED):
             total += order.total_wt_discount
-        return "%.2f" % total
+        return float("%.2f" % total)
 
     def has_open_order(self, buyer_product):
         open_orders = self.order_set.exclude(status__exact=Order.Status.CLOSED)
