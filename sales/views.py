@@ -121,7 +121,12 @@ class BuyerProductCreateView(CreateView):
         existing_bp_codes = [bp.product.id for bp in buyer.buyerproduct_set.all()]
         for product in Product.objects.exclude(id__in=existing_bp_codes):
             if product.has_stock:
-                buyer_product_choices.extend([(product.code, _(product.code))])
+                buyer_product_choices.extend(
+                    [(
+                        product.code,
+                        _(f"{product.code}, Available: {product.stock_available} m²")
+                    )]
+                )
         form.fields["product"].choices = buyer_product_choices
         return form
 
