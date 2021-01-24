@@ -59,9 +59,11 @@ class Buyer(TimeStampedModel, models.Model):
         """
         Return total of all orders have been closed on the buyer.
         """
-        total = 0
-        for order in self.order_set.filter(status=Order.Status.CLOSED):
-            total += order.total_wt_discount
+        total = sum(
+            order.total_wt_discount
+            for order in self.order_set.filter(status=Order.Status.CLOSED)
+        )
+
         return float("%.2f" % total)
 
     def has_open_order(self, buyer_product):
@@ -78,11 +80,10 @@ class Buyer(TimeStampedModel, models.Model):
         product list.
         """
         buyer_existing_products = [bp.product for bp in self.buyerproduct_set.all()]
-        for product in Product.objects.all():
-            if product not in buyer_existing_products:
-                if product.has_stock:
-                    return True
-        return False
+        return any(
+            product not in buyer_existing_products and product.has_stock
+            for product in Product.objects.all()
+        )
 
 
 class BuyerProduct(TimeStampedModel, models.Model):
@@ -316,9 +317,7 @@ class Order(TimeStampedModel, models.Model):
         Return true if there is an orderline has no spec and roll fields, i.e.
         discount orderline
         """
-        if self.orderline_set.filter(roll=None, product=None, quantity=1):
-            return True
-        return False
+        return bool(self.orderline_set.filter(roll=None, product=None, quantity=1))
 
     @property
     def total_wt_discount(self):
@@ -364,6 +363,4 @@ class OrderLine(TimeStampedModel, models.Model):
         """
         Return true if this is a discount orderline, i.e. no product and roll
         """
-        if not (self.product and self.roll):
-            return True
-        return False
+        return not (self.product and self.roll)

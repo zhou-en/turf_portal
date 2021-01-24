@@ -82,10 +82,7 @@ class DataView(APIView):
         sales_labels = sales_data.keys()
         if len(labels) > 30:
             sales_labels = sales_data.keys()[:30]
-        sales_total = []
-        for i, k in enumerate(sales_labels):
-            sales_total.append(sales_data[k])
-
+        sales_total = [sales_data[k] for i, k in enumerate(sales_labels)]
         data.update(
             {
                 "sales_data": {
