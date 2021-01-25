@@ -28,15 +28,13 @@
         <thead style="border-bottom: 1px solid black;">
         <tr>
           <th>ID</th>
-          <th>Note</th>
-          <th>Status</th>
           <th>Available (m<sup>2</sup>)</th>
           <th>Reserved (m<sup>2</sup>)</th>
           <th>Sold (m<sup>2</sup>)</th>
+          <th>Status</th>
+          <th>Note</th>
           <th>Batch</th>
           <th>Warehouse</th>
-          <th>Last Sold Date</th>
-          <th>Loaded Date</th>
 <!--           <th>Actions</th> -->
         </tr>
         </thead>
@@ -45,12 +43,6 @@
           {% if roll.status != "DEPLETED" %}
             <tr>
               <td><a href="{% url 'roll-update' roll.id %}">{{ roll.id }}</a></td>
-              {% if roll.note %}
-                <td>{{ roll.note }}</td>
-              {% else %}
-                <td></td>
-              {% endif %}
-              <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
               <td class="text-success">{{ roll.available|floatformat:2|intcomma }}</td>
 
               {% if roll.reserved != 0 %}
@@ -65,11 +57,14 @@
               {% else %}
                 <td>{{ roll.sold|floatformat:2|intcomma }}</td>
               {% endif %}
-
+              <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
+              {% if roll.note %}
+                <td>{{ roll.note }}</td>
+              {% else %}
+                <td></td>
+              {% endif %}
               <td>{{ roll.batch }}</td>
               <td>{{ roll.location }}</td>
-              <td>{{ roll.modified|date:"Y-m-d" }}</td>
-              <td>{{ roll.created|date:"Y-m-d" }}</td>
 <!--               <td>
                 {% if roll.available != 0 %}
                   <a href="{% url 'stock-split' roll.id %}" class="btn btn-sm btn-primary">Split</a>
@@ -81,12 +76,6 @@
           {% else %}
             <tr>
               <td>{{ roll.id }}</td>
-              {% if roll.note %}
-                <td>{{ roll.note }}</td>
-              {% else %}
-                <td></td>
-              {% endif %}
-              <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
               <td class="text-success">{{ roll.available|floatformat:2|intcomma }}</td>
 
               {% if roll.reserved != 0 %}
@@ -101,6 +90,12 @@
               {% else %}
                 <td>{{ roll.sold|floatformat:2|intcomma }}</td>
               {% endif %}
+              <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
+              {% if roll.note %}
+                <td>{{ roll.note }}</td>
+              {% else %}
+                <td></td>
+              {% endif %}
 
               <td>{{ roll.batch }}</td>
 
@@ -109,8 +104,6 @@
               {% else %}
                 <td></td>
               {% endif %}
-              <td>{{ roll.modified|date:"Y-m-d" }}</td>
-              <td>{{ roll.created|date:"Y-m-d" }}</td>
 <!--               <td style="text-align: center"></td> -->
             </tr>
           {% endif %}
@@ -146,15 +139,13 @@
           <thead style="border-bottom: 1px solid black;">
           <tr>
             <th>ID</th>
-            <th>Note</th>
-            <th>Status</th>
             <th>Available (m)</th>
             <th>Reserved (m)</th>
             <th>Sold (m)</th>
+            <th>Status</th>
+            <th>Note</th>
             <th>Batch</th>
             <th>Warehouse</th>
-            <th>Last Sold Date</th>
-            <th>Loaded Date</th>
 <!--             <th>Actions</th> -->
           </tr>
           </thead>
@@ -163,12 +154,6 @@
             {% if roll.status != "DEPLETED" %}
               <tr>
                 <td><a href="{% url 'roll-update' roll.id %}">{{ roll.id }}</a></td>
-                {% if roll.note %}
-                  <td>{{ roll.note }}</td>
-                {% else %}
-                  <td></td>
-                {% endif %}
-                <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
                 <td class="text-success">{{ roll.available|floatformat:2|intcomma }}</td>
 
                 {% if roll.reserved != 0 %}
@@ -183,11 +168,15 @@
                 {% else %}
                   <td>{{ roll.sold|floatformat:2|intcomma }}</td>
                 {% endif %}
+                <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
+                {% if roll.note %}
+                  <td>{{ roll.note }}</td>
+                {% else %}
+                  <td></td>
+                {% endif %}
 
                 <td>{{ roll.batch }}</td>
                 <td>{{ roll.location }}</td>
-                <td>{{ roll.modified|date:"Y-m-d" }}</td>
-                <td>{{ roll.created|date:"Y-m-d" }}</td>
 <!--                 <td>
                   {% if roll.available != 0 %}
                     <a href="{% url 'stock-split' roll.id %}" class="btn btn-sm btn-primary">Split</a>
@@ -199,12 +188,6 @@
             {% else %}
               <tr>
                 <td>{{ roll.id }}</td>
-                {% if roll.note %}
-                  <td>{{ roll.note }}</td>
-                {% else %}
-                  <td></td>
-                {% endif %}
-                <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
                 <td class="text-success">{{ roll.available|floatformat:2|intcomma }}</td>
 
                 {% if roll.reserved != 0 %}
@@ -219,6 +202,12 @@
                 {% else %}
                   <td>{{ roll.sold|floatformat:2|intcomma }}</td>
                 {% endif %}
+                <td><a class="btn btn-sm btn-{{ roll.status_color }}" style="pointer-events: none;">{{ roll.status }}</a></td>
+                {% if roll.note %}
+                  <td>{{ roll.note }}</td>
+                {% else %}
+                  <td></td>
+                {% endif %}
 
                 <td>{{ roll.batch }}</td>
 
@@ -227,8 +216,6 @@
                 {% else %}
                   <td></td>
                 {% endif %}
-                <td>{{ roll.modified|date:"Y-m-d" }}</td>
-                <td>{{ roll.created|date:"Y-m-d" }}</td>
 <!--                 <td style="text-align: center"></td> -->
               </tr>
             {% endif %}
