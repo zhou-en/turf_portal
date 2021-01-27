@@ -27,6 +27,8 @@ def invoice_status_color(status):
         return "success"
     if status == Invoice.Status.PAYMENT_OUTSTANDING:
         return "danger"
+    if status == Invoice.Status.PAYMENT_PENDING:
+        return "warning"
     if status == Invoice.Status.CLOSED:
         return "outline-secondary"
 

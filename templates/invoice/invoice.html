@@ -126,8 +126,7 @@
               {% if p.status == "CONFIRMED" %}
               <td>-</td>
               {% else %}
-              <td><a href={% url 'payment-update' p.id %}><span
-                          data-feather="edit"></span></a></td>
+              <td><a href={% url 'payment-update' p.id %}><span data-feather="edit"></span></a></td>
               {% endif %}
             </tr>
           {% endfor %}

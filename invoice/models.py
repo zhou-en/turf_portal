@@ -22,6 +22,7 @@ class Invoice(TimeStampedModel, models.Model):
         DRAFT = "DRAFT", _("Draft")
         # when invoice is sent to buyer
         PAYMENT_OUTSTANDING = 'PAYMENT OUTSTANDING', _('Payment Outstanding')
+        PAYMENT_PENDING = 'PAYMENT PENDING', _('Payment Pending')
         # when payment is completed
         CLOSED = 'CLOSED', _('Closed')
 
@@ -112,6 +113,15 @@ class Invoice(TimeStampedModel, models.Model):
             return False
         return True
 
+    @property
+    def has_pending_payments(self):
+        if Payment.Status.PENDING in [
+            p.status for p in self.payment_set.all()
+        ]:
+            return True
+        return False
+
+
 class   Payment(TimeStampedModel, models.Model):
     """
     Payment made to an invoice.
@@ -152,6 +162,9 @@ class   Payment(TimeStampedModel, models.Model):
         super().save(*args, **kwargs)
         if self.invoice.payment_complete:
             self.invoice.close()
+        if self.invoice.has_pending_payments:
+            self.invoice.status = Invoice.Status.PAYMENT_PENDING
+            self.invoice.save()
 
     @property
     def status_color(self):
