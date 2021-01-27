@@ -31,6 +31,14 @@ def invoice_status_color(status):
         return "outline-secondary"
 
 
+def payment_status_color(status):
+    from invoice.models import Payment
+    if status == Payment.Status.CONFIRMED:
+        return "success"
+    if status == Payment.Status.PENDING:
+        return "warning"
+
+
 def buyer_status_color(status):
     from sales.models import Buyer
     if status == Buyer.Status.ACTIVE:

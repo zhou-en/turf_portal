@@ -5,12 +5,13 @@ from django.urls import reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.views.generic import View, DetailView, ListView, CreateView
+from django.views.generic import View, DetailView, ListView, CreateView, UpdateView
 from django.template.loader import get_template
 
 from invoice.models import Invoice, Payment
 from invoice.forms import (
     PaymentCreateForm,
+    PaymentUpdateForm
 )
 
 logger = logging.getLogger(__name__)
@@ -35,7 +36,7 @@ class InvoiceDetailView(DetailView):
         # Prepopulate invoice choices and then disable it in forms.py
         form = PaymentCreateForm(pk=self.object.id)
         context["form"] = form
-        context["payments"] = self.object.payment_set.all()
+        context["payments"] = self.object.payment_set.all().order_by("-modified")
         return context
 
 
@@ -73,6 +74,33 @@ class PaymentCreateView(CreateView):
         )
         return context
 
+@method_decorator(login_required, name="dispatch")
+class PaymentUpdateView(UpdateView):
+    model = Payment
+    template_name = "invoice/payment_update.html"
+    context_object_name = "payment"
+    form_class = PaymentUpdateForm
+
+    def get_success_url(self):
+        payment_pk = self.kwargs.get("pk")
+        payment = Payment.objects.get(id=payment_pk)
+        return reverse_lazy("invoice", kwargs={"pk": payment.invoice_id})
+
+    def post(self, request, *args, **kwargs):
+        payment_pk = kwargs.get("pk")
+        payment = Payment.objects.get(id=payment_pk)
+        if "cancel" in request.POST:
+            return HttpResponseRedirect(
+                reverse_lazy("invoice", kwargs={"pk": payment.invoice_id})
+            )
+        else:
+            return super(PaymentUpdateView, self).post(request, *args, **kwargs)
+
+#     def get_context_data(self, **kwargs):
+        # context = super().get_context_data(**kwargs)
+        # context["invoice"] = self.object.invoice
+        # return context
+#
 
 @method_decorator(login_required, name='dispatch')
 class PaymentListView(ListView):

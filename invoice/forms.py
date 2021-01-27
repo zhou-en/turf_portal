@@ -68,4 +68,20 @@ class PaymentCreateForm(forms.ModelForm):
                 code='invalid',
                 params={'value': f"{amount}"},
             )
-        return amount
+        #Set to 0 to avoid user error
+        return 0
+
+class PaymentUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Payment
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        instance = kwargs.get("instance")
+        self.base_fields["invoice"].disabled = True
+        self.helper = FormHelper()
+        self.helper.add_input(Button('cancel', 'Cancel', onclick='window.history.back();'))
+        self.helper.add_input(Submit('submit', 'Save'))
+        super(PaymentUpdateForm, self).__init__(*args, **kwargs)
+
+

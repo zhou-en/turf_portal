@@ -111,15 +111,24 @@
           <tr>
             <th>Amount</th>
             <th>Method</th>
+            <th>Status</th>
             <th>Payment Date</th>
+            <th>Update</th>
           </tr>
           </thead>
           <tbody>
           {% for p in payments %}
-            <tr>
+          <tr class="text-left">
               <td class="text-success">R{{ p.amount|floatformat:2|intcomma }}</td>
               <td>{{ p.method }}</td>
+                <td><a class="btn btn-sm btn-{{ p.status_color }}" style="pointer-events: none;">{{ p.status }}</a></td>
               <td>{{ p.created|date:"Y-m-d" }}</td>
+              {% if p.status == "CONFIRMED" %}
+              <td>-</td>
+              {% else %}
+              <td><a href={% url 'payment-update' p.id %}><span
+                          data-feather="edit"></span></a></td>
+              {% endif %}
             </tr>
           {% endfor %}
           </tbody>

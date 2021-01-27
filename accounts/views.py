@@ -123,9 +123,10 @@ class DataView(APIView):
         # total turnonver per buyer
         buyer_data = {}
         for b in Buyer.objects.all():
-            buyer_data.update(
-                {b.name: b.history_total}
-            )
+            if b.history_total != 0:
+                buyer_data.update(
+                    {b.name: b.history_total}
+                )
         buyer_data =dict(sorted(buyer_data.items(), key=lambda item: item[1],reverse=True))
         buyer_labels = buyer_data.keys()
         if len(buyer_labels) > 10:

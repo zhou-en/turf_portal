@@ -8,7 +8,7 @@ from django_extensions.db.models import TimeStampedModel
 
 from stock.models import Product, TurfRoll
 from sales.models import Order, Buyer
-from sales.utils import invoice_status_color
+from sales.utils import invoice_status_color, payment_status_color
 
 logger = logging.getLogger(__name__)
 
@@ -58,14 +58,17 @@ class Invoice(TimeStampedModel, models.Model):
 
     @property
     def total_payment(self):
-        result = self.payment_set.all().aggregate(Sum("amount"))
+        result = self.payment_set.filter(status=Payment.Status.CONFIRMED).aggregate(Sum("amount"))
         if result.get("amount__sum"):
             return round(float(result.get("amount__sum")), 2)
         return round(0.0, 2)
 
     @property
     def payment_complete(self):
-        return self.order.total_wt_discount == self.total_payment
+        return (
+            self.order.total_wt_discount == self.total_payment and
+            self.payments_confirmed
+        )
 
     @property
     def amount_due(self):
@@ -101,17 +104,32 @@ class Invoice(TimeStampedModel, models.Model):
             Invoice.Status.CLOSED
         ]
 
+    @property
+    def payments_confirmed(self):
+        if Payment.Status.PENDING in [
+            p.status for p in self.payment_set.all()
+        ]:
+            return False
+        return True
 
 class   Payment(TimeStampedModel, models.Model):
     """
     Payment made to an invoice.
     """
+    class Status(models.TextChoices):
+        PENDING = 'PENDING', _('Pending')
+        CONFIRMED = 'CONFIRMED', _('Confirmed')
+
     class Method(models.TextChoices):
         CARD = 'CARD', _('Card')
         CASH = 'CASH', _('Cash')
         EFT = "EFT", _("EFT")
         OTHER = 'OTHER', _('Other')
-
+    status = models.CharField(
+        max_length=255,
+        choices=Status.choices,
+        default=Status.PENDING,
+    )
     method = models.CharField(
         max_length=255,
         choices=Method.choices,
@@ -121,10 +139,22 @@ class   Payment(TimeStampedModel, models.Model):
     amount = models.FloatField(default=0.0)
 
     def __str__(self):
-        return f"{self.amount}"
+        return f"{self.method} - {self.status} - {self.amount}"
 
     def save(self, *args, **kwargs):
         self.amount = round(self.amount, 2)
+        # Set default status base on payment method at creation
+        if not self.pk:
+            if self.method == Payment.Method.EFT:
+                self.status = Payment.Status.PENDING
+            else:
+                self.status = Payment.Status.CONFIRMED
         super().save(*args, **kwargs)
         if self.invoice.payment_complete:
             self.invoice.close()
+
+    @property
+    def status_color(self):
+        return payment_status_color(self.status)
+
+

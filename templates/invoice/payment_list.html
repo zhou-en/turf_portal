@@ -14,6 +14,7 @@
         <th>Date</th>
         <th>Invoice Number</th>
         <th>Method</th>
+        <th>status</th>
         <th>Amount</th>
       </tr>
       </thead>
@@ -24,6 +25,7 @@
         <td>{{ payment.created|date:"Y-m-d" }}</td>
         <td><a href={% url 'invoice' payment.invoice.id %}>{{ payment.invoice }}</a></td>
           <td>{{ payment.method }}</td>
+          <td><a class="btn btn-sm btn-{{ payment.status_color }}" style="pointer-events: none;">{{ payment.status }}</a></td>
           <td style="color: green">R{{ payment.amount|floatformat:2|intcomma }}</td>
           </tr>
         {% endfor %}
