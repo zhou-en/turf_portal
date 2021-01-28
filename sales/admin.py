@@ -86,6 +86,15 @@ class OrderLineAdmin(admin.ModelAdmin):
         "price",
         "total"
     ]
+    search_fields = [
+        "id",
+        "order__buyer__name",
+        "order__number",
+        "order__status",
+        "roll__id",
+        "product__code"
+    ]
+
 
 
 @admin.register(Order)
@@ -98,3 +107,11 @@ class OrderAdmin(admin.ModelAdmin):
         "closed_date",
         "created",
     ]
+
+    search_fields = [
+        "id",
+        "buyer__name",
+        "number",
+        "status"
+    ]
+

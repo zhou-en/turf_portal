@@ -22,9 +22,10 @@ class InvoiceAdmin(admin.ModelAdmin):
     ]
 
     search_fields = [
-        "buyer",
+        "buyer__name",
         "number",
-        "order",
+        "order__number",
+        "status"
     ]
 
 
@@ -35,3 +36,11 @@ class PaymentAdmin(admin.ModelAdmin):
         "method",
         "amount",
     ]
+
+    search_fields = [
+        "amount",
+        "method",
+        "invoice__number",
+        "status"
+    ]
+

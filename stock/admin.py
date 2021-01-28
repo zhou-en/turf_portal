@@ -52,9 +52,19 @@ class TurfRollAdmin(admin.ModelAdmin):
         "total",
         "sold",
         "status",
+        "note",
         "location",
         "modified",
         "created"
+    ]
+
+    search_fields = [
+        "id",
+        "batch__number",
+        "location__name",
+        "location__number",
+        "note",
+        "status"
     ]
 
 
