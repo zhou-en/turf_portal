@@ -68,8 +68,7 @@ class PaymentCreateForm(forms.ModelForm):
                 code='invalid',
                 params={'value': f"{amount}"},
             )
-        #Set to 0 to avoid user error
-        return 0
+        return amount
 
 class PaymentUpdateForm(forms.ModelForm):
     class Meta:
