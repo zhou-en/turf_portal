@@ -162,9 +162,6 @@ class   Payment(TimeStampedModel, models.Model):
         super().save(*args, **kwargs)
         if self.invoice.payment_complete:
             self.invoice.close()
-        if self.invoice.has_pending_payments:
-            self.invoice.status = Invoice.Status.PAYMENT_PENDING
-            self.invoice.save()
 
     @property
     def status_color(self):
