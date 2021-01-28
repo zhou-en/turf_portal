@@ -21,8 +21,8 @@ class Invoice(TimeStampedModel, models.Model):
     class Status(models.TextChoices):
         DRAFT = "DRAFT", _("Draft")
         # when invoice is sent to buyer
-        PAYMENT_OUTSTANDING = 'OUTSTANDING', _('Outstanding')
-        PAYMENT_PENDING = 'PENDING', _('Pending')
+        OUTSTANDING = 'OUTSTANDING', _('Outstanding')
+        PENDING = 'PENDING', _('Pending')
         # when payment is completed
         CLOSED = 'CLOSED', _('Closed')
 
@@ -52,7 +52,7 @@ class Invoice(TimeStampedModel, models.Model):
         """
         Send invoice to buyer, update order to invoiced status.
         """
-        self.status = Invoice.Status.PAYMENT_OUTSTANDING
+        self.status = Invoice.Status.OUTSTANDING
         self.save()
         self.order.status = Order.Status.INVOICED
         self.order.save()
@@ -101,7 +101,7 @@ class Invoice(TimeStampedModel, models.Model):
 
     def is_invoiceable(self):
         return self.status in [
-            Invoice.Status.PAYMENT_OUTSTANDING,
+            Invoice.Status.OUTSTANDING,
             Invoice.Status.CLOSED
         ]
 

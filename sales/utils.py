@@ -25,9 +25,9 @@ def invoice_status_color(status):
     from invoice.models import Invoice
     if status == Invoice.Status.DRAFT:
         return "success"
-    if status == Invoice.Status.PAYMENT_OUTSTANDING:
+    if status == Invoice.Status.OUTSTANDING:
         return "danger"
-    if status == Invoice.Status.PAYMENT_PENDING:
+    if status == Invoice.Status.PENDING:
         return "warning"
     if status == Invoice.Status.CLOSED:
         return "outline-secondary"

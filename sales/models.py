@@ -212,9 +212,9 @@ class Order(TimeStampedModel, models.Model):
         logger.info("Order %s status was updated to DELIVERED.", self.number)
         self.save()
         invoice = self.invoice_set.first()
-        if invoice.status != Invoice.Status.PAYMENT_OUTSTANDING:
-            logger.info("Update invoice %s status to PAYMENT_OUTSTANDING.", self.number)
-            invoice.status = Invoice.Status.PAYMENT_OUTSTANDING
+        if invoice.status != Invoice.Status.OUTSTANDING:
+            logger.info("Update invoice %s status to OUTSTANDING.", self.number)
+            invoice.status = Invoice.Status.OUTSTANDING
             invoice.save()
 
     def editable(self):
@@ -236,8 +236,8 @@ class Order(TimeStampedModel, models.Model):
         logger.info("Update order %s status to INVOICED.", self.number)
         self.save()
         invoice = self.invoice_set.first()
-        logger.info("Update invoice %s status to PAYMENT_OUTSTANDING.", self.number)
-        invoice.status = Invoice.Status.PAYMENT_OUTSTANDING
+        logger.info("Update invoice %s status to OUTSTANDING.", self.number)
+        invoice.status = Invoice.Status.OUTSTANDING
         invoice.save()
 
     @property
