@@ -69,9 +69,10 @@ class DataView(APIView):
 
         sales_data = {}
         today = timezone.now().date()
+        a_month_ago = today - timedelta(days=30)
         for s in Order.objects.filter(
             status__exact=Order.Status.CLOSED
-        ).order_by("closed_date"):
+        ).filter(closed_date__range=[a_month_ago, today]).order_by("closed_date"):
             closed_date = s.closed_date.strftime("%Y-%m-%d")
             order_total = s.total_wt_discount
             if closed_date in sales_data:
@@ -80,8 +81,6 @@ class DataView(APIView):
                 sales_data.update({closed_date: order_total})
 
         sales_labels = sales_data.keys()
-        if len(labels) > 30:
-            sales_labels = sales_data.keys()[:30]
         sales_total = []
         for i, k in enumerate(sales_labels):
             sales_total.append(sales_data[k])
