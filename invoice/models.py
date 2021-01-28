@@ -21,8 +21,8 @@ class Invoice(TimeStampedModel, models.Model):
     class Status(models.TextChoices):
         DRAFT = "DRAFT", _("Draft")
         # when invoice is sent to buyer
-        PAYMENT_OUTSTANDING = 'PAYMENT OUTSTANDING', _('Payment Outstanding')
-        PAYMENT_PENDING = 'PAYMENT PENDING', _('Payment Pending')
+        PAYMENT_OUTSTANDING = 'OUTSTANDING', _('Outstanding')
+        PAYMENT_PENDING = 'PENDING', _('Pending')
         # when payment is completed
         CLOSED = 'CLOSED', _('Closed')
 
