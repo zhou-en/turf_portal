@@ -128,6 +128,7 @@ class ExportPDFView(View):
             "branch_code": settings.BRANCH_CODE,
             "swift_code": settings.SWIFT_CODE,
             "account_number": settings.ACCOUNT_NUMBER,
+            "account_name": "TURFD",
             "account_type": settings.ACCOUNT_TYPE,
         }
         filename = "%s.pdf" % invoice.number

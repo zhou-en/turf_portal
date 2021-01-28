@@ -122,7 +122,7 @@ class Invoice(TimeStampedModel, models.Model):
         return False
 
 
-class   Payment(TimeStampedModel, models.Model):
+class Payment(TimeStampedModel, models.Model):
     """
     Payment made to an invoice.
     """
@@ -160,7 +160,7 @@ class   Payment(TimeStampedModel, models.Model):
             else:
                 self.status = Payment.Status.CONFIRMED
         super().save(*args, **kwargs)
-        if self.invoice.payment_complete:
+        if self.invoice.payment_complete and self.invoice.status != Invoice.Status.CLOSED:
             self.invoice.close()
 
     @property

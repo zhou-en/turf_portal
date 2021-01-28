@@ -429,6 +429,7 @@ def send_invoice_email(request, pk):
         "branch_code": settings.BRANCH_CODE,
         "swift_code": settings.SWIFT_CODE,
         "account_number": settings.ACCOUNT_NUMBER,
+        "account_name": "TURFD",
         "account_type": settings.ACCOUNT_TYPE,
     }
     html_message = render_to_string("sales/invoice_email.html", context)
@@ -480,6 +481,7 @@ class InvoiceOrderView(DetailView):
                 "branch": settings.BRANCH,
                 "branch_code": settings.BRANCH_CODE,
                 "swift_code": settings.SWIFT_CODE,
+                "account_name": "TURFD",
                 "account_number": settings.ACCOUNT_NUMBER,
                 "account_type": settings.ACCOUNT_TYPE,
             }
