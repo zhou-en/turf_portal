@@ -273,6 +273,14 @@ class OrderListView(ListView):
     context_object_name = "orders"
     queryset = Order.objects.all().order_by("buyer")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        open_total = 0
+        for ord in Order.objects.all().exclude(status__exact=Order.Status.CLOSED):
+            open_total += ord.total_wt_discount
+        context["open_total"] = open_total
+        return context
+
 
 @method_decorator(login_required, name="dispatch")
 class BuyerOrderCreateView(CreateView):

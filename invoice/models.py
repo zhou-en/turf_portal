@@ -59,7 +59,7 @@ class Invoice(TimeStampedModel, models.Model):
 
     @property
     def total_payment(self):
-        result = self.payment_set.filter(status=Payment.Status.CONFIRMED).aggregate(Sum("amount"))
+        result = self.payment_set.all().aggregate(Sum("amount"))
         if result.get("amount__sum"):
             return round(float(result.get("amount__sum")), 2)
         return round(0.0, 2)
@@ -87,10 +87,11 @@ class Invoice(TimeStampedModel, models.Model):
         return invoice_status_color(self.status)
 
     def close(self):
-        self.closed_date = timezone.now()
-        self.status = Invoice.Status.CLOSED
-        self.save()
-        self.order.close()
+        if self.status != Invoice.Status.CLOSED:
+            self.closed_date = timezone.now()
+            self.status = Invoice.Status.CLOSED
+            self.save()
+            self.order.close()
 
     @property
     def is_payable(self):
@@ -160,11 +161,15 @@ class Payment(TimeStampedModel, models.Model):
             else:
                 self.status = Payment.Status.CONFIRMED
         super().save(*args, **kwargs)
-        if self.invoice.payment_complete and self.invoice.status != Invoice.Status.CLOSED:
+        if self.invoice.payment_complete:
             self.invoice.close()
 
     @property
     def status_color(self):
         return payment_status_color(self.status)
 
+    def confirm(self):
+        if self.status != Payment.Status.CONFIRMED:
+            self.status = Payment.Status.CONFIRMED
+            self.save()
 
