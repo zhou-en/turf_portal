@@ -122,12 +122,11 @@ class RollSpec(TimeStampedModel, models.Model):
         """
         Return the spec code.
         """
-        if self.is_turf:
-            height = "%.0f" % self.height.value
-            width = "%.0f" % self.width.value
-            return f"{height}{self.color.name.upper()[0]}-{width}"
-        else:
+        if not self.is_turf:
             return "JT-%.0f" % self.length
+        height = "%.0f" % self.height.value
+        width = "%.0f" % self.width.value
+        return f"{height}{self.color.name.upper()[0]}-{width}"
 
 
 class Product(TimeStampedModel, models.Model):
@@ -172,11 +171,9 @@ class Product(TimeStampedModel, models.Model):
 
     @property
     def has_stock(self):
-        if TurfRoll.objects.filter(spec=self.spec).exclude(
+        return bool(TurfRoll.objects.filter(spec=self.spec).exclude(
             status__exact=TurfRoll.Status.DEPLETED
-        ):
-            return True
-        return False
+        ))
 
     @property
     def roll_count(self):
@@ -196,12 +193,12 @@ class Product(TimeStampedModel, models.Model):
         """
         Return the available square meters for a roll.
         """
-        available_size = 0
-        for roll in TurfRoll.objects.exclude(
-            status__exact=TurfRoll.Status.DEPLETED
-        ).filter(spec=self.spec):
-            available_size += roll.available
-        return available_size
+        return sum(
+            roll.available
+            for roll in TurfRoll.objects.exclude(
+                    status__exact=TurfRoll.Status.DEPLETED
+            ).filter(spec=self.spec)
+        )
 
 
 class Batch(TimeStampedModel, models.Model):

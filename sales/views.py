@@ -275,9 +275,12 @@ class OrderListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        open_total = 0
-        for ord in Order.objects.all().exclude(status__exact=Order.Status.CLOSED):
-            open_total += ord.total_wt_discount
+        open_total = sum(
+            ord.total_wt_discount
+            for ord in Order.objects.all().exclude(
+                status__exact=Order.Status.CLOSED
+            )
+        )
         context["open_total"] = open_total
         return context
 
