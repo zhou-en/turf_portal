@@ -254,11 +254,13 @@ class Order(TimeStampedModel, models.Model):
         """
         Order can only be closed once invoice is paid.
         """
-        self.status = Order.Status.CLOSED
-        self.closed_date = timezone.now()
-        self.save()
-        for ol in self.orderline_set.all():
-            ol.sold()
+        from invoice.models import Invoice
+        if self.status != Order.Status.CLOSED and self.invoice.status == Invoice.Status.CLOSED:
+            self.status = Order.Status.CLOSED
+            self.closed_date = timezone.now()
+            self.save()
+            for ol in self.orderline_set.all():
+                ol.sold()
 
     def create_orderlines(self, requested_roll_infos):
         """
@@ -356,7 +358,7 @@ class OrderLine(TimeStampedModel, models.Model):
         """
         if self.product and self.roll:
             self.roll.sold += self.quantity
-            self.roll.total -= self.quantity
+            self.roll.total = self.roll.original_size - self.quantity
             self.roll.save()
 
     @property

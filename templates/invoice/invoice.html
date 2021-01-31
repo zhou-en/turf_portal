@@ -113,7 +113,7 @@
             <th>Method</th>
             <th>Status</th>
             <th>Payment Date</th>
-            <th>Update</th>
+            <th>Confirm</th>
           </tr>
           </thead>
           <tbody>
@@ -124,9 +124,15 @@
                 <td><a class="btn btn-sm btn-{{ p.status_color }}" style="pointer-events: none;">{{ p.status }}</a></td>
               <td>{{ p.created|date:"Y-m-d" }}</td>
               {% if p.status == "CONFIRMED" %}
-              <td>-</td>
+              <td>
+                <span data-feather="check-square"></span>
+              </td>
               {% else %}
-              <td><a href={% url 'payment-update' p.id %}><span data-feather="edit"></span></a></td>
+              <td>
+                <a href={% url 'confirm-payment' p.id %} data-toggle="modal" data-target="#confirm-payment-modal-{{ p.id }}">
+                  <span data-feather="square"></span>
+                </a>
+              </td>
               {% endif %}
             </tr>
           {% endfor %}
@@ -143,4 +149,38 @@
 
   {% endif %}
 
+
+  {% if invoice.has_payment %}
+
+  {% for p in payments %}
+    {% if p.status != "CONFIRMED" %}
+    <div id="confirm-payment-modal-{{ p.id }}" class="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Confirm Payment</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <p>
+          Did you received payment of <strong>R{{p.amount|floatformat:2|intcomma}}</strong> from <strong>{{ p.invoice.buyer.name }}</strong> 
+          </p>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <a href="{% url 'invoice' p.invoice.id %}" class="btn btn-sm btn-secondary float-lg-left">Cancel</a>
+          <a href="{% url 'confirm-payment' p.id %}" class="btn btn-sm btn-primary float-lg-right">Confirm</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+    {% endif %}
+  {% endfor %}
+  {% endif %}
 {% endblock %}

@@ -110,6 +110,13 @@ class PaymentListView(ListView):
     queryset = Payment.objects.all()
 
 
+@login_required
+def confirm_payment(request, pk):
+    payment = Payment.objects.get(id=pk)
+    payment.confirm()
+    return HttpResponseRedirect(reverse_lazy("invoice", kwargs={"pk": payment.invoice.id}))
+
+
 class ExportPDFView(View):
 
     def get(self, request, *args, **kwargs):

@@ -266,9 +266,11 @@ class TurfRoll(TimeStampedModel, models.Model):
         return f"{self.id}: {self.spec.code} - {self.status}   - available:{self.available}"
 
     def save(self, *args, **kwargs):
-        if self.total == 0:
+        if self.original_size == self.sold:
             self.status = self.Status.DEPLETED
             self.location = None
+        if self.total != self.original_size - self.sold:
+            self.total = self.original_size - self.sold
         super().save(*args, **kwargs)
 
     @property
