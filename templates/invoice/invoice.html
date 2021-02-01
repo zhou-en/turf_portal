@@ -125,12 +125,12 @@
               <td>{{ p.created|date:"Y-m-d" }}</td>
               {% if p.status == "CONFIRMED" %}
               <td>
-                <span data-feather="check-square"></span>
+                <span data-feather="check-circle"></span>
               </td>
               {% else %}
               <td>
                 <a href={% url 'confirm-payment' p.id %} data-toggle="modal" data-target="#confirm-payment-modal-{{ p.id }}">
-                  <span data-feather="square"></span>
+                  <span data-feather="circle"></span>
                 </a>
               </td>
               {% endif %}

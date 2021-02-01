@@ -113,7 +113,18 @@
     {% for bp in buyer_products %}
       {% if bp.available_rolls %}
           $(document).ready( function () {
-              $('#{{ bp.product }}-{{ bp.id }}').DataTable();
+            var totalRolls = {{ bp.available_rolls|length }};
+            var pageLength = 10;
+            if (totalRolls <= 10) { pageLength = 10; }
+            else if (10 < totalRolls <= 25) { pageLength = 25; }
+            else if (25 < totalRolls <= 50) { pageLength = 50; }
+            else { pageLength = 100; }
+            $('#{{ bp.product }}-{{ bp.id }}').DataTable(
+              {
+                "pageLength": pageLength 
+              }
+            );
+
           } );
       {% endif %}
     {% endfor %}
