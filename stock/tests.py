@@ -35,3 +35,16 @@ class TestNewCase(TestCase):
         self.assertTrue(True)
 
 
+class TestMyCase(TestCase):
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
+    def test_total_sale(self):
+        """
+        """
+        self.assertTrue(True)
+
+
