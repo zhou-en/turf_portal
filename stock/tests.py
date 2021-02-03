@@ -10,13 +10,28 @@ class TestBatch(TestCase):
     """
     # fixtures = ["test_fixtures/fixtures.json"]
 
-    def setUp(self) -> None:
+    def setUp(self):
         pass
 
-    def tearDown(self) -> None:
+    def tearDown(self):
         pass
 
     def test_total_sale(self):
         """
         """
         self.assertTrue(True)
+
+
+class TestNewCase(TestCase):
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
+    def test_total_sale(self):
+        """
+        """
+        self.assertTrue(True)
+
+
