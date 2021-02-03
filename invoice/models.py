@@ -108,7 +108,7 @@ class Invoice(TimeStampedModel, models.Model):
 
     @property
     def payments_confirmed(self):
-        return Payment.Status.PENDING in [
+        return Payment.Status.PENDING not in [
             p.status for p in self.payment_set.all()
         ]
 
