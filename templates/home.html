@@ -3,35 +3,33 @@
 {% block content %}
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h2 class="h3">Dashboard</h2>
-    <!--
     <div class="btn-toolbar mb-2 mb-md-0">
-      <div class="btn-group mr-2">
-        <button type="button" class="btn btn-sm btn-outline-secondary disabled">Share</button>
-        <button type="button" class="btn btn-sm btn-outline-secondary disabled">Export</button>
-      </div>
+      {% comment %} <div class="btn-group mr-2"> {% endcomment %}
+        {% comment %} <button type="button" class="btn btn-sm btn-outline-secondary disabled">Share</button> {% endcomment %}
+        {% comment %} <button type="button" class="btn btn-sm btn-outline-secondary disabled">Export</button> {% endcomment %}
+      {% comment %} </div> {% endcomment %}
       <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle disabled">
         <span data-feather="calendar"></span>
         This week
       </button>
     </div>
-    -->
   </div>
 
-  <div id="large-screen-charts" class="chart-container text-center">
+  <div id="large-screen-charts" class="float-left chart-container text-center;" style="width:115%;">
     <div id="chartContainer" class="col-sm-6" style="width: 40%; display: inline-block;">
       <canvas id="stock-chart" name="stock-chart"></canvas>
     </div>
     <div id="chartContainer" class="col-sm-6" style="width: 40%; display: inline-block;">
       <canvas id="sales-chart" name="sales-chart"></canvas>
     </div>
-    <br>
-    <br>
+    <hr>
     <div id="chartContainer" class="col-sm-6" style="width: 40%; display: inline-block;">
       <canvas id="product-chart" name="stock-sold-chart"></canvas>
     </div>
     <div id="chartContainer" class="col-sm-6" style="width: 40%; display: inline-block;">
       <canvas id="buyer-chart" name="buyer-chart"></canvas>
     </div>
+
   </div>
 
     <div id="small-screen-charts" class="chart-container">
@@ -51,46 +49,6 @@
 
   <br>
   <br>
-  <br>
-  <!--
-  <div>
-    <h3 class="h3">Recent Opened Orders</h3>
-    <hr>
-    <div class="table-responsive-sm">
-      <table id="recent-orders-table" class="display table table-responsive-sm table-hover">
-        <thead class="thead-dark">
-        <tr>
-          <th>Order #</th>
-          <th>Buyer</th>
-          <th>Total</th>
-          <th>Created Date</th>
-          <th>Last Updated</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for order in recent_orders %}
-          <tr>
-            <td><a href="{% url 'order' order.id %}"><span>{{ order.number }}</span></a></td>
-            <td>{{ order.buyer.name }}</td>
-            <td>{{ order.total_wt_discount }}</td>
-            <td>{{ order.created }}</td>
-            <td>{{ order.modified }}</td>
-            <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a>
-            </td>
-            <td>
-              <a href=""><span data-feather="edit"></span></a>
-              <a href=""><span data-feather="trash-2"></span></a>
-            </td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </div>
-  -->
-
   <script>
       function getRandomColor() {
           var letters = '0123456789ABCDEF'.split('');
@@ -168,6 +126,7 @@
       });
 
       function setBarChart(labels, defaultData, ctx) {
+          var colors = generateBackgroundColors(labels.length);
           var xStepSize = Math.ceil(Math.max(defaultData) / 15);
           var myChart = new Chart(ctx, {
               type: "bar",
@@ -176,22 +135,8 @@
                   datasets: [{
                       label: "Available(m²)",
                       data: defaultData,
-                      backgroundColor: [
-                          'rgba(255, 99, 132, 1)',
-                          'rgba(54, 162, 235, 1)',
-                          'rgba(255, 206, 86, 1)',
-                          'rgba(75, 192, 192, 1)',
-                          'rgba(153, 102, 255, 1)',
-                          'rgba(255, 159, 64, 1)'
-                      ],
-                      borderColor: [
-                          'rgba(255, 99, 132, 1)',
-                          'rgba(54, 162, 235, 1)',
-                          'rgba(255, 206, 86, 1)',
-                          'rgba(75, 192, 192, 1)',
-                          'rgba(153, 102, 255, 1)',
-                          'rgba(255, 159, 64, 1)'
-                      ],
+                      backgroundColor: colors,
+                      borderColor: colors,
                       borderWidth: 1.5
                   }]
               },
@@ -218,7 +163,7 @@
                                   autoSkip: false
                               },
                               scaleLabel: {
-                                  display: true,
+                                  display: false,
                                   labelString: 'Product Code',
                                   fontStyle: "bold"
                               },
@@ -228,7 +173,7 @@
                   legend: {display: false},
                   title: {
                       display: true,
-                      text: 'Stock Available in m²',
+                      text: 'Available Stocks',
                       fontStyle: "bold"
                   }
               }
@@ -316,7 +261,7 @@
                       }],
                       xAxes: [{
                           scaleLabel: {
-                              display: true,
+                              display: false,
                               labelString: 'Month',
                               fontStyle: "bold"
                           }
@@ -325,7 +270,7 @@
                   legend: {display: false},
                   title: {
                       display: true,
-                      text: 'Monthly Sales in the Last 12 Months',
+                      text: 'Monthly Turnovers',
                       fontStyle: "bold"
                   }
               }
@@ -350,7 +295,7 @@
                   responsive: true,
                   title: {
                       display: true,
-                      text: 'Daily Sales in the Past 30 Days'
+                      text: 'Daily Turnovers'
                   },
                   legend: {display: false},
                   scales: {
@@ -373,7 +318,7 @@
                                   display: true
                               },
                               scaleLabel: {
-                                  display: true,
+                                  display: false,
                                   labelString: 'Date',
                                   fontStyle: 'bold'
                               }
