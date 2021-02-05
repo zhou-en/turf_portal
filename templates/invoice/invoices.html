@@ -16,7 +16,7 @@
         <th>Order</th>
         <th>Total</th>
         <th>Buyer</th>
-        <th>Created Date</th>
+        <th>Payments</th>
       </tr>
       </thead>
       <tbody>
@@ -28,7 +28,25 @@
           <td><a href="{% url 'order' invoice.order.id %}"><span>{{ invoice.order.number }}</span></a></td>
         <td>R{{ invoice.order.total_amount|floatformat:2|intcomma }}</td>
           <td><a href="{% url 'buyer' invoice.buyer.id %}"><span>{{ invoice.buyer.name }}</span></a></td>
-          <td>{{ invoice.created|date:"Y-m-d" }}</td>
+          {% if invoice.status == "CLOSED" %}
+              <td>
+                <span data-feather="check-square"></span>
+              </td>
+              {% elif invoice.status == "OUTSTANDING" %}
+                {% if invoice.amount_due == 0 %}
+                <td>
+                  <a class="btn btn-sm btn-warning" href={% url 'confirm-all-payments' invoice.id %} data-toggle="modal" data-target="#confirm-all-payments-modal-{{invoice.id}}">
+                    Confirm 
+                  </a>
+                </td>
+                {% else %}
+                <td>
+                <a class="btn btn-sm btn-primary" href="{% url 'payment-create' invoice.id %}">Add</a>
+                </td>
+                {% endif %}
+            {% else %}
+            <td></td>
+            {% endif %}
         </tr>
         {% endif %}
       {% endfor %}
@@ -53,7 +71,6 @@
           <th>Order</th>
           <th>Total</th>
           <th>Buyer</th>
-          <th>Created Date</th>
           <th>Closed Date</th>
         </tr>
         </thead>
@@ -66,7 +83,6 @@
               <td><a href="{% url 'order' invoice.order.id %}"><span>{{ invoice.order.number }}</span></a></td>
               <td>R{{ invoice.order.total_amount|floatformat:2|intcomma  }}</td>
               <td><a href="{% url 'buyer' invoice.buyer.id %}"><span>{{ invoice.buyer.name }}</span></a></td>
-              <td>{{ invoice.created|date:"Y-m-d" }}</td>
               <td>{% if not invoice.closed_date|date:"Y-m-d" %} - {% else %}{{ invoice.closed_date|date:"Y-m-d" }} {% endif %}</td>
             </tr>
           {% endif %}
@@ -76,13 +92,66 @@
     </div>
   </div>
 
+  {% for invoice in invoices %}
+  {% if invoice.status != "CLOSED" %}
+  <div id="confirm-all-payments-modal-{{invoice.id}}" class="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Confirm Payment</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <p>
+          Did you receive these payments? 
+          </p>
+        <table class="table table-sm table-borderless">
+          <thead>
+          <tr>
+            <th>Amount</th>
+            <th>Method</th>
+            <th>Status</th>
+            <th>Payment Date</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for inv_id, payments in open_payments.items %}
+          {% if inv_id == invoice.id %}
+            {% for p in payments %}
+            <tr class="text-left">
+                <td class="text-success">R{{ p.amount|floatformat:2|intcomma }}</td>
+                <td>{{ p.method }}</td>
+                  <td><a class="btn btn-sm btn-{{ p.status_color }}" style="pointer-events: none;">{{ p.status }}</a></td>
+                <td>{{ p.created|date:"Y-m-d" }}</td>
+            </tr>
+            {% endfor %}
+          {% endif %}
+          {% endfor %}
+          </tbody>
+        </table>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <a href="{% url 'invoices' %}" class="btn btn-sm btn-secondary float-lg-left">Cancel</a>
+          <a href="{% url 'confirm-all-payments' invoice.id %}" class="btn btn-sm btn-primary float-lg-right">Confirm</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% endfor %}
 
   <script>
       $(document).ready( function () {
           $('#opened-invoices-table').DataTable(
               {
                   "order": [
-                      [5,'desc'],
+                      [0,'desc'],
                   ]
               }
           );

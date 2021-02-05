@@ -24,6 +24,19 @@ class InvoiceListView(ListView):
     context_object_name = 'invoices'
     queryset = Invoice.objects.all()
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        open_payments = {}
+        for invoice in Invoice.objects.all().exclude(
+            status=Invoice.Status.CLOSED
+        ):
+            open_payments.update(
+                {invoice.id: invoice.payment_set.all()}
+            )
+        context["open_payments"] = open_payments
+        return context
+
+
 
 @method_decorator(login_required, name='dispatch')
 class InvoiceDetailView(DetailView):
@@ -115,6 +128,15 @@ def confirm_payment(request, pk):
     payment = Payment.objects.get(id=pk)
     payment.confirm()
     return HttpResponseRedirect(reverse_lazy("invoice", kwargs={"pk": payment.invoice.id}))
+
+
+@login_required
+def confirm_all_payments(request, pk):
+    invoice = Invoice.objects.get(id=pk)
+    for payment in invoice.payment_set.all():
+        payment.confirm()
+    return HttpResponseRedirect(reverse_lazy("invoice", kwargs={"pk": pk}))
+
 
 
 class ExportPDFView(View):
