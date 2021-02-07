@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from datetime import timedelta
+from datetime import timedelta, datetime
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.models import User
@@ -51,6 +51,12 @@ class DataView(APIView):
     permission_classes = []
 
     def get(self, request, format=None):
+        start_date = request.GET.get('start_date')
+        end_date = request.GET.get('end_date')
+        # Add one day to end_date so that it inclusive both start and end dates
+        if end_date:
+            end_date =(datetime.strptime(end_date, "%Y-%m-%d") + timedelta(days=1)).strftime("%Y-%m-%d")
+
         stock_available_data = {}
         for roll in TurfRoll.objects.all():
             if roll.spec.code in stock_available_data:
@@ -67,12 +73,28 @@ class DataView(APIView):
             }
         }
 
+        # Stock Sold from start_date to end_date
+        stock_sold_data = {}
+        for ol in OrderLine.objects.filter(
+            order__closed_date__range=[start_date, end_date]
+        ):
+            if ol.product:
+                if ol.product.code in stock_sold_data:
+                    stock_sold_data[ol.product.code] += ol.quantity
+                else:
+                    stock_sold_data[ol.product.code] = ol.quantity
+        labels = sorted(stock_sold_data.keys())
+        default_items = [stock_sold_data[k] for k in labels]
+        data.update({
+            "stock_sold_data": {
+                "labels": labels,
+                "default": default_items,
+            }
+        })
         sales_data = {}
-        today = timezone.now().date()
-        a_month_ago = today - timedelta(days=30)
         for s in Order.objects.filter(
             status__exact=Order.Status.CLOSED
-        ).filter(closed_date__range=[a_month_ago, today]).order_by("closed_date"):
+        ).filter(closed_date__range=[start_date, end_date]).order_by("closed_date"):
             closed_date = s.closed_date.strftime("%Y-%m-%d")
             order_total = s.total_wt_discount
             if closed_date in sales_data:
@@ -90,31 +112,6 @@ class DataView(APIView):
                 "sales_data": {
                     "labels": sales_labels,
                     "default": sales_total
-                }
-            }
-        )
-
-        # total stock sold
-        stock_sold_data = {}
-        for s in Order.objects.filter(
-            status__exact=Order.Status.CLOSED
-        ).order_by("closed_date"):
-            closed_month = s.closed_date.strftime("%Y-%m")
-            order_total = s.total_wt_discount
-            if closed_month in stock_sold_data:
-                stock_sold_data[closed_month] += order_total
-            else:
-                stock_sold_data.update({closed_month: order_total})
-
-        stock_sold_labels = sorted(stock_sold_data.keys())
-        if len(stock_sold_labels) > 12:
-            sorted(stock_sold_data.keys()[:12])
-        stock_sold_total = [stock_sold_data[k] for k in stock_sold_labels]
-        data.update(
-            {
-                "stock_sold_data": {
-                    "labels": stock_sold_labels,
-                    "default": stock_sold_total
                 }
             }
         )
