@@ -32,6 +32,7 @@ from sales.forms import (
     DiscountCreateForm,
     DiscountUpdateForm,
 )
+from sales.utils import build_search_query
 
 logger = logging.getLogger(__name__)
 
@@ -263,6 +264,21 @@ class FilteredOrderListView(ListView):
                 ],
             )
             context["filter"] = {"name": "Sold", "result": roll.sold}
+        return context
+
+
+@method_decorator(login_required, name="dispatch")
+class SearchOrderListView(ListView):
+    model = Order
+    template_name = "sales/search_order_results.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(SearchOrderListView, self).get_context_data(**kwargs)
+        query = build_search_query(self.request.GET)
+        results = Order.objects.filter(**query)
+        context.update(
+            {"orders": results}
+        )
         return context
 
 
