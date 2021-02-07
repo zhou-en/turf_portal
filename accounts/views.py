@@ -103,10 +103,7 @@ class DataView(APIView):
                 sales_data.update({closed_date: order_total})
 
         sales_labels = sales_data.keys()
-        sales_total = []
-        for i, k in enumerate(sales_labels):
-            sales_total.append(sales_data[k])
-
+        sales_total = [sales_data[k] for i, k in enumerate(sales_labels)]
         data.update(
             {
                 "sales_data": {
