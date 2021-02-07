@@ -1,4 +1,5 @@
 import re
+from datetime import datetime
 
 
 def remove_none_alphanumeric(string):
@@ -47,3 +48,17 @@ def buyer_status_color(status):
         return "success"
     if status == Buyer.Status.INACTIVE:
         return "secondary"
+
+def build_search_query(search_params):
+    search_query = {}
+    for k, v in search_params.items():
+        search_query.update(
+            {k: v}
+        )
+        if "date" in k:
+            search_query.pop(k)
+            date_str = [int(i) for i in v.split("-")]
+            search_query.update(
+                {f"{k}__date": datetime(date_str[0], date_str[1], date_str[2])}
+            )
+    return search_query

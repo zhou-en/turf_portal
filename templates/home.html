@@ -4,48 +4,29 @@
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h2 class="h3">Dashboard</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
-      {% comment %} <div class="btn-group mr-2"> {% endcomment %}
-        {% comment %} <button type="button" class="btn btn-sm btn-outline-secondary disabled">Share</button> {% endcomment %}
-        {% comment %} <button type="button" class="btn btn-sm btn-outline-secondary disabled">Export</button> {% endcomment %}
-      {% comment %} </div> {% endcomment %}
-      <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle disabled">
-        <span data-feather="calendar"></span>
-        This week
+      <button id="date-range-picker" type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle disabled">
+         <i data-feather="calendar"></i>
+         <span></span> <i class="fa fa-caret-down"></i>
       </button>
     </div>
   </div>
 
-  <div id="large-screen-charts" class="float-left chart-container text-center;" style="width:115%;">
-    <div id="chartContainer" class="col-sm-6" style="width: 40%; display: inline-block;">
-      <canvas id="stock-chart" name="stock-chart"></canvas>
+  <div id="large-screen-charts" class="float-left chart-container text-center;" style="width:120%;">
+    <div id="stock-sold-chart-parent-div" class="col-sm-6" style="width: 40%; display: inline-block;">
+      <canvas id="stock-sold-chart" name="stock-sold-chart"></canvas>
     </div>
-    <div id="chartContainer" class="col-sm-6" style="width: 40%; display: inline-block;">
+    <div id="sales-chart-parent-div" class="col-sm-6" style="width: 40%; display: inline-block;">
       <canvas id="sales-chart" name="sales-chart"></canvas>
     </div>
     <hr>
-    <div id="chartContainer" class="col-sm-6" style="width: 40%; display: inline-block;">
-      <canvas id="product-chart" name="stock-sold-chart"></canvas>
+    <div id="stock-chart-parent-div" class="col-sm-6" style="width: 40%; display: inline-block;">
+      <canvas id="stock-chart" name="stock-chart"></canvas>
     </div>
     <div id="chartContainer" class="col-sm-6" style="width: 40%; display: inline-block;">
       <canvas id="buyer-chart" name="buyer-chart"></canvas>
     </div>
 
   </div>
-
-    <div id="small-screen-charts" class="chart-container">
-      <div id="chartContainer" class="chart-container">
-        <canvas id="stock-chart" name="stock-chart"></canvas>
-      </div>
-      <div id="chartContainer">
-        <canvas id="sales-chart" name="sales-chart"></canvas>
-      </div>
-      <div id="chartContainer">
-        <canvas id="product-chart" name="stock-sold-chart"></canvas>
-      </div>
-      <div id="chartContainer">
-        <canvas id="buyer-chart" name="buyer-chart"></canvas>
-      </div>
-    </div>
 
   <br>
   <br>
@@ -69,14 +50,6 @@
           return colorArray
       }
 
-      if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-          document.getElementById("large-screen-charts").hidden = true;
-          document.getElementById("small-screen-charts").hidden = false;
-      } else {
-          document.getElementById("large-screen-charts").hidden = false;
-          document.getElementById("small-screen-charts").hidden = true;
-      }
-
       $(document).ready(function () {
           $('#recent-orders-table').dataTable(
               {
@@ -91,33 +64,30 @@
       var customer = parseInt("{{ data.customers }}");
       var defaultData = [];
       var labels = [];
+      var start = moment().startOf('month') //moment().subtract(30, 'days');
+      var end =  moment().endOf('month')//moment();
+      var start_date = start.format("YYYY-MM-DD");
+      var end_date = end.format("YYYY-MM-DD");
+
       $.ajax({
           method: "GET",
           url: endpoint,
+          data: {
+            start_date: start_date,
+            end_date: end_date,
+          }, 
           success: function (data) {
-              var stock_data = data.stock_data;
-              var sales_data = data.sales_data;
-              var stock_sold_data = data.stock_sold_data;
-              var buyer_data = data.buyer_data;
-              var ctxes = document.getElementsByName('stock-chart');
-              for (var i=0; i<ctxes.length; i++) {
-                  setBarChart(stock_data.labels, stock_data.default, ctxes[i]);
-              }
+            var stock_data = data.stock_data;
+            var stock_sold_data = data.stock_sold_data;
+            var sales_data = data.sales_data;
+            var buyer_data = data.buyer_data;
 
-              ctxes = document.getElementsByName('sales-chart');
-              for (var i=0; i<ctxes.length; i++) {
-                  setLineChart(sales_data.labels, sales_data.default, ctxes[i]);
-              }
+            var ctxes = document.getElementById('stock-chart');
+            setBarChart("Stock Available", stock_data.labels, stock_data.default, "Available (m²)", ctxes);
 
-              ctxes = document.getElementsByName('buyer-chart');
-              for (var i=0; i<ctxes.length; i++) {
-                  setBuyerChart(buyer_data.labels, buyer_data.default, ctxes[i]);
-              }
+            ctxes = document.getElementById('buyer-chart');
+            setBuyerChart(buyer_data.labels, buyer_data.default, ctxes);
 
-              ctxes = document.getElementsByName('stock-sold-chart');
-              for (var i=0; i<ctxes.length; i++) {
-                  setProductChart(stock_sold_data.labels, stock_sold_data.default, ctxes[i]);
-              }
           },
           error: function (error_data) {
               console.log("error");
@@ -125,15 +95,15 @@
           }
       });
 
-      function setBarChart(labels, defaultData, ctx) {
+      function setBarChart(title, labels, defaultData, dataLabel, ctx) {
           var colors = generateBackgroundColors(labels.length);
           var xStepSize = Math.ceil(Math.max(defaultData) / 15);
-          var myChart = new Chart(ctx, {
+          var barChart = new Chart(ctx, {
               type: "bar",
               data: {
                   labels: labels,
                   datasets: [{
-                      label: "Available(m²)",
+                      label: dataLabel,
                       data: defaultData,
                       backgroundColor: colors,
                       borderColor: colors,
@@ -146,6 +116,7 @@
                   scales: {
                       yAxes: [
                           {
+                            stacked: false,
                             ticks: {
                                 beginAtZero: true
                             },
@@ -158,24 +129,31 @@
                       ],
                       xAxes: [
                           {
-                              ticks: {
-                                  stepSize: xStepSize,
-                                  autoSkip: false
-                              },
-                              scaleLabel: {
-                                  display: false,
-                                  labelString: 'Product Code',
-                                  fontStyle: "bold"
-                              },
+                            stacked: true,  
+                            ticks: {
+                                stepSize: xStepSize,
+                                autoSkip: false
+                            },
+                            scaleLabel: {
+                                display: false,
+                                labelString: 'Product Code',
+                                fontStyle: "bold"
+                            },
                           }
                       ]
                   },
                   legend: {display: false},
                   title: {
                       display: true,
-                      text: 'Available Stocks',
+                      text: title,
                       fontStyle: "bold"
+                  },
+                  plugins: {
+                      labels: {
+                          render: 'label'
+                      }
                   }
+
               }
           });
       }
@@ -189,7 +167,6 @@
                   datasets: [{
                       label: "Total (R)",
                       data: defaultData,
-                      {#borderColor: colors,#}
                       backgroundColor: colors,
                       hoverBackgroundColor: colors,
                       borderWidth: 1.5
@@ -291,6 +268,18 @@
                   }]
               },
               options: {
+                  showLines: true,
+                  onClick: function(evt) {
+                    var element = myChart.getElementAtEvent(evt);
+                    if(element.length > 0) {
+                      var ind = element[0]._index;
+                      console.log(labels[ind]);
+                      console.log(defaultData[ind]);
+                      var closed_date = labels[ind].toString();
+                      console.log(closed_date);
+                      window.location.href = "{% url 'search-orders' %}?closed_date=" + closed_date;
+                    }
+                  },
                   maintainAspectRatio: true,
                   responsive: true,
                   title: {
@@ -328,6 +317,66 @@
               }
           });
       }
+
+      $(function() {
+
+          var start = moment().startOf('month') //moment().subtract(30, 'days');
+          var end =  moment().endOf('month')//moment();
+
+          function cb(start, end) {
+              $('#date-range-picker span').html(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+              console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+
+              var start_date = start.format("YYYY-MM-DD");
+              var end_date = end.format("YYYY-MM-DD");
+              $.ajax({
+                  type: "GET",
+                  url: "api/chart/data",
+                  data: {
+                      start_date: start_date,
+                      end_date: end_date,
+                  },   /* Passing the text data */
+                  success:  function(data){
+                    var stock_data = data.stock_data;
+                    var stock_sold_data = data.stock_sold_data;
+                    var sales_data = data.sales_data;
+                    var buyer_data = data.buyer_data;
+
+                  document.getElementById('stock-sold-chart').remove();
+                  document.getElementById('stock-sold-chart-parent-div').innerHTML += '<canvas id="stock-sold-chart" name="stock-sold-chart"></canvas>'
+
+                    var ctxes = document.getElementById('stock-sold-chart').getContext("2d");
+                    setBarChart("Stock Sold", stock_sold_data.labels,stock_sold_data.default, "Sold (m²)", ctxes);
+
+                    document.getElementById('sales-chart').remove();
+                    document.getElementById('sales-chart-parent-div').innerHTML += '<canvas id="sales-chart" name="sales-chart"></canvas>'
+
+                    ctxes = document.getElementById('sales-chart');
+                    setLineChart(sales_data.labels, sales_data.default, ctxes);
+
+                  }
+              });
+          }
+          $('#date-range-picker').daterangepicker({
+              "locale": {
+                  "applyLabel": "Update Dashboard",
+                  "cancelLabel": "Clear",
+              },
+              startDate: start,
+              endDate: end,
+              ranges: {
+                  'Today': [moment(), moment()],
+                  'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                  'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                  'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                  'This Month': [moment().startOf('month'), moment().endOf('month')],
+                  'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+              }
+          },
+              cb
+          );
+          cb(start, end);
+      });
 
   </script>
 {% endblock %}

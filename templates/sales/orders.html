@@ -24,7 +24,7 @@
           <th>Buyer</th>
           <th>Total</th>
           <th>Status</th>
-          <th>Last Updated Date</th>
+          <th>Created Date</th>
           <th>Closed Date</th>
         </tr>
         </thead>
@@ -36,7 +36,7 @@
             <td>{{ order.buyer.name }}</td>
             <td>R{{ order.total_wt_discount|floatformat:2|intcomma }}</td>
             <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a></td>
-            <td>{{ order.modified|date:"Y-m-d" }}</td>
+            <td>{{ order.created|date:"Y-m-d" }}</td>
             <td>{% if not order.closed_date %}-{% else %}{{ order.closed_date|date:"Y-m-d" }}{% endif %}</td>
           </tr>
           {% endif %}
@@ -61,7 +61,7 @@
           <th>Buyer</th>
           <th>Total</th>
           <th>Status</th>
-          <th>Last Updated Date</th>
+          <th>Created Date</th>
           <th>Closed Date</th>
         </tr>
         </thead>
@@ -73,7 +73,7 @@
               <td>{{ order.buyer.name }}</td>
               <td>R{{ order.total_wt_discount|floatformat:2|intcomma }}</td>
               <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a></td>
-              <td>{{ order.modified|date:"Y-m-d" }}</td>
+              <td>{{ order.created|date:"Y-m-d" }}</td>
               <td>{% if not order.closed_date %}-{% else %}{{ order.closed_date|date:"Y-m-d" }}{% endif %}</td>
             </tr>
           {% endif %}
@@ -91,7 +91,6 @@
               {
                   "order": [
                       [4,'desc'],
-                      [0,'desc'],
                   ]
               }
           );
@@ -101,7 +100,6 @@
               {
                   "order": [
                       [4,'desc'],
-                      [0,'desc'],
                   ]
               }
           );

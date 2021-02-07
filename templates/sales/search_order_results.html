@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+  <br>
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Search Results</h5>
+    </div>
+    <div class="card-body">
+      <div class="card-content table-responsive-sm">
+        <table id="orders-table" class="display table table-hover table-sm">
+          <thead>
+          <tr>
+            <th>Order #</th>
+            <th>Buyer</th>
+            <th>Status</th>
+            <th>Total</th>
+            <th>Closed Date</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for order in orders %}
+            <tr>
+              <td><a href="{% url 'order' order.id %}"><span>{{ order.number }}</span></a></td>
+              <td>{{ order.buyer.name }}</td>
+              <td><a class="btn btn-sm btn-{{ order.status_color }}" style="pointer-events: none;">{{ order.status }}</a></td>
+              <td>{{ order.total_wt_discount|floatformat:2|intcomma }}</td>
+              <td>{{ order.closed_date|date:"Y-m-d" }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a href="#" onclick="window.history.back()" class="btn btn-sm btn-secondary">Back</a>
+    </div>
+  </div>
+
+  <script>
+  </script>
+
+{% endblock %}
