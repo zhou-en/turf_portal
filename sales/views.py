@@ -275,7 +275,10 @@ class SearchOrderListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(SearchOrderListView, self).get_context_data(**kwargs)
         query = build_search_query(self.request.GET)
-        results = Order.objects.filter(**query)
+        if "closed_month" in query:
+            results = Order.objects.filter(closed_date__range=query["closed_month"])
+        else:
+            results = Order.objects.filter(**query)
         context.update(
             {"orders": results}
         )
