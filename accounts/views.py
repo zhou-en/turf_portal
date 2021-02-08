@@ -50,12 +50,39 @@ class DataView(APIView):
     authentication_classes = []
     permission_classes = []
 
+    def generate_monthly_sales_data(self, start_date, end_date):
+        monthly_sale = {}
+        for s in Order.objects.filter(
+            status__exact=Order.Status.CLOSED
+        ).filter(closed_date__range=[start_date, end_date]).order_by("closed_date"):
+            closed_date = s.closed_date.strftime("%Y-%m-%d")
+            order_total = s.total_wt_discount
+            closed_month = "-".join(closed_date.split("-")[:2])
+            if closed_month in monthly_sale:
+                monthly_sale[closed_month] += order_total
+            else:
+                monthly_sale.update({closed_month: order_total})
+
+        sales_labels = monthly_sale.keys()
+        sales_total = [monthly_sale[k] for i, k in enumerate(sales_labels)]
+        return {
+            "labels": sales_labels,
+            "default": sales_total
+        }
+
     def get(self, request, format=None):
         start_date = request.GET.get('start_date')
         end_date = request.GET.get('end_date')
+        data = {}
         # Add one day to end_date so that it inclusive both start and end dates
         if end_date:
             end_date =(datetime.strptime(end_date, "%Y-%m-%d") + timedelta(days=1)).strftime("%Y-%m-%d")
+
+        if start_date == "2001-12-21":
+            monthly_data = self.generate_monthly_sales_data(start_date, end_date)
+            data.update(
+                {"monthly_data": monthly_data}
+            )
 
         stock_available_data = {}
         for roll in TurfRoll.objects.all():
@@ -66,12 +93,14 @@ class DataView(APIView):
 
         labels = sorted(stock_available_data.keys())
         default_items = [stock_available_data[k] for k in labels]
-        data = {
-            "stock_data": {
-                "labels": labels,
-                "default": default_items,
+        data.update(
+            {
+                "stock_data": {
+                    "labels": labels,
+                    "default": default_items,
+                }
             }
-        }
+        )
 
         # Stock Sold from start_date to end_date
         stock_sold_data = {}
