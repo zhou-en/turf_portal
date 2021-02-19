@@ -108,17 +108,15 @@ class Invoice(TimeStampedModel, models.Model):
 
     @property
     def payments_confirmed(self):
-        return Payment.Status.PENDING in [
+        return Payment.Status.PENDING not in [
             p.status for p in self.payment_set.all()
         ]
 
     @property
     def has_pending_payments(self):
-        if Payment.Status.PENDING in [
+        return Payment.Status.PENDING in [
             p.status for p in self.payment_set.all()
-        ]:
-            return True
-        return False
+        ]
 
 
 class Payment(TimeStampedModel, models.Model):

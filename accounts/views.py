@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from datetime import timedelta
+from datetime import timedelta, datetime
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.models import User
@@ -50,9 +50,42 @@ class DataView(APIView):
     authentication_classes = []
     permission_classes = []
 
+    def generate_monthly_sales_data(self, start_date, end_date):
+        monthly_sale = {}
+        for s in Order.objects.filter(
+            status__exact=Order.Status.CLOSED
+        ).filter(closed_date__range=[start_date, end_date]).order_by("closed_date"):
+            closed_date = s.closed_date.strftime("%Y-%m-%d")
+            order_total = s.total_wt_discount
+            closed_month = "-".join(closed_date.split("-")[:2])
+            if closed_month in monthly_sale:
+                monthly_sale[closed_month] += order_total
+            else:
+                monthly_sale.update({closed_month: order_total})
+
+        sales_labels = monthly_sale.keys()
+        sales_total = [monthly_sale[k] for i, k in enumerate(sales_labels)]
+        return {
+            "labels": sales_labels,
+            "default": sales_total
+        }
+
     def get(self, request, format=None):
+        start_date = request.GET.get('start_date')
+        end_date = request.GET.get('end_date')
+        data = {}
+        # Add one day to end_date so that it inclusive both start and end dates
+        if end_date:
+            end_date =(datetime.strptime(end_date, "%Y-%m-%d") + timedelta(days=1)).strftime("%Y-%m-%d")
+
+        if start_date == "2001-12-21":
+            monthly_data = self.generate_monthly_sales_data(start_date, end_date)
+            data.update(
+                {"monthly_data": monthly_data}
+            )
+
         stock_available_data = {}
-        for roll in TurfRoll.objects.exclude(spec__category__name="Join Tape"):
+        for roll in TurfRoll.objects.all():
             if roll.spec.code in stock_available_data:
                 stock_available_data[roll.spec.code] += roll.available
             else:
@@ -60,18 +93,37 @@ class DataView(APIView):
 
         labels = sorted(stock_available_data.keys())
         default_items = [stock_available_data[k] for k in labels]
-        data = {
-            "stock_data": {
+        data.update(
+            {
+                "stock_data": {
+                    "labels": labels,
+                    "default": default_items,
+                }
+            }
+        )
+
+        # Stock Sold from start_date to end_date
+        stock_sold_data = {}
+        for ol in OrderLine.objects.filter(
+            order__closed_date__range=[start_date, end_date]
+        ):
+            if ol.product:
+                if ol.product.code in stock_sold_data:
+                    stock_sold_data[ol.product.code] += ol.quantity
+                else:
+                    stock_sold_data[ol.product.code] = ol.quantity
+        labels = sorted(stock_sold_data.keys())
+        default_items = [stock_sold_data[k] for k in labels]
+        data.update({
+            "stock_sold_data": {
                 "labels": labels,
                 "default": default_items,
             }
-        }
-
+        })
         sales_data = {}
-        today = timezone.now().date()
         for s in Order.objects.filter(
             status__exact=Order.Status.CLOSED
-        ).order_by("closed_date"):
+        ).filter(closed_date__range=[start_date, end_date]).order_by("closed_date"):
             closed_date = s.closed_date.strftime("%Y-%m-%d")
             order_total = s.total_wt_discount
             if closed_date in sales_data:
@@ -80,42 +132,12 @@ class DataView(APIView):
                 sales_data.update({closed_date: order_total})
 
         sales_labels = sales_data.keys()
-        if len(labels) > 30:
-            sales_labels = sales_data.keys()[:30]
-        sales_total = []
-        for i, k in enumerate(sales_labels):
-            sales_total.append(sales_data[k])
-
+        sales_total = [sales_data[k] for i, k in enumerate(sales_labels)]
         data.update(
             {
                 "sales_data": {
                     "labels": sales_labels,
                     "default": sales_total
-                }
-            }
-        )
-
-        # total stock sold
-        stock_sold_data = {}
-        for s in Order.objects.filter(
-            status__exact=Order.Status.CLOSED
-        ).order_by("closed_date"):
-            closed_month = s.closed_date.strftime("%Y-%m")
-            order_total = s.total_wt_discount
-            if closed_month in stock_sold_data:
-                stock_sold_data[closed_month] += order_total
-            else:
-                stock_sold_data.update({closed_month: order_total})
-
-        stock_sold_labels = sorted(stock_sold_data.keys())
-        if len(stock_sold_labels) > 12:
-            sorted(stock_sold_data.keys()[:12])
-        stock_sold_total = [stock_sold_data[k] for k in stock_sold_labels]
-        data.update(
-            {
-                "stock_sold_data": {
-                    "labels": stock_sold_labels,
-                    "default": stock_sold_total
                 }
             }
         )
