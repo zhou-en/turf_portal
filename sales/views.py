@@ -314,6 +314,9 @@ class BuyerOrderCreateView(CreateView):
     def dispatch(self, request, *args, **kwargs):
         # Create an order with the given buyer id
         order = Order.objects.create(buyer_id=kwargs.get("pk"))
+
+
+
         return HttpResponseRedirect(reverse_lazy("order", kwargs={"pk": order.id}))
 
 
