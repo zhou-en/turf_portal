@@ -1,38 +1,39 @@
-import logging
 import json
+import logging
+
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.template.loader import render_to_string
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
-from django.urls import reverse_lazy
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from django.views.generic import (
-    UpdateView,
+    CreateView,
     DeleteView,
     DetailView,
     ListView,
-    CreateView,
+    UpdateView,
 )
 
-from stock.models import Product
-from sales.models import Buyer, BuyerProduct, Order, OrderLine, TurfRoll
 from sales.forms import (
     BuyerCreateForm,
-    BuyerUpdateForm,
+    BuyerOrderCreateForm,
     BuyerProductCreateForm,
     BuyerProductUpdateForm,
-    BuyerOrderCreateForm,
-    OrderCreateForm,
-    OrderAddItemForm,
-    OrderItemUpdateForm,
+    BuyerUpdateForm,
     DiscountCreateForm,
     DiscountUpdateForm,
+    OrderAddItemForm,
+    OrderCreateForm,
+    OrderItemUpdateForm,
 )
+from sales.models import Buyer, BuyerProduct, Order, OrderLine, TurfRoll
 from sales.utils import build_search_query
+from stock.models import Product
 
 logger = logging.getLogger(__name__)
 
@@ -70,7 +71,9 @@ class BuyerDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["buyer_products"] = [bp for bp in self.object.buyerproduct_set.all()]
+        context["buyer_products"] = [
+            bp for bp in self.object.buyerproduct_set.all()
+        ]
         context["buyer_orders"] = self.object.order_set.all()
         return context
 
@@ -119,14 +122,20 @@ class BuyerProductCreateView(CreateView):
         buyer = Buyer.objects.get(id=buyer_id)
         form.fields["buyer"].choices = [(buyer.name, buyer.name)]
         buyer_product_choices = [(None, _("Select a product"))]
-        existing_bp_codes = [bp.product.id for bp in buyer.buyerproduct_set.all()]
+        existing_bp_codes = [
+            bp.product.id for bp in buyer.buyerproduct_set.all()
+        ]
         for product in Product.objects.exclude(id__in=existing_bp_codes):
             if product.has_stock:
                 buyer_product_choices.extend(
-                    [(
-                        product.code,
-                        _(f"{product.code}, Available: {product.stock_available} m²")
-                    )]
+                    [
+                        (
+                            product.code,
+                            _(
+                                f"{product.code}, Available: {product.stock_available} m²"
+                            ),
+                        )
+                    ]
                 )
         form.fields["product"].choices = buyer_product_choices
         return form
@@ -138,7 +147,7 @@ class BuyerProductCreateView(CreateView):
         price = request.POST.get("price")
         try:
             price = float(price)
-        except Exception as err:
+        except Exception:
             raise Exception("Invalid price!")
         product_code = request.POST.get("product")
         BuyerProduct.objects.create(
@@ -179,7 +188,9 @@ class BuyerProductUpdateView(UpdateView):
                 reverse_lazy("buyer", kwargs={"pk": buyer_product.buyer_id})
             )
         else:
-            return super(BuyerProductUpdateView, self).post(request, *args, **kwargs)
+            return super(BuyerProductUpdateView, self).post(
+                request, *args, **kwargs
+            )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -212,7 +223,9 @@ class BuyerProductDeleteView(DeleteView):
             return HttpResponseRedirect(
                 reverse_lazy("buyer", kwargs={"pk": buyer_product.buyer_id})
             )
-        return super(BuyerProductDeleteView, self).post(request, *args, **kwargs)
+        return super(BuyerProductDeleteView, self).post(
+            request, *args, **kwargs
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -276,12 +289,12 @@ class SearchOrderListView(ListView):
         context = super(SearchOrderListView, self).get_context_data(**kwargs)
         query = build_search_query(self.request.GET)
         if "closed_month" in query:
-            results = Order.objects.filter(closed_date__range=query["closed_month"])
+            results = Order.objects.filter(
+                closed_date__range=query["closed_month"]
+            )
         else:
             results = Order.objects.filter(**query)
-        context.update(
-            {"orders": results}
-        )
+        context.update({"orders": results})
         return context
 
 
@@ -314,7 +327,9 @@ class BuyerOrderCreateView(CreateView):
     def dispatch(self, request, *args, **kwargs):
         # Create an order with the given buyer id
         order = Order.objects.create(buyer_id=kwargs.get("pk"))
-        return HttpResponseRedirect(reverse_lazy("order", kwargs={"pk": order.id}))
+        return HttpResponseRedirect(
+            reverse_lazy("order", kwargs={"pk": order.id})
+        )
 
 
 @method_decorator(login_required, name="dispatch")
@@ -323,11 +338,6 @@ class OrderCreateView(CreateView):
     context_object_name = "order"
     template_name = "sales/order_create.html"
     form_class = OrderCreateForm
-
-    def get_form(self, form_class=None):
-        form = super().get_form()
-        buyers = Buyer.objects.all()
-        return form
 
     def post(self, request, *args, **kwargs):
         if "cancel" in request.POST:
@@ -361,7 +371,9 @@ class OrderAddItemView(CreateView):
         # Get roll ids
         requested_roll_info = []
         if request.POST and request.POST.get("selected_items"):
-            requested_roll_info = json.loads(request.POST.get("selected_items"))
+            requested_roll_info = json.loads(
+                request.POST.get("selected_items")
+            )
         # Create order lines
         order = Order.objects.get(id=self.kwargs.get("pk"))
         order.create_orderlines(requested_roll_info)
@@ -405,8 +417,12 @@ class OrderItemDeleteView(DeleteView):
         order_id = OrderLine.objects.get(id=kwargs.get("pk")).order_id
         if "cancel" not in request.POST:
             OrderLine.objects.get(id=kwargs.get("pk")).delete()
-            return HttpResponseRedirect(reverse_lazy("order", kwargs={"pk": order_id}))
-        return HttpResponseRedirect(reverse_lazy("order", kwargs={"pk": order_id}))
+            return HttpResponseRedirect(
+                reverse_lazy("order", kwargs={"pk": order_id})
+            )
+        return HttpResponseRedirect(
+            reverse_lazy("order", kwargs={"pk": order_id})
+        )
 
 
 @method_decorator(login_required, name="dispatch")
@@ -423,9 +439,13 @@ class OrderItemUpdateView(UpdateView):
     def post(self, request, *args, **kwargs):
         order_id = OrderLine.objects.get(id=self.kwargs.get("pk")).order_id
         if "cancel" in request.POST:
-            return HttpResponseRedirect(reverse_lazy("order", kwargs={"pk": order_id}))
+            return HttpResponseRedirect(
+                reverse_lazy("order", kwargs={"pk": order_id})
+            )
         else:
-            return super(OrderItemUpdateView, self).post(request, *args, **kwargs)
+            return super(OrderItemUpdateView, self).post(
+                request, *args, **kwargs
+            )
 
 
 @login_required
@@ -517,7 +537,9 @@ class InvoiceOrderView(DetailView):
             }
         )
         # import ipdb; ipdb.set_trace()
-        return render(request, template_name="sales/send_invoice.html", context=context)
+        return render(
+            request, template_name="sales/send_invoice.html", context=context
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -543,9 +565,15 @@ class DiscountCreateView(CreateView):
         order_id = self.kwargs.get("pk")
         price = request.POST.get("price")
         OrderLine.objects.create(
-            order_id=order_id, product=None, roll=None, quantity=1, price=float(price)
+            order_id=order_id,
+            product=None,
+            roll=None,
+            quantity=1,
+            price=float(price),
         )
-        return HttpResponseRedirect(reverse_lazy("order", kwargs={"pk": order_id}))
+        return HttpResponseRedirect(
+            reverse_lazy("order", kwargs={"pk": order_id})
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -569,7 +597,9 @@ class DiscountUpdateView(UpdateView):
                 reverse_lazy("order", kwargs={"pk": self.kwargs.get("pk")})
             )
         else:
-            return super(DiscountUpdateView, self).post(request, *args, **kwargs)
+            return super(DiscountUpdateView, self).post(
+                request, *args, **kwargs
+            )
 
 
 @method_decorator(login_required, name="dispatch")
@@ -584,5 +614,6 @@ class DiscountDeleteView(DeleteView):
     def post(self, request, *args, **kwargs):
         order_id = OrderLine.objects.get(id=kwargs.get("pk")).order_id
         OrderLine.objects.get(id=kwargs.get("pk")).delete()
-        return HttpResponseRedirect(reverse_lazy("order", kwargs={"pk": order_id}))
-
+        return HttpResponseRedirect(
+            reverse_lazy("order", kwargs={"pk": order_id})
+        )
