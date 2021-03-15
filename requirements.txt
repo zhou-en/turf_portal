@@ -62,3 +62,4 @@ WeasyPrint==51
 webencodings==0.5.1
 wkhtmltopdf==0.2
 xhtml2pdf==0.2.4
+pre-commit==2.11.1

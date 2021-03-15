@@ -44,7 +44,6 @@
           var colorArray = []
           for(var i=0; i<numberOfColors; i++) {
               color = getRandomColor();
-              console.log(color);
               colorArray.push(color);
           }
           return colorArray
@@ -257,7 +256,7 @@
           });
       }
 
-      function setLineChart(labels, defaultData, ctx) {
+      function setLineChart(chartTitle, labels, defaultData, ctx) {
           var myChart = new Chart(ctx, {
               type: "line",
               data: {
@@ -276,18 +275,19 @@
                     var element = myChart.getElementAtEvent(evt);
                     if(element.length > 0) {
                       var ind = element[0]._index;
-                      console.log(labels[ind]);
-                      console.log(defaultData[ind]);
                       var closed_date = labels[ind].toString();
-                      console.log(closed_date);
-                      window.location.href = "{% url 'search-orders' %}?closed_date=" + closed_date;
+                      var search_field = "closed_date";
+                      if (closed_date.split("-").length == 2) {
+                        search_field = "closed_month";
+                      }
+                      window.location.href = "{% url 'search-orders' %}?" + search_field + "=" + closed_date;
                     }
                   },
                   maintainAspectRatio: true,
                   responsive: true,
                   title: {
                       display: true,
-                      text: 'Daily Turnovers',
+                      text: chartTitle,
                       fontSize: 16
                   },
                   legend: {display: false},
@@ -346,18 +346,23 @@
                     var sales_data = data.sales_data;
                     var buyer_data = data.buyer_data;
 
-                  document.getElementById('stock-sold-chart').remove();
-                  document.getElementById('stock-sold-chart-parent-div').innerHTML += '<canvas id="stock-sold-chart" name="stock-sold-chart"></canvas>'
+                    if (data.monthly_data != undefined) {
+                    var monthly_data = data.monthly_data;
+                      document.getElementById('sales-chart').remove();
+                      document.getElementById('sales-chart-parent-div').innerHTML += '<canvas id="sales-chart" name="sales-chart"></canvas>'
+                      var ctxes = document.getElementById('sales-chart');
+                      setLineChart("Monthly Turnonvers", monthly_data.labels, monthly_data.default, ctxes);
+                    } else {
+                      document.getElementById('stock-sold-chart').remove();
+                      document.getElementById('stock-sold-chart-parent-div').innerHTML += '<canvas id="stock-sold-chart" name="stock-sold-chart"></canvas>'
+                      var ctxes = document.getElementById('stock-sold-chart').getContext("2d");
+                      setBarChart("Stock Sold", stock_sold_data.labels,stock_sold_data.default, "Sold (m²)", ctxes);
 
-                    var ctxes = document.getElementById('stock-sold-chart').getContext("2d");
-                    setBarChart("Stock Sold", stock_sold_data.labels,stock_sold_data.default, "Sold (m²)", ctxes);
-
-                    document.getElementById('sales-chart').remove();
-                    document.getElementById('sales-chart-parent-div').innerHTML += '<canvas id="sales-chart" name="sales-chart"></canvas>'
-
-                    ctxes = document.getElementById('sales-chart');
-                    setLineChart(sales_data.labels, sales_data.default, ctxes);
-
+                      document.getElementById('sales-chart').remove();
+                      document.getElementById('sales-chart-parent-div').innerHTML += '<canvas id="sales-chart" name="sales-chart"></canvas>'
+                      ctxes = document.getElementById('sales-chart');
+                      setLineChart("Daily Turnonvers", sales_data.labels, sales_data.default, ctxes);
+                    }
                   }
               });
           }
@@ -374,7 +379,9 @@
                   'Last 7 Days': [moment().subtract(6, 'days'), moment()],
                   'Last 30 Days': [moment().subtract(29, 'days'), moment()],
                   'This Month': [moment().startOf('month'), moment().endOf('month')],
-                  'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                  'Last Month': [moment().subtract(1,
+                    'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                  'Monthly': [moment('2001-12-21'), moment().endOf('month')],
               }
           },
               cb
