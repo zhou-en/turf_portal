@@ -122,11 +122,14 @@ class RollSpec(TimeStampedModel, models.Model):
         """
         Return the spec code.
         """
-        if not self.is_turf:
+        if self.is_turf:
+            height = "%.0f" % self.height.value
+            width = "%.0f" % self.width.value
+            return f"{height}{self.color.name.upper()[0]}-{width}"
+        elif "tape" in self.category.name.lower():
             return "JT-%.0f" % self.length
-        height = "%.0f" % self.height.value
-        width = "%.0f" % self.width.value
-        return f"{height}{self.color.name.upper()[0]}-{width}"
+        else:
+            return self.category.name
 
 
 class Product(TimeStampedModel, models.Model):
