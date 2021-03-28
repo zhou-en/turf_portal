@@ -1,7 +1,7 @@
-from django.utils.translation import gettext_lazy as _
+from django.conf import settings
 from django.db import models
 from django.db.models import Avg, Count, Sum
-from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 from django_extensions.db.models import TimeStampedModel
 
 
@@ -114,8 +114,10 @@ class RollSpec(TimeStampedModel, models.Model):
         """
         if self.is_turf:
             return "m²"
-        else:
+        elif "tape" in self.category.name.lower():
             return "m"
+        else:
+            return "each"
 
     @property
     def code(self):
@@ -128,6 +130,8 @@ class RollSpec(TimeStampedModel, models.Model):
             return f"{height}{self.color.name.upper()[0]}-{width}"
         elif "tape" in self.category.name.lower():
             return "JT-%.0f" % self.length
+        elif "flag" in self.category.name.lower():
+            return f"{self.category} - {self.color}"
         else:
             return self.category.name
 
@@ -163,8 +167,10 @@ class Product(TimeStampedModel, models.Model):
                     f"Height: {self.spec.height.value}mm; "
                     f"Width: {self.spec.width.value}m"
                 )
-            else:
+            elif "tape" in self.spec.category.name.lower():
                 return f"Width: {self.spec.width.value}m; Length: {self.spec.length}m"
+            else:
+                return ""
         else:
             return "Discount that was applied to this order."
 
@@ -174,9 +180,11 @@ class Product(TimeStampedModel, models.Model):
 
     @property
     def has_stock(self):
-        return bool(TurfRoll.objects.filter(spec=self.spec).exclude(
-            status__exact=TurfRoll.Status.DEPLETED
-        ))
+        return bool(
+            TurfRoll.objects.filter(spec=self.spec).exclude(
+                status__exact=TurfRoll.Status.DEPLETED
+            )
+        )
 
     @property
     def roll_count(self):
@@ -199,7 +207,7 @@ class Product(TimeStampedModel, models.Model):
         return sum(
             roll.available
             for roll in TurfRoll.objects.exclude(
-                    status__exact=TurfRoll.Status.DEPLETED
+                status__exact=TurfRoll.Status.DEPLETED
             ).filter(spec=self.spec)
         )
 
@@ -222,7 +230,7 @@ class Batch(TimeStampedModel, models.Model):
         """
         Return total sales of all product from this bactch.
         """
-        from sales.models import OrderLine, Order
+        from sales.models import Order, OrderLine
 
         result = (
             OrderLine.objects.filter(order__status=Order.Status.CLOSED)
@@ -259,7 +267,9 @@ class TurfRoll(TimeStampedModel, models.Model):
     location = models.ForeignKey(
         Warehouse, on_delete=models.DO_NOTHING, blank=True, null=True
     )
-    batch = models.ForeignKey(Batch, on_delete=models.DO_NOTHING, blank=True, null=True)
+    batch = models.ForeignKey(
+        Batch, on_delete=models.DO_NOTHING, blank=True, null=True
+    )
     note = models.TextField(max_length=511, blank=True, null=True)
 
     def __str__(self):
@@ -315,7 +325,9 @@ class TurfRoll(TimeStampedModel, models.Model):
         For visualizing the returned rolls.
         status.
         """
-        return float(self.spec.width.value * self.spec.length - self.original_size)
+        return float(
+            self.spec.width.value * self.spec.length - self.original_size
+        )
 
     @property
     def available(self):

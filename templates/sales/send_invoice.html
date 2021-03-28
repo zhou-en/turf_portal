@@ -90,7 +90,7 @@
               <td class="text-left">-R{{ ol.total|floatformat:2|intcomma }}</td>
               {% else %}
                 <td>
-                  <span class="text-inverse">{{ ol.product.name }}</span><br>
+                  <span class="text-inverse">{{ ol.product.code }}</span><br>
                   <small>{{ ol.product.description }}</small>
                 </td>
                 <td class="text-left">{{ ol.price|floatformat:2|intcomma }} (R/{{ ol.roll.spec.sale_by }})</td>
