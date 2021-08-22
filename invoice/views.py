@@ -1,18 +1,22 @@
 import logging
+
 import pydf
 from django.conf import settings
-from django.urls import reverse_lazy
-from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-from django.views.generic import View, DetailView, ListView, CreateView, UpdateView
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import get_template
-
-from invoice.models import Invoice, Payment
-from invoice.forms import (
-    PaymentCreateForm,
-    PaymentUpdateForm
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.generic import (
+    CreateView,
+    DetailView,
+    ListView,
+    UpdateView,
+    View,
 )
+
+from invoice.forms import PaymentCreateForm, PaymentUpdateForm
+from invoice.models import Invoice, Payment
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +25,7 @@ logger = logging.getLogger(__name__)
 class InvoiceListView(ListView):
     model = Invoice
     template_name = "invoice/invoices.html"
-    context_object_name = 'invoices'
+    context_object_name = "invoices"
     queryset = Invoice.objects.all()
 
     def get_context_data(self, **kwargs):
@@ -30,18 +34,15 @@ class InvoiceListView(ListView):
         for invoice in Invoice.objects.all().exclude(
             status=Invoice.Status.CLOSED
         ):
-            open_payments.update(
-                {invoice.id: invoice.payment_set.all()}
-            )
+            open_payments.update({invoice.id: invoice.payment_set.all()})
         context["open_payments"] = open_payments
         return context
 
 
-
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
 class InvoiceDetailView(DetailView):
     model = Invoice
-    template_name = 'invoice/invoice.html'
+    template_name = "invoice/invoice.html"
     context_object_name = "invoice"
 
     def get_context_data(self, **kwargs):
@@ -49,14 +50,16 @@ class InvoiceDetailView(DetailView):
         # Prepopulate invoice choices and then disable it in forms.py
         form = PaymentCreateForm(pk=self.object.id)
         context["form"] = form
-        context["payments"] = self.object.payment_set.all().order_by("-modified")
+        context["payments"] = self.object.payment_set.all().order_by(
+            "-modified"
+        )
         return context
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
 class PaymentCreateView(CreateView):
     model = Payment
-    template_name = 'invoice/payment_create.html'
+    template_name = "invoice/payment_create.html"
     form_class = PaymentCreateForm
 
     def get_form(self, form_class=None):
@@ -64,28 +67,26 @@ class PaymentCreateView(CreateView):
         pk = self.kwargs.get("pk")
         invoice = Invoice.objects.filter(id=pk)
         form.base_fields["invoice"].queryset = invoice
-        form.initial.update(
-            {"invoice": invoice.first().id}
-        )
+        form.initial.update({"invoice": invoice.first().id})
         return form
 
     def get_success_url(self):
         pk = self.kwargs.pop("pk")
-        return reverse_lazy('invoice', kwargs={'pk': pk})
+        return reverse_lazy("invoice", kwargs={"pk": pk})
 
     def post(self, request, *args, **kwargs):
         if "cancel" in request.POST:
-            return HttpResponseRedirect(reverse_lazy("invoice", kwargs={"pk": self.kwargs.get("pk")}))
-        pk = kwargs.pop("pk")
+            return HttpResponseRedirect(
+                reverse_lazy("invoice", kwargs={"pk": self.kwargs.get("pk")})
+            )
         return super(PaymentCreateView, self).post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         invoice = Invoice.objects.get(id=self.kwargs.get("pk"))
-        context.update(
-            {"invoice": invoice}
-        )
+        context.update({"invoice": invoice})
         return context
+
 
 @method_decorator(login_required, name="dispatch")
 class PaymentUpdateView(UpdateView):
@@ -107,19 +108,23 @@ class PaymentUpdateView(UpdateView):
                 reverse_lazy("invoice", kwargs={"pk": payment.invoice_id})
             )
         else:
-            return super(PaymentUpdateView, self).post(request, *args, **kwargs)
+            return super(PaymentUpdateView, self).post(
+                request, *args, **kwargs
+            )
+
 
 #     def get_context_data(self, **kwargs):
-        # context = super().get_context_data(**kwargs)
-        # context["invoice"] = self.object.invoice
-        # return context
+# context = super().get_context_data(**kwargs)
+# context["invoice"] = self.object.invoice
+# return context
 #
 
-@method_decorator(login_required, name='dispatch')
+
+@method_decorator(login_required, name="dispatch")
 class PaymentListView(ListView):
     model = Payment
     template_name = "invoice/payment_list.html"
-    context_object_name = 'payments'
+    context_object_name = "payments"
     queryset = Payment.objects.all()
 
 
@@ -127,7 +132,9 @@ class PaymentListView(ListView):
 def confirm_payment(request, pk):
     payment = Payment.objects.get(id=pk)
     payment.confirm()
-    return HttpResponseRedirect(reverse_lazy("invoice", kwargs={"pk": payment.invoice.id}))
+    return HttpResponseRedirect(
+        reverse_lazy("invoice", kwargs={"pk": payment.invoice.id})
+    )
 
 
 @login_required
@@ -138,9 +145,7 @@ def confirm_all_payments(request, pk):
     return HttpResponseRedirect(reverse_lazy("invoice", kwargs={"pk": pk}))
 
 
-
 class ExportPDFView(View):
-
     def get(self, request, *args, **kwargs):
 
         pk = self.kwargs.get("pk")
@@ -148,7 +153,9 @@ class ExportPDFView(View):
 
         context = {
             "order": invoice.order,
-            "orderlines": invoice.order.orderline_set.all().order_by("product"),
+            "orderlines": invoice.order.orderline_set.all().order_by(
+                "product"
+            ),
             "invoice": invoice,
             "buyer": invoice.buyer,
             "send_email": False,
@@ -159,10 +166,13 @@ class ExportPDFView(View):
             "account_number": settings.ACCOUNT_NUMBER,
             "account_name": "TURFD",
             "account_type": settings.ACCOUNT_TYPE,
+            "email_address": settings.EMAIL_HOST_USER,
+            "phone_number": settings.PHONE_NUMBER,
         }
-        filename = "%s.pdf" % invoice.number
         template = get_template("sales/invoice_email.html")
-        html = template.render(context)  # Renders the template with the context data.
+        html = template.render(
+            context
+        )  # Renders the template with the context data.
         pdf = pydf.generate_pdf(
             html,
             page_size="A4",
@@ -172,4 +182,4 @@ class ExportPDFView(View):
             margin_bottom="15mm",
             orientation="Landscape",
         )
-        return HttpResponse(pdf, content_type='application/pdf')
+        return HttpResponse(pdf, content_type="application/pdf")

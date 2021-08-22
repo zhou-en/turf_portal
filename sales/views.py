@@ -534,6 +534,8 @@ class InvoiceOrderView(DetailView):
                 "account_name": "TURFD",
                 "account_number": settings.ACCOUNT_NUMBER,
                 "account_type": settings.ACCOUNT_TYPE,
+                "email_address": settings.EMAIL_HOST_USER,
+                "phone_number": settings.PHONE_NUMBER,
             }
         )
         # import ipdb; ipdb.set_trace()
