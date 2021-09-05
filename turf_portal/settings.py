@@ -213,12 +213,16 @@ DEFAULT_ROLL_LENGTH = 25
 
 # Email
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST = config("MAILGUN_SMTP_SERVER", "smtp.gmail.com")
 EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = config("EMAIL_HOST_USER", "")
+EMAIL_PORT = os.environ.get("MAILGUN_SMTP_PORT", 587)
+EMAIL_HOST_USER = config(
+    "EMAIL_HOST_USER", os.environ.get("MAILGUN_SMTP_LOGIN")
+)
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", "")
-PHONE_NUMBER = config("PHONE_NUMBER", "")
+PHONE_NUMBER = config(
+    "PHONE_NUMBER", os.environ.get("MAILGUN_SMTP_PASSWORD", "")
+)
 
 # Banking Details
 BANK = config("BANK", "")
