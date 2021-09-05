@@ -15,11 +15,11 @@ import os
 import sys
 from pathlib import Path
 
+import dj_database_url
 from decouple import Csv, config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -29,7 +29,7 @@ SECRET_KEY = config("SECRET_KEY", "LEDHGFLEFBOUEW*!@#$qGEDIW&T")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=True, cast=bool)
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*", "turf-portal.herokuapp.com"]
 
 # Application definition
 
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -83,7 +84,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "turf_portal.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -97,7 +97,6 @@ DATABASES = {
         "PORT": "5432",
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -210,7 +209,6 @@ DEFAULT_ROLL_WIDTH = 2
 DEFAULT_ROLL_HEIGHT = 30
 DEFAULT_ROLL_LENGTH = 25
 
-
 # Email
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = config("MAILGUN_SMTP_SERVER", "smtp.gmail.com")
@@ -237,6 +235,23 @@ if (
 ):  # Covers regular testing and django-coverage
     DATABASES["default"]["ENGINE"] = "django.db.backends.sqlite3"
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.11/howto/static-files/
+PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
+# STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+# STATIC_URL = '/static/'
+#
+# # Extra lookup directories for collectstatic to find static files
+# STATICFILES_DIRS = (
+#     os.path.join(PROJECT_ROOT, 'static'),
+# )
+
+#  Add configuration for static files storage using whitenoise
+STATICFILES_STORAGE = "whitenoise.django.GzipManifestStaticFilesStorage"
+
+
+prod_db = dj_database_url.config(conn_max_age=500)
+DATABASES["default"].update(prod_db)
 
 """
 To Suppress The Following Warnings:
