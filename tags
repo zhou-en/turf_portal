@@ -1,0 +1,1233 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+$.debounce	htmlcov/jquery.ba-throttle-debounce.min.js	/^(function(b,c){var $=b.jQuery||b.Cowboy||(b.Cowboy={}),a;$.throttle=a=function(e,f,j,i){var h,d=0;if(typeof f!=="boolean"){i=j;j=f;f=c}function g(){var o=this,m=+new Date()-d,n=arguments;function l(){d=+new Date();j.apply(o,n)}function k(){h=c}if(i&&!h){l()}h&&clearTimeout(h);if(i===c&&m>e){l()}else{if(f!==true){h=setTimeout(i?k:l,i===c?e-m:e)}}}if($.guid){g.guid=j.guid=j.guid||$.guid++}return g};$.debounce=function(d,e,f){return f===c?a(d,e,false):a(d,f,e!==false)}})(this);$/;"	f
+ACCOUNT_NUMBER	turf_portal/settings.py	/^ACCOUNT_NUMBER = config("ACCOUNT_NUMBER", "")$/;"	v
+ACCOUNT_TYPE	turf_portal/settings.py	/^ACCOUNT_TYPE = config("ACCOUNT_TYPE", "")$/;"	v
+ACTIVE	sales/models.py	/^        ACTIVE = 'ACTIVE', _('Active')$/;"	v	class:Buyer.Status
+ALLOWED_HOSTS	turf_portal/settings.py	/^ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0", "localhost", "192.168.101.239", "192.168.101.162"]$/;"	v
+AUTH_PASSWORD_VALIDATORS	turf_portal/settings.py	/^AUTH_PASSWORD_VALIDATORS = [$/;"	v
+AccountsConfig	accounts/apps.py	/^class AccountsConfig(AppConfig):$/;"	c
+BANK	turf_portal/settings.py	/^BANK = config("BANK", "")$/;"	v
+BASE_DIR	turf_portal/settings.py	/^BASE_DIR = Path(__file__).resolve().parent.parent$/;"	v
+BRANCH	turf_portal/settings.py	/^BRANCH = config("BRANCH", "")$/;"	v
+BRANCH_CODE	turf_portal/settings.py	/^BRANCH_CODE = config("BRANCH_CODE", "")$/;"	v
+Batch	stock/models.py	/^class Batch(TimeStampedModel, models.Model):$/;"	c
+BatchAdmin	stock/admin.py	/^class BatchAdmin(admin.ModelAdmin):$/;"	c
+Buyer	sales/models.py	/^class Buyer(TimeStampedModel, models.Model):$/;"	c
+BuyerAdmin	sales/admin.py	/^class BuyerAdmin(admin.ModelAdmin):$/;"	c
+BuyerCreateForm	sales/forms.py	/^class BuyerCreateForm(forms.ModelForm):$/;"	c
+BuyerCreateView	sales/views.py	/^class BuyerCreateView(CreateView):$/;"	c
+BuyerDeleteView	sales/views.py	/^class BuyerDeleteView(DeleteView):$/;"	c
+BuyerDetailView	sales/views.py	/^class BuyerDetailView(DetailView):$/;"	c
+BuyerListView	sales/views.py	/^class BuyerListView(ListView):$/;"	c
+BuyerOrderCreateForm	sales/forms.py	/^class BuyerOrderCreateForm(forms.ModelForm):$/;"	c
+BuyerOrderCreateView	sales/views.py	/^class BuyerOrderCreateView(CreateView):$/;"	c
+BuyerProduct	sales/models.py	/^class BuyerProduct(TimeStampedModel, models.Model):$/;"	c
+BuyerProductAdmin	sales/admin.py	/^class BuyerProductAdmin(admin.ModelAdmin):$/;"	c
+BuyerProductAdminForm	sales/forms.py	/^class BuyerProductAdminForm(forms.ModelForm):$/;"	c
+BuyerProductCreateForm	sales/forms.py	/^class BuyerProductCreateForm(forms.ModelForm):$/;"	c
+BuyerProductCreateView	sales/views.py	/^class BuyerProductCreateView(CreateView):$/;"	c
+BuyerProductDeleteView	sales/views.py	/^class BuyerProductDeleteView(DeleteView):$/;"	c
+BuyerProductInline	sales/admin.py	/^class BuyerProductInline(admin.TabularInline):$/;"	c
+BuyerProductUpdateForm	sales/forms.py	/^class BuyerProductUpdateForm(forms.ModelForm):$/;"	c
+BuyerProductUpdateView	sales/views.py	/^class BuyerProductUpdateView(UpdateView):$/;"	c
+BuyerUpdateForm	sales/forms.py	/^class BuyerUpdateForm(forms.ModelForm):$/;"	c
+BuyerUpdateView	sales/views.py	/^class BuyerUpdateView(UpdateView):$/;"	c
+CARD	expense/models.py	/^        CARD = 'CARD', _('Card')$/;"	v	class:Expense.Method
+CARD	invoice/models.py	/^        CARD = 'CARD', _('Card')$/;"	v	class:Payment.Method
+CASH	expense/models.py	/^        CASH = 'CASH', _('Cash')$/;"	v	class:Expense.Method
+CASH	invoice/models.py	/^        CASH = 'CASH', _('Cash')$/;"	v	class:Payment.Method
+CLOSED	invoice/models.py	/^        CLOSED = 'CLOSED', _('Closed')$/;"	v	class:Invoice.Status
+CLOSED	sales/models.py	/^        CLOSED = 'CLOSED', _('Closed')$/;"	v	class:Order.Status
+CONFIRMED	invoice/models.py	/^        CONFIRMED = 'CONFIRMED', _('Confirmed')$/;"	v	class:Payment.Status
+CONTRACTOR	sales/models.py	/^        CONTRACTOR = 'CONTRACTOR', _('Contractor')$/;"	v	class:Buyer.Type
+CRISPY_TEMPLATE_PACK	turf_portal/settings.py	/^CRISPY_TEMPLATE_PACK = 'bootstrap4'$/;"	v
+Category	stock/models.py	/^class Category(TimeStampedModel, models.Model):$/;"	c
+CategoryAdmin	stock/admin.py	/^class CategoryAdmin(admin.ModelAdmin):$/;"	c
+Color	stock/models.py	/^class Color(TimeStampedModel, models.Model):$/;"	c
+ColorAdmin	stock/admin.py	/^class ColorAdmin(admin.ModelAdmin):$/;"	c
+DATABASES	turf_portal/settings.py	/^DATABASES = {$/;"	v
+DATE_INPUT_FORMATS	turf_portal/settings.py	/^DATE_INPUT_FORMATS = ['%Y-%m-%d']$/;"	v
+DEBUG	turf_portal/settings.py	/^DEBUG = config('DEBUG', default=True, cast=bool)$/;"	v
+DEFAULT_ROLL_HEIGHT	turf_portal/settings.py	/^DEFAULT_ROLL_HEIGHT = 30$/;"	v
+DEFAULT_ROLL_LENGTH	turf_portal/settings.py	/^DEFAULT_ROLL_LENGTH = 25$/;"	v
+DEFAULT_ROLL_WIDTH	turf_portal/settings.py	/^DEFAULT_ROLL_WIDTH = 2$/;"	v
+DELIVERED	sales/models.py	/^        DELIVERED = "DELIVERED", _("Delivered")$/;"	v	class:Order.Status
+DEPLETED	stock/models.py	/^        DEPLETED = "DEPLETED", _("Depleted")$/;"	v	class:TurfRoll.Status
+DRAFT	invoice/models.py	/^        DRAFT = "DRAFT", _("Draft")$/;"	v	class:Invoice.Status
+DRAFT	sales/models.py	/^        DRAFT = "DRAFT", _("Draft")$/;"	v	class:Order.Status
+DataView	accounts/views.py	/^class DataView(APIView):$/;"	c
+DateInput	expense/forms.py	/^class DateInput(forms.DateInput):$/;"	c
+DiscountCreateForm	sales/forms.py	/^class DiscountCreateForm(forms.ModelForm):$/;"	c
+DiscountCreateView	sales/views.py	/^class DiscountCreateView(CreateView):$/;"	c
+DiscountDeleteView	sales/views.py	/^class DiscountDeleteView(DeleteView):$/;"	c
+DiscountUpdateForm	sales/forms.py	/^class DiscountUpdateForm(forms.ModelForm):$/;"	c
+DiscountUpdateView	sales/views.py	/^class DiscountUpdateView(UpdateView):$/;"	c
+EFT	expense/models.py	/^        EFT = "EFT", _("EFT")$/;"	v	class:Expense.Method
+EFT	invoice/models.py	/^        EFT = "EFT", _("EFT")$/;"	v	class:Payment.Method
+EMAIL_BACKEND	turf_portal/settings.py	/^EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"$/;"	v
+EMAIL_HOST	turf_portal/settings.py	/^EMAIL_HOST = "smtp.gmail.com"$/;"	v
+EMAIL_HOST_PASSWORD	turf_portal/settings.py	/^EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", 'test_password')$/;"	v
+EMAIL_HOST_USER	turf_portal/settings.py	/^EMAIL_HOST_USER = config("EMAIL_HOST_USER", 'test_user')$/;"	v
+EMAIL_PORT	turf_portal/settings.py	/^EMAIL_PORT = 587$/;"	v
+EMAIL_USE_TLS	turf_portal/settings.py	/^EMAIL_USE_TLS = True$/;"	v
+Expense	expense/models.py	/^class Expense(TimeStampedModel, models.Model):$/;"	c
+ExpenseAdmin	expense/admin.py	/^class ExpenseAdmin(admin.ModelAdmin):$/;"	c
+ExpenseConfig	expense/apps.py	/^class ExpenseConfig(AppConfig):$/;"	c
+ExpenseCreateForm	expense/forms.py	/^class ExpenseCreateForm(forms.ModelForm):$/;"	c
+ExpenseCreateView	expense/views.py	/^class ExpenseCreateView(CreateView):$/;"	c
+ExpenseDeleteView	expense/views.py	/^class ExpenseDeleteView(DeleteView):$/;"	c
+ExpenseDetailView	expense/views.py	/^class ExpenseDetailView(DetailView):$/;"	c
+ExpenseListView	expense/views.py	/^class ExpenseListView(ListView):$/;"	c
+ExpenseUpdateForm	expense/forms.py	/^class ExpenseUpdateForm(forms.ModelForm):$/;"	c
+ExpenseUpdateView	expense/views.py	/^class ExpenseUpdateView(UpdateView):$/;"	c
+ExportPDFView	invoice/views.py	/^class ExportPDFView(View):$/;"	c
+FilteredOrderListView	sales/views.py	/^class FilteredOrderListView(ListView):$/;"	c
+Height	stock/models.py	/^class Height(TimeStampedModel, models.Model):$/;"	c
+HeightAdmin	stock/admin.py	/^class HeightAdmin(admin.ModelAdmin):$/;"	c
+INACTIVE	sales/models.py	/^        INACTIVE = 'INACTIVE', _('Inactive')$/;"	v	class:Buyer.Status
+INSTALLED_APPS	turf_portal/settings.py	/^INSTALLED_APPS = [$/;"	v
+INVOICED	sales/models.py	/^        INVOICED = 'INVOICED', _('Invoiced')$/;"	v	class:Order.Status
+Invoice	invoice/models.py	/^class Invoice(TimeStampedModel, models.Model):$/;"	c
+InvoiceAdmin	invoice/admin.py	/^class InvoiceAdmin(admin.ModelAdmin):$/;"	c
+InvoiceConfig	invoice/apps.py	/^class InvoiceConfig(AppConfig):$/;"	c
+InvoiceDetailView	invoice/views.py	/^class InvoiceDetailView(DetailView):$/;"	c
+InvoiceListView	invoice/views.py	/^class InvoiceListView(ListView):$/;"	c
+InvoiceOrderView	sales/views.py	/^class InvoiceOrderView(DetailView):$/;"	c
+LANGUAGE_CODE	turf_portal/settings.py	/^LANGUAGE_CODE = 'en-us'$/;"	v
+LOGGING	turf_portal/settings.py	/^LOGGING = {$/;"	v
+LOGIN_REDIRECT_URL	turf_portal/settings.py	/^LOGIN_REDIRECT_URL = "home"$/;"	v
+LOGIN_URL	turf_portal/settings.py	/^LOGIN_URL = 'login'$/;"	v
+LOGOUT_REDIRECT_URL	turf_portal/settings.py	/^LOGOUT_REDIRECT_URL = "home"$/;"	v
+LOGOUT_URL	turf_portal/settings.py	/^LOGOUT_URL = 'logout'$/;"	v
+LOOSE	stock/models.py	/^        LOOSE = "LOOSE", _("Loose")$/;"	v	class:TurfRoll.Status
+LoadStocksForm	stock/forms.py	/^class LoadStocksForm(forms.ModelForm):$/;"	c
+LoadStocksView	stock/views.py	/^class LoadStocksView(CreateView):$/;"	c
+MIDDLEWARE	turf_portal/settings.py	/^MIDDLEWARE = [$/;"	v
+Meta	expense/forms.py	/^    class Meta:$/;"	c	class:ExpenseCreateForm
+Meta	expense/forms.py	/^    class Meta:$/;"	c	class:ExpenseUpdateForm
+Meta	invoice/forms.py	/^    class Meta:$/;"	c	class:PaymentCreateForm
+Meta	invoice/forms.py	/^    class Meta:$/;"	c	class:PaymentUpdateForm
+Meta	sales/forms.py	/^    class Meta:$/;"	c	class:BuyerCreateForm
+Meta	sales/forms.py	/^    class Meta:$/;"	c	class:BuyerOrderCreateForm
+Meta	sales/forms.py	/^    class Meta:$/;"	c	class:BuyerProductAdminForm
+Meta	sales/forms.py	/^    class Meta:$/;"	c	class:BuyerProductCreateForm
+Meta	sales/forms.py	/^    class Meta:$/;"	c	class:BuyerProductUpdateForm
+Meta	sales/forms.py	/^    class Meta:$/;"	c	class:BuyerUpdateForm
+Meta	sales/forms.py	/^    class Meta:$/;"	c	class:DiscountCreateForm
+Meta	sales/forms.py	/^    class Meta:$/;"	c	class:DiscountUpdateForm
+Meta	sales/forms.py	/^    class Meta:$/;"	c	class:OrderAddItemForm
+Meta	sales/forms.py	/^    class Meta:$/;"	c	class:OrderCreateForm
+Meta	sales/forms.py	/^    class Meta:$/;"	c	class:OrderItemUpdateForm
+Meta	sales/models.py	/^    class Meta:$/;"	c	class:BuyerProduct
+Meta	stock/forms.py	/^    class Meta:$/;"	c	class:LoadStocksForm
+Meta	stock/forms.py	/^    class Meta:$/;"	c	class:ProductCreateForm
+Meta	stock/forms.py	/^    class Meta:$/;"	c	class:ProductUpdateForm
+Meta	stock/forms.py	/^    class Meta:$/;"	c	class:RollUpdateForm
+Meta	stock/forms.py	/^    class Meta:$/;"	c	class:SplitRollForm
+Meta	stock/models.py	/^    class Meta:$/;"	c	class:Batch
+Meta	stock/models.py	/^    class Meta:$/;"	c	class:Category
+Meta	stock/models.py	/^    class Meta:$/;"	c	class:RollSpec
+Meta	stock/models.py	/^    class Meta:$/;"	c	class:TurfRoll
+Meta	stock/models.py	/^    class Meta:$/;"	c	class:Warehouse
+Method	expense/models.py	/^    class Method(models.TextChoices):$/;"	c	class:Expense
+Method	invoice/models.py	/^    class Method(models.TextChoices):$/;"	c	class:Payment
+Migration	expense/migrations/0001_initial.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	expense/migrations/0002_auto_20210120_2144.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	expense/migrations/0003_auto_20210120_2146.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	expense/migrations/0004_auto_20210120_2146.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	expense/migrations/0005_auto_20210120_2154.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	expense/migrations/0006_auto_20210120_2157.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	expense/migrations/0007_auto_20210120_2157.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	invoice/migrations/0001_initial.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	invoice/migrations/0002_remove_invoice_notes.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	invoice/migrations/0003_auto_20200915_2205.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	invoice/migrations/0004_payment.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	invoice/migrations/0005_payment_method.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	invoice/migrations/0006_invoice_closed_date.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	invoice/migrations/0007_auto_20200919_1733.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	invoice/migrations/0008_remove_invoice_closed_date.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	invoice/migrations/0009_invoice_closed_date.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	invoice/migrations/0010_auto_20200920_1049.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	invoice/migrations/0011_update_invoice_number.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	invoice/migrations/0012_auto_20210120_2135.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	invoice/migrations/0013_payment_status.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	invoice/migrations/0014_update_payment_status.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	invoice/migrations/0015_auto_20210127_2215.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	sales/migrations/0001_initial.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	sales/migrations/0002_buyerproduct.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	sales/migrations/0003_auto_20200908_1407.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	sales/migrations/0004_auto_20200909_1627.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	sales/migrations/0005_auto_20200909_1633.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	sales/migrations/0006_auto_20200909_1634.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	sales/migrations/0007_order_orderline.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	sales/migrations/0008_auto_20200912_0910.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	sales/migrations/0009_auto_20200912_0914.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	sales/migrations/0010_order_number.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	sales/migrations/0011_auto_20200913_2112.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	sales/migrations/0012_order_closed_date.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	sales/migrations/0013_auto_20200919_1519.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	sales/migrations/0014_auto_20200919_1733.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	sales/migrations/0015_auto_20200920_1049.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	sales/migrations/0016_auto_20200928_1915.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	sales/migrations/0017_auto_20200928_2216.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	sales/migrations/0018_auto_20201005_1842.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	sales/migrations/0019_update_order_number.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	stock/migrations/0001_initial.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	stock/migrations/0002_auto_20200908_1039.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	stock/migrations/0003_auto_20200908_1049.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	stock/migrations/0004_auto_20200908_1407.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	stock/migrations/0005_auto_20200909_1547.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	stock/migrations/0006_warehouse_address.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	stock/migrations/0007_auto_20200909_1627.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	stock/migrations/0008_auto_20200909_2335.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	stock/migrations/0009_auto_20200912_0817.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	stock/migrations/0010_turfroll_delivered.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	stock/migrations/0011_auto_20200913_2112.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	stock/migrations/0012_turfroll_sold.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	stock/migrations/0013_auto_20200920_1033.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	stock/migrations/0014_product_has_stock.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	stock/migrations/0015_auto_20200929_1533.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	stock/migrations/0016_turfroll_original_size.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	stock/migrations/0017_remove_product_has_stock.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	stock/migrations/0018_auto_20201003_2238.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	stock/migrations/0019_turfroll_note.py	/^class Migration(migrations.Migration):$/;"	c
+Migration	stock/migrations/0020_auto_20201015_2301.py	/^class Migration(migrations.Migration):$/;"	c
+OPENED	stock/models.py	/^        OPENED = "OPENED", _("Opened")$/;"	v	class:TurfRoll.Status
+OTHER	expense/models.py	/^        OTHER = 'OTHER', _('Other')$/;"	v	class:Expense.Method
+OTHER	invoice/models.py	/^        OTHER = 'OTHER', _('Other')$/;"	v	class:Payment.Method
+OUTSTANDING	invoice/models.py	/^        OUTSTANDING = 'OUTSTANDING', _('Outstanding')$/;"	v	class:Invoice.Status
+Order	sales/models.py	/^class Order(TimeStampedModel, models.Model):$/;"	c
+OrderAddItemForm	sales/forms.py	/^class OrderAddItemForm(forms.ModelForm):$/;"	c
+OrderAddItemView	sales/views.py	/^class OrderAddItemView(CreateView):$/;"	c
+OrderAdmin	sales/admin.py	/^class OrderAdmin(admin.ModelAdmin):$/;"	c
+OrderCreateForm	sales/forms.py	/^class OrderCreateForm(forms.ModelForm):$/;"	c
+OrderCreateView	sales/views.py	/^class OrderCreateView(CreateView):$/;"	c
+OrderDetailView	sales/views.py	/^class OrderDetailView(DetailView):$/;"	c
+OrderItemDeleteView	sales/views.py	/^class OrderItemDeleteView(DeleteView):$/;"	c
+OrderItemUpdateForm	sales/forms.py	/^class OrderItemUpdateForm(forms.ModelForm):$/;"	c
+OrderItemUpdateView	sales/views.py	/^class OrderItemUpdateView(UpdateView):$/;"	c
+OrderLine	sales/models.py	/^class OrderLine(TimeStampedModel, models.Model):$/;"	c
+OrderLineAdmin	sales/admin.py	/^class OrderLineAdmin(admin.ModelAdmin):$/;"	c
+OrderListView	sales/views.py	/^class OrderListView(ListView):$/;"	c
+PENDING	invoice/models.py	/^        PENDING = 'PENDING', _('Pending')$/;"	v	class:Invoice.Status
+PENDING	invoice/models.py	/^        PENDING = 'PENDING', _('Pending')$/;"	v	class:Payment.Status
+Payment	invoice/models.py	/^class Payment(TimeStampedModel, models.Model):$/;"	c
+PaymentAdmin	invoice/admin.py	/^class PaymentAdmin(admin.ModelAdmin):$/;"	c
+PaymentCreateForm	invoice/forms.py	/^class PaymentCreateForm(forms.ModelForm):$/;"	c
+PaymentCreateView	invoice/views.py	/^class PaymentCreateView(CreateView):$/;"	c
+PaymentListView	invoice/views.py	/^class PaymentListView(ListView):$/;"	c
+PaymentUpdateForm	invoice/forms.py	/^class PaymentUpdateForm(forms.ModelForm):$/;"	c
+PaymentUpdateView	invoice/views.py	/^class PaymentUpdateView(UpdateView):$/;"	c
+Product	stock/models.py	/^class Product(TimeStampedModel, models.Model):$/;"	c
+ProductAdmin	stock/admin.py	/^class ProductAdmin(admin.ModelAdmin):$/;"	c
+ProductCreateForm	stock/forms.py	/^class ProductCreateForm(forms.ModelForm):$/;"	c
+ProductCreateView	stock/views.py	/^class ProductCreateView(CreateView):$/;"	c
+ProductDeleteView	stock/views.py	/^class ProductDeleteView(DeleteView):$/;"	c
+ProductDetailView	stock/views.py	/^class ProductDetailView(DetailView):$/;"	c
+ProductListView	stock/views.py	/^class ProductListView(ListView):$/;"	c
+ProductUpdateForm	stock/forms.py	/^class ProductUpdateForm(forms.ModelForm):$/;"	c
+ProductUpdateView	stock/views.py	/^class ProductUpdateView(UpdateView):$/;"	c
+RETURNED	stock/models.py	/^        RETURNED = "RETURNED", _("Returned")$/;"	v	class:TurfRoll.Status
+ROOT_URLCONF	turf_portal/settings.py	/^ROOT_URLCONF = 'turf_portal.urls'$/;"	v
+RollSpec	stock/models.py	/^class RollSpec(TimeStampedModel, models.Model):$/;"	c
+RollSpecAdmin	stock/admin.py	/^class RollSpecAdmin(admin.ModelAdmin):$/;"	c
+RollUpdateForm	stock/forms.py	/^class RollUpdateForm(forms.ModelForm):$/;"	c
+RollUpdateView	stock/views.py	/^class RollUpdateView(UpdateView):$/;"	c
+SEALED	stock/models.py	/^        SEALED = "SEALED", _("Sealed")$/;"	v	class:TurfRoll.Status
+SECRET_KEY	turf_portal/settings.py	/^SECRET_KEY = config("SECRET_KEY")$/;"	v
+SHOP	sales/models.py	/^        SHOP = 'SHOP', _('Shop')$/;"	v	class:Buyer.Type
+STATICFILES_DIRS	turf_portal/settings.py	/^STATICFILES_DIRS = [$/;"	v
+STATIC_ROOT	turf_portal/settings.py	/^STATIC_ROOT = BASE_DIR \/ "static"$/;"	v
+STATIC_URL	turf_portal/settings.py	/^STATIC_URL = '\/static\/'$/;"	v
+SUBMITTED	sales/models.py	/^        SUBMITTED = 'SUBMITTED', _('Submitted')$/;"	v	class:Order.Status
+SWIFT_CODE	turf_portal/settings.py	/^SWIFT_CODE = config("SWIFT_CODE", "")$/;"	v
+SaleConfig	sales/apps.py	/^class SaleConfig(AppConfig):$/;"	c
+SplitRollForm	stock/forms.py	/^class SplitRollForm(forms.ModelForm):$/;"	c
+SplitRollView	stock/views.py	/^class SplitRollView(CreateView):$/;"	c
+Status	invoice/models.py	/^    class Status(models.TextChoices):$/;"	c	class:Invoice
+Status	invoice/models.py	/^    class Status(models.TextChoices):$/;"	c	class:Payment
+Status	sales/models.py	/^    class Status(models.TextChoices):$/;"	c	class:Buyer
+Status	sales/models.py	/^    class Status(models.TextChoices):$/;"	c	class:Order
+Status	stock/models.py	/^    class Status(models.TextChoices):$/;"	c	class:TurfRoll
+StockConfig	stock/apps.py	/^class StockConfig(AppConfig):$/;"	c
+StockDataView	stock/views.py	/^class StockDataView(APIView):$/;"	c
+StockListView	stock/views.py	/^class StockListView(ListView):$/;"	c
+TEMPLATES	turf_portal/settings.py	/^TEMPLATES = [$/;"	v
+TIME_ZONE	turf_portal/settings.py	/^TIME_ZONE = 'UTC'$/;"	v
+TestBatch	stock/tests.py	/^class TestBatch(TestCase):$/;"	c
+TurfRoll	stock/models.py	/^class TurfRoll(TimeStampedModel, models.Model):$/;"	c
+TurfRollAdmin	stock/admin.py	/^class TurfRollAdmin(admin.ModelAdmin):$/;"	c
+Type	sales/models.py	/^    class Type(models.TextChoices):$/;"	c	class:Buyer
+USE_I18N	turf_portal/settings.py	/^USE_I18N = True$/;"	v
+USE_L10N	turf_portal/settings.py	/^USE_L10N = True$/;"	v
+USE_TZ	turf_portal/settings.py	/^USE_TZ = False$/;"	v
+WSGI_APPLICATION	turf_portal/settings.py	/^WSGI_APPLICATION = 'turf_portal.wsgi.application'$/;"	v
+Warehouse	stock/models.py	/^class Warehouse(TimeStampedModel, models.Model):$/;"	c
+WarehouseAdmin	stock/admin.py	/^class WarehouseAdmin(admin.ModelAdmin):$/;"	c
+WarehouseDetailView	stock/views.py	/^class WarehouseDetailView(DetailView):$/;"	c
+WarehouseListView	stock/views.py	/^class WarehouseListView(ListView):$/;"	c
+Width	stock/models.py	/^class Width(TimeStampedModel, models.Model):$/;"	c
+WidthAdmin	stock/admin.py	/^class WidthAdmin(admin.ModelAdmin):$/;"	c
+__init__	expense/forms.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:ExpenseCreateForm
+__init__	expense/forms.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:ExpenseUpdateForm
+__init__	invoice/forms.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:PaymentCreateForm
+__init__	invoice/forms.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:PaymentUpdateForm
+__init__	sales/forms.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:BuyerCreateForm
+__init__	sales/forms.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:BuyerOrderCreateForm
+__init__	sales/forms.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:BuyerProductCreateForm
+__init__	sales/forms.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:BuyerProductUpdateForm
+__init__	sales/forms.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:BuyerUpdateForm
+__init__	sales/forms.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:DiscountCreateForm
+__init__	sales/forms.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:DiscountUpdateForm
+__init__	sales/forms.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:OrderCreateForm
+__init__	sales/forms.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:OrderItemUpdateForm
+__init__	stock/forms.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:LoadStocksForm
+__init__	stock/forms.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:ProductCreateForm
+__init__	stock/forms.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:RollUpdateForm
+__init__	stock/forms.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:SplitRollForm
+__str__	expense/models.py	/^    def __str__(self):$/;"	m	class:Expense	file:
+__str__	invoice/models.py	/^    def __str__(self):$/;"	m	class:Invoice	file:
+__str__	invoice/models.py	/^    def __str__(self):$/;"	m	class:Payment	file:
+__str__	sales/models.py	/^    def __str__(self):$/;"	m	class:Buyer	file:
+__str__	sales/models.py	/^    def __str__(self):$/;"	m	class:BuyerProduct	file:
+__str__	sales/models.py	/^    def __str__(self):$/;"	m	class:Order	file:
+__str__	sales/models.py	/^    def __str__(self):$/;"	m	class:OrderLine	file:
+__str__	stock/models.py	/^    def __str__(self):$/;"	m	class:Batch	file:
+__str__	stock/models.py	/^    def __str__(self):$/;"	m	class:Category	file:
+__str__	stock/models.py	/^    def __str__(self):$/;"	m	class:Color	file:
+__str__	stock/models.py	/^    def __str__(self):$/;"	m	class:Height	file:
+__str__	stock/models.py	/^    def __str__(self):$/;"	m	class:Product	file:
+__str__	stock/models.py	/^    def __str__(self):$/;"	m	class:RollSpec	file:
+__str__	stock/models.py	/^    def __str__(self):$/;"	m	class:TurfRoll	file:
+__str__	stock/models.py	/^    def __str__(self):$/;"	m	class:Warehouse	file:
+__str__	stock/models.py	/^    def __str__(self):$/;"	m	class:Width	file:
+address	sales/models.py	/^    address = models.CharField(max_length=255, blank=True, null=True)$/;"	v	class:Buyer
+address	stock/models.py	/^    address = models.CharField(max_length=255, null=True, blank=True)$/;"	v	class:Warehouse
+amount	expense/models.py	/^    amount = models.FloatField(default=0.0, verbose_name="Amount (R)",)$/;"	v	class:Expense
+amount	invoice/models.py	/^    amount = models.FloatField(default=0.0)$/;"	v	class:Payment
+amount_due	invoice/models.py	/^    def amount_due(self):$/;"	m	class:Invoice
+application	turf_portal/asgi.py	/^application = get_asgi_application()$/;"	v
+application	turf_portal/wsgi.py	/^application = get_wsgi_application()$/;"	v
+authentication_classes	accounts/views.py	/^    authentication_classes = []$/;"	v	class:DataView
+authentication_classes	stock/views.py	/^    authentication_classes = []$/;"	v	class:StockDataView
+available	stock/forms.py	/^    available = forms.IntegerField($/;"	v	class:SplitRollForm
+available	stock/models.py	/^    def available(self):$/;"	m	class:TurfRoll
+available_rolls	sales/models.py	/^    def available_rolls(self):$/;"	m	class:BuyerProduct
+batch	stock/models.py	/^    batch = models.ForeignKey(Batch, on_delete=models.DO_NOTHING, blank=True, null=True)$/;"	v	class:TurfRoll
+blank	sales/models.py	/^        blank=True,$/;"	v	class:Buyer.Status
+blank	stock/models.py	/^    def blank(self):$/;"	m	class:TurfRoll
+buyer	invoice/models.py	/^    buyer = models.ForeignKey(Buyer, on_delete=models.DO_NOTHING)$/;"	v	class:Invoice
+buyer	sales/forms.py	/^    buyer = forms.ChoiceField($/;"	v	class:BuyerProductCreateForm
+buyer	sales/models.py	/^    buyer = models.ForeignKey(Buyer, on_delete=models.DO_NOTHING)$/;"	v	class:Order
+buyer	sales/models.py	/^    buyer = models.ForeignKey(Buyer, on_delete=models.DO_NOTHING, blank=True, null=True)$/;"	v	class:BuyerProduct
+buyer_products	sales/models.py	/^    def buyer_products(self):$/;"	m	class:Buyer
+buyer_status_color	sales/utils.py	/^def buyer_status_color(status):$/;"	f
+buyer_type	sales/models.py	/^    buyer_type = models.CharField($/;"	v	class:Buyer
+cancel	templates/sales/buyer_order_create.html	/^            <a href="{% url 'buyer' buyer.id %}" name="cancel" value="Cancel" class="btn btn-sm btn-secondary">Cancel<\/a>$/;"	a
+category	stock/models.py	/^    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)$/;"	v	class:RollSpec
+cb	templates/expense/landing.html	/^          function cb(start, end) {$/;"	f
+choices	expense/models.py	/^        choices=Method.choices,$/;"	v	class:Expense.Method
+choices	invoice/models.py	/^        choices=Method.choices,$/;"	v	class:Payment.Method
+choices	invoice/models.py	/^        choices=Status.choices,$/;"	v	class:Invoice.Status
+choices	invoice/models.py	/^        choices=Status.choices,$/;"	v	class:Payment.Method
+choices	sales/forms.py	/^        choices=[("Select A Product", _("Select A Product"))],$/;"	v	class:BuyerProductCreateForm.Meta
+choices	sales/forms.py	/^        choices=[(None, _("Select Buyer"))],$/;"	v	class:BuyerProductCreateForm.Meta
+choices	sales/models.py	/^        choices=Status.choices,$/;"	v	class:Buyer.Status
+choices	sales/models.py	/^        choices=Status.choices,$/;"	v	class:Order.Status
+choices	sales/models.py	/^        choices=Type.choices,$/;"	v	class:Buyer.Status
+choices	stock/forms.py	/^        choices=((c.label, c.value) for c in TurfRoll.Status),$/;"	v	class:LoadStocksForm.Meta
+choices	stock/models.py	/^        choices=Status.choices,$/;"	v	class:TurfRoll.Status
+clean_amount	invoice/forms.py	/^    def clean_amount(self):$/;"	m	class:PaymentCreateForm
+close	invoice/models.py	/^    def close(self):$/;"	m	class:Invoice
+close	sales/models.py	/^    def close(self):$/;"	m	class:Order
+closed_date	invoice/models.py	/^    closed_date = models.DateTimeField(null=True, blank=True)$/;"	v	class:Invoice
+closed_date	sales/models.py	/^    closed_date = models.DateTimeField(null=True, blank=True)$/;"	v	class:Order
+code	stock/models.py	/^    code = models.CharField(max_length=255, blank=True, null=True)$/;"	v	class:Product
+code	stock/models.py	/^    def code(self):$/;"	m	class:RollSpec
+color	stock/models.py	/^    color = models.ForeignKey(Color, on_delete=models.DO_NOTHING)$/;"	v	class:RollSpec
+confirm	invoice/models.py	/^    def confirm(self):$/;"	m	class:Payment
+confirm_payment	invoice/views.py	/^def confirm_payment(request, pk):$/;"	f
+contact_person	sales/models.py	/^    contact_person = models.CharField(max_length=255)$/;"	v	class:Buyer
+context_object_name	expense/views.py	/^    context_object_name = "expense"$/;"	v	class:ExpenseDeleteView
+context_object_name	expense/views.py	/^    context_object_name = "expense"$/;"	v	class:ExpenseDetailView
+context_object_name	expense/views.py	/^    context_object_name = "expense"$/;"	v	class:ExpenseUpdateView
+context_object_name	expense/views.py	/^    context_object_name = 'expenses'$/;"	v	class:ExpenseListView
+context_object_name	invoice/views.py	/^    context_object_name = "invoice"$/;"	v	class:InvoiceDetailView
+context_object_name	invoice/views.py	/^    context_object_name = "payment"$/;"	v	class:PaymentUpdateView
+context_object_name	invoice/views.py	/^    context_object_name = 'invoices'$/;"	v	class:InvoiceListView
+context_object_name	invoice/views.py	/^    context_object_name = 'payments'$/;"	v	class:PaymentListView
+context_object_name	sales/views.py	/^    context_object_name = "buyer"$/;"	v	class:BuyerDetailView
+context_object_name	sales/views.py	/^    context_object_name = "buyer"$/;"	v	class:BuyerUpdateView
+context_object_name	sales/views.py	/^    context_object_name = "buyer_product"$/;"	v	class:BuyerProductDeleteView
+context_object_name	sales/views.py	/^    context_object_name = "buyer_product"$/;"	v	class:BuyerProductUpdateView
+context_object_name	sales/views.py	/^    context_object_name = "buyers"$/;"	v	class:BuyerListView
+context_object_name	sales/views.py	/^    context_object_name = "discount"$/;"	v	class:DiscountDeleteView
+context_object_name	sales/views.py	/^    context_object_name = "order"$/;"	v	class:BuyerOrderCreateView
+context_object_name	sales/views.py	/^    context_object_name = "order"$/;"	v	class:InvoiceOrderView
+context_object_name	sales/views.py	/^    context_object_name = "order"$/;"	v	class:OrderCreateView
+context_object_name	sales/views.py	/^    context_object_name = "order"$/;"	v	class:OrderDetailView
+context_object_name	sales/views.py	/^    context_object_name = "orderline"$/;"	v	class:OrderItemUpdateView
+context_object_name	sales/views.py	/^    context_object_name = "orders"$/;"	v	class:FilteredOrderListView
+context_object_name	sales/views.py	/^    context_object_name = "orders"$/;"	v	class:OrderListView
+context_object_name	stock/views.py	/^    context_object_name = "product"$/;"	v	class:ProductDetailView
+context_object_name	stock/views.py	/^    context_object_name = "product"$/;"	v	class:ProductUpdateView
+context_object_name	stock/views.py	/^    context_object_name = "products"$/;"	v	class:ProductListView
+context_object_name	stock/views.py	/^    context_object_name = "roll"$/;"	v	class:RollUpdateView
+context_object_name	stock/views.py	/^    context_object_name = "turf_roll"$/;"	v	class:LoadStocksView
+context_object_name	stock/views.py	/^    context_object_name = "turf_rolls"$/;"	v	class:StockListView
+context_object_name	stock/views.py	/^    context_object_name = "warehouse"$/;"	v	class:WarehouseDetailView
+context_object_name	stock/views.py	/^    context_object_name = "warehouses"$/;"	v	class:WarehouseListView
+coverage.assign_shortkeys	htmlcov/coverage_html.js	/^coverage.assign_shortkeys = function () {$/;"	f
+coverage.build_scroll_markers	htmlcov/coverage_html.js	/^coverage.build_scroll_markers = function () {$/;"	f
+coverage.chunk_indicator	htmlcov/coverage_html.js	/^coverage.chunk_indicator = function (line_elt) {$/;"	f
+coverage.finish_scrolling	htmlcov/coverage_html.js	/^coverage.finish_scrolling = function () {$/;"	f
+coverage.index_ready	htmlcov/coverage_html.js	/^coverage.index_ready = function ($) {$/;"	f
+coverage.init_scroll_markers	htmlcov/coverage_html.js	/^coverage.init_scroll_markers = function () {$/;"	f
+coverage.line_at_pos	htmlcov/coverage_html.js	/^coverage.line_at_pos = function (pos) {$/;"	f
+coverage.line_elt	htmlcov/coverage_html.js	/^coverage.line_elt = function (n) {$/;"	f
+coverage.num_elt	htmlcov/coverage_html.js	/^coverage.num_elt = function (n) {$/;"	f
+coverage.pyfile_ready	htmlcov/coverage_html.js	/^coverage.pyfile_ready = function ($) {$/;"	f
+coverage.scroll_to_selection	htmlcov/coverage_html.js	/^coverage.scroll_to_selection = function () {$/;"	f
+coverage.scroll_window	htmlcov/coverage_html.js	/^coverage.scroll_window = function (to_pos) {$/;"	f
+coverage.select_line_or_chunk	htmlcov/coverage_html.js	/^coverage.select_line_or_chunk = function (lineno) {$/;"	f
+coverage.selection_ends_on_screen	htmlcov/coverage_html.js	/^coverage.selection_ends_on_screen = function () {$/;"	f
+coverage.set_sel	htmlcov/coverage_html.js	/^coverage.set_sel = function (b, e) {$/;"	f
+coverage.show_selection	htmlcov/coverage_html.js	/^coverage.show_selection = function () {$/;"	f
+coverage.to_first_chunk	htmlcov/coverage_html.js	/^coverage.to_first_chunk = function () {$/;"	f
+coverage.to_next_chunk	htmlcov/coverage_html.js	/^coverage.to_next_chunk = function () {$/;"	f
+coverage.to_next_chunk_nicely	htmlcov/coverage_html.js	/^coverage.to_next_chunk_nicely = function () {$/;"	f
+coverage.to_prev_chunk	htmlcov/coverage_html.js	/^coverage.to_prev_chunk = function () {$/;"	f
+coverage.to_prev_chunk_nicely	htmlcov/coverage_html.js	/^coverage.to_prev_chunk_nicely = function () {$/;"	f
+coverage.to_top	htmlcov/coverage_html.js	/^coverage.to_top = function () {$/;"	f
+coverage.toggle_lines	htmlcov/coverage_html.js	/^coverage.toggle_lines = function (btn, cls) {$/;"	f
+coverage.wire_up_filter	htmlcov/coverage_html.js	/^coverage.wire_up_filter = function () {$/;"	f
+coverage.wire_up_help_panel	htmlcov/coverage_html.js	/^coverage.wire_up_help_panel = function () {$/;"	f
+create_orderlines	sales/models.py	/^    def create_orderlines(self, requested_roll_infos):$/;"	m	class:Order
+create_product	stock/signals.py	/^def create_product(sender, instance, created, **kwargs):$/;"	f
+date	expense/models.py	/^    date = models.DateTimeField(blank=False, null=False)$/;"	v	class:Expense
+default	expense/models.py	/^        default=Method.CARD,$/;"	v	class:Expense.Method
+default	invoice/models.py	/^        default=Method.EFT,$/;"	v	class:Payment.Method
+default	invoice/models.py	/^        default=Status.DRAFT,$/;"	v	class:Invoice.Status
+default	invoice/models.py	/^        default=Status.PENDING,$/;"	v	class:Payment.Method
+default	sales/models.py	/^        default=Status.ACTIVE,$/;"	v	class:Buyer.Status
+default	sales/models.py	/^        default=Status.DRAFT,$/;"	v	class:Order.Status
+default	sales/models.py	/^        default=Type.CONTRACTOR,$/;"	v	class:Buyer.Status
+default	stock/models.py	/^        default=Status.SEALED,$/;"	v	class:TurfRoll.Status
+deliver	sales/models.py	/^    def deliver(self):$/;"	m	class:Order
+deliver	sales/views.py	/^def deliver(request, pk):$/;"	f
+dependencies	expense/migrations/0001_initial.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	expense/migrations/0002_auto_20210120_2144.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	expense/migrations/0003_auto_20210120_2146.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	expense/migrations/0004_auto_20210120_2146.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	expense/migrations/0005_auto_20210120_2154.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	expense/migrations/0006_auto_20210120_2157.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	expense/migrations/0007_auto_20210120_2157.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	invoice/migrations/0001_initial.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	invoice/migrations/0002_remove_invoice_notes.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	invoice/migrations/0003_auto_20200915_2205.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	invoice/migrations/0004_payment.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	invoice/migrations/0005_payment_method.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	invoice/migrations/0006_invoice_closed_date.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	invoice/migrations/0007_auto_20200919_1733.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	invoice/migrations/0008_remove_invoice_closed_date.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	invoice/migrations/0009_invoice_closed_date.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	invoice/migrations/0010_auto_20200920_1049.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	invoice/migrations/0011_update_invoice_number.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	invoice/migrations/0012_auto_20210120_2135.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	invoice/migrations/0013_payment_status.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	invoice/migrations/0014_update_payment_status.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	invoice/migrations/0015_auto_20210127_2215.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	sales/migrations/0001_initial.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	sales/migrations/0002_buyerproduct.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	sales/migrations/0003_auto_20200908_1407.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	sales/migrations/0004_auto_20200909_1627.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	sales/migrations/0005_auto_20200909_1633.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	sales/migrations/0006_auto_20200909_1634.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	sales/migrations/0007_order_orderline.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	sales/migrations/0008_auto_20200912_0910.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	sales/migrations/0009_auto_20200912_0914.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	sales/migrations/0010_order_number.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	sales/migrations/0011_auto_20200913_2112.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	sales/migrations/0012_order_closed_date.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	sales/migrations/0013_auto_20200919_1519.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	sales/migrations/0014_auto_20200919_1733.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	sales/migrations/0015_auto_20200920_1049.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	sales/migrations/0016_auto_20200928_1915.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	sales/migrations/0017_auto_20200928_2216.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	sales/migrations/0018_auto_20201005_1842.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	sales/migrations/0019_update_order_number.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	stock/migrations/0001_initial.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	stock/migrations/0002_auto_20200908_1039.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	stock/migrations/0003_auto_20200908_1049.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	stock/migrations/0004_auto_20200908_1407.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	stock/migrations/0005_auto_20200909_1547.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	stock/migrations/0006_warehouse_address.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	stock/migrations/0007_auto_20200909_1627.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	stock/migrations/0008_auto_20200909_2335.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	stock/migrations/0009_auto_20200912_0817.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	stock/migrations/0010_turfroll_delivered.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	stock/migrations/0011_auto_20200913_2112.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	stock/migrations/0012_turfroll_sold.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	stock/migrations/0013_auto_20200920_1033.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	stock/migrations/0014_product_has_stock.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	stock/migrations/0015_auto_20200929_1533.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	stock/migrations/0016_turfroll_original_size.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	stock/migrations/0017_remove_product_has_stock.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	stock/migrations/0018_auto_20201003_2238.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	stock/migrations/0019_turfroll_note.py	/^    dependencies = [$/;"	v	class:Migration
+dependencies	stock/migrations/0020_auto_20201015_2301.py	/^    dependencies = [$/;"	v	class:Migration
+description	expense/models.py	/^    description = models.CharField(max_length=511, blank=False, null=False)$/;"	v	class:Expense
+description	stock/models.py	/^    def description(self):$/;"	m	class:Product
+disableSizeField	templates/stock/load_stocks.html	/^      function disableSizeField() {$/;"	f
+discount	sales/models.py	/^    def discount(self):$/;"	m	class:Order
+discounted	sales/models.py	/^    def discounted(self):$/;"	m	class:Order
+dispatch	sales/views.py	/^    def dispatch(self, request, *args, **kwargs):$/;"	m	class:BuyerOrderCreateView
+editable	sales/models.py	/^    def editable(self):$/;"	m	class:Order
+email	sales/models.py	/^    email = models.EmailField(max_length=255, blank=True, null=True)$/;"	v	class:Buyer
+exclude	sales/forms.py	/^        exclude = []$/;"	v	class:BuyerProductAdminForm.Meta
+exclude	sales/forms.py	/^        exclude = []$/;"	v	class:OrderAddItemForm.Meta
+extend.fn.isOnScreen	htmlcov/jquery.isonscreen.js	/^(function($) {$/;"	f
+extra	sales/admin.py	/^    extra = 1$/;"	v	class:BuyerProductInline
+field	expense/migrations/0002_auto_20210120_2144.py	/^            field=models.DateTimeField(auto_now_add=True),$/;"	v	class:Migration
+field	expense/migrations/0003_auto_20210120_2146.py	/^            field=models.DateTimeField(default=datetime.datetime(2021, 1, 20, 21, 46, 11, 328643)),$/;"	v	class:Migration
+field	expense/migrations/0004_auto_20210120_2146.py	/^            field=models.DateTimeField(default=datetime.datetime(2021, 1, 20, 21, 46, 50, 347331, tzinfo=utc)),$/;"	v	class:Migration
+field	expense/migrations/0005_auto_20210120_2154.py	/^            field=models.DateTimeField(),$/;"	v	class:Migration
+field	expense/migrations/0006_auto_20210120_2157.py	/^            field=models.FloatField(default=0.0, verbose_name='Amount (R'),$/;"	v	class:Migration
+field	expense/migrations/0007_auto_20210120_2157.py	/^            field=models.FloatField(default=0.0, verbose_name='Amount (R)'),$/;"	v	class:Migration
+field	invoice/migrations/0003_auto_20200915_2205.py	/^            field=models.CharField(choices=[('DRAFT', 'Draft'), ('PAYMENT OUTSTANDING', 'Payment Outstanding'), ('CLOSED', 'Closed')], default='DRAFT', max_length=255),$/;"	v	class:Migration
+field	invoice/migrations/0005_payment_method.py	/^            field=models.CharField(choices=[('EFT', 'EFT'), ('CASH', 'Cash'), ('OTHER', 'Other')], default='EFT', max_length=255),$/;"	v	class:Migration
+field	invoice/migrations/0006_invoice_closed_date.py	/^            field=models.DateField(blank=True, null=True),$/;"	v	class:Migration
+field	invoice/migrations/0007_auto_20200919_1733.py	/^            field=models.CharField(blank=True, max_length=255, null=True, unique=True),$/;"	v	class:Migration
+field	invoice/migrations/0009_invoice_closed_date.py	/^            field=models.DateField(blank=True, null=True),$/;"	v	class:Migration
+field	invoice/migrations/0010_auto_20200920_1049.py	/^            field=models.DateTimeField(blank=True, null=True),$/;"	v	class:Migration
+field	invoice/migrations/0012_auto_20210120_2135.py	/^            field=models.CharField(choices=[('CARD', 'Card'), ('CASH', 'Cash'), ('EFT', 'EFT'), ('OTHER', 'Other')], default='EFT', max_length=255),$/;"	v	class:Migration
+field	invoice/migrations/0013_payment_status.py	/^            field=models.CharField(choices=[('PENDING', 'Pending'), ('CONFIRMED', 'Confirmed')], default='PENDING', max_length=255),$/;"	v	class:Migration
+field	invoice/migrations/0015_auto_20210127_2215.py	/^            field=models.CharField(choices=[('DRAFT', 'Draft'), ('PAYMENT OUTSTANDING', 'Payment Outstanding'), ('PAYMENT PENDING', 'Payment Pending'), ('CLOSED', 'Closed')], default='DRAFT', max_length=255),$/;"	v	class:Migration
+field	sales/migrations/0003_auto_20200908_1407.py	/^            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='sales.buyer'),$/;"	v	class:Migration
+field	sales/migrations/0003_auto_20200908_1407.py	/^            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='stock.product'),$/;"	v	class:Migration
+field	sales/migrations/0005_auto_20200909_1633.py	/^            field=models.DecimalField(decimal_places=2, max_digits=12, validators=[django.core.validators.MinValueValidator(Decimal('0.01'))], verbose_name='R'),$/;"	v	class:Migration
+field	sales/migrations/0006_auto_20200909_1634.py	/^            field=models.DecimalField(decimal_places=2, max_digits=12, validators=[django.core.validators.MinValueValidator(Decimal('1.01'))], verbose_name='Price (R\/m)'),$/;"	v	class:Migration
+field	sales/migrations/0008_auto_20200912_0910.py	/^            field=models.FloatField(blank=True, default=0.0, null=True),$/;"	v	class:Migration
+field	sales/migrations/0009_auto_20200912_0914.py	/^            field=models.FloatField(default=50.0, validators=[django.core.validators.MinValueValidator(50.0)]),$/;"	v	class:Migration
+field	sales/migrations/0010_order_number.py	/^            field=models.CharField(blank=True, max_length=255, null=True),$/;"	v	class:Migration
+field	sales/migrations/0011_auto_20200913_2112.py	/^            field=models.CharField(choices=[('DRAFT', 'Draft'), ('SUBMITTED', 'Submitted'), ('INVOICED', 'Invoiced'), ('DELIVERED', 'DELIVERED'), ('CLOSED', 'Closed')], default='DRAFT', max_length=255),$/;"	v	class:Migration
+field	sales/migrations/0012_order_closed_date.py	/^            field=models.DateField(blank=True, null=True),$/;"	v	class:Migration
+field	sales/migrations/0013_auto_20200919_1519.py	/^            field=models.CharField(choices=[('ACTIVE', 'Active'), ('INACTIVE', 'Inactive')], default='ACTIVE', max_length=255),$/;"	v	class:Migration
+field	sales/migrations/0013_auto_20200919_1519.py	/^            field=models.CharField(choices=[('DRAFT', 'Draft'), ('SUBMITTED', 'Submitted'), ('INVOICED', 'Invoiced'), ('DELIVERED', 'Delivered'), ('CLOSED', 'Closed')], default='DRAFT', max_length=255),$/;"	v	class:Migration
+field	sales/migrations/0014_auto_20200919_1733.py	/^            field=models.CharField(blank=True, max_length=255, null=True, unique=True),$/;"	v	class:Migration
+field	sales/migrations/0015_auto_20200920_1049.py	/^            field=models.DateTimeField(blank=True, null=True),$/;"	v	class:Migration
+field	sales/migrations/0016_auto_20200928_1915.py	/^            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='sales.buyerproduct'),$/;"	v	class:Migration
+field	sales/migrations/0017_auto_20200928_2216.py	/^            field=models.FloatField(blank=True, default=0.0, null=True),$/;"	v	class:Migration
+field	sales/migrations/0017_auto_20200928_2216.py	/^            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='stock.product'),$/;"	v	class:Migration
+field	sales/migrations/0018_auto_20201005_1842.py	/^            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='stock.turfroll'),$/;"	v	class:Migration
+field	stock/migrations/0002_auto_20200908_1039.py	/^            field=models.CharField(blank=True, max_length=255, null=True),$/;"	v	class:Migration
+field	stock/migrations/0004_auto_20200908_1407.py	/^            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='stock.height', verbose_name='Height (mm)'),$/;"	v	class:Migration
+field	stock/migrations/0004_auto_20200908_1407.py	/^            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='stock.width', verbose_name='Width (m)'),$/;"	v	class:Migration
+field	stock/migrations/0005_auto_20200909_1547.py	/^            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='stock.rollspec'),$/;"	v	class:Migration
+field	stock/migrations/0005_auto_20200909_1547.py	/^            field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='stock.height'),$/;"	v	class:Migration
+field	stock/migrations/0005_auto_20200909_1547.py	/^            field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='stock.warehouse'),$/;"	v	class:Migration
+field	stock/migrations/0005_auto_20200909_1547.py	/^            field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='stock.width'),$/;"	v	class:Migration
+field	stock/migrations/0005_auto_20200909_1547.py	/^            field=models.IntegerField(default=2),$/;"	v	class:Migration
+field	stock/migrations/0005_auto_20200909_1547.py	/^            field=models.IntegerField(default=30),$/;"	v	class:Migration
+field	stock/migrations/0006_warehouse_address.py	/^            field=models.CharField(blank=True, max_length=255, null=True),$/;"	v	class:Migration
+field	stock/migrations/0008_auto_20200909_2335.py	/^            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='stock.warehouse'),$/;"	v	class:Migration
+field	stock/migrations/0009_auto_20200912_0817.py	/^            field=models.IntegerField(default=0),$/;"	v	class:Migration
+field	stock/migrations/0010_turfroll_delivered.py	/^            field=models.IntegerField(default=0),$/;"	v	class:Migration
+field	stock/migrations/0012_turfroll_sold.py	/^            field=models.IntegerField(default=0),$/;"	v	class:Migration
+field	stock/migrations/0013_auto_20200920_1033.py	/^            field=models.CharField(choices=[('SEALED', 'Sealed'), ('OPENED', 'Opened'), ('DEPLETED', 'Depleted'), ('RETURNED', 'Returned')], default='SEALED', max_length=63),$/;"	v	class:Migration
+field	stock/migrations/0014_product_has_stock.py	/^            field=models.BooleanField(default=False),$/;"	v	class:Migration
+field	stock/migrations/0015_auto_20200929_1533.py	/^            field=models.CharField(choices=[('SEALED', 'Sealed'), ('OPENED', 'Opened'), ('DEPLETED', 'Depleted'), ('RETURNED', 'Returned'), ('LOOSE', 'Loose')], default='SEALED', max_length=63),$/;"	v	class:Migration
+field	stock/migrations/0016_turfroll_original_size.py	/^            field=models.IntegerField(default=0),$/;"	v	class:Migration
+field	stock/migrations/0018_auto_20201003_2238.py	/^            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='stock.batch'),$/;"	v	class:Migration
+field	stock/migrations/0019_turfroll_note.py	/^            field=models.TextField(blank=True, max_length=511, null=True),$/;"	v	class:Migration
+field	stock/migrations/0020_auto_20201015_2301.py	/^            field=models.FloatField(default=2),$/;"	v	class:Migration
+field	stock/migrations/0020_auto_20201015_2301.py	/^            field=models.FloatField(default=25),$/;"	v	class:Migration
+field	stock/migrations/0020_auto_20201015_2301.py	/^            field=models.FloatField(default=30),$/;"	v	class:Migration
+field_order	expense/forms.py	/^    field_order = ["date", "description", "method", "amount"]$/;"	v	class:ExpenseUpdateForm
+field_order	sales/forms.py	/^    field_order = ["buyer", "product", "price"]$/;"	v	class:BuyerProductCreateForm
+field_order	sales/forms.py	/^    field_order = ["buyer_type", "name", "mobile", "email", "address", "contact_person"]$/;"	v	class:BuyerCreateForm
+field_order	sales/forms.py	/^    field_order = ["buyer_type", "name", "mobile", "email", "address", "contact_person"]$/;"	v	class:BuyerUpdateForm
+field_order	stock/forms.py	/^    field_order = ["product", "price"]$/;"	v	class:ProductUpdateForm
+fields	expense/forms.py	/^        fields = "__all__"$/;"	v	class:ExpenseUpdateForm.Meta
+fields	expense/forms.py	/^        fields = ['date', 'description', 'method', 'amount']$/;"	v	class:ExpenseCreateForm.Meta
+fields	expense/migrations/0001_initial.py	/^            fields=[$/;"	v	class:Migration
+fields	invoice/forms.py	/^        fields = "__all__"$/;"	v	class:PaymentUpdateForm.Meta
+fields	invoice/forms.py	/^        fields = ["invoice", "method", "amount"]$/;"	v	class:PaymentCreateForm.Meta
+fields	invoice/migrations/0001_initial.py	/^            fields=[$/;"	v	class:Migration
+fields	invoice/migrations/0004_payment.py	/^            fields=[$/;"	v	class:Migration
+fields	sales/admin.py	/^    fields = [$/;"	v	class:BuyerProductInline
+fields	sales/forms.py	/^        fields = "__all__"$/;"	v	class:BuyerCreateForm.Meta
+fields	sales/forms.py	/^        fields = "__all__"$/;"	v	class:BuyerOrderCreateForm.Meta
+fields	sales/forms.py	/^        fields = "__all__"$/;"	v	class:BuyerProductCreateForm.Meta
+fields	sales/forms.py	/^        fields = "__all__"$/;"	v	class:BuyerProductUpdateForm.Meta
+fields	sales/forms.py	/^        fields = "__all__"$/;"	v	class:BuyerUpdateForm.Meta
+fields	sales/forms.py	/^        fields = "__all__"$/;"	v	class:OrderItemUpdateForm.Meta
+fields	sales/forms.py	/^        fields = ["buyer"]$/;"	v	class:OrderCreateForm.Meta
+fields	sales/forms.py	/^        fields = ["order", "price"]$/;"	v	class:DiscountCreateForm.Meta
+fields	sales/forms.py	/^        fields = ["order", "price"]$/;"	v	class:DiscountUpdateForm.Meta
+fields	sales/migrations/0001_initial.py	/^            fields=[$/;"	v	class:Migration
+fields	sales/migrations/0002_buyerproduct.py	/^            fields=[$/;"	v	class:Migration
+fields	sales/migrations/0007_order_orderline.py	/^            fields=[$/;"	v	class:Migration
+fields	stock/forms.py	/^        fields = "__all__"$/;"	v	class:ProductCreateForm.Meta
+fields	stock/forms.py	/^        fields = "__all__"$/;"	v	class:ProductUpdateForm.Meta
+fields	stock/forms.py	/^        fields = "__all__"$/;"	v	class:RollUpdateForm.Meta
+fields	stock/forms.py	/^        fields = ["available", "size"]$/;"	v	class:SplitRollForm.Meta
+fields	stock/forms.py	/^        fields = ["status", "spec", "batch", "location", "quantity"]$/;"	v	class:LoadStocksForm.Meta
+fields	stock/migrations/0001_initial.py	/^            fields=[$/;"	v	class:Migration
+fields	stock/migrations/0005_auto_20200909_1547.py	/^            fields=[$/;"	v	class:Migration
+fields	stock/migrations/0018_auto_20201003_2238.py	/^            fields=[$/;"	v	class:Migration
+form_class	expense/views.py	/^    form_class = ExpenseCreateForm$/;"	v	class:ExpenseCreateView
+form_class	expense/views.py	/^    form_class = ExpenseUpdateForm$/;"	v	class:ExpenseUpdateView
+form_class	invoice/views.py	/^    form_class = PaymentCreateForm$/;"	v	class:PaymentCreateView
+form_class	invoice/views.py	/^    form_class = PaymentUpdateForm$/;"	v	class:PaymentUpdateView
+form_class	sales/views.py	/^    form_class = BuyerCreateForm$/;"	v	class:BuyerCreateView
+form_class	sales/views.py	/^    form_class = BuyerOrderCreateForm$/;"	v	class:BuyerOrderCreateView
+form_class	sales/views.py	/^    form_class = BuyerProductCreateForm$/;"	v	class:BuyerProductCreateView
+form_class	sales/views.py	/^    form_class = BuyerProductUpdateForm$/;"	v	class:BuyerProductUpdateView
+form_class	sales/views.py	/^    form_class = BuyerUpdateForm$/;"	v	class:BuyerUpdateView
+form_class	sales/views.py	/^    form_class = DiscountCreateForm$/;"	v	class:DiscountCreateView
+form_class	sales/views.py	/^    form_class = DiscountUpdateForm$/;"	v	class:DiscountUpdateView
+form_class	sales/views.py	/^    form_class = OrderAddItemForm$/;"	v	class:OrderAddItemView
+form_class	sales/views.py	/^    form_class = OrderCreateForm$/;"	v	class:OrderCreateView
+form_class	sales/views.py	/^    form_class = OrderItemUpdateForm$/;"	v	class:OrderItemUpdateView
+form_class	stock/views.py	/^    form_class = LoadStocksForm$/;"	v	class:LoadStocksView
+form_class	stock/views.py	/^    form_class = ProductCreateForm$/;"	v	class:ProductCreateView
+form_class	stock/views.py	/^    form_class = ProductUpdateForm$/;"	v	class:ProductUpdateView
+form_class	stock/views.py	/^    form_class = RollUpdateForm$/;"	v	class:RollUpdateView
+form_class	stock/views.py	/^    form_class = SplitRollForm$/;"	v	class:SplitRollView
+form_valid	sales/views.py	/^    def form_valid(self, form):$/;"	m	class:BuyerProductCreateView
+form_valid	sales/views.py	/^    def form_valid(self, form):$/;"	m	class:OrderAddItemView
+format_key	expense/forms.py	/^    format_key = "%Y-%m-%d"$/;"	v	class:DateInput
+friendly_date	expense/admin.py	/^    def friendly_date(self, obj):$/;"	m	class:ExpenseAdmin
+generateBackgroundColors	templates/home.html	/^      function generateBackgroundColors(numberOfColors) {$/;"	f
+get	accounts/views.py	/^    def get(self, request, format=None):$/;"	m	class:DataView
+get	invoice/views.py	/^    def get(self, request, *args, **kwargs):$/;"	m	class:ExportPDFView
+get	sales/views.py	/^    def get(self, request, *args, **kwargs):$/;"	m	class:InvoiceOrderView
+get	stock/views.py	/^    def get(self, request, format=None):$/;"	m	class:StockDataView
+getRandomColor	templates/home.html	/^      function getRandomColor() {$/;"	f
+get_context_data	invoice/views.py	/^    def get_context_data(self, **kwargs):$/;"	m	class:InvoiceDetailView
+get_context_data	invoice/views.py	/^    def get_context_data(self, **kwargs):$/;"	m	class:PaymentCreateView
+get_context_data	sales/views.py	/^    def get_context_data(self, **kwargs):$/;"	m	class:BuyerDetailView
+get_context_data	sales/views.py	/^    def get_context_data(self, **kwargs):$/;"	m	class:BuyerProductCreateView
+get_context_data	sales/views.py	/^    def get_context_data(self, **kwargs):$/;"	m	class:BuyerProductDeleteView
+get_context_data	sales/views.py	/^    def get_context_data(self, **kwargs):$/;"	m	class:BuyerProductUpdateView
+get_context_data	sales/views.py	/^    def get_context_data(self, **kwargs):$/;"	m	class:DiscountCreateView
+get_context_data	sales/views.py	/^    def get_context_data(self, **kwargs):$/;"	m	class:FilteredOrderListView
+get_context_data	sales/views.py	/^    def get_context_data(self, **kwargs):$/;"	m	class:InvoiceOrderView
+get_context_data	sales/views.py	/^    def get_context_data(self, **kwargs):$/;"	m	class:OrderAddItemView
+get_context_data	sales/views.py	/^    def get_context_data(self, **kwargs):$/;"	m	class:OrderCreateView
+get_context_data	sales/views.py	/^    def get_context_data(self, **kwargs):$/;"	m	class:OrderDetailView
+get_context_data	stock/views.py	/^    def get_context_data(self, **kwargs):$/;"	m	class:ProductDetailView
+get_context_data	stock/views.py	/^    def get_context_data(self, **kwargs):$/;"	m	class:ProductListView
+get_context_data	stock/views.py	/^    def get_context_data(self, **kwargs):$/;"	m	class:SplitRollView
+get_context_data	stock/views.py	/^    def get_context_data(self, **kwargs):$/;"	m	class:StockListView
+get_context_data	stock/views.py	/^    def get_context_data(self, **kwargs):$/;"	m	class:WarehouseDetailView
+get_context_data	stock/views.py	/^    def get_context_data(self, **kwargs):$/;"	m	class:WarehouseListView
+get_data	accounts/views.py	/^def get_data(request):$/;"	f
+get_form	invoice/views.py	/^    def get_form(self, form_class=None):$/;"	m	class:PaymentCreateView
+get_form	sales/views.py	/^    def get_form(self, form_class=None):$/;"	m	class:BuyerProductCreateView
+get_form	sales/views.py	/^    def get_form(self, form_class=None):$/;"	m	class:DiscountCreateView
+get_form	sales/views.py	/^    def get_form(self, form_class=None):$/;"	m	class:OrderCreateView
+get_form	stock/admin.py	/^    def get_form(self, request, obj=None, **kwargs):$/;"	m	class:BatchAdmin
+get_form	stock/views.py	/^    def get_form(self, form_class=None):$/;"	m	class:ProductCreateView
+get_model_perms	sales/admin.py	/^    def get_model_perms(self, request):$/;"	m	class:BuyerProductAdmin
+get_success_url	expense/views.py	/^    def get_success_url(self):$/;"	m	class:ExpenseCreateView
+get_success_url	expense/views.py	/^    def get_success_url(self):$/;"	m	class:ExpenseDeleteView
+get_success_url	expense/views.py	/^    def get_success_url(self):$/;"	m	class:ExpenseUpdateView
+get_success_url	invoice/views.py	/^    def get_success_url(self):$/;"	m	class:PaymentCreateView
+get_success_url	invoice/views.py	/^    def get_success_url(self):$/;"	m	class:PaymentUpdateView
+get_success_url	sales/views.py	/^    def get_success_url(self):$/;"	m	class:BuyerCreateView
+get_success_url	sales/views.py	/^    def get_success_url(self):$/;"	m	class:BuyerProductDeleteView
+get_success_url	sales/views.py	/^    def get_success_url(self):$/;"	m	class:BuyerProductUpdateView
+get_success_url	sales/views.py	/^    def get_success_url(self):$/;"	m	class:BuyerUpdateView
+get_success_url	sales/views.py	/^    def get_success_url(self):$/;"	m	class:DiscountDeleteView
+get_success_url	sales/views.py	/^    def get_success_url(self):$/;"	m	class:DiscountUpdateView
+get_success_url	sales/views.py	/^    def get_success_url(self):$/;"	m	class:OrderCreateView
+get_success_url	sales/views.py	/^    def get_success_url(self):$/;"	m	class:OrderItemDeleteView
+get_success_url	sales/views.py	/^    def get_success_url(self):$/;"	m	class:OrderItemUpdateView
+get_success_url	stock/views.py	/^    def get_success_url(self):$/;"	m	class:ProductUpdateView
+get_success_url	stock/views.py	/^    def get_success_url(self):$/;"	m	class:RollUpdateView
+handleObj.handler	htmlcov/jquery.hotkeys.js	/^		handleObj.handler = function( event ) {$/;"	f
+has_open_order	sales/models.py	/^    def has_open_order(self, buyer_product):$/;"	m	class:Buyer
+has_payment	invoice/models.py	/^    def has_payment(self):$/;"	m	class:Invoice
+has_pending_payments	invoice/models.py	/^    def has_pending_payments(self):$/;"	m	class:Invoice
+has_product_available	sales/models.py	/^    def has_product_available(self):$/;"	m	class:Buyer
+has_stock	stock/models.py	/^    def has_stock(self):$/;"	m	class:Product
+height	stock/models.py	/^    height = models.ForeignKey(Height, on_delete=models.DO_NOTHING)$/;"	v	class:RollSpec
+help_text	stock/forms.py	/^        help_text="Number of rolls to be loaded.",$/;"	v	class:LoadStocksForm.Meta
+help_text	stock/forms.py	/^        help_text="Size of loose roll in square meters.",$/;"	v	class:LoadStocksForm.Meta
+help_text	stock/forms.py	/^        help_text=mark_safe("Size in (m<sup>2<\/sup>)"),$/;"	v	class:SplitRollForm.Meta
+history_total	sales/models.py	/^    def history_total(self):$/;"	m	class:Buyer
+home	accounts/views.py	/^def home(request):$/;"	f
+host	client.js	/^    host: "localhost",$/;"	p	class:const
+initial	expense/migrations/0001_initial.py	/^    initial = True$/;"	v	class:Migration
+initial	invoice/migrations/0001_initial.py	/^    initial = True$/;"	v	class:Migration
+initial	sales/migrations/0001_initial.py	/^    initial = True$/;"	v	class:Migration
+initial	stock/migrations/0001_initial.py	/^    initial = True$/;"	v	class:Migration
+inlines	sales/admin.py	/^    inlines = [$/;"	v	class:BuyerAdmin
+input_type	expense/forms.py	/^    input_type = 'date'$/;"	v	class:DateInput
+invoice	invoice/models.py	/^    invoice = models.ForeignKey(Invoice, on_delete=models.DO_NOTHING)$/;"	v	class:Payment
+invoice	sales/models.py	/^    def invoice(self):$/;"	m	class:Order
+invoice_order	sales/models.py	/^    def invoice_order(self):$/;"	m	class:Order
+invoice_status_color	sales/utils.py	/^def invoice_status_color(status):$/;"	f
+is_delivered	sales/models.py	/^    def is_delivered(self):$/;"	m	class:Order
+is_discount	sales/models.py	/^    def is_discount(self):$/;"	m	class:OrderLine
+is_invoiceable	invoice/models.py	/^    def is_invoiceable(self):$/;"	m	class:Invoice
+is_payable	invoice/models.py	/^    def is_payable(self):$/;"	m	class:Invoice
+is_turf	stock/models.py	/^    def is_turf(self):$/;"	m	class:RollSpec
+jQuery.expr.pseudos.animated	htmlcov/jquery.min.js	/^contents:{script:\/\\b(?:java|ecma)script\\b\/},converters:{"text script":function(text){jQuery.globalEval(text);return text}}});jQuery.ajaxPrefilter("script",function(s){if(s.cache===undefined){s.cache=false}if(s.crossDomain){s.type="GET"}});jQuery.ajaxTransport("script",function(s){if(s.crossDomain){var script,callback;return{send:function(_,complete){script=jQuery("<script>").prop({charset:s.scriptCharset,src:s.url}).on("load error",callback=function(evt){script.remove();callback=null;if(evt){complete(evt.type==="error"?404:200,evt.type)}});document.head.appendChild(script[0])},abort:function(){if(callback){callback()}}}}});var oldCallbacks=[],rjsonp=\/(=)\\?(?=&|$)|\\?\\?\/;jQuery.ajaxSetup({jsonp:"callback",jsonpCallback:function(){var callback=oldCallbacks.pop()||jQuery.expando+"_"+nonce++;this[callback]=true;return callback}});jQuery.ajaxPrefilter("json jsonp",function(s,originalSettings,jqXHR){var callbackName,overwritten,responseContainer,jsonProp=s.jsonp!==false&&(rjsonp.test(s.url)?"url":typeof s.data==="string"&&(s.contentType||"").indexOf("application\/x-www-form-urlencoded")===0&&rjsonp.test(s.data)&&"data");if(jsonProp||s.dataTypes[0]==="jsonp"){callbackName=s.jsonpCallback=isFunction(s.jsonpCallback)?s.jsonpCallback():s.jsonpCallback;if(jsonProp){s[jsonProp]=s[jsonProp].replace(rjsonp,"$1"+callbackName)}else if(s.jsonp!==false){s.url+=(rquery.test(s.url)?"&":"?")+s.jsonp+"="+callbackName}s.converters["script json"]=function(){if(!responseContainer){jQuery.error(callbackName+" was not called")}return responseContainer[0]};s.dataTypes[0]="json";overwritten=window[callbackName];window[callbackName]=function(){responseContainer=arguments};jqXHR.always(function(){if(overwritten===undefined){jQuery(window).removeProp(callbackName)}else{window[callbackName]=overwritten}if(s[callbackName]){s.jsonpCallback=originalSettings.jsonpCallback;oldCallbacks.push(callbackName)}if(responseContainer&&isFunction(overwritten)){overwritten(responseContainer[0])}responseContainer=overwritten=undefined});return"script"}});support.createHTMLDocument=function(){var body=document.implementation.createHTMLDocument("").body;body.innerHTML="<form><\/form><form><\/form>";return body.childNodes.length===2}();jQuery.parseHTML=function(data,context,keepScripts){if(typeof data!=="string"){return[]}if(typeof context==="boolean"){keepScripts=context;context=false}var base,parsed,scripts;if(!context){if(support.createHTMLDocument){context=document.implementation.createHTMLDocument("");base=context.createElement("base");base.href=document.location.href;context.head.appendChild(base)}else{context=document}}parsed=rsingleTag.exec(data);scripts=!keepScripts&&[];if(parsed){return[context.createElement(parsed[1])]}parsed=buildFragment([data],context,scripts);if(scripts&&scripts.length){jQuery(scripts).remove()}return jQuery.merge([],parsed.childNodes)};jQuery.fn.load=function(url,params,callback){var selector,type,response,self=this,off=url.indexOf(" ");if(off>-1){selector=stripAndCollapse(url.slice(off));url=url.slice(0,off)}if(isFunction(params)){callback=params;params=undefined}else if(params&&typeof params==="object"){type="POST"}if(self.length>0){jQuery.ajax({url:url,type:type||"GET",dataType:"html",data:params}).done(function(responseText){response=arguments;self.html(selector?jQuery("<div>").append(jQuery.parseHTML(responseText)).find(selector):responseText)}).always(callback&&function(jqXHR,status){self.each(function(){callback.apply(this,response||[jqXHR.responseText,status,jqXHR])})})}return this};jQuery.each(["ajaxStart","ajaxStop","ajaxComplete","ajaxError","ajaxSuccess","ajaxSend"],function(i,type){jQuery.fn[type]=function(fn){return this.on(type,fn)}});jQuery.expr.pseudos.animated=function(elem){return jQuery.grep(jQuery.timers,function(fn){return elem===fn.elem}).length};jQuery.offset={setOffset:function(elem,options,i){var curPosition,curLeft,curCSSTop,curTop,curOffset,curCSSLeft,calculatePosition,position=jQuery.css(elem,"position"),curElem=jQuery(elem),props={};if(position==="static"){elem.style.position="relative"}curOffset=curElem.offset();curCSSTop=jQuery.css(elem,"top");curCSSLeft=jQuery.css(elem,"left");calculatePosition=(position==="absolute"||position==="fixed")&&(curCSSTop+curCSSLeft).indexOf("auto")>-1;if(calculatePosition){curPosition=curElem.position();curTop=curPosition.top;curLeft=curPosition.left}else{curTop=parseFloat(curCSSTop)||0;curLeft=parseFloat(curCSSLeft)||0}if(isFunction(options)){options=options.call(elem,i,jQuery.extend({},curOffset))}if(options.top!=null){props.top=options.top-curOffset.top+curTop}if(options.left!=null){props.left=options.left-curOffset.left+curLeft}if("using"in options){options.using.call(elem,props)}else{curElem.css(props)}}};jQuery.fn.extend({offset:function(options){if(arguments.length){return options===undefined?this:this.each(function(i){jQuery.offset.setOffset(this,options,i)})}var rect,win,elem=this[0];if(!elem){return}if(!elem.getClientRects().length){return{top:0,left:0}}rect=elem.getBoundingClientRect();win=elem.ownerDocument.defaultView;return{top:rect.top+win.pageYOffset,left:rect.left+win.pageXOffset}},position:function(){if(!this[0]){return}var offsetParent,offset,doc,elem=this[0],parentOffset={top:0,left:0};if(jQuery.css(elem,"position")==="fixed"){offset=elem.getBoundingClientRect()}else{offset=this.offset();doc=elem.ownerDocument;offsetParent=elem.offsetParent||doc.documentElement;while(offsetParent&&(offsetParent===doc.body||offsetParent===doc.documentElement)&&jQuery.css(offsetParent,"position")==="static"){offsetParent=offsetParent.parentNode}if(offsetParent&&offsetParent!==elem&&offsetParent.nodeType===1){parentOffset=jQuery(offsetParent).offset();parentOffset.top+=jQuery.css(offsetParent,"borderTopWidth",true);parentOffset.left+=jQuery.css(offsetParent,"borderLeftWidth",true)}}return{top:offset.top-parentOffset.top-jQuery.css(elem,"marginTop",true),left:offset.left-parentOffset.left-jQuery.css(elem,"marginLeft",true)}},offsetParent:function(){return this.map(function(){var offsetParent=this.offsetParent;while(offsetParent&&jQuery.css(offsetParent,"position")==="static"){offsetParent=offsetParent.offsetParent}return offsetParent||documentElement})}});jQuery.each({scrollLeft:"pageXOffset",scrollTop:"pageYOffset"},function(method,prop){var top="pageYOffset"===prop;jQuery.fn[method]=function(val){return access(this,function(elem,method,val){var win;if(isWindow(elem)){win=elem}else if(elem.nodeType===9){win=elem.defaultView}if(val===undefined){return win?win[prop]:elem[method]}if(win){win.scrollTo(!top?val:win.pageXOffset,top?val:win.pageYOffset)}else{elem[method]=val}},method,val,arguments.length)}});jQuery.each(["top","left"],function(i,prop){jQuery.cssHooks[prop]=addGetHookIf(support.pixelPosition,function(elem,computed){if(computed){computed=curCSS(elem,prop);return rnumnonpx.test(computed)?jQuery(elem).position()[prop]+"px":computed}})});jQuery.each({Height:"height",Width:"width"},function(name,type){jQuery.each({padding:"inner"+name,content:type,"":"outer"+name},function(defaultExtra,funcName){jQuery.fn[funcName]=function(margin,value){var chainable=arguments.length&&(defaultExtra||typeof margin!=="boolean"),extra=defaultExtra||(margin===true||value===true?"margin":"border");return access(this,function(elem,type,value){var doc;if(isWindow(elem)){return funcName.indexOf("outer")===0?elem["inner"+name]:elem.document.documentElement["client"+name]}if(elem.nodeType===9){doc=elem.documentElement;return Math.max(elem.body["scroll"+name],doc["scroll"+name],elem.body["offset"+name],doc["offset"+name],doc["client"+name])}return value===undefined?jQuery.css(elem,type,extra):jQuery.style(elem,type,value,extra)},type,chainable?margin:undefined,chainable)}})});jQuery.each(("blur focus focusin focusout resize scroll click dblclick "+"mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave "+"change select submit keydown keypress keyup contextmenu").split(" "),function(i,name){jQuery.fn[name]=function(data,fn){return arguments.length>0?this.on(name,null,data,fn):this.trigger(name)}});jQuery.fn.extend({hover:function(fnOver,fnOut){return this.mouseenter(fnOver).mouseleave(fnOut||fnOver)}});jQuery.fn.extend({bind:function(types,data,fn){return this.on(types,null,data,fn)},unbind:function(types,fn){return this.off(types,null,fn)},delegate:function(selector,types,data,fn){return this.on(types,selector,data,fn)},undelegate:function(selector,types,fn){return arguments.length===1?this.off(selector,"**"):this.off(types,selector||"**",fn)}});jQuery.proxy=function(fn,context){var tmp,args,proxy;if(typeof context==="string"){tmp=fn[context];context=fn;fn=tmp}if(!isFunction(fn)){return undefined}args=slice.call(arguments,2);proxy=function(){return fn.apply(context||this,args.concat(slice.call(arguments)))};proxy.guid=fn.guid=fn.guid||jQuery.guid++;return proxy};jQuery.holdReady=function(hold){if(hold){jQuery.readyWait++}else{jQuery.ready(true)}};jQuery.isArray=Array.isArray;jQuery.parseJSON=JSON.parse;jQuery.nodeName=nodeName;jQuery.isFunction=isFunction;jQuery.isWindow=isWindow;jQuery.camelCase=camelCase;jQuery.type=toType;jQuery.now=Date.now;jQuery.isNumeric=function(obj){var type=jQuery.type(obj);return(type==="number"||type==="string")&&!isNaN(obj-parseFloat(obj))};if(typeof define==="function"&&define.amd){define("jquery",[],function(){return jQuery})}var _jQuery=window.jQuery,_$=window.$;jQuery.noConflict=function(deep){if(window.$===jQuery){window.$=_$}if(deep&&window.jQuery===jQuery){window.jQuery=_jQuery}return jQuery};if(!noGlobal){window.jQuery=window.$=jQuery}return jQuery});$/;"	f
+jQuery.holdReady	htmlcov/jquery.min.js	/^contents:{script:\/\\b(?:java|ecma)script\\b\/},converters:{"text script":function(text){jQuery.globalEval(text);return text}}});jQuery.ajaxPrefilter("script",function(s){if(s.cache===undefined){s.cache=false}if(s.crossDomain){s.type="GET"}});jQuery.ajaxTransport("script",function(s){if(s.crossDomain){var script,callback;return{send:function(_,complete){script=jQuery("<script>").prop({charset:s.scriptCharset,src:s.url}).on("load error",callback=function(evt){script.remove();callback=null;if(evt){complete(evt.type==="error"?404:200,evt.type)}});document.head.appendChild(script[0])},abort:function(){if(callback){callback()}}}}});var oldCallbacks=[],rjsonp=\/(=)\\?(?=&|$)|\\?\\?\/;jQuery.ajaxSetup({jsonp:"callback",jsonpCallback:function(){var callback=oldCallbacks.pop()||jQuery.expando+"_"+nonce++;this[callback]=true;return callback}});jQuery.ajaxPrefilter("json jsonp",function(s,originalSettings,jqXHR){var callbackName,overwritten,responseContainer,jsonProp=s.jsonp!==false&&(rjsonp.test(s.url)?"url":typeof s.data==="string"&&(s.contentType||"").indexOf("application\/x-www-form-urlencoded")===0&&rjsonp.test(s.data)&&"data");if(jsonProp||s.dataTypes[0]==="jsonp"){callbackName=s.jsonpCallback=isFunction(s.jsonpCallback)?s.jsonpCallback():s.jsonpCallback;if(jsonProp){s[jsonProp]=s[jsonProp].replace(rjsonp,"$1"+callbackName)}else if(s.jsonp!==false){s.url+=(rquery.test(s.url)?"&":"?")+s.jsonp+"="+callbackName}s.converters["script json"]=function(){if(!responseContainer){jQuery.error(callbackName+" was not called")}return responseContainer[0]};s.dataTypes[0]="json";overwritten=window[callbackName];window[callbackName]=function(){responseContainer=arguments};jqXHR.always(function(){if(overwritten===undefined){jQuery(window).removeProp(callbackName)}else{window[callbackName]=overwritten}if(s[callbackName]){s.jsonpCallback=originalSettings.jsonpCallback;oldCallbacks.push(callbackName)}if(responseContainer&&isFunction(overwritten)){overwritten(responseContainer[0])}responseContainer=overwritten=undefined});return"script"}});support.createHTMLDocument=function(){var body=document.implementation.createHTMLDocument("").body;body.innerHTML="<form><\/form><form><\/form>";return body.childNodes.length===2}();jQuery.parseHTML=function(data,context,keepScripts){if(typeof data!=="string"){return[]}if(typeof context==="boolean"){keepScripts=context;context=false}var base,parsed,scripts;if(!context){if(support.createHTMLDocument){context=document.implementation.createHTMLDocument("");base=context.createElement("base");base.href=document.location.href;context.head.appendChild(base)}else{context=document}}parsed=rsingleTag.exec(data);scripts=!keepScripts&&[];if(parsed){return[context.createElement(parsed[1])]}parsed=buildFragment([data],context,scripts);if(scripts&&scripts.length){jQuery(scripts).remove()}return jQuery.merge([],parsed.childNodes)};jQuery.fn.load=function(url,params,callback){var selector,type,response,self=this,off=url.indexOf(" ");if(off>-1){selector=stripAndCollapse(url.slice(off));url=url.slice(0,off)}if(isFunction(params)){callback=params;params=undefined}else if(params&&typeof params==="object"){type="POST"}if(self.length>0){jQuery.ajax({url:url,type:type||"GET",dataType:"html",data:params}).done(function(responseText){response=arguments;self.html(selector?jQuery("<div>").append(jQuery.parseHTML(responseText)).find(selector):responseText)}).always(callback&&function(jqXHR,status){self.each(function(){callback.apply(this,response||[jqXHR.responseText,status,jqXHR])})})}return this};jQuery.each(["ajaxStart","ajaxStop","ajaxComplete","ajaxError","ajaxSuccess","ajaxSend"],function(i,type){jQuery.fn[type]=function(fn){return this.on(type,fn)}});jQuery.expr.pseudos.animated=function(elem){return jQuery.grep(jQuery.timers,function(fn){return elem===fn.elem}).length};jQuery.offset={setOffset:function(elem,options,i){var curPosition,curLeft,curCSSTop,curTop,curOffset,curCSSLeft,calculatePosition,position=jQuery.css(elem,"position"),curElem=jQuery(elem),props={};if(position==="static"){elem.style.position="relative"}curOffset=curElem.offset();curCSSTop=jQuery.css(elem,"top");curCSSLeft=jQuery.css(elem,"left");calculatePosition=(position==="absolute"||position==="fixed")&&(curCSSTop+curCSSLeft).indexOf("auto")>-1;if(calculatePosition){curPosition=curElem.position();curTop=curPosition.top;curLeft=curPosition.left}else{curTop=parseFloat(curCSSTop)||0;curLeft=parseFloat(curCSSLeft)||0}if(isFunction(options)){options=options.call(elem,i,jQuery.extend({},curOffset))}if(options.top!=null){props.top=options.top-curOffset.top+curTop}if(options.left!=null){props.left=options.left-curOffset.left+curLeft}if("using"in options){options.using.call(elem,props)}else{curElem.css(props)}}};jQuery.fn.extend({offset:function(options){if(arguments.length){return options===undefined?this:this.each(function(i){jQuery.offset.setOffset(this,options,i)})}var rect,win,elem=this[0];if(!elem){return}if(!elem.getClientRects().length){return{top:0,left:0}}rect=elem.getBoundingClientRect();win=elem.ownerDocument.defaultView;return{top:rect.top+win.pageYOffset,left:rect.left+win.pageXOffset}},position:function(){if(!this[0]){return}var offsetParent,offset,doc,elem=this[0],parentOffset={top:0,left:0};if(jQuery.css(elem,"position")==="fixed"){offset=elem.getBoundingClientRect()}else{offset=this.offset();doc=elem.ownerDocument;offsetParent=elem.offsetParent||doc.documentElement;while(offsetParent&&(offsetParent===doc.body||offsetParent===doc.documentElement)&&jQuery.css(offsetParent,"position")==="static"){offsetParent=offsetParent.parentNode}if(offsetParent&&offsetParent!==elem&&offsetParent.nodeType===1){parentOffset=jQuery(offsetParent).offset();parentOffset.top+=jQuery.css(offsetParent,"borderTopWidth",true);parentOffset.left+=jQuery.css(offsetParent,"borderLeftWidth",true)}}return{top:offset.top-parentOffset.top-jQuery.css(elem,"marginTop",true),left:offset.left-parentOffset.left-jQuery.css(elem,"marginLeft",true)}},offsetParent:function(){return this.map(function(){var offsetParent=this.offsetParent;while(offsetParent&&jQuery.css(offsetParent,"position")==="static"){offsetParent=offsetParent.offsetParent}return offsetParent||documentElement})}});jQuery.each({scrollLeft:"pageXOffset",scrollTop:"pageYOffset"},function(method,prop){var top="pageYOffset"===prop;jQuery.fn[method]=function(val){return access(this,function(elem,method,val){var win;if(isWindow(elem)){win=elem}else if(elem.nodeType===9){win=elem.defaultView}if(val===undefined){return win?win[prop]:elem[method]}if(win){win.scrollTo(!top?val:win.pageXOffset,top?val:win.pageYOffset)}else{elem[method]=val}},method,val,arguments.length)}});jQuery.each(["top","left"],function(i,prop){jQuery.cssHooks[prop]=addGetHookIf(support.pixelPosition,function(elem,computed){if(computed){computed=curCSS(elem,prop);return rnumnonpx.test(computed)?jQuery(elem).position()[prop]+"px":computed}})});jQuery.each({Height:"height",Width:"width"},function(name,type){jQuery.each({padding:"inner"+name,content:type,"":"outer"+name},function(defaultExtra,funcName){jQuery.fn[funcName]=function(margin,value){var chainable=arguments.length&&(defaultExtra||typeof margin!=="boolean"),extra=defaultExtra||(margin===true||value===true?"margin":"border");return access(this,function(elem,type,value){var doc;if(isWindow(elem)){return funcName.indexOf("outer")===0?elem["inner"+name]:elem.document.documentElement["client"+name]}if(elem.nodeType===9){doc=elem.documentElement;return Math.max(elem.body["scroll"+name],doc["scroll"+name],elem.body["offset"+name],doc["offset"+name],doc["client"+name])}return value===undefined?jQuery.css(elem,type,extra):jQuery.style(elem,type,value,extra)},type,chainable?margin:undefined,chainable)}})});jQuery.each(("blur focus focusin focusout resize scroll click dblclick "+"mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave "+"change select submit keydown keypress keyup contextmenu").split(" "),function(i,name){jQuery.fn[name]=function(data,fn){return arguments.length>0?this.on(name,null,data,fn):this.trigger(name)}});jQuery.fn.extend({hover:function(fnOver,fnOut){return this.mouseenter(fnOver).mouseleave(fnOut||fnOver)}});jQuery.fn.extend({bind:function(types,data,fn){return this.on(types,null,data,fn)},unbind:function(types,fn){return this.off(types,null,fn)},delegate:function(selector,types,data,fn){return this.on(types,selector,data,fn)},undelegate:function(selector,types,fn){return arguments.length===1?this.off(selector,"**"):this.off(types,selector||"**",fn)}});jQuery.proxy=function(fn,context){var tmp,args,proxy;if(typeof context==="string"){tmp=fn[context];context=fn;fn=tmp}if(!isFunction(fn)){return undefined}args=slice.call(arguments,2);proxy=function(){return fn.apply(context||this,args.concat(slice.call(arguments)))};proxy.guid=fn.guid=fn.guid||jQuery.guid++;return proxy};jQuery.holdReady=function(hold){if(hold){jQuery.readyWait++}else{jQuery.ready(true)}};jQuery.isArray=Array.isArray;jQuery.parseJSON=JSON.parse;jQuery.nodeName=nodeName;jQuery.isFunction=isFunction;jQuery.isWindow=isWindow;jQuery.camelCase=camelCase;jQuery.type=toType;jQuery.now=Date.now;jQuery.isNumeric=function(obj){var type=jQuery.type(obj);return(type==="number"||type==="string")&&!isNaN(obj-parseFloat(obj))};if(typeof define==="function"&&define.amd){define("jquery",[],function(){return jQuery})}var _jQuery=window.jQuery,_$=window.$;jQuery.noConflict=function(deep){if(window.$===jQuery){window.$=_$}if(deep&&window.jQuery===jQuery){window.jQuery=_jQuery}return jQuery};if(!noGlobal){window.jQuery=window.$=jQuery}return jQuery});$/;"	f
+jQuery.isNumeric	htmlcov/jquery.min.js	/^contents:{script:\/\\b(?:java|ecma)script\\b\/},converters:{"text script":function(text){jQuery.globalEval(text);return text}}});jQuery.ajaxPrefilter("script",function(s){if(s.cache===undefined){s.cache=false}if(s.crossDomain){s.type="GET"}});jQuery.ajaxTransport("script",function(s){if(s.crossDomain){var script,callback;return{send:function(_,complete){script=jQuery("<script>").prop({charset:s.scriptCharset,src:s.url}).on("load error",callback=function(evt){script.remove();callback=null;if(evt){complete(evt.type==="error"?404:200,evt.type)}});document.head.appendChild(script[0])},abort:function(){if(callback){callback()}}}}});var oldCallbacks=[],rjsonp=\/(=)\\?(?=&|$)|\\?\\?\/;jQuery.ajaxSetup({jsonp:"callback",jsonpCallback:function(){var callback=oldCallbacks.pop()||jQuery.expando+"_"+nonce++;this[callback]=true;return callback}});jQuery.ajaxPrefilter("json jsonp",function(s,originalSettings,jqXHR){var callbackName,overwritten,responseContainer,jsonProp=s.jsonp!==false&&(rjsonp.test(s.url)?"url":typeof s.data==="string"&&(s.contentType||"").indexOf("application\/x-www-form-urlencoded")===0&&rjsonp.test(s.data)&&"data");if(jsonProp||s.dataTypes[0]==="jsonp"){callbackName=s.jsonpCallback=isFunction(s.jsonpCallback)?s.jsonpCallback():s.jsonpCallback;if(jsonProp){s[jsonProp]=s[jsonProp].replace(rjsonp,"$1"+callbackName)}else if(s.jsonp!==false){s.url+=(rquery.test(s.url)?"&":"?")+s.jsonp+"="+callbackName}s.converters["script json"]=function(){if(!responseContainer){jQuery.error(callbackName+" was not called")}return responseContainer[0]};s.dataTypes[0]="json";overwritten=window[callbackName];window[callbackName]=function(){responseContainer=arguments};jqXHR.always(function(){if(overwritten===undefined){jQuery(window).removeProp(callbackName)}else{window[callbackName]=overwritten}if(s[callbackName]){s.jsonpCallback=originalSettings.jsonpCallback;oldCallbacks.push(callbackName)}if(responseContainer&&isFunction(overwritten)){overwritten(responseContainer[0])}responseContainer=overwritten=undefined});return"script"}});support.createHTMLDocument=function(){var body=document.implementation.createHTMLDocument("").body;body.innerHTML="<form><\/form><form><\/form>";return body.childNodes.length===2}();jQuery.parseHTML=function(data,context,keepScripts){if(typeof data!=="string"){return[]}if(typeof context==="boolean"){keepScripts=context;context=false}var base,parsed,scripts;if(!context){if(support.createHTMLDocument){context=document.implementation.createHTMLDocument("");base=context.createElement("base");base.href=document.location.href;context.head.appendChild(base)}else{context=document}}parsed=rsingleTag.exec(data);scripts=!keepScripts&&[];if(parsed){return[context.createElement(parsed[1])]}parsed=buildFragment([data],context,scripts);if(scripts&&scripts.length){jQuery(scripts).remove()}return jQuery.merge([],parsed.childNodes)};jQuery.fn.load=function(url,params,callback){var selector,type,response,self=this,off=url.indexOf(" ");if(off>-1){selector=stripAndCollapse(url.slice(off));url=url.slice(0,off)}if(isFunction(params)){callback=params;params=undefined}else if(params&&typeof params==="object"){type="POST"}if(self.length>0){jQuery.ajax({url:url,type:type||"GET",dataType:"html",data:params}).done(function(responseText){response=arguments;self.html(selector?jQuery("<div>").append(jQuery.parseHTML(responseText)).find(selector):responseText)}).always(callback&&function(jqXHR,status){self.each(function(){callback.apply(this,response||[jqXHR.responseText,status,jqXHR])})})}return this};jQuery.each(["ajaxStart","ajaxStop","ajaxComplete","ajaxError","ajaxSuccess","ajaxSend"],function(i,type){jQuery.fn[type]=function(fn){return this.on(type,fn)}});jQuery.expr.pseudos.animated=function(elem){return jQuery.grep(jQuery.timers,function(fn){return elem===fn.elem}).length};jQuery.offset={setOffset:function(elem,options,i){var curPosition,curLeft,curCSSTop,curTop,curOffset,curCSSLeft,calculatePosition,position=jQuery.css(elem,"position"),curElem=jQuery(elem),props={};if(position==="static"){elem.style.position="relative"}curOffset=curElem.offset();curCSSTop=jQuery.css(elem,"top");curCSSLeft=jQuery.css(elem,"left");calculatePosition=(position==="absolute"||position==="fixed")&&(curCSSTop+curCSSLeft).indexOf("auto")>-1;if(calculatePosition){curPosition=curElem.position();curTop=curPosition.top;curLeft=curPosition.left}else{curTop=parseFloat(curCSSTop)||0;curLeft=parseFloat(curCSSLeft)||0}if(isFunction(options)){options=options.call(elem,i,jQuery.extend({},curOffset))}if(options.top!=null){props.top=options.top-curOffset.top+curTop}if(options.left!=null){props.left=options.left-curOffset.left+curLeft}if("using"in options){options.using.call(elem,props)}else{curElem.css(props)}}};jQuery.fn.extend({offset:function(options){if(arguments.length){return options===undefined?this:this.each(function(i){jQuery.offset.setOffset(this,options,i)})}var rect,win,elem=this[0];if(!elem){return}if(!elem.getClientRects().length){return{top:0,left:0}}rect=elem.getBoundingClientRect();win=elem.ownerDocument.defaultView;return{top:rect.top+win.pageYOffset,left:rect.left+win.pageXOffset}},position:function(){if(!this[0]){return}var offsetParent,offset,doc,elem=this[0],parentOffset={top:0,left:0};if(jQuery.css(elem,"position")==="fixed"){offset=elem.getBoundingClientRect()}else{offset=this.offset();doc=elem.ownerDocument;offsetParent=elem.offsetParent||doc.documentElement;while(offsetParent&&(offsetParent===doc.body||offsetParent===doc.documentElement)&&jQuery.css(offsetParent,"position")==="static"){offsetParent=offsetParent.parentNode}if(offsetParent&&offsetParent!==elem&&offsetParent.nodeType===1){parentOffset=jQuery(offsetParent).offset();parentOffset.top+=jQuery.css(offsetParent,"borderTopWidth",true);parentOffset.left+=jQuery.css(offsetParent,"borderLeftWidth",true)}}return{top:offset.top-parentOffset.top-jQuery.css(elem,"marginTop",true),left:offset.left-parentOffset.left-jQuery.css(elem,"marginLeft",true)}},offsetParent:function(){return this.map(function(){var offsetParent=this.offsetParent;while(offsetParent&&jQuery.css(offsetParent,"position")==="static"){offsetParent=offsetParent.offsetParent}return offsetParent||documentElement})}});jQuery.each({scrollLeft:"pageXOffset",scrollTop:"pageYOffset"},function(method,prop){var top="pageYOffset"===prop;jQuery.fn[method]=function(val){return access(this,function(elem,method,val){var win;if(isWindow(elem)){win=elem}else if(elem.nodeType===9){win=elem.defaultView}if(val===undefined){return win?win[prop]:elem[method]}if(win){win.scrollTo(!top?val:win.pageXOffset,top?val:win.pageYOffset)}else{elem[method]=val}},method,val,arguments.length)}});jQuery.each(["top","left"],function(i,prop){jQuery.cssHooks[prop]=addGetHookIf(support.pixelPosition,function(elem,computed){if(computed){computed=curCSS(elem,prop);return rnumnonpx.test(computed)?jQuery(elem).position()[prop]+"px":computed}})});jQuery.each({Height:"height",Width:"width"},function(name,type){jQuery.each({padding:"inner"+name,content:type,"":"outer"+name},function(defaultExtra,funcName){jQuery.fn[funcName]=function(margin,value){var chainable=arguments.length&&(defaultExtra||typeof margin!=="boolean"),extra=defaultExtra||(margin===true||value===true?"margin":"border");return access(this,function(elem,type,value){var doc;if(isWindow(elem)){return funcName.indexOf("outer")===0?elem["inner"+name]:elem.document.documentElement["client"+name]}if(elem.nodeType===9){doc=elem.documentElement;return Math.max(elem.body["scroll"+name],doc["scroll"+name],elem.body["offset"+name],doc["offset"+name],doc["client"+name])}return value===undefined?jQuery.css(elem,type,extra):jQuery.style(elem,type,value,extra)},type,chainable?margin:undefined,chainable)}})});jQuery.each(("blur focus focusin focusout resize scroll click dblclick "+"mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave "+"change select submit keydown keypress keyup contextmenu").split(" "),function(i,name){jQuery.fn[name]=function(data,fn){return arguments.length>0?this.on(name,null,data,fn):this.trigger(name)}});jQuery.fn.extend({hover:function(fnOver,fnOut){return this.mouseenter(fnOver).mouseleave(fnOut||fnOver)}});jQuery.fn.extend({bind:function(types,data,fn){return this.on(types,null,data,fn)},unbind:function(types,fn){return this.off(types,null,fn)},delegate:function(selector,types,data,fn){return this.on(types,selector,data,fn)},undelegate:function(selector,types,fn){return arguments.length===1?this.off(selector,"**"):this.off(types,selector||"**",fn)}});jQuery.proxy=function(fn,context){var tmp,args,proxy;if(typeof context==="string"){tmp=fn[context];context=fn;fn=tmp}if(!isFunction(fn)){return undefined}args=slice.call(arguments,2);proxy=function(){return fn.apply(context||this,args.concat(slice.call(arguments)))};proxy.guid=fn.guid=fn.guid||jQuery.guid++;return proxy};jQuery.holdReady=function(hold){if(hold){jQuery.readyWait++}else{jQuery.ready(true)}};jQuery.isArray=Array.isArray;jQuery.parseJSON=JSON.parse;jQuery.nodeName=nodeName;jQuery.isFunction=isFunction;jQuery.isWindow=isWindow;jQuery.camelCase=camelCase;jQuery.type=toType;jQuery.now=Date.now;jQuery.isNumeric=function(obj){var type=jQuery.type(obj);return(type==="number"||type==="string")&&!isNaN(obj-parseFloat(obj))};if(typeof define==="function"&&define.amd){define("jquery",[],function(){return jQuery})}var _jQuery=window.jQuery,_$=window.$;jQuery.noConflict=function(deep){if(window.$===jQuery){window.$=_$}if(deep&&window.jQuery===jQuery){window.jQuery=_jQuery}return jQuery};if(!noGlobal){window.jQuery=window.$=jQuery}return jQuery});$/;"	f
+keyHandler	htmlcov/jquery.hotkeys.js	/^	function keyHandler( handleObj ) {$/;"	f
+l	htmlcov/jquery.ba-throttle-debounce.min.js	/^(function(b,c){var $=b.jQuery||b.Cowboy||(b.Cowboy={}),a;$.throttle=a=function(e,f,j,i){var h,d=0;if(typeof f!=="boolean"){i=j;j=f;f=c}function g(){var o=this,m=+new Date()-d,n=arguments;function l(){d=+new Date();j.apply(o,n)}function k(){h=c}if(i&&!h){l()}h&&clearTimeout(h);if(i===c&&m>e){l()}else{if(f!==true){h=setTimeout(i?k:l,i===c?e-m:e)}}}if($.guid){g.guid=j.guid=j.guid||$.guid++}return g};$.debounce=function(d,e,f){return f===c?a(d,e,false):a(d,f,e!==false)}})(this);$/;"	f	function:function.g
+label	sales/forms.py	/^        label=_("Buyer"),$/;"	v	class:BuyerProductCreateForm.Meta
+label	sales/forms.py	/^        label=_("Product"),$/;"	v	class:BuyerProductCreateForm.Meta
+label	stock/forms.py	/^        label="Available Size"$/;"	v	class:SplitRollForm.Meta
+label	stock/forms.py	/^        label="Loose Size"$/;"	v	class:LoadStocksForm.Meta
+label	stock/forms.py	/^        label="Quantity"$/;"	v	class:LoadStocksForm.Meta
+label	stock/forms.py	/^        label="Split Size"$/;"	v	class:SplitRollForm.Meta
+landing	expense/views.py	/^def landing(request):$/;"	f
+left	htmlcov/jquery.isonscreen.js	/^				left: $(window).scrollLeft(),$/;"	p	class:container
+length	stock/models.py	/^    length = models.FloatField(default=settings.DEFAULT_ROLL_LENGTH)$/;"	v	class:RollSpec
+list_display	expense/admin.py	/^    list_display = [$/;"	v	class:ExpenseAdmin
+list_display	invoice/admin.py	/^    list_display = [$/;"	v	class:InvoiceAdmin
+list_display	invoice/admin.py	/^    list_display = [$/;"	v	class:PaymentAdmin
+list_display	sales/admin.py	/^    list_display = [$/;"	v	class:BuyerAdmin
+list_display	sales/admin.py	/^    list_display = [$/;"	v	class:BuyerProductAdmin
+list_display	sales/admin.py	/^    list_display = [$/;"	v	class:OrderAdmin
+list_display	sales/admin.py	/^    list_display = [$/;"	v	class:OrderLineAdmin
+list_display	stock/admin.py	/^    list_display = [$/;"	v	class:ProductAdmin
+list_display	stock/admin.py	/^    list_display = [$/;"	v	class:RollSpecAdmin
+list_display	stock/admin.py	/^    list_display = [$/;"	v	class:TurfRollAdmin
+list_display	stock/admin.py	/^    list_display = [$/;"	v	class:WarehouseAdmin
+list_filter	invoice/admin.py	/^    list_filter = [$/;"	v	class:InvoiceAdmin
+list_filter	sales/admin.py	/^    list_filter = ($/;"	v	class:BuyerAdmin
+list_filter	sales/admin.py	/^    list_filter = [$/;"	v	class:BuyerProductAdmin
+location	stock/models.py	/^    location = models.ForeignKey($/;"	v	class:TurfRoll
+logger	expense/views.py	/^logger = logging.getLogger(__name__)$/;"	v
+logger	invoice/models.py	/^logger = logging.getLogger(__name__)$/;"	v
+logger	invoice/views.py	/^logger = logging.getLogger(__name__)$/;"	v
+logger	sales/models.py	/^logger = logging.getLogger(__name__)$/;"	v
+logger	sales/views.py	/^logger = logging.getLogger(__name__)$/;"	v
+logger	stock/views.py	/^logger = logging.getLogger(__name__)$/;"	v
+main	manage.py	/^def main():$/;"	f
+max_length	expense/models.py	/^        max_length=255,$/;"	v	class:Expense.Method
+max_length	invoice/models.py	/^        max_length=255,$/;"	v	class:Invoice.Status
+max_length	invoice/models.py	/^        max_length=255,$/;"	v	class:Payment.Method
+max_length	sales/models.py	/^        max_length=255,$/;"	v	class:Buyer.Status
+max_length	sales/models.py	/^        max_length=255,$/;"	v	class:Order.Status
+max_length	stock/models.py	/^        max_length=63,$/;"	v	class:TurfRoll.Status
+method	expense/models.py	/^    method = models.CharField($/;"	v	class:Expense
+method	invoice/models.py	/^    method = models.CharField($/;"	v	class:Payment
+mobile	sales/models.py	/^    mobile = models.CharField(max_length=255, blank=True, null=True)$/;"	v	class:Buyer
+model	expense/forms.py	/^        model = Expense$/;"	v	class:ExpenseCreateForm.Meta
+model	expense/forms.py	/^        model = Expense$/;"	v	class:ExpenseUpdateForm.Meta
+model	expense/views.py	/^    model = Expense$/;"	v	class:ExpenseCreateView
+model	expense/views.py	/^    model = Expense$/;"	v	class:ExpenseDeleteView
+model	expense/views.py	/^    model = Expense$/;"	v	class:ExpenseDetailView
+model	expense/views.py	/^    model = Expense$/;"	v	class:ExpenseListView
+model	expense/views.py	/^    model = Expense$/;"	v	class:ExpenseUpdateView
+model	invoice/forms.py	/^        model = Payment$/;"	v	class:PaymentCreateForm.Meta
+model	invoice/forms.py	/^        model = Payment$/;"	v	class:PaymentUpdateForm.Meta
+model	invoice/views.py	/^    model = Invoice$/;"	v	class:InvoiceDetailView
+model	invoice/views.py	/^    model = Invoice$/;"	v	class:InvoiceListView
+model	invoice/views.py	/^    model = Payment$/;"	v	class:PaymentCreateView
+model	invoice/views.py	/^    model = Payment$/;"	v	class:PaymentListView
+model	invoice/views.py	/^    model = Payment$/;"	v	class:PaymentUpdateView
+model	sales/admin.py	/^    model = BuyerProduct$/;"	v	class:BuyerProductInline
+model	sales/forms.py	/^        model = Buyer$/;"	v	class:BuyerCreateForm.Meta
+model	sales/forms.py	/^        model = Buyer$/;"	v	class:BuyerUpdateForm.Meta
+model	sales/forms.py	/^        model = BuyerProduct$/;"	v	class:BuyerProductAdminForm.Meta
+model	sales/forms.py	/^        model = BuyerProduct$/;"	v	class:BuyerProductCreateForm.Meta
+model	sales/forms.py	/^        model = BuyerProduct$/;"	v	class:BuyerProductUpdateForm.Meta
+model	sales/forms.py	/^        model = Order$/;"	v	class:BuyerOrderCreateForm.Meta
+model	sales/forms.py	/^        model = Order$/;"	v	class:OrderAddItemForm.Meta
+model	sales/forms.py	/^        model = Order$/;"	v	class:OrderCreateForm.Meta
+model	sales/forms.py	/^        model = OrderLine$/;"	v	class:DiscountCreateForm.Meta
+model	sales/forms.py	/^        model = OrderLine$/;"	v	class:DiscountUpdateForm.Meta
+model	sales/forms.py	/^        model = OrderLine$/;"	v	class:OrderItemUpdateForm.Meta
+model	sales/views.py	/^    model = Buyer$/;"	v	class:BuyerCreateView
+model	sales/views.py	/^    model = Buyer$/;"	v	class:BuyerDeleteView
+model	sales/views.py	/^    model = Buyer$/;"	v	class:BuyerDetailView
+model	sales/views.py	/^    model = Buyer$/;"	v	class:BuyerListView
+model	sales/views.py	/^    model = Buyer$/;"	v	class:BuyerUpdateView
+model	sales/views.py	/^    model = BuyerProduct$/;"	v	class:BuyerProductCreateView
+model	sales/views.py	/^    model = BuyerProduct$/;"	v	class:BuyerProductDeleteView
+model	sales/views.py	/^    model = BuyerProduct$/;"	v	class:BuyerProductUpdateView
+model	sales/views.py	/^    model = Order$/;"	v	class:BuyerOrderCreateView
+model	sales/views.py	/^    model = Order$/;"	v	class:InvoiceOrderView
+model	sales/views.py	/^    model = Order$/;"	v	class:OrderAddItemView
+model	sales/views.py	/^    model = Order$/;"	v	class:OrderCreateView
+model	sales/views.py	/^    model = Order$/;"	v	class:OrderDetailView
+model	sales/views.py	/^    model = Order$/;"	v	class:OrderListView
+model	sales/views.py	/^    model = OrderLine$/;"	v	class:DiscountCreateView
+model	sales/views.py	/^    model = OrderLine$/;"	v	class:DiscountDeleteView
+model	sales/views.py	/^    model = OrderLine$/;"	v	class:DiscountUpdateView
+model	sales/views.py	/^    model = OrderLine$/;"	v	class:FilteredOrderListView
+model	sales/views.py	/^    model = OrderLine$/;"	v	class:OrderItemDeleteView
+model	sales/views.py	/^    model = OrderLine$/;"	v	class:OrderItemUpdateView
+model	stock/forms.py	/^        model = Product$/;"	v	class:ProductCreateForm.Meta
+model	stock/forms.py	/^        model = Product$/;"	v	class:ProductUpdateForm.Meta
+model	stock/forms.py	/^        model = TurfRoll$/;"	v	class:LoadStocksForm.Meta
+model	stock/forms.py	/^        model = TurfRoll$/;"	v	class:RollUpdateForm.Meta
+model	stock/forms.py	/^        model = TurfRoll$/;"	v	class:SplitRollForm.Meta
+model	stock/views.py	/^    model = Product$/;"	v	class:ProductCreateView
+model	stock/views.py	/^    model = Product$/;"	v	class:ProductDeleteView
+model	stock/views.py	/^    model = Product$/;"	v	class:ProductDetailView
+model	stock/views.py	/^    model = Product$/;"	v	class:ProductListView
+model	stock/views.py	/^    model = Product$/;"	v	class:ProductUpdateView
+model	stock/views.py	/^    model = TurfRoll$/;"	v	class:LoadStocksView
+model	stock/views.py	/^    model = TurfRoll$/;"	v	class:RollUpdateView
+model	stock/views.py	/^    model = TurfRoll$/;"	v	class:SplitRollView
+model	stock/views.py	/^    model = TurfRoll$/;"	v	class:StockListView
+model	stock/views.py	/^    model = Warehouse$/;"	v	class:WarehouseDetailView
+model	stock/views.py	/^    model = Warehouse$/;"	v	class:WarehouseListView
+model_name	expense/migrations/0002_auto_20210120_2144.py	/^            model_name='expense',$/;"	v	class:Migration
+model_name	expense/migrations/0003_auto_20210120_2146.py	/^            model_name='expense',$/;"	v	class:Migration
+model_name	expense/migrations/0004_auto_20210120_2146.py	/^            model_name='expense',$/;"	v	class:Migration
+model_name	expense/migrations/0005_auto_20210120_2154.py	/^            model_name='expense',$/;"	v	class:Migration
+model_name	expense/migrations/0006_auto_20210120_2157.py	/^            model_name='expense',$/;"	v	class:Migration
+model_name	expense/migrations/0007_auto_20210120_2157.py	/^            model_name='expense',$/;"	v	class:Migration
+model_name	invoice/migrations/0002_remove_invoice_notes.py	/^            model_name='invoice',$/;"	v	class:Migration
+model_name	invoice/migrations/0003_auto_20200915_2205.py	/^            model_name='invoice',$/;"	v	class:Migration
+model_name	invoice/migrations/0005_payment_method.py	/^            model_name='payment',$/;"	v	class:Migration
+model_name	invoice/migrations/0006_invoice_closed_date.py	/^            model_name='invoice',$/;"	v	class:Migration
+model_name	invoice/migrations/0007_auto_20200919_1733.py	/^            model_name='invoice',$/;"	v	class:Migration
+model_name	invoice/migrations/0008_remove_invoice_closed_date.py	/^            model_name='invoice',$/;"	v	class:Migration
+model_name	invoice/migrations/0009_invoice_closed_date.py	/^            model_name='invoice',$/;"	v	class:Migration
+model_name	invoice/migrations/0010_auto_20200920_1049.py	/^            model_name='invoice',$/;"	v	class:Migration
+model_name	invoice/migrations/0012_auto_20210120_2135.py	/^            model_name='payment',$/;"	v	class:Migration
+model_name	invoice/migrations/0013_payment_status.py	/^            model_name='payment',$/;"	v	class:Migration
+model_name	invoice/migrations/0015_auto_20210127_2215.py	/^            model_name='invoice',$/;"	v	class:Migration
+model_name	sales/migrations/0003_auto_20200908_1407.py	/^            model_name='buyerproduct',$/;"	v	class:Migration
+model_name	sales/migrations/0005_auto_20200909_1633.py	/^            model_name='buyerproduct',$/;"	v	class:Migration
+model_name	sales/migrations/0006_auto_20200909_1634.py	/^            model_name='buyerproduct',$/;"	v	class:Migration
+model_name	sales/migrations/0008_auto_20200912_0910.py	/^            model_name='orderline',$/;"	v	class:Migration
+model_name	sales/migrations/0009_auto_20200912_0914.py	/^            model_name='buyerproduct',$/;"	v	class:Migration
+model_name	sales/migrations/0010_order_number.py	/^            model_name='order',$/;"	v	class:Migration
+model_name	sales/migrations/0011_auto_20200913_2112.py	/^            model_name='order',$/;"	v	class:Migration
+model_name	sales/migrations/0012_order_closed_date.py	/^            model_name='order',$/;"	v	class:Migration
+model_name	sales/migrations/0013_auto_20200919_1519.py	/^            model_name='buyer',$/;"	v	class:Migration
+model_name	sales/migrations/0013_auto_20200919_1519.py	/^            model_name='order',$/;"	v	class:Migration
+model_name	sales/migrations/0014_auto_20200919_1733.py	/^            model_name='order',$/;"	v	class:Migration
+model_name	sales/migrations/0015_auto_20200920_1049.py	/^            model_name='order',$/;"	v	class:Migration
+model_name	sales/migrations/0016_auto_20200928_1915.py	/^            model_name='orderline',$/;"	v	class:Migration
+model_name	sales/migrations/0017_auto_20200928_2216.py	/^            model_name='orderline',$/;"	v	class:Migration
+model_name	sales/migrations/0018_auto_20201005_1842.py	/^            model_name='orderline',$/;"	v	class:Migration
+model_name	stock/migrations/0002_auto_20200908_1039.py	/^            model_name='product',$/;"	v	class:Migration
+model_name	stock/migrations/0004_auto_20200908_1407.py	/^            model_name='product',$/;"	v	class:Migration
+model_name	stock/migrations/0005_auto_20200909_1547.py	/^            model_name='height',$/;"	v	class:Migration
+model_name	stock/migrations/0005_auto_20200909_1547.py	/^            model_name='product',$/;"	v	class:Migration
+model_name	stock/migrations/0005_auto_20200909_1547.py	/^            model_name='rollspec',$/;"	v	class:Migration
+model_name	stock/migrations/0005_auto_20200909_1547.py	/^            model_name='width',$/;"	v	class:Migration
+model_name	stock/migrations/0006_warehouse_address.py	/^            model_name='warehouse',$/;"	v	class:Migration
+model_name	stock/migrations/0008_auto_20200909_2335.py	/^            model_name='rollspec',$/;"	v	class:Migration
+model_name	stock/migrations/0008_auto_20200909_2335.py	/^            model_name='turfroll',$/;"	v	class:Migration
+model_name	stock/migrations/0009_auto_20200912_0817.py	/^            model_name='turfroll',$/;"	v	class:Migration
+model_name	stock/migrations/0010_turfroll_delivered.py	/^            model_name='turfroll',$/;"	v	class:Migration
+model_name	stock/migrations/0011_auto_20200913_2112.py	/^            model_name='turfroll',$/;"	v	class:Migration
+model_name	stock/migrations/0012_turfroll_sold.py	/^            model_name='turfroll',$/;"	v	class:Migration
+model_name	stock/migrations/0013_auto_20200920_1033.py	/^            model_name='turfroll',$/;"	v	class:Migration
+model_name	stock/migrations/0014_product_has_stock.py	/^            model_name='product',$/;"	v	class:Migration
+model_name	stock/migrations/0015_auto_20200929_1533.py	/^            model_name='turfroll',$/;"	v	class:Migration
+model_name	stock/migrations/0016_turfroll_original_size.py	/^            model_name='turfroll',$/;"	v	class:Migration
+model_name	stock/migrations/0017_remove_product_has_stock.py	/^            model_name='product',$/;"	v	class:Migration
+model_name	stock/migrations/0018_auto_20201003_2238.py	/^            model_name='turfroll',$/;"	v	class:Migration
+model_name	stock/migrations/0019_turfroll_note.py	/^            model_name='turfroll',$/;"	v	class:Migration
+model_name	stock/migrations/0020_auto_20201015_2301.py	/^            model_name='height',$/;"	v	class:Migration
+model_name	stock/migrations/0020_auto_20201015_2301.py	/^            model_name='rollspec',$/;"	v	class:Migration
+model_name	stock/migrations/0020_auto_20201015_2301.py	/^            model_name='width',$/;"	v	class:Migration
+name	accounts/apps.py	/^    name = 'accounts'$/;"	v	class:AccountsConfig
+name	expense/apps.py	/^    name = 'expense'$/;"	v	class:ExpenseConfig
+name	expense/migrations/0001_initial.py	/^            name='Expense',$/;"	v	class:Migration
+name	expense/migrations/0002_auto_20210120_2144.py	/^            name='date',$/;"	v	class:Migration
+name	expense/migrations/0003_auto_20210120_2146.py	/^            name='date',$/;"	v	class:Migration
+name	expense/migrations/0004_auto_20210120_2146.py	/^            name='date',$/;"	v	class:Migration
+name	expense/migrations/0005_auto_20210120_2154.py	/^            name='date',$/;"	v	class:Migration
+name	expense/migrations/0006_auto_20210120_2157.py	/^            name='amount',$/;"	v	class:Migration
+name	expense/migrations/0007_auto_20210120_2157.py	/^            name='amount',$/;"	v	class:Migration
+name	invoice/apps.py	/^    name = 'invoice'$/;"	v	class:InvoiceConfig
+name	invoice/migrations/0001_initial.py	/^            name='Invoice',$/;"	v	class:Migration
+name	invoice/migrations/0002_remove_invoice_notes.py	/^            name='notes',$/;"	v	class:Migration
+name	invoice/migrations/0003_auto_20200915_2205.py	/^            name='status',$/;"	v	class:Migration
+name	invoice/migrations/0004_payment.py	/^            name='Payment',$/;"	v	class:Migration
+name	invoice/migrations/0005_payment_method.py	/^            name='method',$/;"	v	class:Migration
+name	invoice/migrations/0006_invoice_closed_date.py	/^            name='closed_date',$/;"	v	class:Migration
+name	invoice/migrations/0007_auto_20200919_1733.py	/^            name='number',$/;"	v	class:Migration
+name	invoice/migrations/0008_remove_invoice_closed_date.py	/^            name='closed_date',$/;"	v	class:Migration
+name	invoice/migrations/0009_invoice_closed_date.py	/^            name='closed_date',$/;"	v	class:Migration
+name	invoice/migrations/0010_auto_20200920_1049.py	/^            name='closed_date',$/;"	v	class:Migration
+name	invoice/migrations/0012_auto_20210120_2135.py	/^            name='method',$/;"	v	class:Migration
+name	invoice/migrations/0013_payment_status.py	/^            name='status',$/;"	v	class:Migration
+name	invoice/migrations/0015_auto_20210127_2215.py	/^            name='status',$/;"	v	class:Migration
+name	sales/apps.py	/^    name = 'sales'$/;"	v	class:SaleConfig
+name	sales/forms.py	/^    name = forms.CharField(help_text="Product name.")$/;"	v	class:BuyerProductAdminForm
+name	sales/migrations/0001_initial.py	/^            name='Buyer',$/;"	v	class:Migration
+name	sales/migrations/0002_buyerproduct.py	/^            name='BuyerProduct',$/;"	v	class:Migration
+name	sales/migrations/0003_auto_20200908_1407.py	/^            name='buyer',$/;"	v	class:Migration
+name	sales/migrations/0003_auto_20200908_1407.py	/^            name='product',$/;"	v	class:Migration
+name	sales/migrations/0004_auto_20200909_1627.py	/^            name='buyerproduct',$/;"	v	class:Migration
+name	sales/migrations/0005_auto_20200909_1633.py	/^            name='price',$/;"	v	class:Migration
+name	sales/migrations/0006_auto_20200909_1634.py	/^            name='price',$/;"	v	class:Migration
+name	sales/migrations/0007_order_orderline.py	/^            name='Order',$/;"	v	class:Migration
+name	sales/migrations/0007_order_orderline.py	/^            name='OrderLine',$/;"	v	class:Migration
+name	sales/migrations/0008_auto_20200912_0910.py	/^            name='price',$/;"	v	class:Migration
+name	sales/migrations/0009_auto_20200912_0914.py	/^            name='price',$/;"	v	class:Migration
+name	sales/migrations/0010_order_number.py	/^            name='number',$/;"	v	class:Migration
+name	sales/migrations/0011_auto_20200913_2112.py	/^            name='status',$/;"	v	class:Migration
+name	sales/migrations/0012_order_closed_date.py	/^            name='closed_date',$/;"	v	class:Migration
+name	sales/migrations/0013_auto_20200919_1519.py	/^            name='status',$/;"	v	class:Migration
+name	sales/migrations/0014_auto_20200919_1733.py	/^            name='number',$/;"	v	class:Migration
+name	sales/migrations/0015_auto_20200920_1049.py	/^            name='closed_date',$/;"	v	class:Migration
+name	sales/migrations/0016_auto_20200928_1915.py	/^            name='buyer_product',$/;"	v	class:Migration
+name	sales/migrations/0017_auto_20200928_2216.py	/^            name='buyer_product',$/;"	v	class:Migration
+name	sales/migrations/0017_auto_20200928_2216.py	/^            name='product',$/;"	v	class:Migration
+name	sales/migrations/0017_auto_20200928_2216.py	/^            name='total',$/;"	v	class:Migration
+name	sales/migrations/0018_auto_20201005_1842.py	/^            name='roll',$/;"	v	class:Migration
+name	sales/models.py	/^    name = models.CharField(max_length=255)$/;"	v	class:Buyer
+name	stock/apps.py	/^    name = 'stock'$/;"	v	class:StockConfig
+name	stock/migrations/0001_initial.py	/^            name='Category',$/;"	v	class:Migration
+name	stock/migrations/0001_initial.py	/^            name='Color',$/;"	v	class:Migration
+name	stock/migrations/0001_initial.py	/^            name='Height',$/;"	v	class:Migration
+name	stock/migrations/0001_initial.py	/^            name='Product',$/;"	v	class:Migration
+name	stock/migrations/0001_initial.py	/^            name='Width',$/;"	v	class:Migration
+name	stock/migrations/0002_auto_20200908_1039.py	/^            name='code',$/;"	v	class:Migration
+name	stock/migrations/0003_auto_20200908_1049.py	/^            name='product',$/;"	v	class:Migration
+name	stock/migrations/0004_auto_20200908_1407.py	/^            name='category',$/;"	v	class:Migration
+name	stock/migrations/0004_auto_20200908_1407.py	/^            name='height',$/;"	v	class:Migration
+name	stock/migrations/0004_auto_20200908_1407.py	/^            name='width',$/;"	v	class:Migration
+name	stock/migrations/0005_auto_20200909_1547.py	/^            name='RollSpec',$/;"	v	class:Migration
+name	stock/migrations/0005_auto_20200909_1547.py	/^            name='TurfRoll',$/;"	v	class:Migration
+name	stock/migrations/0005_auto_20200909_1547.py	/^            name='Warehouse',$/;"	v	class:Migration
+name	stock/migrations/0005_auto_20200909_1547.py	/^            name='category',$/;"	v	class:Migration
+name	stock/migrations/0005_auto_20200909_1547.py	/^            name='color',$/;"	v	class:Migration
+name	stock/migrations/0005_auto_20200909_1547.py	/^            name='height',$/;"	v	class:Migration
+name	stock/migrations/0005_auto_20200909_1547.py	/^            name='location',$/;"	v	class:Migration
+name	stock/migrations/0005_auto_20200909_1547.py	/^            name='product',$/;"	v	class:Migration
+name	stock/migrations/0005_auto_20200909_1547.py	/^            name='rollspec',$/;"	v	class:Migration
+name	stock/migrations/0005_auto_20200909_1547.py	/^            name='spec',$/;"	v	class:Migration
+name	stock/migrations/0005_auto_20200909_1547.py	/^            name='value',$/;"	v	class:Migration
+name	stock/migrations/0005_auto_20200909_1547.py	/^            name='width',$/;"	v	class:Migration
+name	stock/migrations/0006_warehouse_address.py	/^            name='address',$/;"	v	class:Migration
+name	stock/migrations/0007_auto_20200909_1627.py	/^            name='rollspec',$/;"	v	class:Migration
+name	stock/migrations/0007_auto_20200909_1627.py	/^            name='turfroll',$/;"	v	class:Migration
+name	stock/migrations/0008_auto_20200909_2335.py	/^            name='location',$/;"	v	class:Migration
+name	stock/migrations/0009_auto_20200912_0817.py	/^            name='reserved',$/;"	v	class:Migration
+name	stock/migrations/0010_turfroll_delivered.py	/^            name='delivered',$/;"	v	class:Migration
+name	stock/migrations/0011_auto_20200913_2112.py	/^            name='available',$/;"	v	class:Migration
+name	stock/migrations/0011_auto_20200913_2112.py	/^            name='reserved',$/;"	v	class:Migration
+name	stock/migrations/0012_turfroll_sold.py	/^            name='sold',$/;"	v	class:Migration
+name	stock/migrations/0013_auto_20200920_1033.py	/^            name='status',$/;"	v	class:Migration
+name	stock/migrations/0014_product_has_stock.py	/^            name='has_stock',$/;"	v	class:Migration
+name	stock/migrations/0015_auto_20200929_1533.py	/^            name='status',$/;"	v	class:Migration
+name	stock/migrations/0016_turfroll_original_size.py	/^            name='original_size',$/;"	v	class:Migration
+name	stock/migrations/0017_remove_product_has_stock.py	/^            name='has_stock',$/;"	v	class:Migration
+name	stock/migrations/0018_auto_20201003_2238.py	/^            name='Batch',$/;"	v	class:Migration
+name	stock/migrations/0018_auto_20201003_2238.py	/^            name='batch',$/;"	v	class:Migration
+name	stock/migrations/0019_turfroll_note.py	/^            name='note',$/;"	v	class:Migration
+name	stock/migrations/0020_auto_20201015_2301.py	/^            name='length',$/;"	v	class:Migration
+name	stock/migrations/0020_auto_20201015_2301.py	/^            name='value',$/;"	v	class:Migration
+name	stock/models.py	/^    def name(self):$/;"	m	class:Product
+name	stock/models.py	/^    name = models.CharField(max_length=255)$/;"	v	class:Category
+name	stock/models.py	/^    name = models.CharField(max_length=255)$/;"	v	class:Warehouse
+name	stock/models.py	/^    name = models.CharField(max_length=63)$/;"	v	class:Color
+new_name	stock/migrations/0009_auto_20200912_0817.py	/^            new_name='available',$/;"	v	class:Migration
+new_name	stock/migrations/0011_auto_20200913_2112.py	/^            new_name='total',$/;"	v	class:Migration
+note	stock/models.py	/^    note = models.TextField(max_length=511, blank=True, null=True)$/;"	v	class:TurfRoll
+null	sales/models.py	/^        null=True$/;"	v	class:Buyer.Status
+number	invoice/models.py	/^    number = models.CharField(max_length=255, null=True, blank=True, unique=True)$/;"	v	class:Invoice
+number	sales/models.py	/^    number = models.CharField(max_length=255, blank=True, null=True, unique=True)$/;"	v	class:Order
+number	stock/models.py	/^    number = models.CharField(max_length=255, blank=True, null=True)$/;"	v	class:Batch
+number	stock/models.py	/^    number = models.IntegerField(blank=True, null=True)$/;"	v	class:Warehouse
+oldCallbacks	htmlcov/jquery.min.js	/^contents:{script:\/\\b(?:java|ecma)script\\b\/},converters:{"text script":function(text){jQuery.globalEval(text);return text}}});jQuery.ajaxPrefilter("script",function(s){if(s.cache===undefined){s.cache=false}if(s.crossDomain){s.type="GET"}});jQuery.ajaxTransport("script",function(s){if(s.crossDomain){var script,callback;return{send:function(_,complete){script=jQuery("<script>").prop({charset:s.scriptCharset,src:s.url}).on("load error",callback=function(evt){script.remove();callback=null;if(evt){complete(evt.type==="error"?404:200,evt.type)}});document.head.appendChild(script[0])},abort:function(){if(callback){callback()}}}}});var oldCallbacks=[],rjsonp=\/(=)\\?(?=&|$)|\\?\\?\/;jQuery.ajaxSetup({jsonp:"callback",jsonpCallback:function(){var callback=oldCallbacks.pop()||jQuery.expando+"_"+nonce++;this[callback]=true;return callback}});jQuery.ajaxPrefilter("json jsonp",function(s,originalSettings,jqXHR){var callbackName,overwritten,responseContainer,jsonProp=s.jsonp!==false&&(rjsonp.test(s.url)?"url":typeof s.data==="string"&&(s.contentType||"").indexOf("application\/x-www-form-urlencoded")===0&&rjsonp.test(s.data)&&"data");if(jsonProp||s.dataTypes[0]==="jsonp"){callbackName=s.jsonpCallback=isFunction(s.jsonpCallback)?s.jsonpCallback():s.jsonpCallback;if(jsonProp){s[jsonProp]=s[jsonProp].replace(rjsonp,"$1"+callbackName)}else if(s.jsonp!==false){s.url+=(rquery.test(s.url)?"&":"?")+s.jsonp+"="+callbackName}s.converters["script json"]=function(){if(!responseContainer){jQuery.error(callbackName+" was not called")}return responseContainer[0]};s.dataTypes[0]="json";overwritten=window[callbackName];window[callbackName]=function(){responseContainer=arguments};jqXHR.always(function(){if(overwritten===undefined){jQuery(window).removeProp(callbackName)}else{window[callbackName]=overwritten}if(s[callbackName]){s.jsonpCallback=originalSettings.jsonpCallback;oldCallbacks.push(callbackName)}if(responseContainer&&isFunction(overwritten)){overwritten(responseContainer[0])}responseContainer=overwritten=undefined});return"script"}});support.createHTMLDocument=function(){var body=document.implementation.createHTMLDocument("").body;body.innerHTML="<form><\/form><form><\/form>";return body.childNodes.length===2}();jQuery.parseHTML=function(data,context,keepScripts){if(typeof data!=="string"){return[]}if(typeof context==="boolean"){keepScripts=context;context=false}var base,parsed,scripts;if(!context){if(support.createHTMLDocument){context=document.implementation.createHTMLDocument("");base=context.createElement("base");base.href=document.location.href;context.head.appendChild(base)}else{context=document}}parsed=rsingleTag.exec(data);scripts=!keepScripts&&[];if(parsed){return[context.createElement(parsed[1])]}parsed=buildFragment([data],context,scripts);if(scripts&&scripts.length){jQuery(scripts).remove()}return jQuery.merge([],parsed.childNodes)};jQuery.fn.load=function(url,params,callback){var selector,type,response,self=this,off=url.indexOf(" ");if(off>-1){selector=stripAndCollapse(url.slice(off));url=url.slice(0,off)}if(isFunction(params)){callback=params;params=undefined}else if(params&&typeof params==="object"){type="POST"}if(self.length>0){jQuery.ajax({url:url,type:type||"GET",dataType:"html",data:params}).done(function(responseText){response=arguments;self.html(selector?jQuery("<div>").append(jQuery.parseHTML(responseText)).find(selector):responseText)}).always(callback&&function(jqXHR,status){self.each(function(){callback.apply(this,response||[jqXHR.responseText,status,jqXHR])})})}return this};jQuery.each(["ajaxStart","ajaxStop","ajaxComplete","ajaxError","ajaxSuccess","ajaxSend"],function(i,type){jQuery.fn[type]=function(fn){return this.on(type,fn)}});jQuery.expr.pseudos.animated=function(elem){return jQuery.grep(jQuery.timers,function(fn){return elem===fn.elem}).length};jQuery.offset={setOffset:function(elem,options,i){var curPosition,curLeft,curCSSTop,curTop,curOffset,curCSSLeft,calculatePosition,position=jQuery.css(elem,"position"),curElem=jQuery(elem),props={};if(position==="static"){elem.style.position="relative"}curOffset=curElem.offset();curCSSTop=jQuery.css(elem,"top");curCSSLeft=jQuery.css(elem,"left");calculatePosition=(position==="absolute"||position==="fixed")&&(curCSSTop+curCSSLeft).indexOf("auto")>-1;if(calculatePosition){curPosition=curElem.position();curTop=curPosition.top;curLeft=curPosition.left}else{curTop=parseFloat(curCSSTop)||0;curLeft=parseFloat(curCSSLeft)||0}if(isFunction(options)){options=options.call(elem,i,jQuery.extend({},curOffset))}if(options.top!=null){props.top=options.top-curOffset.top+curTop}if(options.left!=null){props.left=options.left-curOffset.left+curLeft}if("using"in options){options.using.call(elem,props)}else{curElem.css(props)}}};jQuery.fn.extend({offset:function(options){if(arguments.length){return options===undefined?this:this.each(function(i){jQuery.offset.setOffset(this,options,i)})}var rect,win,elem=this[0];if(!elem){return}if(!elem.getClientRects().length){return{top:0,left:0}}rect=elem.getBoundingClientRect();win=elem.ownerDocument.defaultView;return{top:rect.top+win.pageYOffset,left:rect.left+win.pageXOffset}},position:function(){if(!this[0]){return}var offsetParent,offset,doc,elem=this[0],parentOffset={top:0,left:0};if(jQuery.css(elem,"position")==="fixed"){offset=elem.getBoundingClientRect()}else{offset=this.offset();doc=elem.ownerDocument;offsetParent=elem.offsetParent||doc.documentElement;while(offsetParent&&(offsetParent===doc.body||offsetParent===doc.documentElement)&&jQuery.css(offsetParent,"position")==="static"){offsetParent=offsetParent.parentNode}if(offsetParent&&offsetParent!==elem&&offsetParent.nodeType===1){parentOffset=jQuery(offsetParent).offset();parentOffset.top+=jQuery.css(offsetParent,"borderTopWidth",true);parentOffset.left+=jQuery.css(offsetParent,"borderLeftWidth",true)}}return{top:offset.top-parentOffset.top-jQuery.css(elem,"marginTop",true),left:offset.left-parentOffset.left-jQuery.css(elem,"marginLeft",true)}},offsetParent:function(){return this.map(function(){var offsetParent=this.offsetParent;while(offsetParent&&jQuery.css(offsetParent,"position")==="static"){offsetParent=offsetParent.offsetParent}return offsetParent||documentElement})}});jQuery.each({scrollLeft:"pageXOffset",scrollTop:"pageYOffset"},function(method,prop){var top="pageYOffset"===prop;jQuery.fn[method]=function(val){return access(this,function(elem,method,val){var win;if(isWindow(elem)){win=elem}else if(elem.nodeType===9){win=elem.defaultView}if(val===undefined){return win?win[prop]:elem[method]}if(win){win.scrollTo(!top?val:win.pageXOffset,top?val:win.pageYOffset)}else{elem[method]=val}},method,val,arguments.length)}});jQuery.each(["top","left"],function(i,prop){jQuery.cssHooks[prop]=addGetHookIf(support.pixelPosition,function(elem,computed){if(computed){computed=curCSS(elem,prop);return rnumnonpx.test(computed)?jQuery(elem).position()[prop]+"px":computed}})});jQuery.each({Height:"height",Width:"width"},function(name,type){jQuery.each({padding:"inner"+name,content:type,"":"outer"+name},function(defaultExtra,funcName){jQuery.fn[funcName]=function(margin,value){var chainable=arguments.length&&(defaultExtra||typeof margin!=="boolean"),extra=defaultExtra||(margin===true||value===true?"margin":"border");return access(this,function(elem,type,value){var doc;if(isWindow(elem)){return funcName.indexOf("outer")===0?elem["inner"+name]:elem.document.documentElement["client"+name]}if(elem.nodeType===9){doc=elem.documentElement;return Math.max(elem.body["scroll"+name],doc["scroll"+name],elem.body["offset"+name],doc["offset"+name],doc["client"+name])}return value===undefined?jQuery.css(elem,type,extra):jQuery.style(elem,type,value,extra)},type,chainable?margin:undefined,chainable)}})});jQuery.each(("blur focus focusin focusout resize scroll click dblclick "+"mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave "+"change select submit keydown keypress keyup contextmenu").split(" "),function(i,name){jQuery.fn[name]=function(data,fn){return arguments.length>0?this.on(name,null,data,fn):this.trigger(name)}});jQuery.fn.extend({hover:function(fnOver,fnOut){return this.mouseenter(fnOver).mouseleave(fnOut||fnOver)}});jQuery.fn.extend({bind:function(types,data,fn){return this.on(types,null,data,fn)},unbind:function(types,fn){return this.off(types,null,fn)},delegate:function(selector,types,data,fn){return this.on(types,selector,data,fn)},undelegate:function(selector,types,fn){return arguments.length===1?this.off(selector,"**"):this.off(types,selector||"**",fn)}});jQuery.proxy=function(fn,context){var tmp,args,proxy;if(typeof context==="string"){tmp=fn[context];context=fn;fn=tmp}if(!isFunction(fn)){return undefined}args=slice.call(arguments,2);proxy=function(){return fn.apply(context||this,args.concat(slice.call(arguments)))};proxy.guid=fn.guid=fn.guid||jQuery.guid++;return proxy};jQuery.holdReady=function(hold){if(hold){jQuery.readyWait++}else{jQuery.ready(true)}};jQuery.isArray=Array.isArray;jQuery.parseJSON=JSON.parse;jQuery.nodeName=nodeName;jQuery.isFunction=isFunction;jQuery.isWindow=isWindow;jQuery.camelCase=camelCase;jQuery.type=toType;jQuery.now=Date.now;jQuery.isNumeric=function(obj){var type=jQuery.type(obj);return(type==="number"||type==="string")&&!isNaN(obj-parseFloat(obj))};if(typeof define==="function"&&define.amd){define("jquery",[],function(){return jQuery})}var _jQuery=window.jQuery,_$=window.$;jQuery.noConflict=function(deep){if(window.$===jQuery){window.$=_$}if(deep&&window.jQuery===jQuery){window.jQuery=_jQuery}return jQuery};if(!noGlobal){window.jQuery=window.$=jQuery}return jQuery});$/;"	v
+old_name	stock/migrations/0009_auto_20200912_0817.py	/^            old_name='remain',$/;"	v	class:Migration
+old_name	stock/migrations/0011_auto_20200913_2112.py	/^            old_name='delivered',$/;"	v	class:Migration
+operations	expense/migrations/0001_initial.py	/^    operations = [$/;"	v	class:Migration
+operations	expense/migrations/0002_auto_20210120_2144.py	/^    operations = [$/;"	v	class:Migration
+operations	expense/migrations/0003_auto_20210120_2146.py	/^    operations = [$/;"	v	class:Migration
+operations	expense/migrations/0004_auto_20210120_2146.py	/^    operations = [$/;"	v	class:Migration
+operations	expense/migrations/0005_auto_20210120_2154.py	/^    operations = [$/;"	v	class:Migration
+operations	expense/migrations/0006_auto_20210120_2157.py	/^    operations = [$/;"	v	class:Migration
+operations	expense/migrations/0007_auto_20210120_2157.py	/^    operations = [$/;"	v	class:Migration
+operations	invoice/migrations/0001_initial.py	/^    operations = [$/;"	v	class:Migration
+operations	invoice/migrations/0002_remove_invoice_notes.py	/^    operations = [$/;"	v	class:Migration
+operations	invoice/migrations/0003_auto_20200915_2205.py	/^    operations = [$/;"	v	class:Migration
+operations	invoice/migrations/0004_payment.py	/^    operations = [$/;"	v	class:Migration
+operations	invoice/migrations/0005_payment_method.py	/^    operations = [$/;"	v	class:Migration
+operations	invoice/migrations/0006_invoice_closed_date.py	/^    operations = [$/;"	v	class:Migration
+operations	invoice/migrations/0007_auto_20200919_1733.py	/^    operations = [$/;"	v	class:Migration
+operations	invoice/migrations/0008_remove_invoice_closed_date.py	/^    operations = [$/;"	v	class:Migration
+operations	invoice/migrations/0009_invoice_closed_date.py	/^    operations = [$/;"	v	class:Migration
+operations	invoice/migrations/0010_auto_20200920_1049.py	/^    operations = [$/;"	v	class:Migration
+operations	invoice/migrations/0011_update_invoice_number.py	/^    operations = [$/;"	v	class:Migration
+operations	invoice/migrations/0012_auto_20210120_2135.py	/^    operations = [$/;"	v	class:Migration
+operations	invoice/migrations/0013_payment_status.py	/^    operations = [$/;"	v	class:Migration
+operations	invoice/migrations/0014_update_payment_status.py	/^    operations = [$/;"	v	class:Migration
+operations	invoice/migrations/0015_auto_20210127_2215.py	/^    operations = [$/;"	v	class:Migration
+operations	sales/migrations/0001_initial.py	/^    operations = [$/;"	v	class:Migration
+operations	sales/migrations/0002_buyerproduct.py	/^    operations = [$/;"	v	class:Migration
+operations	sales/migrations/0003_auto_20200908_1407.py	/^    operations = [$/;"	v	class:Migration
+operations	sales/migrations/0004_auto_20200909_1627.py	/^    operations = [$/;"	v	class:Migration
+operations	sales/migrations/0005_auto_20200909_1633.py	/^    operations = [$/;"	v	class:Migration
+operations	sales/migrations/0006_auto_20200909_1634.py	/^    operations = [$/;"	v	class:Migration
+operations	sales/migrations/0007_order_orderline.py	/^    operations = [$/;"	v	class:Migration
+operations	sales/migrations/0008_auto_20200912_0910.py	/^    operations = [$/;"	v	class:Migration
+operations	sales/migrations/0009_auto_20200912_0914.py	/^    operations = [$/;"	v	class:Migration
+operations	sales/migrations/0010_order_number.py	/^    operations = [$/;"	v	class:Migration
+operations	sales/migrations/0011_auto_20200913_2112.py	/^    operations = [$/;"	v	class:Migration
+operations	sales/migrations/0012_order_closed_date.py	/^    operations = [$/;"	v	class:Migration
+operations	sales/migrations/0013_auto_20200919_1519.py	/^    operations = [$/;"	v	class:Migration
+operations	sales/migrations/0014_auto_20200919_1733.py	/^    operations = [$/;"	v	class:Migration
+operations	sales/migrations/0015_auto_20200920_1049.py	/^    operations = [$/;"	v	class:Migration
+operations	sales/migrations/0016_auto_20200928_1915.py	/^    operations = [$/;"	v	class:Migration
+operations	sales/migrations/0017_auto_20200928_2216.py	/^    operations = [$/;"	v	class:Migration
+operations	sales/migrations/0018_auto_20201005_1842.py	/^    operations = [$/;"	v	class:Migration
+operations	sales/migrations/0019_update_order_number.py	/^    operations = [$/;"	v	class:Migration
+operations	stock/migrations/0001_initial.py	/^    operations = [$/;"	v	class:Migration
+operations	stock/migrations/0002_auto_20200908_1039.py	/^    operations = [$/;"	v	class:Migration
+operations	stock/migrations/0003_auto_20200908_1049.py	/^    operations = [$/;"	v	class:Migration
+operations	stock/migrations/0004_auto_20200908_1407.py	/^    operations = [$/;"	v	class:Migration
+operations	stock/migrations/0005_auto_20200909_1547.py	/^    operations = [$/;"	v	class:Migration
+operations	stock/migrations/0006_warehouse_address.py	/^    operations = [$/;"	v	class:Migration
+operations	stock/migrations/0007_auto_20200909_1627.py	/^    operations = [$/;"	v	class:Migration
+operations	stock/migrations/0008_auto_20200909_2335.py	/^    operations = [$/;"	v	class:Migration
+operations	stock/migrations/0009_auto_20200912_0817.py	/^    operations = [$/;"	v	class:Migration
+operations	stock/migrations/0010_turfroll_delivered.py	/^    operations = [$/;"	v	class:Migration
+operations	stock/migrations/0011_auto_20200913_2112.py	/^    operations = [$/;"	v	class:Migration
+operations	stock/migrations/0012_turfroll_sold.py	/^    operations = [$/;"	v	class:Migration
+operations	stock/migrations/0013_auto_20200920_1033.py	/^    operations = [$/;"	v	class:Migration
+operations	stock/migrations/0014_product_has_stock.py	/^    operations = [$/;"	v	class:Migration
+operations	stock/migrations/0015_auto_20200929_1533.py	/^    operations = [$/;"	v	class:Migration
+operations	stock/migrations/0016_turfroll_original_size.py	/^    operations = [$/;"	v	class:Migration
+operations	stock/migrations/0017_remove_product_has_stock.py	/^    operations = [$/;"	v	class:Migration
+operations	stock/migrations/0018_auto_20201003_2238.py	/^    operations = [$/;"	v	class:Migration
+operations	stock/migrations/0019_turfroll_note.py	/^    operations = [$/;"	v	class:Migration
+operations	stock/migrations/0020_auto_20201015_2301.py	/^    operations = [$/;"	v	class:Migration
+options	expense/migrations/0001_initial.py	/^            options={$/;"	v	class:Migration
+options	invoice/migrations/0001_initial.py	/^            options={$/;"	v	class:Migration
+options	invoice/migrations/0004_payment.py	/^            options={$/;"	v	class:Migration
+options	sales/migrations/0001_initial.py	/^            options={$/;"	v	class:Migration
+options	sales/migrations/0002_buyerproduct.py	/^            options={$/;"	v	class:Migration
+options	sales/migrations/0004_auto_20200909_1627.py	/^            options={},$/;"	v	class:Migration
+options	sales/migrations/0007_order_orderline.py	/^            options={$/;"	v	class:Migration
+options	stock/migrations/0001_initial.py	/^            options={$/;"	v	class:Migration
+options	stock/migrations/0003_auto_20200908_1049.py	/^            options={},$/;"	v	class:Migration
+options	stock/migrations/0004_auto_20200908_1407.py	/^            options={'verbose_name_plural': 'Categories'},$/;"	v	class:Migration
+options	stock/migrations/0005_auto_20200909_1547.py	/^            options={$/;"	v	class:Migration
+options	stock/migrations/0005_auto_20200909_1547.py	/^            options={'get_latest_by': 'modified'},$/;"	v	class:Migration
+options	stock/migrations/0007_auto_20200909_1627.py	/^            options={'verbose_name_plural': 'Roll Specs'},$/;"	v	class:Migration
+options	stock/migrations/0007_auto_20200909_1627.py	/^            options={'verbose_name_plural': 'Turf Rolls'},$/;"	v	class:Migration
+options	stock/migrations/0018_auto_20201003_2238.py	/^            options={$/;"	v	class:Migration
+order	invoice/models.py	/^    order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)$/;"	v	class:Invoice
+order	sales/models.py	/^    order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)$/;"	v	class:OrderLine
+order_status_color	sales/utils.py	/^def order_status_color(status):$/;"	f
+ordering	stock/admin.py	/^    ordering = ("-created",)$/;"	v	class:TurfRollAdmin
+ordering	stock/admin.py	/^    ordering = ["color", "height", "width"]$/;"	v	class:RollSpecAdmin
+ordering	stock/admin.py	/^    ordering = ["name", "number"]$/;"	v	class:WarehouseAdmin
+orderlines	sales/models.py	/^    def orderlines(self):$/;"	m	class:Order
+original_size	stock/models.py	/^    original_size = models.IntegerField(default=0)$/;"	v	class:TurfRoll
+password	client.js	/^    password: "postgres",$/;"	p	class:const
+payment_complete	invoice/models.py	/^    def payment_complete(self):$/;"	m	class:Invoice
+payment_status_color	sales/utils.py	/^def payment_status_color(status):$/;"	f
+payments_confirmed	invoice/models.py	/^    def payments_confirmed(self):$/;"	m	class:Invoice
+permission_classes	accounts/views.py	/^    permission_classes = []$/;"	v	class:DataView
+permission_classes	stock/views.py	/^    permission_classes = []$/;"	v	class:StockDataView
+pgtools	client.js	/^var pgtools = require("pgtools");$/;"	v
+port	client.js	/^    port: 5432$/;"	p	class:const
+post	expense/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:ExpenseCreateView
+post	expense/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:ExpenseUpdateView
+post	invoice/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:PaymentCreateView
+post	invoice/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:PaymentUpdateView
+post	sales/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:BuyerCreateView
+post	sales/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:BuyerDeleteView
+post	sales/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:BuyerProductCreateView
+post	sales/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:BuyerProductDeleteView
+post	sales/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:BuyerProductUpdateView
+post	sales/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:BuyerUpdateView
+post	sales/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:DiscountCreateView
+post	sales/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:DiscountDeleteView
+post	sales/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:DiscountUpdateView
+post	sales/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:OrderAddItemView
+post	sales/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:OrderCreateView
+post	sales/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:OrderItemDeleteView
+post	sales/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:OrderItemUpdateView
+post	stock/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:LoadStocksView
+post	stock/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:ProductCreateView
+post	stock/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:ProductDeleteView
+post	stock/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:ProductUpdateView
+post	stock/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:RollUpdateView
+post	stock/views.py	/^    def post(self, request, *args, **kwargs):$/;"	m	class:SplitRollView
+price	sales/models.py	/^    price = models.FloatField(default=0.0, blank=True, null=True)  # price from buyer$/;"	v	class:OrderLine
+price	sales/models.py	/^    price = models.FloatField(default=50.0, validators=[MinValueValidator(50.0)], )$/;"	v	class:BuyerProduct
+product	sales/forms.py	/^    product = forms.ChoiceField($/;"	v	class:BuyerProductCreateForm
+product	sales/models.py	/^    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING, blank=True, null=True)$/;"	v	class:BuyerProduct
+product	sales/models.py	/^    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING, blank=True, null=True)$/;"	v	class:OrderLine
+product_has_stock	sales/signals.py	/^def product_has_stock(sender, instance, **kwargs):$/;"	f
+proxy	htmlcov/jquery.min.js	/^contents:{script:\/\\b(?:java|ecma)script\\b\/},converters:{"text script":function(text){jQuery.globalEval(text);return text}}});jQuery.ajaxPrefilter("script",function(s){if(s.cache===undefined){s.cache=false}if(s.crossDomain){s.type="GET"}});jQuery.ajaxTransport("script",function(s){if(s.crossDomain){var script,callback;return{send:function(_,complete){script=jQuery("<script>").prop({charset:s.scriptCharset,src:s.url}).on("load error",callback=function(evt){script.remove();callback=null;if(evt){complete(evt.type==="error"?404:200,evt.type)}});document.head.appendChild(script[0])},abort:function(){if(callback){callback()}}}}});var oldCallbacks=[],rjsonp=\/(=)\\?(?=&|$)|\\?\\?\/;jQuery.ajaxSetup({jsonp:"callback",jsonpCallback:function(){var callback=oldCallbacks.pop()||jQuery.expando+"_"+nonce++;this[callback]=true;return callback}});jQuery.ajaxPrefilter("json jsonp",function(s,originalSettings,jqXHR){var callbackName,overwritten,responseContainer,jsonProp=s.jsonp!==false&&(rjsonp.test(s.url)?"url":typeof s.data==="string"&&(s.contentType||"").indexOf("application\/x-www-form-urlencoded")===0&&rjsonp.test(s.data)&&"data");if(jsonProp||s.dataTypes[0]==="jsonp"){callbackName=s.jsonpCallback=isFunction(s.jsonpCallback)?s.jsonpCallback():s.jsonpCallback;if(jsonProp){s[jsonProp]=s[jsonProp].replace(rjsonp,"$1"+callbackName)}else if(s.jsonp!==false){s.url+=(rquery.test(s.url)?"&":"?")+s.jsonp+"="+callbackName}s.converters["script json"]=function(){if(!responseContainer){jQuery.error(callbackName+" was not called")}return responseContainer[0]};s.dataTypes[0]="json";overwritten=window[callbackName];window[callbackName]=function(){responseContainer=arguments};jqXHR.always(function(){if(overwritten===undefined){jQuery(window).removeProp(callbackName)}else{window[callbackName]=overwritten}if(s[callbackName]){s.jsonpCallback=originalSettings.jsonpCallback;oldCallbacks.push(callbackName)}if(responseContainer&&isFunction(overwritten)){overwritten(responseContainer[0])}responseContainer=overwritten=undefined});return"script"}});support.createHTMLDocument=function(){var body=document.implementation.createHTMLDocument("").body;body.innerHTML="<form><\/form><form><\/form>";return body.childNodes.length===2}();jQuery.parseHTML=function(data,context,keepScripts){if(typeof data!=="string"){return[]}if(typeof context==="boolean"){keepScripts=context;context=false}var base,parsed,scripts;if(!context){if(support.createHTMLDocument){context=document.implementation.createHTMLDocument("");base=context.createElement("base");base.href=document.location.href;context.head.appendChild(base)}else{context=document}}parsed=rsingleTag.exec(data);scripts=!keepScripts&&[];if(parsed){return[context.createElement(parsed[1])]}parsed=buildFragment([data],context,scripts);if(scripts&&scripts.length){jQuery(scripts).remove()}return jQuery.merge([],parsed.childNodes)};jQuery.fn.load=function(url,params,callback){var selector,type,response,self=this,off=url.indexOf(" ");if(off>-1){selector=stripAndCollapse(url.slice(off));url=url.slice(0,off)}if(isFunction(params)){callback=params;params=undefined}else if(params&&typeof params==="object"){type="POST"}if(self.length>0){jQuery.ajax({url:url,type:type||"GET",dataType:"html",data:params}).done(function(responseText){response=arguments;self.html(selector?jQuery("<div>").append(jQuery.parseHTML(responseText)).find(selector):responseText)}).always(callback&&function(jqXHR,status){self.each(function(){callback.apply(this,response||[jqXHR.responseText,status,jqXHR])})})}return this};jQuery.each(["ajaxStart","ajaxStop","ajaxComplete","ajaxError","ajaxSuccess","ajaxSend"],function(i,type){jQuery.fn[type]=function(fn){return this.on(type,fn)}});jQuery.expr.pseudos.animated=function(elem){return jQuery.grep(jQuery.timers,function(fn){return elem===fn.elem}).length};jQuery.offset={setOffset:function(elem,options,i){var curPosition,curLeft,curCSSTop,curTop,curOffset,curCSSLeft,calculatePosition,position=jQuery.css(elem,"position"),curElem=jQuery(elem),props={};if(position==="static"){elem.style.position="relative"}curOffset=curElem.offset();curCSSTop=jQuery.css(elem,"top");curCSSLeft=jQuery.css(elem,"left");calculatePosition=(position==="absolute"||position==="fixed")&&(curCSSTop+curCSSLeft).indexOf("auto")>-1;if(calculatePosition){curPosition=curElem.position();curTop=curPosition.top;curLeft=curPosition.left}else{curTop=parseFloat(curCSSTop)||0;curLeft=parseFloat(curCSSLeft)||0}if(isFunction(options)){options=options.call(elem,i,jQuery.extend({},curOffset))}if(options.top!=null){props.top=options.top-curOffset.top+curTop}if(options.left!=null){props.left=options.left-curOffset.left+curLeft}if("using"in options){options.using.call(elem,props)}else{curElem.css(props)}}};jQuery.fn.extend({offset:function(options){if(arguments.length){return options===undefined?this:this.each(function(i){jQuery.offset.setOffset(this,options,i)})}var rect,win,elem=this[0];if(!elem){return}if(!elem.getClientRects().length){return{top:0,left:0}}rect=elem.getBoundingClientRect();win=elem.ownerDocument.defaultView;return{top:rect.top+win.pageYOffset,left:rect.left+win.pageXOffset}},position:function(){if(!this[0]){return}var offsetParent,offset,doc,elem=this[0],parentOffset={top:0,left:0};if(jQuery.css(elem,"position")==="fixed"){offset=elem.getBoundingClientRect()}else{offset=this.offset();doc=elem.ownerDocument;offsetParent=elem.offsetParent||doc.documentElement;while(offsetParent&&(offsetParent===doc.body||offsetParent===doc.documentElement)&&jQuery.css(offsetParent,"position")==="static"){offsetParent=offsetParent.parentNode}if(offsetParent&&offsetParent!==elem&&offsetParent.nodeType===1){parentOffset=jQuery(offsetParent).offset();parentOffset.top+=jQuery.css(offsetParent,"borderTopWidth",true);parentOffset.left+=jQuery.css(offsetParent,"borderLeftWidth",true)}}return{top:offset.top-parentOffset.top-jQuery.css(elem,"marginTop",true),left:offset.left-parentOffset.left-jQuery.css(elem,"marginLeft",true)}},offsetParent:function(){return this.map(function(){var offsetParent=this.offsetParent;while(offsetParent&&jQuery.css(offsetParent,"position")==="static"){offsetParent=offsetParent.offsetParent}return offsetParent||documentElement})}});jQuery.each({scrollLeft:"pageXOffset",scrollTop:"pageYOffset"},function(method,prop){var top="pageYOffset"===prop;jQuery.fn[method]=function(val){return access(this,function(elem,method,val){var win;if(isWindow(elem)){win=elem}else if(elem.nodeType===9){win=elem.defaultView}if(val===undefined){return win?win[prop]:elem[method]}if(win){win.scrollTo(!top?val:win.pageXOffset,top?val:win.pageYOffset)}else{elem[method]=val}},method,val,arguments.length)}});jQuery.each(["top","left"],function(i,prop){jQuery.cssHooks[prop]=addGetHookIf(support.pixelPosition,function(elem,computed){if(computed){computed=curCSS(elem,prop);return rnumnonpx.test(computed)?jQuery(elem).position()[prop]+"px":computed}})});jQuery.each({Height:"height",Width:"width"},function(name,type){jQuery.each({padding:"inner"+name,content:type,"":"outer"+name},function(defaultExtra,funcName){jQuery.fn[funcName]=function(margin,value){var chainable=arguments.length&&(defaultExtra||typeof margin!=="boolean"),extra=defaultExtra||(margin===true||value===true?"margin":"border");return access(this,function(elem,type,value){var doc;if(isWindow(elem)){return funcName.indexOf("outer")===0?elem["inner"+name]:elem.document.documentElement["client"+name]}if(elem.nodeType===9){doc=elem.documentElement;return Math.max(elem.body["scroll"+name],doc["scroll"+name],elem.body["offset"+name],doc["offset"+name],doc["client"+name])}return value===undefined?jQuery.css(elem,type,extra):jQuery.style(elem,type,value,extra)},type,chainable?margin:undefined,chainable)}})});jQuery.each(("blur focus focusin focusout resize scroll click dblclick "+"mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave "+"change select submit keydown keypress keyup contextmenu").split(" "),function(i,name){jQuery.fn[name]=function(data,fn){return arguments.length>0?this.on(name,null,data,fn):this.trigger(name)}});jQuery.fn.extend({hover:function(fnOver,fnOut){return this.mouseenter(fnOver).mouseleave(fnOut||fnOver)}});jQuery.fn.extend({bind:function(types,data,fn){return this.on(types,null,data,fn)},unbind:function(types,fn){return this.off(types,null,fn)},delegate:function(selector,types,data,fn){return this.on(types,selector,data,fn)},undelegate:function(selector,types,fn){return arguments.length===1?this.off(selector,"**"):this.off(types,selector||"**",fn)}});jQuery.proxy=function(fn,context){var tmp,args,proxy;if(typeof context==="string"){tmp=fn[context];context=fn;fn=tmp}if(!isFunction(fn)){return undefined}args=slice.call(arguments,2);proxy=function(){return fn.apply(context||this,args.concat(slice.call(arguments)))};proxy.guid=fn.guid=fn.guid||jQuery.guid++;return proxy};jQuery.holdReady=function(hold){if(hold){jQuery.readyWait++}else{jQuery.ready(true)}};jQuery.isArray=Array.isArray;jQuery.parseJSON=JSON.parse;jQuery.nodeName=nodeName;jQuery.isFunction=isFunction;jQuery.isWindow=isWindow;jQuery.camelCase=camelCase;jQuery.type=toType;jQuery.now=Date.now;jQuery.isNumeric=function(obj){var type=jQuery.type(obj);return(type==="number"||type==="string")&&!isNaN(obj-parseFloat(obj))};if(typeof define==="function"&&define.amd){define("jquery",[],function(){return jQuery})}var _jQuery=window.jQuery,_$=window.$;jQuery.noConflict=function(deep){if(window.$===jQuery){window.$=_$}if(deep&&window.jQuery===jQuery){window.jQuery=_jQuery}return jQuery};if(!noGlobal){window.jQuery=window.$=jQuery}return jQuery});$/;"	f
+quantity	sales/models.py	/^    quantity = models.FloatField(default=0.0)$/;"	v	class:OrderLine
+quantity	stock/forms.py	/^    quantity = forms.IntegerField($/;"	v	class:LoadStocksForm
+queryset	expense/views.py	/^    queryset = Expense.objects.all()$/;"	v	class:ExpenseListView
+queryset	invoice/views.py	/^    queryset = Invoice.objects.all()$/;"	v	class:InvoiceListView
+queryset	invoice/views.py	/^    queryset = Payment.objects.all()$/;"	v	class:PaymentListView
+queryset	sales/views.py	/^    queryset = Buyer.objects.all()$/;"	v	class:BuyerListView
+queryset	sales/views.py	/^    queryset = Order.objects.all().order_by("buyer")$/;"	v	class:OrderListView
+queryset	stock/views.py	/^    queryset = Product.objects.all()$/;"	v	class:ProductListView
+queryset	stock/views.py	/^    queryset = TurfRoll.objects.all()$/;"	v	class:StockListView
+queryset	stock/views.py	/^    queryset = Warehouse.objects.all()$/;"	v	class:WarehouseListView
+readonly_fields	sales/admin.py	/^    readonly_fields = ["total"]$/;"	v	class:OrderLineAdmin
+readonly_fields	stock/admin.py	/^    readonly_fields = ["code"]$/;"	v	class:ProductAdmin
+remove_none_alphanumeric	sales/utils.py	/^def remove_none_alphanumeric(string):$/;"	f
+required	sales/forms.py	/^        required=False,$/;"	v	class:OrderAddItemForm.Meta
+required	sales/forms.py	/^        required=True$/;"	v	class:BuyerProductCreateForm.Meta
+required	stock/forms.py	/^        required=False$/;"	v	class:LoadStocksForm.Meta
+reserved	stock/models.py	/^    def reserved(self):$/;"	m	class:TurfRoll
+revert	sales/models.py	/^    def revert(self):$/;"	m	class:Order
+revert_order	sales/views.py	/^def revert_order(request, pk):$/;"	f
+roll	sales/models.py	/^    roll = models.ForeignKey(TurfRoll, on_delete=models.DO_NOTHING, blank=True, null=True)$/;"	v	class:OrderLine
+roll_count	stock/models.py	/^    def roll_count(self):$/;"	m	class:Product
+roll_count	stock/models.py	/^    def roll_count(self):$/;"	m	class:Warehouse
+sale_by	stock/models.py	/^    def sale_by(self):$/;"	m	class:RollSpec
+save	invoice/models.py	/^    def save(self, *args, **kwargs):$/;"	m	class:Invoice
+save	invoice/models.py	/^    def save(self, *args, **kwargs):$/;"	m	class:Payment
+save	sales/models.py	/^    def save(self, *args, **kwargs):$/;"	m	class:Order
+save	sales/models.py	/^    def save(self, *args, **kwargs):$/;"	m	class:OrderLine
+save	stock/models.py	/^    def save(self, *args, **kwargs):$/;"	m	class:Product
+save	stock/models.py	/^    def save(self, *args, **kwargs):$/;"	m	class:TurfRoll
+search_expense	expense/views.py	/^def search_expense(request):$/;"	f
+search_fields	invoice/admin.py	/^    search_fields = [$/;"	v	class:InvoiceAdmin
+search_fields	invoice/admin.py	/^    search_fields = [$/;"	v	class:PaymentAdmin
+search_fields	sales/admin.py	/^    search_fields = ($/;"	v	class:BuyerAdmin
+search_fields	sales/admin.py	/^    search_fields = [$/;"	v	class:BuyerProductAdmin
+search_fields	sales/admin.py	/^    search_fields = [$/;"	v	class:OrderAdmin
+search_fields	sales/admin.py	/^    search_fields = [$/;"	v	class:OrderLineAdmin
+search_fields	stock/admin.py	/^    search_fields = [$/;"	v	class:TurfRollAdmin
+secret_page	accounts/views.py	/^def secret_page(request):$/;"	f
+selected_items	sales/forms.py	/^    selected_items = forms.CharField($/;"	v	class:OrderAddItemForm
+send	invoice/models.py	/^    def send(self):$/;"	m	class:Invoice
+send_invoice_email	sales/views.py	/^def send_invoice_email(request, pk):$/;"	f
+setBarChart	templates/home.html	/^      function setBarChart(labels, defaultData, ctx) {$/;"	f
+setBuyerChart	templates/home.html	/^      function setBuyerChart(labels, defaultData, ctx) {$/;"	f
+setDoughnutChart	templates/stock/stocks.html	/^      function setDoughnutChart(labels, defaultData, ctx, code) {$/;"	f
+setLineChart	templates/home.html	/^      function setLineChart(labels, defaultData, ctx) {$/;"	f
+setOffset	htmlcov/jquery.min.js	/^contents:{script:\/\\b(?:java|ecma)script\\b\/},converters:{"text script":function(text){jQuery.globalEval(text);return text}}});jQuery.ajaxPrefilter("script",function(s){if(s.cache===undefined){s.cache=false}if(s.crossDomain){s.type="GET"}});jQuery.ajaxTransport("script",function(s){if(s.crossDomain){var script,callback;return{send:function(_,complete){script=jQuery("<script>").prop({charset:s.scriptCharset,src:s.url}).on("load error",callback=function(evt){script.remove();callback=null;if(evt){complete(evt.type==="error"?404:200,evt.type)}});document.head.appendChild(script[0])},abort:function(){if(callback){callback()}}}}});var oldCallbacks=[],rjsonp=\/(=)\\?(?=&|$)|\\?\\?\/;jQuery.ajaxSetup({jsonp:"callback",jsonpCallback:function(){var callback=oldCallbacks.pop()||jQuery.expando+"_"+nonce++;this[callback]=true;return callback}});jQuery.ajaxPrefilter("json jsonp",function(s,originalSettings,jqXHR){var callbackName,overwritten,responseContainer,jsonProp=s.jsonp!==false&&(rjsonp.test(s.url)?"url":typeof s.data==="string"&&(s.contentType||"").indexOf("application\/x-www-form-urlencoded")===0&&rjsonp.test(s.data)&&"data");if(jsonProp||s.dataTypes[0]==="jsonp"){callbackName=s.jsonpCallback=isFunction(s.jsonpCallback)?s.jsonpCallback():s.jsonpCallback;if(jsonProp){s[jsonProp]=s[jsonProp].replace(rjsonp,"$1"+callbackName)}else if(s.jsonp!==false){s.url+=(rquery.test(s.url)?"&":"?")+s.jsonp+"="+callbackName}s.converters["script json"]=function(){if(!responseContainer){jQuery.error(callbackName+" was not called")}return responseContainer[0]};s.dataTypes[0]="json";overwritten=window[callbackName];window[callbackName]=function(){responseContainer=arguments};jqXHR.always(function(){if(overwritten===undefined){jQuery(window).removeProp(callbackName)}else{window[callbackName]=overwritten}if(s[callbackName]){s.jsonpCallback=originalSettings.jsonpCallback;oldCallbacks.push(callbackName)}if(responseContainer&&isFunction(overwritten)){overwritten(responseContainer[0])}responseContainer=overwritten=undefined});return"script"}});support.createHTMLDocument=function(){var body=document.implementation.createHTMLDocument("").body;body.innerHTML="<form><\/form><form><\/form>";return body.childNodes.length===2}();jQuery.parseHTML=function(data,context,keepScripts){if(typeof data!=="string"){return[]}if(typeof context==="boolean"){keepScripts=context;context=false}var base,parsed,scripts;if(!context){if(support.createHTMLDocument){context=document.implementation.createHTMLDocument("");base=context.createElement("base");base.href=document.location.href;context.head.appendChild(base)}else{context=document}}parsed=rsingleTag.exec(data);scripts=!keepScripts&&[];if(parsed){return[context.createElement(parsed[1])]}parsed=buildFragment([data],context,scripts);if(scripts&&scripts.length){jQuery(scripts).remove()}return jQuery.merge([],parsed.childNodes)};jQuery.fn.load=function(url,params,callback){var selector,type,response,self=this,off=url.indexOf(" ");if(off>-1){selector=stripAndCollapse(url.slice(off));url=url.slice(0,off)}if(isFunction(params)){callback=params;params=undefined}else if(params&&typeof params==="object"){type="POST"}if(self.length>0){jQuery.ajax({url:url,type:type||"GET",dataType:"html",data:params}).done(function(responseText){response=arguments;self.html(selector?jQuery("<div>").append(jQuery.parseHTML(responseText)).find(selector):responseText)}).always(callback&&function(jqXHR,status){self.each(function(){callback.apply(this,response||[jqXHR.responseText,status,jqXHR])})})}return this};jQuery.each(["ajaxStart","ajaxStop","ajaxComplete","ajaxError","ajaxSuccess","ajaxSend"],function(i,type){jQuery.fn[type]=function(fn){return this.on(type,fn)}});jQuery.expr.pseudos.animated=function(elem){return jQuery.grep(jQuery.timers,function(fn){return elem===fn.elem}).length};jQuery.offset={setOffset:function(elem,options,i){var curPosition,curLeft,curCSSTop,curTop,curOffset,curCSSLeft,calculatePosition,position=jQuery.css(elem,"position"),curElem=jQuery(elem),props={};if(position==="static"){elem.style.position="relative"}curOffset=curElem.offset();curCSSTop=jQuery.css(elem,"top");curCSSLeft=jQuery.css(elem,"left");calculatePosition=(position==="absolute"||position==="fixed")&&(curCSSTop+curCSSLeft).indexOf("auto")>-1;if(calculatePosition){curPosition=curElem.position();curTop=curPosition.top;curLeft=curPosition.left}else{curTop=parseFloat(curCSSTop)||0;curLeft=parseFloat(curCSSLeft)||0}if(isFunction(options)){options=options.call(elem,i,jQuery.extend({},curOffset))}if(options.top!=null){props.top=options.top-curOffset.top+curTop}if(options.left!=null){props.left=options.left-curOffset.left+curLeft}if("using"in options){options.using.call(elem,props)}else{curElem.css(props)}}};jQuery.fn.extend({offset:function(options){if(arguments.length){return options===undefined?this:this.each(function(i){jQuery.offset.setOffset(this,options,i)})}var rect,win,elem=this[0];if(!elem){return}if(!elem.getClientRects().length){return{top:0,left:0}}rect=elem.getBoundingClientRect();win=elem.ownerDocument.defaultView;return{top:rect.top+win.pageYOffset,left:rect.left+win.pageXOffset}},position:function(){if(!this[0]){return}var offsetParent,offset,doc,elem=this[0],parentOffset={top:0,left:0};if(jQuery.css(elem,"position")==="fixed"){offset=elem.getBoundingClientRect()}else{offset=this.offset();doc=elem.ownerDocument;offsetParent=elem.offsetParent||doc.documentElement;while(offsetParent&&(offsetParent===doc.body||offsetParent===doc.documentElement)&&jQuery.css(offsetParent,"position")==="static"){offsetParent=offsetParent.parentNode}if(offsetParent&&offsetParent!==elem&&offsetParent.nodeType===1){parentOffset=jQuery(offsetParent).offset();parentOffset.top+=jQuery.css(offsetParent,"borderTopWidth",true);parentOffset.left+=jQuery.css(offsetParent,"borderLeftWidth",true)}}return{top:offset.top-parentOffset.top-jQuery.css(elem,"marginTop",true),left:offset.left-parentOffset.left-jQuery.css(elem,"marginLeft",true)}},offsetParent:function(){return this.map(function(){var offsetParent=this.offsetParent;while(offsetParent&&jQuery.css(offsetParent,"position")==="static"){offsetParent=offsetParent.offsetParent}return offsetParent||documentElement})}});jQuery.each({scrollLeft:"pageXOffset",scrollTop:"pageYOffset"},function(method,prop){var top="pageYOffset"===prop;jQuery.fn[method]=function(val){return access(this,function(elem,method,val){var win;if(isWindow(elem)){win=elem}else if(elem.nodeType===9){win=elem.defaultView}if(val===undefined){return win?win[prop]:elem[method]}if(win){win.scrollTo(!top?val:win.pageXOffset,top?val:win.pageYOffset)}else{elem[method]=val}},method,val,arguments.length)}});jQuery.each(["top","left"],function(i,prop){jQuery.cssHooks[prop]=addGetHookIf(support.pixelPosition,function(elem,computed){if(computed){computed=curCSS(elem,prop);return rnumnonpx.test(computed)?jQuery(elem).position()[prop]+"px":computed}})});jQuery.each({Height:"height",Width:"width"},function(name,type){jQuery.each({padding:"inner"+name,content:type,"":"outer"+name},function(defaultExtra,funcName){jQuery.fn[funcName]=function(margin,value){var chainable=arguments.length&&(defaultExtra||typeof margin!=="boolean"),extra=defaultExtra||(margin===true||value===true?"margin":"border");return access(this,function(elem,type,value){var doc;if(isWindow(elem)){return funcName.indexOf("outer")===0?elem["inner"+name]:elem.document.documentElement["client"+name]}if(elem.nodeType===9){doc=elem.documentElement;return Math.max(elem.body["scroll"+name],doc["scroll"+name],elem.body["offset"+name],doc["offset"+name],doc["client"+name])}return value===undefined?jQuery.css(elem,type,extra):jQuery.style(elem,type,value,extra)},type,chainable?margin:undefined,chainable)}})});jQuery.each(("blur focus focusin focusout resize scroll click dblclick "+"mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave "+"change select submit keydown keypress keyup contextmenu").split(" "),function(i,name){jQuery.fn[name]=function(data,fn){return arguments.length>0?this.on(name,null,data,fn):this.trigger(name)}});jQuery.fn.extend({hover:function(fnOver,fnOut){return this.mouseenter(fnOver).mouseleave(fnOut||fnOver)}});jQuery.fn.extend({bind:function(types,data,fn){return this.on(types,null,data,fn)},unbind:function(types,fn){return this.off(types,null,fn)},delegate:function(selector,types,data,fn){return this.on(types,selector,data,fn)},undelegate:function(selector,types,fn){return arguments.length===1?this.off(selector,"**"):this.off(types,selector||"**",fn)}});jQuery.proxy=function(fn,context){var tmp,args,proxy;if(typeof context==="string"){tmp=fn[context];context=fn;fn=tmp}if(!isFunction(fn)){return undefined}args=slice.call(arguments,2);proxy=function(){return fn.apply(context||this,args.concat(slice.call(arguments)))};proxy.guid=fn.guid=fn.guid||jQuery.guid++;return proxy};jQuery.holdReady=function(hold){if(hold){jQuery.readyWait++}else{jQuery.ready(true)}};jQuery.isArray=Array.isArray;jQuery.parseJSON=JSON.parse;jQuery.nodeName=nodeName;jQuery.isFunction=isFunction;jQuery.isWindow=isWindow;jQuery.camelCase=camelCase;jQuery.type=toType;jQuery.now=Date.now;jQuery.isNumeric=function(obj){var type=jQuery.type(obj);return(type==="number"||type==="string")&&!isNaN(obj-parseFloat(obj))};if(typeof define==="function"&&define.amd){define("jquery",[],function(){return jQuery})}var _jQuery=window.jQuery,_$=window.$;jQuery.noConflict=function(deep){if(window.$===jQuery){window.$=_$}if(deep&&window.jQuery===jQuery){window.jQuery=_jQuery}return jQuery};if(!noGlobal){window.jQuery=window.$=jQuery}return jQuery});$/;"	m	class:jQuery.offset
+setProductChart	templates/home.html	/^      function setProductChart(labels, defaultData, ctx) {$/;"	f
+setUp	stock/tests.py	/^    def setUp(self) -> None:$/;"	m	class:TestBatch
+showMe	templates/stock/stocks.html	/^      function showMe(id) {$/;"	f
+showModal	templates/sales/order.html	/^      function showModal() {$/;"	f
+size	stock/forms.py	/^    size = forms.IntegerField($/;"	v	class:LoadStocksForm
+size	stock/forms.py	/^    size = forms.IntegerField($/;"	v	class:SplitRollForm
+sold	sales/models.py	/^    def sold(self):$/;"	m	class:OrderLine
+sold	stock/models.py	/^    sold = models.IntegerField(default=0)$/;"	v	class:TurfRoll
+sorter	htmlcov/coverage_html.js	/^        headers[i] = { sorter: 'digit' };$/;"	p	class:headers
+sorter	htmlcov/coverage_html.js	/^    headers[0] = { sorter: 'text' };$/;"	p	class:headers
+sorter	htmlcov/coverage_html.js	/^    headers[col_count-1] = { sorter: 'percent' };$/;"	p	class:headers
+spec	stock/models.py	/^    spec = models.ForeignKey($/;"	v	class:Product
+spec	stock/models.py	/^    spec = models.ForeignKey(RollSpec, on_delete=models.DO_NOTHING)$/;"	v	class:TurfRoll
+specialKeys	htmlcov/jquery.hotkeys.js	/^		specialKeys: {$/;"	p	class:hotkeys
+status	invoice/models.py	/^    status = models.CharField($/;"	v	class:Invoice
+status	invoice/models.py	/^    status = models.CharField($/;"	v	class:Payment
+status	sales/models.py	/^    status = models.CharField($/;"	v	class:Buyer
+status	sales/models.py	/^    status = models.CharField($/;"	v	class:Order
+status	stock/forms.py	/^    status = forms.ChoiceField($/;"	v	class:LoadStocksForm
+status	stock/models.py	/^    status = models.CharField($/;"	v	class:TurfRoll
+status_color	invoice/models.py	/^    def status_color(self):$/;"	m	class:Invoice
+status_color	invoice/models.py	/^    def status_color(self):$/;"	m	class:Payment
+status_color	sales/models.py	/^    def status_color(self):$/;"	m	class:Order
+status_color	stock/models.py	/^    def status_color(self):$/;"	m	class:TurfRoll
+stock_available	stock/models.py	/^    def stock_available(self):$/;"	m	class:Product
+submit	sales/models.py	/^    def submit(self):$/;"	m	class:Order
+submit_order	sales/views.py	/^def submit_order(request, pk):$/;"	f
+success_url	sales/views.py	/^    success_url = reverse_lazy("buyers")$/;"	v	class:BuyerCreateView
+success_url	sales/views.py	/^    success_url = reverse_lazy("buyers")$/;"	v	class:BuyerDeleteView
+success_url	stock/views.py	/^    success_url = reverse_lazy("products")$/;"	v	class:ProductCreateView
+success_url	stock/views.py	/^    success_url = reverse_lazy("products")$/;"	v	class:ProductDeleteView
+success_url	stock/views.py	/^    success_url = reverse_lazy("stocks")$/;"	v	class:LoadStocksView
+success_url	stock/views.py	/^    success_url = reverse_lazy("stocks")$/;"	v	class:SplitRollView
+tearDown	stock/tests.py	/^    def tearDown(self) -> None:$/;"	m	class:TestBatch
+template_name	expense/views.py	/^    template_name = "expense\/delete.html"$/;"	v	class:ExpenseDeleteView
+template_name	expense/views.py	/^    template_name = "expense\/list.html"$/;"	v	class:ExpenseListView
+template_name	expense/views.py	/^    template_name = "expense\/update.html"$/;"	v	class:ExpenseUpdateView
+template_name	expense/views.py	/^    template_name = 'expense\/create.html'$/;"	v	class:ExpenseCreateView
+template_name	expense/views.py	/^    template_name = 'expense\/detail.html'$/;"	v	class:ExpenseDetailView
+template_name	invoice/views.py	/^    template_name = "invoice\/invoices.html"$/;"	v	class:InvoiceListView
+template_name	invoice/views.py	/^    template_name = "invoice\/payment_list.html"$/;"	v	class:PaymentListView
+template_name	invoice/views.py	/^    template_name = "invoice\/payment_update.html"$/;"	v	class:PaymentUpdateView
+template_name	invoice/views.py	/^    template_name = 'invoice\/invoice.html'$/;"	v	class:InvoiceDetailView
+template_name	invoice/views.py	/^    template_name = 'invoice\/payment_create.html'$/;"	v	class:PaymentCreateView
+template_name	sales/views.py	/^    template_name = "sales\/buyer.html"$/;"	v	class:BuyerDetailView
+template_name	sales/views.py	/^    template_name = "sales\/buyer_create.html"$/;"	v	class:BuyerCreateView
+template_name	sales/views.py	/^    template_name = "sales\/buyer_delete.html"$/;"	v	class:BuyerDeleteView
+template_name	sales/views.py	/^    template_name = "sales\/buyer_order_create.html"$/;"	v	class:BuyerOrderCreateView
+template_name	sales/views.py	/^    template_name = "sales\/buyer_product_create.html"$/;"	v	class:BuyerProductCreateView
+template_name	sales/views.py	/^    template_name = "sales\/buyer_product_delete.html"$/;"	v	class:BuyerProductDeleteView
+template_name	sales/views.py	/^    template_name = "sales\/buyer_product_update.html"$/;"	v	class:BuyerProductUpdateView
+template_name	sales/views.py	/^    template_name = "sales\/buyer_update.html"$/;"	v	class:BuyerUpdateView
+template_name	sales/views.py	/^    template_name = "sales\/buyers.html"$/;"	v	class:BuyerListView
+template_name	sales/views.py	/^    template_name = "sales\/discount_create.html"$/;"	v	class:DiscountCreateView
+template_name	sales/views.py	/^    template_name = "sales\/discount_delete.html"$/;"	v	class:DiscountDeleteView
+template_name	sales/views.py	/^    template_name = "sales\/discount_update.html"$/;"	v	class:DiscountUpdateView
+template_name	sales/views.py	/^    template_name = "sales\/filtered_orders.html"$/;"	v	class:FilteredOrderListView
+template_name	sales/views.py	/^    template_name = "sales\/order.html"$/;"	v	class:OrderDetailView
+template_name	sales/views.py	/^    template_name = "sales\/order_add_item.html"$/;"	v	class:OrderAddItemView
+template_name	sales/views.py	/^    template_name = "sales\/order_create.html"$/;"	v	class:OrderCreateView
+template_name	sales/views.py	/^    template_name = "sales\/orderline_delete.html"$/;"	v	class:OrderItemDeleteView
+template_name	sales/views.py	/^    template_name = "sales\/orderline_update.html"$/;"	v	class:OrderItemUpdateView
+template_name	sales/views.py	/^    template_name = "sales\/orders.html"$/;"	v	class:OrderListView
+template_name	sales/views.py	/^    template_name = "sales\/send_invoice.html"$/;"	v	class:InvoiceOrderView
+template_name	stock/views.py	/^    template_name = "stock\/load_stocks.html"$/;"	v	class:LoadStocksView
+template_name	stock/views.py	/^    template_name = "stock\/product.html"$/;"	v	class:ProductDetailView
+template_name	stock/views.py	/^    template_name = "stock\/product_create.html"$/;"	v	class:ProductCreateView
+template_name	stock/views.py	/^    template_name = "stock\/product_delete.html"$/;"	v	class:ProductDeleteView
+template_name	stock/views.py	/^    template_name = "stock\/product_update.html"$/;"	v	class:ProductUpdateView
+template_name	stock/views.py	/^    template_name = "stock\/products.html"$/;"	v	class:ProductListView
+template_name	stock/views.py	/^    template_name = "stock\/roll_update.html"$/;"	v	class:RollUpdateView
+template_name	stock/views.py	/^    template_name = "stock\/split_stock.html"$/;"	v	class:SplitRollView
+template_name	stock/views.py	/^    template_name = "stock\/stocks.html"$/;"	v	class:StockListView
+template_name	stock/views.py	/^    template_name = "stock\/warehouse.html"$/;"	v	class:WarehouseDetailView
+template_name	stock/views.py	/^    template_name = "stock\/warehouses.html"$/;"	v	class:WarehouseListView
+test_total_sale	stock/tests.py	/^    def test_total_sale(self):$/;"	m	class:TestBatch
+total	sales/models.py	/^    total = models.FloatField(default=0.0, blank=True, null=True)  # quantity * price$/;"	v	class:OrderLine
+total	stock/models.py	/^    total = models.IntegerField(default=0)$/;"	v	class:TurfRoll
+total_amount	sales/models.py	/^    def total_amount(self):$/;"	m	class:Order
+total_exclude_vat	sales/models.py	/^    def total_exclude_vat(self):$/;"	m	class:Order
+total_payment	invoice/models.py	/^    def total_payment(self):$/;"	m	class:Invoice
+total_sale	stock/models.py	/^    def total_sale(self):$/;"	m	class:Batch
+total_vat	sales/models.py	/^    def total_vat(self):$/;"	m	class:Order
+total_wt_discount	sales/models.py	/^    def total_wt_discount(self):$/;"	m	class:Order
+ts	htmlcov/jquery.tablesorter.min.js	/^(function($){$.extend({tablesorter:new function(){var parsers=[],widgets=[];this.defaults={cssHeader:"header",cssAsc:"headerSortUp",cssDesc:"headerSortDown",sortInitialOrder:"asc",sortMultiSortKey:"shiftKey",sortForce:null,sortAppend:null,textExtraction:"simple",parsers:{},widgets:[],widgetZebra:{css:["even","odd"]},headers:{},widthFixed:false,cancelSelection:true,sortList:[],headerList:[],dateFormat:"us",decimal:'.',debug:false};function benchmark(s,d){log(s+","+(new Date().getTime()-d.getTime())+"ms");}this.benchmark=benchmark;function log(s){if(typeof console!="undefined"&&typeof console.debug!="undefined"){console.log(s);}else{alert(s);}}function buildParserCache(table,$headers){if(table.config.debug){var parsersDebug="";}var rows=table.tBodies[0].rows;if(table.tBodies[0].rows[0]){var list=[],cells=rows[0].cells,l=cells.length;for(var i=0;i<l;i++){var p=false;if($.metadata&&($($headers[i]).metadata()&&$($headers[i]).metadata().sorter)){p=getParserById($($headers[i]).metadata().sorter);}else if((table.config.headers[i]&&table.config.headers[i].sorter)){p=getParserById(table.config.headers[i].sorter);}if(!p){p=detectParserForColumn(table,cells[i]);}if(table.config.debug){parsersDebug+="column:"+i+" parser:"+p.id+"\\n";}list.push(p);}}if(table.config.debug){log(parsersDebug);}return list;};function detectParserForColumn(table,node){var l=parsers.length;for(var i=1;i<l;i++){if(parsers[i].is($.trim(getElementText(table.config,node)),table,node)){return parsers[i];}}return parsers[0];}function getParserById(name){var l=parsers.length;for(var i=0;i<l;i++){if(parsers[i].id.toLowerCase()==name.toLowerCase()){return parsers[i];}}return false;}function buildCache(table){if(table.config.debug){var cacheTime=new Date();}var totalRows=(table.tBodies[0]&&table.tBodies[0].rows.length)||0,totalCells=(table.tBodies[0].rows[0]&&table.tBodies[0].rows[0].cells.length)||0,parsers=table.config.parsers,cache={row:[],normalized:[]};for(var i=0;i<totalRows;++i){var c=table.tBodies[0].rows[i],cols=[];cache.row.push($(c));for(var j=0;j<totalCells;++j){cols.push(parsers[j].format(getElementText(table.config,c.cells[j]),table,c.cells[j]));}cols.push(i);cache.normalized.push(cols);cols=null;};if(table.config.debug){benchmark("Building cache for "+totalRows+" rows:",cacheTime);}return cache;};function getElementText(config,node){if(!node)return"";var t="";if(config.textExtraction=="simple"){if(node.childNodes[0]&&node.childNodes[0].hasChildNodes()){t=node.childNodes[0].innerHTML;}else{t=node.innerHTML;}}else{if(typeof(config.textExtraction)=="function"){t=config.textExtraction(node);}else{t=$(node).text();}}return t;}function appendToTable(table,cache){if(table.config.debug){var appendTime=new Date()}var c=cache,r=c.row,n=c.normalized,totalRows=n.length,checkCell=(n[0].length-1),tableBody=$(table.tBodies[0]),rows=[];for(var i=0;i<totalRows;i++){rows.push(r[n[i][checkCell]]);if(!table.config.appender){var o=r[n[i][checkCell]];var l=o.length;for(var j=0;j<l;j++){tableBody[0].appendChild(o[j]);}}}if(table.config.appender){table.config.appender(table,rows);}rows=null;if(table.config.debug){benchmark("Rebuilt table:",appendTime);}applyWidget(table);setTimeout(function(){$(table).trigger("sortEnd");},0);};function buildHeaders(table){if(table.config.debug){var time=new Date();}var meta=($.metadata)?true:false,tableHeadersRows=[];for(var i=0;i<table.tHead.rows.length;i++){tableHeadersRows[i]=0;};$tableHeaders=$("thead th",table);$tableHeaders.each(function(index){this.count=0;this.column=index;this.order=formatSortingOrder(table.config.sortInitialOrder);if(checkHeaderMetadata(this)||checkHeaderOptions(table,index))this.sortDisabled=true;if(!this.sortDisabled){$(this).addClass(table.config.cssHeader);}table.config.headerList[index]=this;});if(table.config.debug){benchmark("Built headers:",time);log($tableHeaders);}return $tableHeaders;};function checkCellColSpan(table,rows,row){var arr=[],r=table.tHead.rows,c=r[row].cells;for(var i=0;i<c.length;i++){var cell=c[i];if(cell.colSpan>1){arr=arr.concat(checkCellColSpan(table,headerArr,row++));}else{if(table.tHead.length==1||(cell.rowSpan>1||!r[row+1])){arr.push(cell);}}}return arr;};function checkHeaderMetadata(cell){if(($.metadata)&&($(cell).metadata().sorter===false)){return true;};return false;}function checkHeaderOptions(table,i){if((table.config.headers[i])&&(table.config.headers[i].sorter===false)){return true;};return false;}function applyWidget(table){var c=table.config.widgets;var l=c.length;for(var i=0;i<l;i++){getWidgetById(c[i]).format(table);}}function getWidgetById(name){var l=widgets.length;for(var i=0;i<l;i++){if(widgets[i].id.toLowerCase()==name.toLowerCase()){return widgets[i];}}};function formatSortingOrder(v){if(typeof(v)!="Number"){i=(v.toLowerCase()=="desc")?1:0;}else{i=(v==(0||1))?v:0;}return i;}function isValueInArray(v,a){var l=a.length;for(var i=0;i<l;i++){if(a[i][0]==v){return true;}}return false;}function setHeadersCss(table,$headers,list,css){$headers.removeClass(css[0]).removeClass(css[1]);var h=[];$headers.each(function(offset){if(!this.sortDisabled){h[this.column]=$(this);}});var l=list.length;for(var i=0;i<l;i++){h[list[i][0]].addClass(css[list[i][1]]);}}function fixColumnWidth(table,$headers){var c=table.config;if(c.widthFixed){var colgroup=$('<colgroup>');$("tr:first td",table.tBodies[0]).each(function(){colgroup.append($('<col>').css('width',$(this).width()));});$(table).prepend(colgroup);};}function updateHeaderSortCount(table,sortList){var c=table.config,l=sortList.length;for(var i=0;i<l;i++){var s=sortList[i],o=c.headerList[s[0]];o.count=s[1];o.count++;}}function multisort(table,sortList,cache){if(table.config.debug){var sortTime=new Date();}var dynamicExp="var sortWrapper = function(a,b) {",l=sortList.length;for(var i=0;i<l;i++){var c=sortList[i][0];var order=sortList[i][1];var s=(getCachedSortType(table.config.parsers,c)=="text")?((order==0)?"sortText":"sortTextDesc"):((order==0)?"sortNumeric":"sortNumericDesc");var e="e"+i;dynamicExp+="var "+e+" = "+s+"(a["+c+"],b["+c+"]); ";dynamicExp+="if("+e+") { return "+e+"; } ";dynamicExp+="else { ";}var orgOrderCol=cache.normalized[0].length-1;dynamicExp+="return a["+orgOrderCol+"]-b["+orgOrderCol+"];";for(var i=0;i<l;i++){dynamicExp+="}; ";}dynamicExp+="return 0; ";dynamicExp+="}; ";eval(dynamicExp);cache.normalized.sort(sortWrapper);if(table.config.debug){benchmark("Sorting on "+sortList.toString()+" and dir "+order+" time:",sortTime);}return cache;};function sortText(a,b){return((a<b)?-1:((a>b)?1:0));};function sortTextDesc(a,b){return((b<a)?-1:((b>a)?1:0));};function sortNumeric(a,b){return a-b;};function sortNumericDesc(a,b){return b-a;};function getCachedSortType(parsers,i){return parsers[i].type;};this.construct=function(settings){return this.each(function(){if(!this.tHead||!this.tBodies)return;var $this,$document,$headers,cache,config,shiftDown=0,sortOrder;this.config={};config=$.extend(this.config,$.tablesorter.defaults,settings);$this=$(this);$headers=buildHeaders(this);this.config.parsers=buildParserCache(this,$headers);cache=buildCache(this);var sortCSS=[config.cssDesc,config.cssAsc];fixColumnWidth(this);$headers.click(function(e){$this.trigger("sortStart");var totalRows=($this[0].tBodies[0]&&$this[0].tBodies[0].rows.length)||0;if(!this.sortDisabled&&totalRows>0){var $cell=$(this);var i=this.column;this.order=this.count++%2;if(!e[config.sortMultiSortKey]){config.sortList=[];if(config.sortForce!=null){var a=config.sortForce;for(var j=0;j<a.length;j++){if(a[j][0]!=i){config.sortList.push(a[j]);}}}config.sortList.push([i,this.order]);}else{if(isValueInArray(i,config.sortList)){for(var j=0;j<config.sortList.length;j++){var s=config.sortList[j],o=config.headerList[s[0]];if(s[0]==i){o.count=s[1];o.count++;s[1]=o.count%2;}}}else{config.sortList.push([i,this.order]);}};setTimeout(function(){setHeadersCss($this[0],$headers,config.sortList,sortCSS);appendToTable($this[0],multisort($this[0],config.sortList,cache));},1);return false;}}).mousedown(function(){if(config.cancelSelection){this.onselectstart=function(){return false};return false;}});$this.bind("update",function(){this.config.parsers=buildParserCache(this,$headers);cache=buildCache(this);}).bind("sorton",function(e,list){$(this).trigger("sortStart");config.sortList=list;var sortList=config.sortList;updateHeaderSortCount(this,sortList);setHeadersCss(this,$headers,sortList,sortCSS);appendToTable(this,multisort(this,sortList,cache));}).bind("appendCache",function(){appendToTable(this,cache);}).bind("applyWidgetId",function(e,id){getWidgetById(id).format(this);}).bind("applyWidgets",function(){applyWidget(this);});if($.metadata&&($(this).metadata()&&$(this).metadata().sortlist)){config.sortList=$(this).metadata().sortlist;}if(config.sortList.length>0){$this.trigger("sorton",[config.sortList]);}applyWidget(this);});};this.addParser=function(parser){var l=parsers.length,a=true;for(var i=0;i<l;i++){if(parsers[i].id.toLowerCase()==parser.id.toLowerCase()){a=false;}}if(a){parsers.push(parser);};};this.addWidget=function(widget){widgets.push(widget);};this.formatFloat=function(s){var i=parseFloat(s);return(isNaN(i))?0:i;};this.formatInt=function(s){var i=parseInt(s);return(isNaN(i))?0:i;};this.isDigit=function(s,config){var DECIMAL='\\\\'+config.decimal;var exp='\/(^[+]?0('+DECIMAL+'0+)?$)|(^([-+]?[1-9][0-9]*)$)|(^([-+]?((0?|[1-9][0-9]*)'+DECIMAL+'(0*[1-9][0-9]*)))$)|(^[-+]?[1-9]+[0-9]*'+DECIMAL+'0+$)\/';return RegExp(exp).test($.trim(s));};this.clearTableBody=function(table){if($.browser.msie){function empty(){while(this.firstChild)this.removeChild(this.firstChild);}empty.apply(table.tBodies[0]);}else{table.tBodies[0].innerHTML="";}};}});$.fn.extend({tablesorter:$.tablesorter.construct});var ts=$.tablesorter;ts.addParser({id:"text",is:function(s){return true;},format:function(s){return $.trim(s.toLowerCase());},type:"text"});ts.addParser({id:"digit",is:function(s,table){var c=table.config;return $.tablesorter.isDigit(s,c);},format:function(s){return $.tablesorter.formatFloat(s);},type:"numeric"});ts.addParser({id:"currency",is:function(s){return\/^[£$€?.]\/.test(s);},format:function(s){return $.tablesorter.formatFloat(s.replace(new RegExp(\/[^0-9.]\/g),""));},type:"numeric"});ts.addParser({id:"ipAddress",is:function(s){return\/^\\d{2,3}[\\.]\\d{2,3}[\\.]\\d{2,3}[\\.]\\d{2,3}$\/.test(s);},format:function(s){var a=s.split("."),r="",l=a.length;for(var i=0;i<l;i++){var item=a[i];if(item.length==2){r+="0"+item;}else{r+=item;}}return $.tablesorter.formatFloat(r);},type:"numeric"});ts.addParser({id:"url",is:function(s){return\/^(https?|ftp|file):\\\/\\\/$\/.test(s);},format:function(s){return jQuery.trim(s.replace(new RegExp(\/(https?|ftp|file):\\\/\\\/\/),''));},type:"text"});ts.addParser({id:"isoDate",is:function(s){return\/^\\d{4}[\\\/-]\\d{1,2}[\\\/-]\\d{1,2}$\/.test(s);},format:function(s){return $.tablesorter.formatFloat((s!="")?new Date(s.replace(new RegExp(\/-\/g),"\/")).getTime():"0");},type:"numeric"});ts.addParser({id:"percent",is:function(s){return\/\\%$\/.test($.trim(s));},format:function(s){return $.tablesorter.formatFloat(s.replace(new RegExp(\/%\/g),""));},type:"numeric"});ts.addParser({id:"usLongDate",is:function(s){return s.match(new RegExp(\/^[A-Za-z]{3,10}\\.? [0-9]{1,2}, ([0-9]{4}|'?[0-9]{2}) (([0-2]?[0-9]:[0-5][0-9])|([0-1]?[0-9]:[0-5][0-9]\\s(AM|PM)))$\/));},format:function(s){return $.tablesorter.formatFloat(new Date(s).getTime());},type:"numeric"});ts.addParser({id:"shortDate",is:function(s){return\/\\d{1,2}[\\\/\\-]\\d{1,2}[\\\/\\-]\\d{2,4}\/.test(s);},format:function(s,table){var c=table.config;s=s.replace(\/\\-\/g,"\/");if(c.dateFormat=="us"){s=s.replace(\/(\\d{1,2})[\\\/\\-](\\d{1,2})[\\\/\\-](\\d{4})\/,"$3\/$1\/$2");}else if(c.dateFormat=="uk"){s=s.replace(\/(\\d{1,2})[\\\/\\-](\\d{1,2})[\\\/\\-](\\d{4})\/,"$3\/$2\/$1");}else if(c.dateFormat=="dd\/mm\/yy"||c.dateFormat=="dd-mm-yy"){s=s.replace(\/(\\d{1,2})[\\\/\\-](\\d{1,2})[\\\/\\-](\\d{2})\/,"$1\/$2\/$3");}return $.tablesorter.formatFloat(new Date(s).getTime());},type:"numeric"});ts.addParser({id:"time",is:function(s){return\/^(([0-2]?[0-9]:[0-5][0-9])|([0-1]?[0-9]:[0-5][0-9]\\s(am|pm)))$\/.test(s);},format:function(s){return $.tablesorter.formatFloat(new Date("2000\/01\/01 "+s).getTime());},type:"numeric"});ts.addParser({id:"metadata",is:function(s){return false;},format:function(s,table,cell){var c=table.config,p=(!c.parserMetadataName)?'sortValue':c.parserMetadataName;return $(cell).metadata()[p];},type:"numeric"});ts.addWidget({id:"zebra",format:function(table){if(table.config.debug){var time=new Date();}$("tr:visible",table.tBodies[0]).filter(':even').removeClass(table.config.widgetZebra.css[1]).addClass(table.config.widgetZebra.css[0]).end().filter(':odd').removeClass(table.config.widgetZebra.css[0]).addClass(table.config.widgetZebra.css[1]);if(table.config.debug){$.tablesorter.benchmark("Applying Zebra widget",time);}}});})(jQuery);/;"	v
+unique_together	sales/migrations/0004_auto_20200909_1627.py	/^            unique_together={('buyer', 'product')},$/;"	v	class:Migration
+unique_together	sales/models.py	/^        unique_together = ("buyer", "product")$/;"	v	class:BuyerProduct.Meta
+unique_together	stock/migrations/0003_auto_20200908_1049.py	/^            unique_together={('category', 'color', 'width', 'height')},$/;"	v	class:Migration
+unique_together	stock/migrations/0005_auto_20200909_1547.py	/^            unique_together=set(),$/;"	v	class:Migration
+unique_together	stock/migrations/0005_auto_20200909_1547.py	/^            unique_together={('category', 'color', 'height', 'width', 'length')},$/;"	v	class:Migration
+unique_together	stock/models.py	/^        unique_together = ("category", "color", "height", "width", "length")$/;"	v	class:RollSpec.Meta
+unique_together	stock/models.py	/^        unique_together = ("name", "number")$/;"	v	class:Warehouse.Meta
+updateSelectedRolls	templates/sales/order_add_item.html	/^  function updateSelectedRolls() {$/;"	f
+update_existing_payments_status	invoice/migrations/0014_update_payment_status.py	/^def update_existing_payments_status(app, schema_editor):$/;"	f
+update_invoice_number	invoice/migrations/0011_update_invoice_number.py	/^def update_invoice_number(apps, schema_editor):$/;"	f
+update_order_number	sales/migrations/0019_update_order_number.py	/^def update_order_number(apps, schema_editor):$/;"	f
+urlpatterns	accounts/urls.py	/^urlpatterns = [$/;"	v
+urlpatterns	expense/urls.py	/^urlpatterns = [$/;"	v
+urlpatterns	invoice/urls.py	/^urlpatterns = [$/;"	v
+urlpatterns	sales/urls.py	/^urlpatterns = [$/;"	v
+urlpatterns	stock/urls.py	/^urlpatterns = [$/;"	v
+urlpatterns	turf_portal/urls.py	/^urlpatterns = [$/;"	v
+user	client.js	/^    user: "postgres",$/;"	p	class:const
+value	stock/models.py	/^    value = models.FloatField(default=settings.DEFAULT_ROLL_HEIGHT)$/;"	v	class:Height
+value	stock/models.py	/^    value = models.FloatField(default=settings.DEFAULT_ROLL_WIDTH)$/;"	v	class:Width
+verbose_name_plural	stock/models.py	/^        verbose_name_plural = "Batches"$/;"	v	class:Batch.Meta
+verbose_name_plural	stock/models.py	/^        verbose_name_plural = "Categories"$/;"	v	class:Category.Meta
+verbose_name_plural	stock/models.py	/^        verbose_name_plural = "Roll Specs"$/;"	v	class:RollSpec.Meta
+verbose_name_plural	stock/models.py	/^        verbose_name_plural = "Turf Rolls"$/;"	v	class:TurfRoll.Meta
+version	htmlcov/jquery.hotkeys.js	/^		version: "0.8",$/;"	p	class:hotkeys
+widget	sales/forms.py	/^        widget=forms.HiddenInput(),$/;"	v	class:OrderAddItemForm.Meta
+widget	sales/forms.py	/^        widget=forms.Select,$/;"	v	class:BuyerProductCreateForm.Meta
+widget	stock/forms.py	/^        widget=forms.Select(attrs={"onChange": 'disableSizeField()'}),$/;"	v	class:LoadStocksForm.Meta
+widgets	expense/forms.py	/^        widgets = {$/;"	v	class:ExpenseCreateForm.Meta
+widgets	expense/forms.py	/^        widgets = {$/;"	v	class:ExpenseUpdateForm.Meta
+width	stock/models.py	/^    width = models.ForeignKey(Width, on_delete=models.DO_NOTHING)$/;"	v	class:RollSpec
