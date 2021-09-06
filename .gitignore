@@ -131,3 +131,5 @@ dmypy.json
 
 
 /static
+
+db_backup/

@@ -20,3 +20,7 @@
 sudo apt install wkhtmltopdf
 ```
 
+## Backup Database on Lubuntu
+- Login as `postgres` user: `sudo su - postgres`
+- Dump `sql` file: `psql -U postgres turf-portal > db_backup.sql`
+- Restore: `psql -U postgres postgresql://turf_portal_user:password@localhost:5432/turf_portal < db_backup.sql`
