@@ -1,8 +1,16 @@
 # turf_portal
 
+---
+
 ## Build Statuses
-![Develop](https://github.com/zhou-en/turf_portal/actions/workflows/main.yml/badge.svg?branch=develop)
-![Master](https://github.com/zhou-en/turf_portal/actions/workflows/main.yml/badge.svg?branch=master)
+
+- [Develop](https://github.com/zhou-en/turf_portal/tree/develop)
+
+    ![Develop Status](https://github.com/zhou-en/turf_portal/actions/workflows/main.yml/badge.svg?branch=develop)
+
+- [Master](https://github.com/zhou-en/turf_portal/tree/master)
+
+    ![Master Status](https://github.com/zhou-en/turf_portal/actions/workflows/main.yml/badge.svg?branch=master)
 
 
 ## Environment Dependencies
