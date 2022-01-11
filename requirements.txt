@@ -3,7 +3,7 @@ asgiref==3.3.2
 attrs==20.2.0
 backcall==0.2.0
 backports.entry-points-selectable==1.1.0
-black==20.8b1
+black==21.4b0
 cairocffi==1.1.0
 CairoSVG>=2.5.1
 cffi==1.14.3
@@ -53,7 +53,6 @@ python-pdf==0.37
 pytz==2020.1
 raven==6.10.0
 regex==2020.7.14
-reportlab==3.5.51
 six==1.15.0
 sqlparse==0.3.1
 tinycss2==1.0.2
