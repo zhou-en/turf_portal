@@ -27,6 +27,12 @@ jobs:
     # Here we're making sure we use just use the system-wide pip. By default it uses the project root's requirements.txt.
     # Then run your tests!
     # CircleCI will report the results back to your VCS provider.
+    environment:
+      DATABASE_URL: postgres://conductor:@localhost:5432
+      DB_HOST: localhost
+      DB_NAME: turf_portal
+      DB_USER: postgres
+      DB_PASSWORD: postgres
     steps:
       - checkout
       - python/install-packages:
@@ -34,9 +40,12 @@ jobs:
           # app-dir: ~/project/package-directory/  # If you're requirements.txt isn't in the root directory.
           pip-dependency-file: requirements.txt  # if you have a different name for your requirements file, maybe one that combines your runtime and test requirements.
       - run:
+          name: Run migratioin
+          command: python manage.py migrate
+      - run:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
-          command: pytest
+          command: pytest --cov --cov-config=.coveragerc
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
