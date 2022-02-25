@@ -3,6 +3,12 @@ jobs:
     build:
         docker:
             - image: circleci/python:3.6
+                environment:
+                    DATABASE_URL: postgres://conductor:@localhost:5432
+                    DB_HOST: localhost
+                    DB_NAME: turf_portal
+                    DB_USER: postgres
+                    DB_PASSWORD: postgres
         steps:
             - checkout
             - run:
