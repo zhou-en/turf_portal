@@ -43,6 +43,12 @@ jobs:
       #     name: Run migratioin
       #     command: python manage.py migrate
       - run:
+          environment:
+            DATABASE_URL: postgres://conductor:@localhost:5432
+            DB_HOST: localhost
+            DB_NAME: turf_portal
+            DB_USER: postgres
+            DB_PASSWORD: postgres
           name: Run tests
           # This assumes pytest is installed via the install-package step above
           command: pytest --cov --cov-config=.coveragerc
