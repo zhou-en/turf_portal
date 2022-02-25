@@ -62,10 +62,10 @@ class DataView(APIView):
             if closed_month in monthly_sale:
                 monthly_sale[closed_month] += order_total
             else:
-                monthly_sale.update({closed_month: order_total})
+                monthly_sale[closed_month] = order_total
 
         sales_labels = monthly_sale.keys()
-        sales_total = [monthly_sale[k] for i, k in enumerate(sales_labels)]
+        sales_total = [monthly_sale[k] for k in sales_labels]
         return {"labels": sales_labels, "default": sales_total}
 
     def get(self, request, format=None):
@@ -82,7 +82,7 @@ class DataView(APIView):
             monthly_data = self.generate_monthly_sales_data(
                 start_date, end_date
             )
-            data.update({"monthly_data": monthly_data})
+            data["monthly_data"] = monthly_data
 
         stock_available_data = {}
         for roll in TurfRoll.objects.all():
@@ -93,14 +93,10 @@ class DataView(APIView):
 
         labels = sorted(stock_available_data.keys())
         default_items = [stock_available_data[k] for k in labels]
-        data.update(
-            {
-                "stock_data": {
+        data["stock_data"] = {
                     "labels": labels,
                     "default": default_items,
                 }
-            }
-        )
 
         # Stock Sold from start_date to end_date
         stock_sold_data = {}
@@ -114,14 +110,10 @@ class DataView(APIView):
                     stock_sold_data[ol.product.code] = ol.quantity
         labels = sorted(stock_sold_data.keys())
         default_items = [stock_sold_data[k] for k in labels]
-        data.update(
-            {
-                "stock_sold_data": {
+        data["stock_sold_data"] = {
                     "labels": labels,
                     "default": default_items,
                 }
-            }
-        )
         sales_data = {}
         for s in (
             Order.objects.filter(status__exact=Order.Status.CLOSED)
@@ -133,19 +125,19 @@ class DataView(APIView):
             if closed_date in sales_data:
                 sales_data[closed_date] += order_total
             else:
-                sales_data.update({closed_date: order_total})
+                sales_data[closed_date] = order_total
 
         sales_labels = sales_data.keys()
-        sales_total = [sales_data[k] for i, k in enumerate(sales_labels)]
-        data.update(
-            {"sales_data": {"labels": sales_labels, "default": sales_total}}
-        )
+        sales_total = [sales_data[k] for k in sales_labels]
+        data["sales_data"] = {"labels": sales_labels, "default": sales_total}
 
         # total turnonver per buyer
-        buyer_data = {}
-        for b in Buyer.objects.all():
-            if b.history_total != 0:
-                buyer_data.update({b.name: b.history_total})
+        buyer_data = {
+            b.name: b.history_total
+            for b in Buyer.objects.all()
+            if b.history_total != 0
+        }
+
         buyer_data = dict(
             sorted(buyer_data.items(), key=lambda item: item[1], reverse=True)
         )
@@ -153,8 +145,6 @@ class DataView(APIView):
         if len(buyer_labels) > 10:
             buyer_labels = sorted(list(buyer_data.keys())[:10])
         buyer_total = [buyer_data[k] for k in buyer_labels]
-        data.update(
-            {"buyer_data": {"labels": buyer_labels, "default": buyer_total}}
-        )
+        data["buyer_data"] = {"labels": buyer_labels, "default": buyer_total}
 
         return Response(data)
