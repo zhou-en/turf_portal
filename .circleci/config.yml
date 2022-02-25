@@ -1,7 +1,6 @@
 version: 2
 jobs:
     build:
-        context: turf-portal-build
         docker:
             - image: circleci/python:3.6
         steps:
@@ -13,6 +12,7 @@ jobs:
                     pip install --upgrade pip
                     pip install -r requirements.txt
             - run:
+                context: turf-portal-build
                 name: Running tests
                 command: |
                     . venv/bin/activate
