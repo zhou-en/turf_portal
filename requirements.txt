@@ -3,7 +3,6 @@ asgiref==3.3.2
 attrs==20.2.0
 backcall==0.2.0
 backports.entry-points-selectable==1.1.0
-black==21.4b0
 cairocffi==1.1.0
 CairoSVG>=2.5.1
 cffi==1.14.3
@@ -57,7 +56,6 @@ six==1.15.0
 sqlparse==0.3.1
 tinycss2==1.0.2
 toml==0.10.1
-traitlets==5.0.4
 typed-ast==1.4.1
 typing-extensions==3.7.4.3
 wcwidth==0.2.5
