@@ -29,7 +29,7 @@ SECRET_KEY = config("SECRET_KEY", "LEDHGFLEFBOUEW*!@#$qGEDIW&T")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=True, cast=bool)
-ALLOWED_HOSTS = ["*", ".vercel.app"]
+ALLOWED_HOSTS = [".vercel.app"]
 
 # Application definition
 
@@ -203,7 +203,8 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     BASE_DIR / "turf_portal" / "static",
 ]
-STATIC_ROOT = BASE_DIR / "static"
+# STATIC_ROOT = BASE_DIR / "static"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
 DEFAULT_ROLL_WIDTH = 2
 DEFAULT_ROLL_HEIGHT = 30
