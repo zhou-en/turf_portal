@@ -29,7 +29,7 @@ SECRET_KEY = config("SECRET_KEY", "LEDHGFLEFBOUEW*!@#$qGEDIW&T")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=True, cast=bool)
-ALLOWED_HOSTS = ["*", "turf-portal.herokuapp.com"]
+ALLOWED_HOSTS = ["*", ".vercel.app"]
 
 # Application definition
 
