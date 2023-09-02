@@ -1,0 +1,14 @@
+{
+    "builds": [
+      {
+        "src": "turf_portal/wsgi.py",
+        "use": "@vercel/python"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "turf_portal/wsgi.py"
+      }
+    ]
+}
