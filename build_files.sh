@@ -1,4 +1,4 @@
-apt install wkhtmltopdf
+
 pip install -r requirements.txt
 
 # make migrations
