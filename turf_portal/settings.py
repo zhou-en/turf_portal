@@ -89,7 +89,7 @@ WSGI_APPLICATION = "turf_portal.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": config("DB_NAME", "turf_portal"),
         "USER": config("DB_USER", "turf_portal_user"),
         "PASSWORD": config("DB_PASSWORD", ""),
