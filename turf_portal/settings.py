@@ -97,6 +97,7 @@ DATABASES = {
         "PORT": "5432",
         "OPTIONS": {
             "sslmode": "require",
+            "options": "endpoint=ep-red-cloud-96709527-pooler",
         },
     }
 }
