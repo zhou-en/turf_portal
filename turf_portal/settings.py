@@ -95,6 +95,9 @@ DATABASES = {
         "PASSWORD": config("DB_PASSWORD", ""),
         "HOST": config("DB_HOST", "127.0.0.1"),
         "PORT": "5432",
+        "OPTIONS": {
+            "sslmode": "require",
+        },
     }
 }
 
