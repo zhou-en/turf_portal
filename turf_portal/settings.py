@@ -224,7 +224,7 @@ EMAIL_HOST_USER = config(
 )
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", "")
 PHONE_NUMBER = config(
-    "PHONE_NUMBER", os.environ.get("BUSINESS_PHONE", "")
+    "BUSINESS_PHONE", os.environ.get("BUSINESS_PHONE", "")
 )
 
 # Banking Details
