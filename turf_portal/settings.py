@@ -109,8 +109,15 @@ DATABASES = {
     }
 }
 
+# Use SQLite for local development if configured or if Postgres is not available
+if config("USE_SQLITE", default=False, cast=bool) or not config("DB_NAME", default=None):
+    DATABASES["default"] = {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+
 # Configure SSL based on environment
-if not config("DISABLE_SSL", default=False, cast=bool):
+if not config("DISABLE_SSL", default=False, cast=bool) and DATABASES["default"]["ENGINE"] != "django.db.backends.sqlite3":
     DATABASES["default"]["OPTIONS"] = {
         "sslmode": "require",
         "options": "endpoint=ep-red-cloud-96709527-pooler",

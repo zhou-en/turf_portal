@@ -3,6 +3,23 @@
 import os
 import sys
 
+# Shim cgi module for Python 3.13+ compatibility
+if sys.version_info >= (3, 13):
+    import types
+    import email.message
+
+    def parse_header(line):
+        m = email.message.Message()
+        m['content-type'] = line
+        params = m.get_params()
+        if params is None:
+            return m.get_content_type(), {}
+        return m.get_content_type(), {k: v for k, v in params}
+
+    cgi = types.ModuleType('cgi')
+    cgi.parse_header = parse_header
+    sys.modules['cgi'] = cgi
+
 
 def main():
     """Run administrative tasks."""
