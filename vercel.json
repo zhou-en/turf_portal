@@ -7,7 +7,7 @@
             "config": {
                 "maxLambdaSize": "50mb",
                 "runtime": "python3.12",
-                "includeFiles": "staticfiles_build/**"
+                "includeFiles": "staticfiles/**"
             }
         }
     ],
