@@ -93,11 +93,7 @@ The application is configured for deployment on Vercel using the "Zero Config" a
 
 ## Build Statuses
 
-- [Develop](https://github.com/zhou-en/turf_portal/tree/develop)
-    ![Develop Status](https://github.com/zhou-en/turf_portal/actions/workflows/django.yml/badge.svg?branch=develop)
-
-- [Master](https://github.com/zhou-en/turf_portal/tree/master)
-    ![Master Status](https://github.com/zhou-en/turf_portal/actions/workflows/django.yml/badge.svg?branch=master)
+- [![Turf Portal Tests Build](https://github.com/zhou-en/turf_portal/actions/workflows/main.yml/badge.svg)](https://github.com/zhou-en/turf_portal/actions/workflows/main.yml)
 
 
 ## Environment Dependencies
