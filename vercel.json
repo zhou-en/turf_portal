@@ -16,8 +16,5 @@
             "src": "/(.*)",
             "dest": "turf_portal/wsgi.py"
         }
-    ],
-    "env": {
-        "DISABLE_SSL": "false"
-    }
+    ]
 }
