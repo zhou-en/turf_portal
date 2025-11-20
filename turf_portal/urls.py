@@ -17,11 +17,31 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponse
+import os
 from accounts.views import DataView, home
 from stock.views import StockDataView
 
+def debug_files(request):
+    output = []
+    output.append(f"Current CWD: {os.getcwd()}")
+    output.append("Listing current directory:")
+    for root, dirs, files in os.walk("."):
+        for file in files:
+            output.append(os.path.join(root, file))
+
+    output.append("\nListing staticfiles directory:")
+    if os.path.exists("staticfiles"):
+        for root, dirs, files in os.walk("staticfiles"):
+            for file in files:
+                output.append(os.path.join(root, file))
+    else:
+        output.append("staticfiles directory does NOT exist")
+
+    return HttpResponse("<pre>" + "\n".join(output) + "</pre>")
 
 urlpatterns = [
+    path('debug-files/', debug_files),
     path('', home, name='home'),
     path('admin/', admin.site.urls),
     path('sales/', include('sales.urls')),
