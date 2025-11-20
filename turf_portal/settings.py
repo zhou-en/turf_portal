@@ -225,7 +225,7 @@ PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
 
 
 #  Add configuration for static files storage using whitenoise
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 
 # Update database configuration from DATABASE_URL if provided
