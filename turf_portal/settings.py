@@ -95,13 +95,16 @@ DATABASES = {
         "USER": config("DB_USER", "turf_portal_user"),
         "PASSWORD": config("DB_PASSWORD", ""),
         "HOST": config("DB_HOST", "127.0.0.1"),
-        "PORT": "5432",
-        "OPTIONS": {
-            "sslmode": "require",
-            "options": "endpoint=ep-red-cloud-96709527-pooler",
-        },
+        "PORT": config("DB_PORT", "5432"),
     }
 }
+
+# Configure SSL based on environment
+if not config("DISABLE_SSL", default=False, cast=bool):
+    DATABASES["default"]["OPTIONS"] = {
+        "sslmode": "require",
+        "options": "endpoint=ep-red-cloud-96709527-pooler",
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
