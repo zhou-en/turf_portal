@@ -24,7 +24,7 @@ identify==2.2.13
 iniconfig==1.0.1
 ipdb==0.13.4
 jedi==0.17.2
-Markdown==3.2.2
+Markdown==3.7
 mypy-extensions==0.4.3
 nodeenv==1.6.0
 packaging==20.4
