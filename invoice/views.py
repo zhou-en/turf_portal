@@ -1,6 +1,6 @@
 import logging
 
-import pydf
+# import pydf
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -147,39 +147,39 @@ def confirm_all_payments(request, pk):
 
 class ExportPDFView(View):
     def get(self, request, *args, **kwargs):
+        return HttpResponse("PDF Export Temporarily Disabled", content_type="text/plain")
+        # pk = self.kwargs.get("pk")
+        # invoice = Invoice.objects.get(id=pk)
 
-        pk = self.kwargs.get("pk")
-        invoice = Invoice.objects.get(id=pk)
-
-        context = {
-            "order": invoice.order,
-            "orderlines": invoice.order.orderline_set.all().order_by(
-                "product"
-            ),
-            "invoice": invoice,
-            "buyer": invoice.buyer,
-            "send_email": False,
-            "bank": settings.BANK,
-            "branch": settings.BRANCH,
-            "branch_code": settings.BRANCH_CODE,
-            "swift_code": settings.SWIFT_CODE,
-            "account_number": settings.ACCOUNT_NUMBER,
-            "account_name": "TURFD",
-            "account_type": settings.ACCOUNT_TYPE,
-            "email_address": settings.EMAIL_HOST_USER,
-            "phone_number": settings.PHONE_NUMBER,
-        }
-        template = get_template("sales/invoice_email.html")
-        html = template.render(
-            context
-        )  # Renders the template with the context data.
-        pdf = pydf.generate_pdf(
-            html,
-            page_size="A4",
-            margin_left="15mm",
-            margin_right="15mm",
-            margin_top="15mm",
-            margin_bottom="15mm",
-            orientation="Landscape",
-        )
-        return HttpResponse(pdf, content_type="application/pdf")
+        # context = {
+        #     "order": invoice.order,
+        #     "orderlines": invoice.order.orderline_set.all().order_by(
+        #         "product"
+        #     ),
+        #     "invoice": invoice,
+        #     "buyer": invoice.buyer,
+        #     "send_email": False,
+        #     "bank": settings.BANK,
+        #     "branch": settings.BRANCH,
+        #     "branch_code": settings.BRANCH_CODE,
+        #     "swift_code": settings.SWIFT_CODE,
+        #     "account_number": settings.ACCOUNT_NUMBER,
+        #     "account_name": "TURFD",
+        #     "account_type": settings.ACCOUNT_TYPE,
+        #     "email_address": settings.EMAIL_HOST_USER,
+        #     "phone_number": settings.PHONE_NUMBER,
+        # }
+        # template = get_template("sales/invoice_email.html")
+        # html = template.render(
+        #     context
+        # )  # Renders the template with the context data.
+        # pdf = pydf.generate_pdf(
+        #     html,
+        #     page_size="A4",
+        #     margin_left="15mm",
+        #     margin_right="15mm",
+        #     margin_top="15mm",
+        #     margin_bottom="15mm",
+        #     orientation="Landscape",
+        # )
+        # return HttpResponse(pdf, content_type="application/pdf")
