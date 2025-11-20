@@ -71,7 +71,7 @@ class Warehouse(TimeStampedModel, models.Model):
         return f"{self.name}"
 
     @property
-    def roll_count(self):
+    def roll_count(self) -> int:
         """
         Returns number of rolls stored in the warehouse.
         """
@@ -101,14 +101,14 @@ class RollSpec(TimeStampedModel, models.Model):
         return self.code
 
     @property
-    def is_turf(self):
+    def is_turf(self) -> bool:
         """
         Return True if the roll spec is for TurfRoll.
         """
         return self.category.name.lower() == "grass"
 
     @property
-    def sale_by(self):
+    def sale_by(self) -> str:
         """
         Return unit of the roll
         """
@@ -120,7 +120,7 @@ class RollSpec(TimeStampedModel, models.Model):
             return "each"
 
     @property
-    def code(self):
+    def code(self) -> str:
         """
         Return the spec code.
         """
@@ -150,7 +150,7 @@ class Product(TimeStampedModel, models.Model):
         return f"{self.code}"
 
     @property
-    def name(self):
+    def name(self) -> str:
         if self.spec:
             if self.spec.is_turf:
                 return "Artificial Grass"
@@ -159,7 +159,7 @@ class Product(TimeStampedModel, models.Model):
         return "Discount"
 
     @property
-    def description(self):
+    def description(self) -> str:
         if self.spec:
             if self.spec.is_turf:
                 return (
@@ -179,7 +179,7 @@ class Product(TimeStampedModel, models.Model):
         super(Product, self).save(*args, **kwargs)
 
     @property
-    def has_stock(self):
+    def has_stock(self) -> bool:
         return bool(
             TurfRoll.objects.filter(spec=self.spec).exclude(
                 status__exact=TurfRoll.Status.DEPLETED
@@ -187,7 +187,7 @@ class Product(TimeStampedModel, models.Model):
         )
 
     @property
-    def roll_count(self):
+    def roll_count(self) -> int:
         """
         Returns number of available rolls.
         """
@@ -200,7 +200,7 @@ class Product(TimeStampedModel, models.Model):
         )
 
     @property
-    def stock_available(self):
+    def stock_available(self) -> float:
         """
         Return the available square meters for a roll.
         """
@@ -226,7 +226,7 @@ class Batch(TimeStampedModel, models.Model):
         return f"{self.number}"
 
     @property
-    def total_sale(self):
+    def total_sale(self) -> float:
         """
         Return total sales of all product from this bactch.
         """
@@ -284,7 +284,7 @@ class TurfRoll(TimeStampedModel, models.Model):
         super().save(*args, **kwargs)
 
     @property
-    def status_color(self):
+    def status_color(self) -> str:
         if self.status == TurfRoll.Status.DEPLETED:
             return "outline-secondary"
         if self.status == TurfRoll.Status.OPENED:
@@ -295,9 +295,10 @@ class TurfRoll(TimeStampedModel, models.Model):
             return "warning"
         if self.status == TurfRoll.Status.LOOSE:
             return "outline-success"
+        return "secondary"
 
     @property
-    def reserved(self):
+    def reserved(self) -> float:
         """
         This is amount reserved on this roll from orders in [DRAFT, SUBMITTED].
         """
@@ -317,10 +318,10 @@ class TurfRoll(TimeStampedModel, models.Model):
         )
         if result.get("quantity__sum"):
             return float(result.get("quantity__sum"))
-        return 0
+        return 0.0
 
     @property
-    def blank(self):
+    def blank(self) -> float:
         """
         For visualizing the returned rolls.
         status.
@@ -330,7 +331,7 @@ class TurfRoll(TimeStampedModel, models.Model):
         )
 
     @property
-    def available(self):
+    def available(self) -> float:
         """
         Total minus delivered and reserved.
         status.

@@ -3,7 +3,7 @@ from datetime import datetime
 from calendar import monthrange
 
 
-def remove_none_alphanumeric(string):
+def remove_none_alphanumeric(string: str) -> str:
     """
     remove non-alphanumeric characters
     """
@@ -11,7 +11,7 @@ def remove_none_alphanumeric(string):
     return pattern.sub("", string)
 
 
-def order_status_color(status):
+def order_status_color(status: str) -> str:
     from sales.models import Order
     if status in [Order.Status.DRAFT, Order.Status.SUBMITTED]:
         return "success"
@@ -21,9 +21,10 @@ def order_status_color(status):
         return "warning"
     if status == Order.Status.CLOSED:
         return "outline-secondary"
+    return "secondary"
 
 
-def invoice_status_color(status):
+def invoice_status_color(status: str) -> str:
     from invoice.models import Invoice
     if status == Invoice.Status.DRAFT:
         return "success"
@@ -33,24 +34,27 @@ def invoice_status_color(status):
         return "warning"
     if status == Invoice.Status.CLOSED:
         return "outline-secondary"
+    return "secondary"
 
 
-def payment_status_color(status):
+def payment_status_color(status: str) -> str:
     from invoice.models import Payment
     if status == Payment.Status.CONFIRMED:
         return "success"
     if status == Payment.Status.PENDING:
         return "warning"
+    return "secondary"
 
 
-def buyer_status_color(status):
+def buyer_status_color(status: str) -> str:
     from sales.models import Buyer
     if status == Buyer.Status.ACTIVE:
         return "success"
     if status == Buyer.Status.INACTIVE:
         return "secondary"
+    return "secondary"
 
-def build_search_query(search_params):
+def build_search_query(search_params: dict) -> dict:
     search_query = {}
     for k, v in search_params.items():
         search_query.update(
@@ -73,7 +77,7 @@ def build_search_query(search_params):
             )
     return search_query
 
-def get_last_day_of_month(date_value):
+def get_last_day_of_month(date_value: datetime) -> str:
     return date_value.replace(
         day = monthrange(
             date_value.year,

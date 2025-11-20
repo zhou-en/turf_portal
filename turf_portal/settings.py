@@ -28,8 +28,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config("SECRET_KEY", "LEDHGFLEFBOUEW*!@#$qGEDIW&T")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG", default=True, cast=bool)
-ALLOWED_HOSTS = [".vercel.app"]
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = config("DEBUG", default=False, cast=bool)
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default=".vercel.app,localhost,127.0.0.1").split(",")
 
 # Application definition
 
@@ -120,42 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# LOGLEVEL = os.environ.get('LOGLEVEL', 'info').upper()
-# LOGGING_CONFIG = None
-# logging.config.dictConfig({
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'formatters': {
-#         'console': {
-#             # exact format is not important, this is the minimum information
-#             'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
-#         },
-#     },
-#     'handlers': {
-#         'console': {
-#             'class': 'logging.StreamHandler',
-#             'formatter': 'console',
-#         },
-#         # Add Handler for Sentry for `warning` and above
-#         'sentry': {
-#             'level': 'WARNING',
-#             'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
-#         },
-#     },
-#     'loggers': {
-#         # root logger
-#         '': {
-#             'level': 'WARNING',
-#             'handlers': ['console', 'sentry'],
-#         },
-#         'turf_portal.page_processors': {
-#             'level': LOGLEVEL,
-#             'handlers': ['console', 'sentry'],
-#             # required to avoid double logging with root logger
-#             'propagate': False,
-#         },
-#     },
-# })
+
 
 LOGGING = {
     "version": 1,
@@ -243,13 +209,7 @@ if (
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
-# STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
-# STATIC_URL = '/static/'
-#
-# # Extra lookup directories for collectstatic to find static files
-# STATICFILES_DIRS = (
-#     os.path.join(PROJECT_ROOT, 'static'),
-# )
+
 
 #  Add configuration for static files storage using whitenoise
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

@@ -1,13 +1,14 @@
-import logging
+from typing import List, Optional, Union
+
 from django.core.validators import MinValueValidator
-from django.utils import timezone
-from django.db.models import Avg, Count, Sum
-from django.utils.translation import gettext_lazy as _
 from django.db import models
+from django.db.models import Sum
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from django_extensions.db.models import TimeStampedModel
 
-from stock.models import Product, TurfRoll
 from sales.utils import order_status_color
+from stock.models import Product, TurfRoll
 
 logger = logging.getLogger(__name__)
 
@@ -48,14 +49,14 @@ class Buyer(TimeStampedModel, models.Model):
         return f"{self.name}"
 
     @property
-    def buyer_products(self):
+    def buyer_products(self) -> models.QuerySet:
         """
         Returns all buyer products assgined to this buyer.
         """
         return self.buyerproduct_set.all()
 
     @property
-    def history_total(self):
+    def history_total(self) -> float:
         """
         Return total of all orders have been closed on the buyer.
         """
@@ -65,7 +66,7 @@ class Buyer(TimeStampedModel, models.Model):
         )
         return float("%.2f" % total)
 
-    def has_open_order(self, buyer_product):
+    def has_open_order(self, buyer_product: "BuyerProduct") -> Optional["Order"]:
         open_orders = self.order_set.exclude(status__exact=Order.Status.CLOSED)
         for order in open_orders:
             if order.orderline_set.filter(product=buyer_product.product):
@@ -73,7 +74,7 @@ class Buyer(TimeStampedModel, models.Model):
         return None
 
     @property
-    def has_product_available(self):
+    def has_product_available(self) -> bool:
         """
         Returns true if there are products that have stock and not in buyer
         product list.
@@ -100,7 +101,7 @@ class BuyerProduct(TimeStampedModel, models.Model):
         return "%s %s: R%.2f" % (self.buyer.name, self.product.code, self.price)
 
     @property
-    def available_rolls(self):
+    def available_rolls(self) -> List[TurfRoll]:
         return [
             roll for roll in TurfRoll.objects.filter(
                 spec_id=self.product.spec_id
@@ -147,7 +148,7 @@ class Order(TimeStampedModel, models.Model):
         super().save(*args, **kwargs)
 
     @property
-    def total_amount(self):
+    def total_amount(self) -> float:
         """
         Returns total amount of the entire order, i.e. sum of all orderline prices.
         """
@@ -157,13 +158,13 @@ class Order(TimeStampedModel, models.Model):
         return round(0.00, 2)
 
     @property
-    def orderlines(self):
+    def orderlines(self) -> models.QuerySet:
         """
         Returns all ordered items for the order.
         """
         return self.orderline_set.all().order_by("product")
 
-    def submit(self):
+    def submit(self) -> None:
         """
         Submit order, i.e. order status will transit from Daft to Submitted.
         Create invoice for this order.
@@ -180,7 +181,7 @@ class Order(TimeStampedModel, models.Model):
             invoice.status = Invoice.Status.DRAFT
         invoice.save()
 
-    def revert(self):
+    def revert(self) -> None:
         """
         Revert an order, i.e. remove all orderlines, payments, invoice, and itself.
         """
@@ -203,7 +204,7 @@ class Order(TimeStampedModel, models.Model):
         # remove order
         self.delete()
 
-    def deliver(self):
+    def deliver(self) -> None:
         """
         Set order to delivered status.
         """
@@ -217,7 +218,7 @@ class Order(TimeStampedModel, models.Model):
             invoice.status = Invoice.Status.OUTSTANDING
             invoice.save()
 
-    def editable(self):
+    def editable(self) -> bool:
         """
         Set order to delivered status.
         """
@@ -226,7 +227,7 @@ class Order(TimeStampedModel, models.Model):
             Order.Status.SUBMITTED
         ]
 
-    def invoice_order(self):
+    def invoice_order(self) -> None:
         """
         Send invoice to buyer.
         Set order to invoiced status, invoice to payment outstanding.
@@ -241,7 +242,7 @@ class Order(TimeStampedModel, models.Model):
         invoice.save()
 
     @property
-    def is_delivered(self):
+    def is_delivered(self) -> bool:
         """
         Return true if order is delivered.
         """
@@ -250,7 +251,7 @@ class Order(TimeStampedModel, models.Model):
             Order.Status.CLOSED
         ]
 
-    def close(self):
+    def close(self) -> None:
         """
         Order can only be closed once invoice is paid.
         """
@@ -262,7 +263,7 @@ class Order(TimeStampedModel, models.Model):
             for ol in self.orderline_set.all():
                 ol.sold()
 
-    def create_orderlines(self, requested_roll_infos):
+    def create_orderlines(self, requested_roll_infos: List[dict]) -> None:
         """
         Create orderlines base on the given list of requested roll info, i.e.
         {quantity, buyer_product_id, roll_id}
@@ -287,23 +288,23 @@ class Order(TimeStampedModel, models.Model):
                     roll.save()
 
     @property
-    def status_color(self):
+    def status_color(self) -> str:
         return order_status_color(self.status)
 
     @property
-    def invoice(self):
+    def invoice(self) -> Optional["Invoice"]:
         return self.invoice_set.first()
 
     @property
-    def total_vat(self):
+    def total_vat(self) -> float:
         return round(float(self.total_amount) * 0.15, 2)
 
     @property
-    def total_exclude_vat(self):
+    def total_exclude_vat(self) -> float:
         return round((self.total_amount - self.total_vat), 2)
 
     @property
-    def discount(self):
+    def discount(self) -> float:
         """
         Return the amount of discount applied to this order.
         """
@@ -317,7 +318,7 @@ class Order(TimeStampedModel, models.Model):
         return 0
 
     @property
-    def discounted(self):
+    def discounted(self) -> bool:
         """
         Return true if there is an orderline has no spec and roll fields, i.e.
         discount orderline
@@ -325,7 +326,7 @@ class Order(TimeStampedModel, models.Model):
         return bool(self.orderline_set.filter(roll=None, product=None, quantity=1))
 
     @property
-    def total_wt_discount(self):
+    def total_wt_discount(self) -> float:
         """
         Return total order amount without applying discount
         """
@@ -354,7 +355,7 @@ class OrderLine(TimeStampedModel, models.Model):
             self.total = self.price * self.quantity
         super().save(*args, **kwargs)
 
-    def sold(self):
+    def sold(self) -> None:
         """
         Update the sold field for the selected roll.
         """
@@ -364,7 +365,7 @@ class OrderLine(TimeStampedModel, models.Model):
             self.roll.save()
 
     @property
-    def is_discount(self):
+    def is_discount(self) -> bool:
         """
         Return true if this is a discount orderline, i.e. no product and roll
         """

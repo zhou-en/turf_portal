@@ -7,8 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Turf Portal</title>
 
+  <meta name="description" content="Turf Portal - Manage your turf business efficiently. Orders, Invoices, Products, Buyers, Stocks, and more.">
+  <meta name="author" content="Turf Portal">
   <link rel="shortcut icon" type="image/png" href="{% static 'favicon.jpg' %}"/>
-{#  <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">#}
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
@@ -122,100 +123,18 @@
       </div>
       {% endif %}
     </nav>
-
-    <div class="container-fluid">
-      {% block content %}
-      {% endblock %}
-    </div>
+    <main role="main">
+      <div class="container-fluid">
+        {% block content %}
+        {% endblock %}
+      </div>
+    </main>
   </div>
   <!-- /#page-content-wrapper -->
 
 </div>
 <!-- /#wrapper -->
-<!--
-<nav class="navbar navbar-expand navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#"> <b>Turf Portal</b></a>
-  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
 
-  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-    {% if user.is_authenticated %}
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown dropleft">
-
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ user.username }}
-          </a>
-          <div class="dropdown-menu">
-
-            <a class="dropdown-item small" href="{% url 'logout' %}">Sign out</a>
-            <div class="dropdown-divider"></div>
-
-            <a class="dropdown-item small" href="{% url 'password_change' %}">Change password</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">     </a>
-        </li>
-      </ul>
-    {% endif %}
-  </div>
-</nav>
-<div class="container-fluid">
-  <div class="row">
-    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-      <div class="sidebar-sticky pt-3">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link active" href="{% url 'home' %}">
-              <span data-feather="home"></span>
-              Dashboard <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'orders' %}">
-              <span data-feather="file"></span>
-              Orders
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{% url 'products' %}" class="nav-link">
-              <span data-feather="shopping-cart"></span>
-              Products
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{% url 'buyers' %}" class="nav-link">
-              <span data-feather="users"></span>
-              Buyers
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'invoices' %}">
-              <span data-feather="layers"></span>
-              Invoices
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'stocks' %}">
-              <span data-feather="bar-chart-2"></span>
-              Stocks
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'warehouses' %}">
-              <span data-feather="archive"></span>
-              Warehouse
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </div>
-</div>
--->
 
 
 
