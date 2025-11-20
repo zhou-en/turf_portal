@@ -25,18 +25,24 @@ from stock.views import StockDataView
 def debug_files(request):
     output = []
     output.append(f"Current CWD: {os.getcwd()}")
-    output.append("Listing current directory:")
-    for root, dirs, files in os.walk("."):
-        for file in files:
-            output.append(os.path.join(root, file))
 
-    output.append("\nListing staticfiles directory:")
+    output.append("\nChecking for 'staticfiles' directory:")
     if os.path.exists("staticfiles"):
+        output.append("FOUND 'staticfiles'")
         for root, dirs, files in os.walk("staticfiles"):
             for file in files:
                 output.append(os.path.join(root, file))
     else:
-        output.append("staticfiles directory does NOT exist")
+        output.append("NOT FOUND 'staticfiles'")
+
+    output.append("\nChecking for 'static' directory:")
+    if os.path.exists("static"):
+        output.append("FOUND 'static'")
+        for root, dirs, files in os.walk("static"):
+            for file in files:
+                output.append(os.path.join(root, file))
+    else:
+        output.append("NOT FOUND 'static'")
 
     return HttpResponse("<pre>" + "\n".join(output) + "</pre>")
 
