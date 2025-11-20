@@ -7,14 +7,14 @@
             "config": {
                 "maxLambdaSize": "50mb",
                 "runtime": "python3.12",
-                "includeFiles": "staticfiles/**"
+                "includeFiles": "staticfiles_build/**"
             }
         }
     ],
     "routes": [
         {
             "src": "/static/(.*)",
-            "dest": "/staticfiles/$1"
+            "dest": "/staticfiles_build/static/$1"
         },
         {
             "src": "/(.*)",
