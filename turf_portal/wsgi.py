@@ -17,5 +17,5 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'turf_portal.settings')
 application = get_wsgi_application()
 # Explicitly wrap with WhiteNoise to serve static files
 # pointing to the 'staticfiles' directory at project root
-application = WhiteNoise(application, root=os.path.join(os.path.dirname(os.path.dirname(__file__)), 'staticfiles'))
+application = WhiteNoise(application, root=os.path.join(os.path.dirname(os.path.dirname(__file__)), 'staticfiles'), prefix='static/')
 app = application
