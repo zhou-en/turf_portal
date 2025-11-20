@@ -1,4 +1,5 @@
-from typing import List, Optional, Union
+from typing import List, Optional, Union, TYPE_CHECKING
+import logging
 
 from django.core.validators import MinValueValidator
 from django.db import models
@@ -9,6 +10,9 @@ from django_extensions.db.models import TimeStampedModel
 
 from sales.utils import order_status_color
 from stock.models import Product, TurfRoll
+
+if TYPE_CHECKING:
+    from invoice.models import Invoice
 
 logger = logging.getLogger(__name__)
 
