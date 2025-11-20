@@ -1,0 +1,7 @@
+{
+  "name": "turf-portal",
+  "version": "1.0.0",
+  "scripts": {
+    "vercel-build": "bash build_files.sh"
+  }
+}

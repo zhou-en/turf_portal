@@ -5,13 +5,6 @@
             "src": "turf_portal/wsgi.py",
             "use": "@vercel/python",
             "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
-        },
-        {
-            "src": "build_files.sh",
-            "use": "@vercel/static-build",
-            "config": {
-                "distDir": "staticfiles_build"
-            }
         }
     ],
     "routes": [
@@ -23,5 +16,8 @@
             "src": "/(.*)",
             "dest": "turf_portal/wsgi.py"
         }
-    ]
+    ],
+    "env": {
+        "DISABLE_SSL": "false"
+    }
 }
