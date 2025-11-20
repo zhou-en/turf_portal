@@ -35,7 +35,17 @@ def debug_files(request):
     else:
         output.append("NOT FOUND 'staticfiles'")
 
-    output.append("\nChecking for 'staticfiles_build' directory:")
+    output.append("\nChecking for 'turf_portal/staticfiles_build' directory:")
+    if os.path.exists("turf_portal/staticfiles_build"):
+        output.append("FOUND 'turf_portal/staticfiles_build'")
+        for root, dirs, files in os.walk("turf_portal/staticfiles_build"):
+            for file in files:
+                output.append(os.path.join(root, file))
+    else:
+        output.append("NOT FOUND 'turf_portal/staticfiles_build'")
+
+    # Also check relative to current CWD if we are inside turf_portal
+    output.append("\nChecking for 'staticfiles_build' (relative):")
     if os.path.exists("staticfiles_build"):
         output.append("FOUND 'staticfiles_build'")
         for root, dirs, files in os.walk("staticfiles_build"):
