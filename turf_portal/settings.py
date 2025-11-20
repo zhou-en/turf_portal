@@ -225,9 +225,8 @@ PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
 
 
 #  Add configuration for static files storage using whitenoise
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-# Don't fail on missing static files
-WHITENOISE_MANIFEST_STRICT = False
+# Use simple storage for Vercel - manifest/compression can cause issues with serverless
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 
 # Update database configuration from DATABASE_URL if provided
