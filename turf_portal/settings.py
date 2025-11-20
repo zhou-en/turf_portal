@@ -30,7 +30,17 @@ SECRET_KEY = config("SECRET_KEY", "LEDHGFLEFBOUEW*!@#$qGEDIW&T")
 # SECURITY WARNING: don't run with debug turned on in production!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
-ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="*").split(",")
+# Parse ALLOWED_HOSTS from environment or use defaults
+_allowed_hosts_str = config("ALLOWED_HOSTS", default="localhost,127.0.0.1")
+ALLOWED_HOSTS = [host.strip() for host in _allowed_hosts_str.split(',') if host.strip()]
+
+# Always add the specific Vercel domain
+if 'turf-portal.vercel.app' not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append('turf-portal.vercel.app')
+
+# Add wildcard pattern for Vercel preview deployments
+if '.vercel.app' not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append('.vercel.app')
 
 # Application definition
 
